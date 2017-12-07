@@ -7,7 +7,7 @@
  */
 namespace Cinema;
 
-class Header
+class Common
 {
     public static $header = "
     <ul>
@@ -19,4 +19,6 @@ class Header
         <li><a href='../../zhibo.php'>电视</a></li>
         <li style='float: right'>影视爬虫</li>
     </ul>";
+
+    public static $footer = "<p style='font-size: 12px;color: #555'>&copy; Copyright lifanko 2017 December</p>";
 }

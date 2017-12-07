@@ -1,0 +1,54 @@
+body {
+    width: 80%;
+    margin: 0 auto;
+    font-family: "Microsoft JhengHei UI"
+}
+
+.movie h3 {
+    border-bottom: 1px #eee solid;
+    margin-bottom: 0;
+}
+
+.movie ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    background-color: whitesmoke;
+}
+
+.movie ul li {
+    float: left;
+    width: 183px;
+    height: 260px;
+    overflow: hidden;
+    margin: 0.5pc;
+    padding: 0.5pc;
+    position: relative;
+    background-color: whitesmoke;
+    border-radius: 5px;
+}
+
+.movie img {
+    width: 183px;
+    height: 260px;
+}
+
+#score {
+    position: absolute;
+    top: 0.5pc;
+    left: 0.5pc;
+    background-color: #ff4645;
+    color: whitesmoke;
+    font-size: 12px;
+    padding: 1px 5px;
+}
+
+#year {
+    position: absolute;
+    right: 0.5pc;
+    bottom: 0.5pc;
+    background-color: #333;
+    color: whitesmoke;
+    font-size: 12px;
+    padding: 1px 3px;
+}

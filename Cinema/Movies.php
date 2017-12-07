@@ -42,4 +42,18 @@ class Movies
 
         return $movie;
     }
+
+    public static $parser = "
+    <div id=\"parsers\">
+                <button onclick=\"vParser('http://api.wlzhan.com/sudu/?url=')\">解析器一</button>
+                <button onclick=\"vParser('https://api.47ks.com/webcloud/?v=')\">解析器二</button>
+                <button onclick=\"vParser('http://www.efunfilm.com/yunparse/index.php?url=')\">解析器三</button>
+                <button onclick=\"vParser('http://api.nepian.com/ckparse/?url=')\">解析器四</button>
+                <button onclick=\"vParser('http://aikan-tv.com/?url=')\">解析器五</button>
+                <button onclick=\"vParser('http://j.zz22x.com/jx/?url=')\">解析器六</button>
+                <button onclick=\"vParser('http://jiexi.071811.cc/jx2.php?url=')\">解析器七</button>
+                <button onclick=\"vParser('http://api.wlzhan.com/sudu/?url=')\">解析器八</button>
+                <button onclick=\"vParser('http://api.xfsub.com/index.php?url=')\">解析器九</button>
+                <button onclick=\"vParser('https://api.flvsp.com/?url=')\">解析器十</button>
+            </div>";
 }
