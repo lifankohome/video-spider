@@ -27,7 +27,11 @@ $movies = Movies::getMovies(1);
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>电影 - 影视爬虫</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link type="text/css" rel="stylesheet" href="css/index.css">
     <link type="text/css" rel="stylesheet" href="css/header.css">
 </head>
@@ -61,5 +65,6 @@ $movies = Movies::getMovies(1);
 <footer>
     <?php echo Common::$footer ?>
 </footer>
+<script async src="https://cdn.jsdelivr.net/gh/someartisans/analytics@0.1.0/dist/counter.min.js"></script>
 </body>
 </html>
