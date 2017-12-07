@@ -18,11 +18,12 @@ header ul li{
     float: left;
     list-style: none;
     line-height: 70px;
-    padding: 0 20px;
 }
 header ul li a{
+    padding: 0 20px;
     color: #ff4645;
     font-weight: bold;
+    display: inline-block;
 }
 header ul li:hover{
     background-color: #ff4645;

@@ -5,8 +5,6 @@
  * Date: 2017/12/6
  * Time: 12:37
  */
-
-use Cinema\Config;
 use Cinema\Common;
 use Cinema\Movies;
 
@@ -29,7 +27,7 @@ $movies = Movies::getMovies(1);
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title><?php echo Config::$title ?></title>
+    <title>电影 - 影视爬虫</title>
     <link type="text/css" rel="stylesheet" href="css/index.css">
     <link type="text/css" rel="stylesheet" href="css/header.css">
 </head>

@@ -64,6 +64,10 @@ $link = str_replace("http://cps.youku.com/redirect.html?id=0000028f&url=", "", $
             width: 80%;
             margin: 1pc auto;
         }
+
+        button{
+            cursor: pointer;
+        }
     </style>
     <link type="text/css" rel="stylesheet" href="css/header.css">
     <script type='text/javascript' src='js/jquery-2.1.1.min.js'></script>
