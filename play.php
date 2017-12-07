@@ -59,6 +59,11 @@ $link = str_replace("http://cps.youku.com/redirect.html?id=0000028f&url=", "", $
             font-family: "Microsoft JhengHei UI"
         }
 
+        .player {
+            width: 80%;
+            margin: 1pc auto;
+        }
+
         iframe {
             width: 100%;
             border: none;
@@ -66,11 +71,6 @@ $link = str_replace("http://cps.youku.com/redirect.html?id=0000028f&url=", "", $
             padding: 1pc;
             border-radius: 5px;
             margin-left: -1pc;
-        }
-
-        .player {
-            width: 80%;
-            margin: 1pc auto;
         }
 
         button {
