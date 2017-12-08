@@ -1,33 +1,39 @@
-header{
+header {
     height: 70px;
     background-color: #5FB2D7;
     border-radius: 5px;
 }
-header img{
+
+header img {
     height: 70px;
     float: left;
     margin: 0 1pc;
 }
-header, .movie ul{
+
+header, .movie ul {
     list-style: none;
     padding: 0;
     margin: 0;
     background-color: whitesmoke;
 }
-header ul li{
+
+header ul li {
     float: left;
     list-style: none;
     line-height: 70px;
 }
-header ul li a{
+
+header ul li a {
     padding: 0 20px;
     color: #ff4645;
     font-weight: bold;
     display: inline-block;
 }
-header ul li:hover{
+
+header ul li:hover {
     background-color: #ff4645;
 }
-header ul li:hover a{
+
+header ul li:hover a {
     color: whitesmoke;
 }

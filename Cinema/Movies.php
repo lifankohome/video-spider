@@ -10,9 +10,11 @@ namespace Cinema;
 
 class Movies
 {
-    public static function getMovies($page = 1)
+    private static $moviesCat = array();
+
+    public static function getMovies($cat = 'all', $page = 1)
     {
-        $dom = file_get_contents('http://www.360kan.com/dianying/list.php?rank=rankhot&cat=all&area=all&act=all&year=all&pageno=' . $page);
+        $dom = file_get_contents('http://www.360kan.com/dianying/list.php?year=all&area=all&act=all&cat=' . $cat . '&pageno=' . $page);
 
         $movieNameDom = '#<span class="s1">(.*?)</span>#';
         $movieScoreDom = '#<span class="s2">(.*?)</span>#';
@@ -21,14 +23,17 @@ class Movies
         $movieActorDom = '# <p class="star">(.*?)</p>#';
         $movieImgDom = '#<div class="cover g-playicon">
                                 <img src="(.*?)">#';
+        $movieCatDom = '#<a class="js-tongjip" href="http://www.360kan.com/dianying/list.php\?year=all\&area=all\&act=all\&cat=(.*?)" target="_self">(.*?)</a>#';
+
         preg_match_all($movieNameDom, $dom, $movieName);
         preg_match_all($movieScoreDom, $dom, $movieScore);
         preg_match_all($movieYearDom, $dom, $movieYear);
         preg_match_all($movieLinkDom, $dom, $movieLink);
         preg_match_all($movieActorDom, $dom, $movieActor);
         preg_match_all($movieImgDom, $dom, $movieImg);
+        preg_match_all($movieCatDom, $dom, $movieCat);
 
-        $movie = array();
+        $movies = array();
         foreach ($movieName[1] as $key => $value) {
             $buffer['link'] = base64_encode('http://www.360kan.com' . $movieLink[1][$key]);
             $buffer['name'] = $movieName[1][$key];
@@ -37,10 +42,27 @@ class Movies
             $buffer['year'] = $movieYear[1][$key];
             $buffer['actor'] = $movieActor[1][$key];
 
-            $movie[$key] = $buffer;
+            $movies[$key] = $buffer;
         }
 
-        return $movie;
+        $cat = array();
+        foreach ($movieCat[2] as $key => $val) {
+            $cat[$movieCat[1][$key]] = $val;
+        }
+
+        self::setMoviesCat($cat);
+
+        return $movies;
+    }
+
+    public static function getMoviesCat()
+    {
+        return self::$moviesCat;
+    }
+
+    private static function setMoviesCat($moviesCat)
+    {
+        self::$moviesCat = $moviesCat;
     }
 
     public static $parser = "

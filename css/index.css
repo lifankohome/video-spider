@@ -5,6 +5,33 @@ body {
     font-family: "Microsoft JhengHei UI"
 }
 
+.cat ul {
+    list-style: none;
+    padding: 0;
+}
+
+.cat ul li {
+    float: left;
+    background-color: #ddd;
+    width: 5%;
+    text-align: center;
+}
+
+.cat ul li a {
+    color: #ff6d70;
+    font-weight: bold;
+    display: inline-block;
+    padding: 1pc;
+}
+
+.cat ul li:hover {
+    background-color: #ff4645;
+}
+
+.cat ul li:hover a {
+    color: whitesmoke;
+}
+
 .movie h3 {
     border-bottom: 1px #eee solid;
     margin-bottom: 0;
