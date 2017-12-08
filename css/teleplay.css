@@ -32,19 +32,19 @@ body {
     color: whitesmoke;
 }
 
-.movie h3 {
+.teleplay h3 {
     border-bottom: 1px #eee solid;
     margin-bottom: 0;
 }
 
-.movie ul {
+.teleplay ul {
     list-style: none;
     padding: 0;
     margin: 0;
     background-color: whitesmoke;
 }
 
-.movie ul li {
+.teleplay ul li {
     float: left;
     width: 183px;
     height: 260px;
@@ -56,7 +56,7 @@ body {
     border-radius: 5px;
 }
 
-.movie img {
+.teleplay img {
     width: 183px;
     height: 260px;
 }

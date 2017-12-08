@@ -5,7 +5,6 @@
  * Date: 2017/12/6
  * Time: 12:37
  */
-
 use Cinema\Common;
 use Cinema\Spider;
 
@@ -38,12 +37,13 @@ $catDir = '{"101":"\u8a00\u60c5","105":"\u4f26\u7406","109":"\u559c\u5267","108"
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>播放</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>电视剧 - 影视爬虫</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link type="text/css" rel="stylesheet" href="css/teleplay.css">
     <link type="text/css" rel="stylesheet" href="css/header.css">
-    <style>
-
-    </style>
 </head>
 <body>
 <header>
@@ -60,7 +60,7 @@ $catDir = '{"101":"\u8a00\u60c5","105":"\u4f26\u7406","109":"\u559c\u5267","108"
     </ul>
 </div>
 <div style="clear: both"></div>
-<div class="movie">
+<div class="teleplay">
     <h3>
         <?php
         if ($cat == 'all') {
