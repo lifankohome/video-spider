@@ -13,6 +13,7 @@ class Common
     <ul>
         <li><a href='http://hpu.lifanko.cn'>首页</a></li>
         <li><a href='../index.php'>电影</a></li>
+        <li><a href='../teleplay.php'>电视剧</a></li>
         <li><a href='../television.php'>电视机</a></li>
         <li style='float: right;padding: 0 1pc;background-color: #ddd'>影视爬虫</li>
     </ul>";

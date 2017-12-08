@@ -6,7 +6,7 @@
  * Time: 12:37
  */
 use Cinema\Common;
-use Cinema\Movies;
+use Cinema\Spider;
 
 /**
  * 类自动加载
@@ -38,8 +38,21 @@ if (empty($intro[1][0])) {
 } else {
     $intro = '　　' . mb_substr($intro[1][0], 9, -14);
 }
+
 $name = $name[1][0];
-$link = str_replace("http://cps.youku.com/redirect.html?id=0000028f&url=", "", $link[2][0]);
+
+$sets = array();
+if (empty($link[2][0])) {
+    $multiSets = true;
+    $setsDom = '#<a data-num="(.*?)" data-daochu="to=(.*?)" href="(.*?)">#';
+    $setsDivDom = '#<div class="num-tab-main g-clear\s*js-tab"\s*(style="display:none;")?>[\s\S]+?<a data-num="(.*?)" data-daochu="to=(.*?)" href="(.*?)">[\s\S]+?<i class=#';
+
+    preg_match_all($setsDivDom, $dom, $setsDiv);
+    preg_match_all($setsDom, implode("", $setsDiv[0]), $sets);
+} else {
+    $multiSets = false;
+    $link = $link[2][0];
+}
 
 ?>
 <!DOCTYPE HTML>
@@ -57,6 +70,23 @@ $link = str_replace("http://cps.youku.com/redirect.html?id=0000028f&url=", "", $
             min-width: 960px;
             margin: 0 auto;
             font-family: "Microsoft JhengHei UI"
+        }
+
+        .container ul {
+            list-style: none;
+        }
+
+        .container ul li {
+            float: left;
+        }
+
+        .container ul li a {
+            font-size: 12px;
+            color: black;
+            background-color: #eee;
+            padding: 5px 10px;
+            margin: 3px 5px;
+            display: inline-block;
         }
 
         .player {
@@ -86,7 +116,18 @@ $link = str_replace("http://cps.youku.com/redirect.html?id=0000028f&url=", "", $
     <?php echo Common::$header ?>
 </header>
 <div class="container">
-    <h3><?php echo $name . "——<a id='videoA' href='$link' target='ajax'>立即播放</a>" ?></h3>
+    <h3><?php
+        if ($multiSets) {
+            echo '《' . $name . '》—— 总' . count($sets[3]) . '集<ul>';
+            foreach ($sets[3] as $key => $val) {
+                $key++;
+                echo "<li><a class='videoA' href='$val' target='ajax'>第{$key}集</a></li>";
+            }
+            echo '</ul><div style="clear: both;border-bottom: 1px #ddd solid;padding-top: 1pc"></div>';
+        } else {
+            echo $name . "——<a class='videoA' href='$link' target='ajax'>立即播放</a>";
+        }
+        ?></h3>
     <div class="player">
         <iframe onload="iFrameLoad()" id="video" src="loading.html"></iframe>
         <a style="display: none" id="videoLink" href=""></a>
@@ -98,9 +139,9 @@ $link = str_replace("http://cps.youku.com/redirect.html?id=0000028f&url=", "", $
             }
         </script>
     </div>
-    <?php echo Movies::$parser ?>
+    <?php echo Spider::$parser ?>
     <script type="text/javascript">
-        var videoA = $("#videoA");
+        var videoA = $(".videoA");
         var videoLinkBuffer = [];
         for (var i = 0; i < videoA.length; i++) {
             videoLinkBuffer.push(videoA[i].href);
@@ -113,7 +154,7 @@ $link = str_replace("http://cps.youku.com/redirect.html?id=0000028f&url=", "", $
 
         function playUrl(mp4url) {
             videoLink.href = mp4url;
-            vParser('http://api.wlzhan.com/sudu/?url=');    //默认使用线路一解析
+            vParser('http://aikan-tv.com/?url=');    //默认使用解析器五解析
         }
     </script>
     <h3 style="margin-bottom: 5px">剧情简介：</h3>
