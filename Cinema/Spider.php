@@ -8,9 +8,10 @@
 
 namespace Cinema;
 
-class Movies
+class Spider
 {
     private static $moviesCat = array();
+    private static $tvCat = array();
 
     public static function getMovies($cat = 'all', $page = 1)
     {
@@ -45,12 +46,12 @@ class Movies
             $movies[$key] = $buffer;
         }
 
-        $cat = array();
+        $movieCatArr = array();
         foreach ($movieCat[2] as $key => $val) {
-            $cat[$movieCat[1][$key]] = $val;
+            $movieCatArr[$movieCat[1][$key]] = $val;
         }
 
-        self::setMoviesCat($cat);
+        self::setMoviesCat($movieCatArr);
 
         return $movies;
     }
@@ -63,6 +64,56 @@ class Movies
     private static function setMoviesCat($moviesCat)
     {
         self::$moviesCat = $moviesCat;
+    }
+
+    public static function getTvs($cat = 'all', $page = 1)
+    {
+        $dom = file_get_contents('http://www.360kan.com/dianshi/list.php?year=all&area=all&act=all&cat=' . $cat . '&pageno=' . $page);
+
+        $tvNameDom = '#<span class="s1">(.*?)</span>#';
+        $tvLinkDom = '#<a class="js-tongjic" href="(.*?)">#';
+        $tvActorDom = '# <p class="star">(.*?)</p>#';
+        $tvImgDom = '#<div class="cover g-playicon">
+                                <img src="(.*?)">#';
+        $tvUpdateDom = '#<span class="hint">(.*?)</span> #';
+        $tvCatDom = '#<a class="js-tongjip" href="http://www.360kan.com/dianshi/list.php\?year=all\&area\=all\&act\=all\&cat\=(.*?)" target="_self">(.*?)</a>#';
+
+        preg_match_all($tvLinkDom, $dom, $tvLink);
+        preg_match_all($tvNameDom, $dom, $tvName);
+        preg_match_all($tvImgDom, $dom, $tvImg);
+        preg_match_all($tvActorDom, $dom, $tvActor);
+        preg_match_all($tvUpdateDom, $dom, $tvUpdate);
+        preg_match_all($tvCatDom, $dom, $tvCat);
+
+        $teleplays = array();
+        foreach ($tvName[1] as $key => $value) {
+            $buffer['link'] = base64_encode('http://www.360kan.com' . $tvLink[1][$key]);
+            $buffer['name'] = $tvName[1][$key];
+            $buffer['img'] = $tvImg[1][$key];
+            $buffer['actor'] = $tvActor[1][$key];
+            $buffer['update'] = $tvUpdate[1][$key];
+
+            $teleplays[$key] = $buffer;
+        }
+
+        $tvCatArr = array();
+        foreach ($tvCat[2] as $key => $val) {
+            $tvCatArr[$tvCat[1][$key]] = $val;
+        }
+
+        self::setTvCat($tvCatArr);
+
+        return $teleplays;
+    }
+
+    public static function getTvCat()
+    {
+        return self::$tvCat;
+    }
+
+    private static function setTvCat($tvCat)
+    {
+        self::$tvCat = $tvCat;
     }
 
     public static $parser = "

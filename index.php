@@ -6,7 +6,7 @@
  * Time: 12:37
  */
 use Cinema\Common;
-use Cinema\Movies;
+use Cinema\Spider;
 
 /**
  * 类自动加载
@@ -27,8 +27,8 @@ if (empty($_GET['cat'])) {
     $cat = $_GET['cat'];
 }
 
-$movies = Movies::getMovies($cat);
-$moviesCat = Movies::getMoviesCat();
+$movies = Spider::getMovies($cat);
+$moviesCat = Spider::getMoviesCat();
 
 $catDir = '{"103":"\u559c\u5267","100":"\u7231\u60c5","106":"\u52a8\u4f5c","102":"\u6050\u6016","104":"\u79d1\u5e7b","112":"\u5267\u60c5","105":"\u72af\u7f6a","113":"\u5947\u5e7b","108":"\u6218\u4e89","115":"\u60ac\u7591","107":"\u52a8\u753b","117":"\u6587\u827a","101":"\u4f26\u7406","118":"\u7eaa\u5f55","119":"\u4f20\u8bb0","120":"\u6b4c\u821e","121":"\u53e4\u88c5","122":"\u5386\u53f2","123":"\u60ca\u609a","other":"\u5176\u4ed6"}';
 
