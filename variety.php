@@ -76,7 +76,7 @@ $catDir = '{"101":"\u9009\u79c0","102":"\u516b\u5366","103":"\u8bbf\u8c08","104"
             echo "<li>
 		    <a href='play.php?play={$variety['link']}' title='{$variety['actor']}' target='_blank'>
                 <img src='{$variety['img']}' alt='{$variety['name']}'>
-                <span id='update'>{$variety['update']}</span>
+                <span id='update'>更新:{$variety['update']}</span>
                 <span id='name'>{$variety['name']}</span>
             </a>
         </li>";

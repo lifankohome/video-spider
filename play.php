@@ -44,11 +44,19 @@ $name = $name[1][0];
 $sets = array();
 if (empty($link[2][0])) {
     $multiSets = true;
-    $setsDom = '#<a data-num="(.*?)" data-daochu="to=(.*?)" href="(.*?)">#';
-    $setsDivDom = '/<div class="num-tab-main g-clear js-tab" style="display:none;"?>[\s\S]+<a data-num="(.*?)" data-daochu="to=(.*?)" href=(.*?)>/';
+
+    $setsDivDom = '/<div class="num-tab-main g-clear js-tab" style="display:none;">[\s\S]+<a data-num="(.*?)" data-daochu="to=(.*?)" href=(.*?)>/';
 
     preg_match_all($setsDivDom, $dom, $setsDiv);
-    preg_match_all($setsDom, implode("", $setsDiv[0]), $sets);
+    if (empty($setsDiv[0])) {
+        $varietyEpisode = true;
+        $setsDivDom = '/<li  title=\'(.*?)\' class=\'w-newfigure w-newfigure-180x153\'>(.*?)<a href=\'(.*?)\'>/';
+        preg_match_all($setsDivDom, $dom, $sets);
+    } else {
+        $varietyEpisode = false;
+        $setsDom = '#<a data-num="(.*?)" data-daochu="to=(.*?)" href="(.*?)">#';
+        preg_match_all($setsDom, implode("", $setsDiv[0]), $sets);
+    }
 } else {
     $multiSets = false;
     $link = $link[2][0];
@@ -120,8 +128,12 @@ if (empty($link[2][0])) {
         if ($multiSets) {
             echo '《' . $name . '》—— 总' . count($sets[3]) . '集<ul>';
             foreach ($sets[3] as $key => $val) {
-                $key++;
-                echo "<li><a class='videoA' href='$val' target='ajax'>第{$key}集</a></li>";
+                if ($varietyEpisode) {
+                    echo "<li><a class='videoA' href='$val' target='ajax'>{$sets[1][$key]}</a></li>";
+                } else {
+                    $key++;
+                    echo "<li><a class='videoA' href='$val' target='ajax'>第{$key}集</a></li>";//从1开始
+                }
             }
             echo '</ul><div style="clear: both;border-bottom: 1px #ddd solid;padding-top: 1pc"></div>';
         } else {

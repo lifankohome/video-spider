@@ -138,7 +138,7 @@ class Spider
 
         $teleplays = array();
         foreach ($varietyName[1] as $key => $value) {
-            $buffer['link'] = base64_encode('http://www.360kan.com' . $varietyLink[1][$key]);
+            $buffer['link'] = base64_encode('https://www.360kan.com' . $varietyLink[1][$key]);
             $buffer['name'] = $varietyName[1][$key];
             $buffer['img'] = $varietyImg[1][$key];
             $buffer['actor'] = $varietyActor[1][$key];
