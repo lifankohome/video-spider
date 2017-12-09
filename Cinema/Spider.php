@@ -12,6 +12,7 @@ class Spider
 {
     private static $moviesCat = array();
     private static $tvCat = array();
+    private static $varietyCat = array();
 
     public static function getMovies($cat = 'all', $page = 1)
     {
@@ -114,6 +115,58 @@ class Spider
     private static function setTvCat($tvCat)
     {
         self::$tvCat = $tvCat;
+    }
+
+    public static function getVarieties($cat = 'all', $page = 1)
+    {
+        $dom = file_get_contents('http://www.360kan.com/zongyi/list?act=all&area=all&cat='.$cat.'&pageno=' . $page);
+
+        $varietyNameDom = '#<span class="s1">(.*?)</span>#';
+        $varietyLinkDom = '#<a class="js-tongjic" href="(.*?)">#';
+        $varietyActorDom = '# <p class="star">(.*?)</p>#';
+        $varietyImgDom = '#<div class="cover g-playicon">
+                                <img src="(.*?)">#';
+        $varietyUpdateDom = '#<span class="hint">(.*?)</span> #';
+        $varietyCatDom = '#<a class="js-tongjip" href="http://www.360kan.com/zongyi/list\?act\=all\&area\=all\&cat\=(.*?)" target="_self">(.*?)</a>#';
+
+        preg_match_all($varietyLinkDom, $dom, $varietyLink);
+        preg_match_all($varietyNameDom, $dom, $varietyName);
+        preg_match_all($varietyImgDom, $dom, $varietyImg);
+        preg_match_all($varietyActorDom, $dom, $varietyActor);
+        preg_match_all($varietyUpdateDom, $dom, $varietyUpdate);
+        preg_match_all($varietyCatDom, $dom, $varietyCat);
+
+        $teleplays = array();
+        foreach ($varietyName[1] as $key => $value) {
+            $buffer['link'] = base64_encode('http://www.360kan.com' . $varietyLink[1][$key]);
+            $buffer['name'] = $varietyName[1][$key];
+            $buffer['img'] = $varietyImg[1][$key];
+            $buffer['actor'] = $varietyActor[1][$key];
+            $buffer['update'] = $varietyUpdate[1][$key];
+
+            $teleplays[$key] = $buffer;
+        }
+
+        array_pop($varietyCat[2]);  //最后一个元素是【真人秀】，只有这一个分类是三个字，影响排版，所以去掉不要
+
+        $varietyCatArr = array();
+        foreach ($varietyCat[2] as $key => $val) {
+            $varietyCatArr[$varietyCat[1][$key]] = $val;
+        }
+
+        self::setVarietyCat($varietyCatArr);
+
+        return $teleplays;
+    }
+
+    public static function getVarietyCat()
+    {
+        return self::$varietyCat;
+    }
+
+    private static function setVarietyCat($varietyCat)
+    {
+        self::$varietyCat = $varietyCat;
     }
 
     public static $parser = "

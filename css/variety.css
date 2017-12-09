@@ -1,0 +1,82 @@
+body {
+    width: 80%;
+    min-width: 960px;
+    margin: 0 auto;
+    font-family: "Microsoft JhengHei UI"
+}
+
+.cat ul {
+    list-style: none;
+    padding: 0;
+}
+
+.cat ul li {
+    float: left;
+    background-color: #ddd;
+    width: 5%;
+    text-align: center;
+}
+
+.cat ul li a {
+    color: #ff6d70;
+    font-weight: bold;
+    display: inline-block;
+    padding: 1pc;
+}
+
+.cat ul li:hover {
+    background-color: #ff4645;
+}
+
+.cat ul li:hover a {
+    color: whitesmoke;
+}
+
+.teleplay h3 {
+    border-bottom: 1px #eee solid;
+    margin-bottom: 0;
+}
+
+.teleplay ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    background-color: whitesmoke;
+}
+
+.teleplay ul li {
+    float: left;
+    width: 183px;
+    height: 260px;
+    overflow: hidden;
+    margin: 0.5pc;
+    padding: 0.5pc;
+    position: relative;
+    background-color: whitesmoke;
+    border-radius: 5px;
+}
+
+.teleplay img {
+    width: 183px;
+    height: 260px;
+}
+
+#update {
+    position: absolute;
+    top: 0.5pc;
+    left: 0.5pc;
+    background-color: #ff4645;
+    color: whitesmoke;
+    font-size: 12px;
+    padding: 1px 5px;
+}
+
+#name {
+    position: absolute;
+    right: 0.5pc;
+    bottom: 0.5pc;
+    background-color: #333;
+    color: whitesmoke;
+    font-size: 12px;
+    padding: 1px 3px;
+}
