@@ -80,15 +80,12 @@ function __autoload($class)
             }
         </script>
     </div>
-
-    <p style="text-align: center;font-size: 12px;background: #eee;padding: 6px 2px;border-radius: 2px;">
-        <a style="color: black"
-           href="http://shang.qq.com/wpa/qunwpa?idkey=66ec6b8cd1a3e11d37657fd34a71c5cb050acd618be30778b0e89f90bdd7a86d"
-           target="_blank">点击加入影视爬虫QQ交流群：548731707</a>
-    </p>
 </div>
 <footer>
-    <?php echo Common::$footer ?>
+    <?php
+    echo Common::$QQGroup;
+    echo Common::$footer;
+    ?>
 </footer>
 <script async src="https://cdn.jsdelivr.net/gh/someartisans/analytics@0.1.0/dist/counter.min.js"></script>
 </body>

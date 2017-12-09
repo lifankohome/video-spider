@@ -45,7 +45,7 @@ $sets = array();
 if (empty($link[2][0])) {
     $multiSets = true;
     $setsDom = '#<a data-num="(.*?)" data-daochu="to=(.*?)" href="(.*?)">#';
-    $setsDivDom = '#<div class="num-tab-main g-clear\s*js-tab"\s*(style="display:none;")?>[\s\S]+?<a data-num="(.*?)" data-daochu="to=(.*?)" href="(.*?)">[\s\S]+?<i class=#';
+    $setsDivDom = '/<div class="num-tab-main g-clear js-tab" style="display:none;"?>[\s\S]+<a data-num="(.*?)" data-daochu="to=(.*?)" href=(.*?)>/';
 
     preg_match_all($setsDivDom, $dom, $setsDiv);
     preg_match_all($setsDom, implode("", $setsDiv[0]), $sets);
@@ -159,15 +159,12 @@ if (empty($link[2][0])) {
     </script>
     <h3 style="margin-bottom: 5px">剧情简介：</h3>
     <p style="margin-top: 0"><?php echo $intro; ?></p>
-
-    <p style="text-align: center;font-size: 12px;background: #eee;padding: 6px 2px;border-radius: 2px;">
-        <a style="color: black"
-           href="http://shang.qq.com/wpa/qunwpa?idkey=66ec6b8cd1a3e11d37657fd34a71c5cb050acd618be30778b0e89f90bdd7a86d"
-           target="_blank">点击加入影视爬虫QQ交流群：548731707</a>
-    </p>
 </div>
 <footer>
-    <?php echo Common::$footer ?>
+    <?php
+    echo Common::$QQGroup;
+    echo Common::$footer;
+    ?>
 </footer>
 <script async src="https://cdn.jsdelivr.net/gh/someartisans/analytics@0.1.0/dist/counter.min.js"></script>
 </body>

@@ -86,7 +86,10 @@ $catDir = '{"101":"\u8a00\u60c5","105":"\u4f26\u7406","109":"\u559c\u5267","108"
 </div>
 <div style="clear: both"></div>
 <footer>
-    <?php echo Common::$footer ?>
+    <?php
+    echo Common::$QQGroup;
+    echo Common::$footer;
+    ?>
 </footer>
 <script async src="https://cdn.jsdelivr.net/gh/someartisans/analytics@0.1.0/dist/counter.min.js"></script>
 </body>
