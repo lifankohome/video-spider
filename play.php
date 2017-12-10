@@ -187,7 +187,7 @@ if (empty($link[2][0])) {
                 videoA[iBuffer].setAttribute("id", "");
             }
             if (iBuffer != i) {
-                //iBuffer = i;    //注释本局可以在不跳转的情况下显示已点击的链接，不注释仅显示当前播放剧集
+                //iBuffer = i;    //注释本句可以在不跳转的情况下显示已点击的链接，不注释仅显示当前播放剧集
                 videoA[i].setAttribute("id", "cookie");
             }
 
@@ -215,6 +215,7 @@ if (empty($link[2][0])) {
     echo Common::$QQGroup;
     echo Common::$footer;
     ?>
+    <p style="font-size: 12px;text-align: right;margin-top: -25px">Cookie技术有效期:24h</p>
 </footer>
 <script async src="https://cdn.jsdelivr.net/gh/someartisans/analytics@0.1.0/dist/counter.min.js"></script>
 </body>
