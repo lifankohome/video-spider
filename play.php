@@ -45,7 +45,7 @@ $sets = array();
 if (empty($link[2][0])) {
     $multiSets = true;
 
-    $setsDivDom = '/<div class="num-tab-main g-clear js-tab" style="display:none;">[\s\S]+<a data-num="(.*?)" data-daochu="to=(.*?)" href=(.*?)>/';
+    $setsDivDom = '/<div class="num-tab-main g-clear js-tab"( style="display:none;")?>[\s\S]+<a data-num="(.*?)" data-daochu="(.*?)" href=(.*?)>/';
 
     preg_match_all($setsDivDom, $dom, $setsDiv);
     if (empty($setsDiv[0])) {

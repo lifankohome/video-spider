@@ -37,7 +37,7 @@ class Spider
 
         $movies = array();
         foreach ($movieName[1] as $key => $value) {
-            $buffer['link'] = base64_encode('http://www.360kan.com' . $movieLink[1][$key]);
+            $buffer['link'] = base64_encode('https://www.360kan.com' . $movieLink[1][$key]);
             $buffer['name'] = $movieName[1][$key];
             $buffer['score'] = $movieScore[1][$key];
             $buffer['img'] = $movieImg[1][$key];
@@ -88,7 +88,7 @@ class Spider
 
         $teleplays = array();
         foreach ($tvName[1] as $key => $value) {
-            $buffer['link'] = base64_encode('http://www.360kan.com' . $tvLink[1][$key]);
+            $buffer['link'] = base64_encode('https://www.360kan.com' . $tvLink[1][$key]);
             $buffer['name'] = $tvName[1][$key];
             $buffer['img'] = $tvImg[1][$key];
             $buffer['actor'] = $tvActor[1][$key];
