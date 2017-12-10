@@ -50,8 +50,14 @@ if (empty($link[2][0])) {
     preg_match_all($setsDivDom, $dom, $setsDiv);
     if (empty($setsDiv[0])) {
         $varietyEpisode = true;
-        $setsDivDom = '/<li  title=\'(.*?)\' class=\'w-newfigure w-newfigure-180x153\'>(.*?)<a href=\'(.*?)\'>/';
-        preg_match_all($setsDivDom, $dom, $sets);
+
+        $setsDivDom = '/style="display:block;">[\s\S]+<li  title=\'(.*?)\' class=\'w-newfigure w-newfigure-180x153\'>(.*?)<a href=\'(.*?)\'>/';
+        preg_match_all($setsDivDom, $dom, $setsDiv);
+        $setsLiDom = '/<li  title=\'(.*?)\' class=\'w-newfigure w-newfigure-180x153\'>(.*?)<a href=\'(.*?)\'>/';
+        preg_match_all($setsLiDom, $setsDiv[0][0], $sets);
+
+        $sets[3] = array_unique($sets[3]);  //确保不会有重复剧集
+        $sets[1] = array_unique($sets[1]);
     } else {
         $varietyEpisode = false;
         $setsDom = '#<a data-num="(.*?)" data-daochu="to=(.*?)" href="(.*?)">#';
@@ -97,6 +103,10 @@ if (empty($link[2][0])) {
             display: inline-block;
         }
 
+        #cookie {
+            background-color: #FCC;
+        }
+
         .player {
             width: 80%;
             margin: 1pc auto;
@@ -132,7 +142,7 @@ if (empty($link[2][0])) {
                     echo "<li><a class='videoA' href='$val' target='ajax'>{$sets[1][$key]}</a></li>";
                 } else {
                     $key++;
-                    echo "<li><a class='videoA' href='$val' target='ajax'>第{$key}集</a></li>";//从1开始
+                    echo "<li><a class='videoA' href='$val' target='ajax'>第{$key}集</a></li>";   //集数从1开始
                 }
             }
             echo '</ul><div style="clear: both;border-bottom: 1px #ddd solid;padding-top: 1pc"></div>';
@@ -155,18 +165,46 @@ if (empty($link[2][0])) {
     <script type="text/javascript">
         var videoA = $(".videoA");
         var videoLinkBuffer = [];
+        var iBuffer = 0;
         for (var i = 0; i < videoA.length; i++) {
             videoLinkBuffer.push(videoA[i].href);
             videoA[i].href = 'javascript:void(0)';
-            videoA.eq(i).attr('onclick', 'playUrl(\'' + videoLinkBuffer[i] + '\')');
+            videoA.eq(i).attr('onclick', 'playUrl(\'' + videoLinkBuffer[i] + '\',\'' + i + '\')');
+
+            if (i > 0 && videoLinkBuffer[i] == getCookie('<?php echo $player; ?>')) {   //非第一集时提供观看进度提示
+                videoA[i].setAttribute("id", "cookie");
+                iBuffer = i;
+            }
         }
         function vParser(url) {
             videoFrame.src = url + videoLink.href;
         }
 
-        function playUrl(mp4url) {
-            videoLink.href = mp4url;
+        function playUrl(sourceUrl, i) {
+            setCookie('<?php echo $player; ?>', sourceUrl, 1); //保存当前播放源链接，键为爬取地址，时间为1d=24h
+
+            if (iBuffer > 0) {  //点击不同剧集后立即改变颜色
+                videoA[iBuffer].setAttribute("id", "");
+            }
+            if (iBuffer != i) {
+                //iBuffer = i;    //注释本局可以在不跳转的情况下显示已点击的链接，不注释仅显示当前播放剧集
+                videoA[i].setAttribute("id", "cookie");
+            }
+
+            videoLink.href = sourceUrl;
             vParser('http://aikan-tv.com/?url=');    //默认使用解析器五解析
+        }
+
+        function setCookie(cookieKey, cookieValue, expireDays) {
+            var expDate = new Date();
+            expDate.setDate(expDate.getDate() + expireDays);
+            document.cookie = cookieKey + "=" + escape(cookieValue) +
+                ((expireDays == null) ? "" : "; expires=" + expDate.toGMTString());
+        }
+
+        function getCookie(cookieKey) {
+            var arr, reg = new RegExp("(^| )" + cookieKey + "=([^;]*)(;|$)");
+            return (arr = document.cookie.match(reg)) ? unescape(arr[2]) : null;
         }
     </script>
     <h3 style="margin-bottom: 5px">剧情简介：</h3>
