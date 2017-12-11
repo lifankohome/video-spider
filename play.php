@@ -83,6 +83,7 @@ if (empty($link[2][0])) {
             width: 80%;
             min-width: 960px;
             margin: 0 auto;
+            /*noinspection CssNoGenericFontName*/
             font-family: "Microsoft JhengHei UI"
         }
 
@@ -103,6 +104,7 @@ if (empty($link[2][0])) {
             display: inline-block;
         }
 
+        /*noinspection CssUnusedSymbol*/
         #cookie {
             background-color: #FCC;
         }
@@ -198,12 +200,14 @@ if (empty($link[2][0])) {
         function setCookie(cookieKey, cookieValue, expireDays) {
             var expDate = new Date();
             expDate.setDate(expDate.getDate() + expireDays);
+            //noinspection JSDeprecatedSymbols
             document.cookie = cookieKey + "=" + escape(cookieValue) +
                 ((expireDays == null) ? "" : "; expires=" + expDate.toGMTString());
         }
 
         function getCookie(cookieKey) {
             var arr, reg = new RegExp("(^| )" + cookieKey + "=([^;]*)(;|$)");
+            //noinspection JSDeprecatedSymbols
             return (arr = document.cookie.match(reg)) ? unescape(arr[2]) : null;
         }
     </script>
@@ -217,6 +221,7 @@ if (empty($link[2][0])) {
     ?>
     <p style="font-size: 12px;text-align: right;margin-top: -25px">Cookie技术有效期:24h</p>
 </footer>
+<!--suppress JSUnresolvedLibraryURL -->
 <script async src="https://cdn.jsdelivr.net/gh/someartisans/analytics@0.1.0/dist/counter.min.js"></script>
 </body>
 </html>
