@@ -185,9 +185,6 @@ if (empty($link[2][0])) {
         function playUrl(sourceUrl, i) {
             setCookie('<?php echo $player; ?>', sourceUrl, 1); //保存当前播放源链接，键为爬取地址，时间为1d=24h
 
-            if (iBuffer > 0) {  //点击不同剧集后立即改变颜色
-                videoA[iBuffer].setAttribute("id", "");
-            }
             if (iBuffer != i) {
                 //iBuffer = i;    //注释本句可以在不跳转的情况下显示已点击的链接，不注释仅显示当前播放剧集
                 videoA[i].setAttribute("id", "cookie");
