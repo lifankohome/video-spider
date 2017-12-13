@@ -75,7 +75,7 @@ $catDir = '{"101":"\u9009\u79c0","102":"\u516b\u5366","103":"\u8bbf\u8c08","104"
         foreach ($varieties as $variety) {
             echo "<li>
 		    <a href='play.php?play={$variety['link']}' title='{$variety['actor']}' target='_blank'>
-                <img src='{$variety['img']}' alt='{$variety['name']}'>
+                <img class='img' src='{$variety['img']}' alt='{$variety['name']}'>
                 <span id='update'>更新:{$variety['update']}</span>
                 <span id='name'>{$variety['name']}</span>
             </a>
@@ -91,6 +91,7 @@ $catDir = '{"101":"\u9009\u79c0","102":"\u516b\u5366","103":"\u8bbf\u8c08","104"
     echo Common::$footer;
     ?>
 </footer>
+<script type="text/javascript" src="js/autoSize.js"></script>
 <script async src="https://cdn.jsdelivr.net/gh/someartisans/analytics@0.1.0/dist/counter.min.js"></script>
 </body>
 </html>

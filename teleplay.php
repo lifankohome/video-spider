@@ -75,7 +75,7 @@ $catDir = '{"101":"\u8a00\u60c5","105":"\u4f26\u7406","109":"\u559c\u5267","108"
         foreach ($teleplays as $teleplay) {
             echo "<li>
 		    <a href='play.php?play={$teleplay['link']}' title='{$teleplay['actor']}' target='_blank'>
-                <img src='{$teleplay['img']}' alt='{$teleplay['name']}'>
+                <img class='img' src='{$teleplay['img']}' alt='{$teleplay['name']}'>
                 <span id='update'>{$teleplay['update']}</span>
                 <span id='name'>{$teleplay['name']}</span>
             </a>
@@ -91,6 +91,7 @@ $catDir = '{"101":"\u8a00\u60c5","105":"\u4f26\u7406","109":"\u559c\u5267","108"
     echo Common::$footer;
     ?>
 </footer>
+<script type="text/javascript" src="js/autoSize.js"></script>
 <script async src="https://cdn.jsdelivr.net/gh/someartisans/analytics@0.1.0/dist/counter.min.js"></script>
 </body>
 </html>

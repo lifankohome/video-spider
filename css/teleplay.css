@@ -46,26 +46,24 @@ body {
 
 .teleplay ul li {
     float: left;
-    width: 183px;
-    height: 260px;
+    width: 14%;
     overflow: hidden;
-    margin: 0.5pc;
-    padding: 0.5pc;
+    margin: 0.666%;
+    padding: 0.666%;
     position: relative;
     background-color: whitesmoke;
     border-radius: 5px;
 }
 
 .teleplay img {
-    width: 183px;
-    height: 260px;
+    width: 100%;
 }
 
 #update {
     position: absolute;
-    top: 0.5pc;
-    left: 0.5pc;
-    background-color: #ff4645;
+    top: 4%;
+    left: 3%;
+    background-color: rgba(255, 70, 69, 0.9);
     color: whitesmoke;
     font-size: 12px;
     padding: 1px 5px;
@@ -73,9 +71,9 @@ body {
 
 #name {
     position: absolute;
-    right: 0.5pc;
-    bottom: 0.5pc;
-    background-color: #333;
+    right: 3%;
+    bottom: 5%;
+    background-color: rgba(51, 51, 51, 0.9);
     color: whitesmoke;
     font-size: 12px;
     padding: 1px 3px;
