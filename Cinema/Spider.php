@@ -5,7 +5,6 @@
  * Date: 2017/12/6
  * Time: 13:25
  */
-
 namespace Cinema;
 
 class Spider
@@ -167,6 +166,48 @@ class Spider
     private static function setVarietyCat($varietyCat)
     {
         self::$varietyCat = $varietyCat;
+    }
+
+    public static function search($kw)
+    {
+        if (empty($kw)) {
+            $dom = file_get_contents('http://www.360kan.com/dianying/list.php?year=all&area=all&act=all&cat=all&pageno=all');
+        } else {
+            $dom = file_get_contents('http://so.360kan.com/index.php?kw=' . $kw);
+        }
+
+        $nameDom = '#js-playicon" title="(.*?)"\s*data#';
+        $linkDom = '#a href="(.*?)" class="g-playicon js-playicon"#';
+        $imgDom = '#<img src="(.*?)" alt="(.*?)" \/>[\s\S]+?</a>\n</div>#';
+        $typeDom = '/类型：<\/b><span>(.*?)<\/span>/';
+
+        preg_match_all($nameDom, $dom, $name);
+        preg_match_all($linkDom, $dom, $link);
+        preg_match_all($imgDom, $dom, $img);
+        preg_match_all($typeDom, $dom, $type);
+
+        $search = array();
+        foreach ($name[1] as $key => $value) {
+            $buffer['name'] = $name[1][$key];
+
+            if($img[1][$key]){
+                $buffer['img'] = $img[1][$key];
+            }else{
+                $buffer['img'] = 'img/noCover.jpg';
+            }
+
+            if(isset($type[1][$key])){
+                $buffer['type'] = $type[1][$key];
+            }else{
+                $buffer['type'] = '无';
+            }
+
+            $buffer['link'] = base64_encode($link[1][$key]);
+
+            $search[$key] = $buffer;
+        }
+
+        return $search;
     }
 
     public static $parser = "

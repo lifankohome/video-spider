@@ -21,7 +21,11 @@ function __autoload($class)
     }
 }
 
-$player = base64_decode($_GET['play']);
+if(!empty($_GET['play'])){
+    $player = base64_decode($_GET['play']);
+}else{
+    die("<h2>无效的播放链接，将自动返回主页...<script>setTimeout(function() {window.location='index.php';},1500)</script></h2>");
+}
 
 $dom = file_get_contents($player);
 
@@ -218,7 +222,27 @@ if (empty($link[2][0])) {
     ?>
     <p style="font-size: 12px;text-align: right;margin-top: -25px">Cookie技术有效期:24h</p>
 </footer>
-<!--suppress JSUnresolvedLibraryURL -->
-<script async src="https://cdn.jsdelivr.net/gh/someartisans/analytics@0.1.0/dist/counter.min.js"></script>
+<script type="text/javascript">
+    //搜索功能
+    var search = document.getElementById('searchBox');
+    var searchText = document.getElementById('searchText');
+
+    search.onkeyup = function () {
+        if (search.value) {
+            searchText.innerHTML = "<a href='search.php?kw=" + search.value + "' style='background-color: #444;margin-right: -1pc'>搜索</a>";
+        } else {
+            searchText.innerText = '影视爬虫';
+        }
+    };
+
+    //百度统计
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?a258eee7e1b38615e85fde12692f95cc";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
 </body>
 </html>

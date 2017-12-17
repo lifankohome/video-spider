@@ -91,7 +91,6 @@ $catDir = '{"101":"\u9009\u79c0","102":"\u516b\u5366","103":"\u8bbf\u8c08","104"
     echo Common::$footer;
     ?>
 </footer>
-<script type="text/javascript" src="js/autoSize.js"></script>
-<script async src="https://cdn.jsdelivr.net/gh/someartisans/analytics@0.1.0/dist/counter.min.js"></script>
+<script type="text/javascript" src="js/app.js"></script>
 </body>
 </html>
