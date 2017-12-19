@@ -33,7 +33,11 @@ $search = Spider::search($kw);
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>搜索 - 影视爬虫</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link type="text/css" rel="stylesheet" href="css/search.css">
     <link type="text/css" rel="stylesheet" href="css/header.css">
 </head>
@@ -57,7 +61,7 @@ $search = Spider::search($kw);
         foreach ($search as $res) {
             echo "<li>
 		    <a href='play.php?play={$res['link']}' title='{$res['name']}' target='_blank'>
-                <img src='{$res['img']}' alt='{$res['name']}'>
+                <img class='img' src='{$res['img']}' alt='{$res['name']}'>
                 <span id='type'>{$res['type']}</span>
                 <span id='name'>{$res['name']}</span>
             </a></li>";
@@ -69,5 +73,6 @@ $search = Spider::search($kw);
 <footer>
     <?php echo Common::$footer ?>
 </footer>
+<script type="text/javascript" src="js/app.js"></script>
 </body>
 </html>
