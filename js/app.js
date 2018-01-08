@@ -28,6 +28,20 @@ search.onkeyup = function () {
     }
 };
 
+//回车搜索
+document.onkeydown = function (e) {
+    var theEvent = window.event || e;
+    var code = theEvent.keyCode || theEvent.which;
+    if (code == 13) {
+        if (search.value) {
+            window.location.href="search.php?kw=" + search.value;
+            search.value = '正在搜索';
+        } else {
+            search.value = '关键字为空';
+        }
+    }
+};
+
 //百度统计
 var _hmt = _hmt || [];
 (function() {
