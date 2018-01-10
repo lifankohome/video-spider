@@ -1,6 +1,11 @@
 /**
  * Created by lifanko  lee on 2017/12/13.
  */
+//创建提示容器
+document.write('<div id="tip"></div>');
+
+tip("歡迎使用影視爬蟲！", "12%", 2000, "1", false);
+
 //在窗口调整时图片大小自动适应
 var img = document.getElementsByClassName('img');
 autoSize(img);  //初始化
@@ -35,6 +40,7 @@ document.onkeydown = function (e) {
     if (code == 13) {
         if (search.value) {
             window.location.href="search.php?kw=" + search.value;
+            tip("正在搜索："+ search.value, "12%", 2000, "1", true);
             search.value = '正在搜索';
         } else {
             search.value = '关键字为空';
@@ -44,7 +50,7 @@ document.onkeydown = function (e) {
 
 //百度统计
 var _hmt = _hmt || [];
-(function() {
+(function () {
     var hm = document.createElement("script");
     hm.src = "https://hm.baidu.com/hm.js?a258eee7e1b38615e85fde12692f95cc";
     var s = document.getElementsByTagName("script")[0];

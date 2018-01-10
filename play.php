@@ -135,6 +135,7 @@ if (empty($link[2][0])) {
     <script type='text/javascript' src='js/jquery-2.1.1.min.js'></script>
 </head>
 <body>
+<div id="tip"></div>
 <header>
     <img src="img/logo.png">
     <?php echo Common::$header ?>
@@ -222,6 +223,7 @@ if (empty($link[2][0])) {
     ?>
     <p style="font-size: 12px;text-align: right;margin-top: -25px">Cookie技术有效期:24h</p>
 </footer>
+<script type="text/javascript" src="js/tip.min.js"></script>
 <script type="text/javascript">
     //搜索功能
     var search = document.getElementById('searchBox');
@@ -232,6 +234,21 @@ if (empty($link[2][0])) {
             searchText.innerHTML = "<a href='search.php?kw=" + search.value + "' style='background-color: #444;margin-right: -1pc'>搜索</a>";
         } else {
             searchText.innerText = '影视爬虫';
+        }
+    };
+
+    //回车搜索
+    document.onkeydown = function (e) {
+        var theEvent = window.event || e;
+        var code = theEvent.keyCode || theEvent.which;
+        if (code == 13) {
+            if (search.value) {
+                window.location.href="search.php?kw=" + search.value;
+                tip("正在搜索："+ search.value, "12%", 2000, "1", true);
+                search.value = '正在搜索';
+            } else {
+                search.value = '关键字为空';
+            }
         }
     };
 

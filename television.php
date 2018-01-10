@@ -61,6 +61,7 @@ function __autoload($class)
     <link type="text/css" rel="stylesheet" href="css/header.css">
 </head>
 <body>
+<div id="tip"></div>
 <header>
     <img src="img/logo.png">
     <?php echo Common::$header ?>
@@ -87,7 +88,8 @@ function __autoload($class)
     echo Common::$footer;
     ?>
 </footer>
-<script>
+<script type="text/javascript" src="js/tip.min.js"></script>
+<script type="text/javascript">
     //搜索功能
     var search = document.getElementById('searchBox');
     var searchText = document.getElementById('searchText');
@@ -97,6 +99,21 @@ function __autoload($class)
             searchText.innerHTML = "<a href='search.php?kw=" + search.value + "' style='background-color: #444;margin-right: -1pc'>搜索</a>";
         } else {
             searchText.innerText = '影视爬虫';
+        }
+    };
+
+    //回车搜索
+    document.onkeydown = function (e) {
+        var theEvent = window.event || e;
+        var code = theEvent.keyCode || theEvent.which;
+        if (code == 13) {
+            if (search.value) {
+                window.location.href="search.php?kw=" + search.value;
+                tip("正在搜索："+ search.value, "12%", 2000, "1", true);
+                search.value = '正在搜索';
+            } else {
+                search.value = '关键字为空';
+            }
         }
     };
 

@@ -73,6 +73,7 @@ $search = Spider::search($kw);
 <footer>
     <?php echo Common::$footer ?>
 </footer>
+<script type="text/javascript" src="js/tip.min.js"></script>
 <script type="text/javascript" src="js/app.js"></script>
 </body>
 </html>
