@@ -41,9 +41,9 @@ document.onkeydown = function (e) {
         if (search.value) {
             window.location.href="search.php?kw=" + search.value;
             tip("正在搜索："+ search.value, "12%", 2000, "1", true);
-            search.value = '正在搜索';
         } else {
-            search.value = '关键字为空';
+            window.location.href="search.php";
+            tip("正在搜索最热视频", "12%", 2000, "1", true);
         }
     }
 };

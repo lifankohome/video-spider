@@ -16,6 +16,7 @@ class Common
         <li><a href='../variety.php'>综艺</a></li>
         <li><a href='../teleplay.php'>电视剧</a></li>
         <li><a href='../television.php'>电视机</a></li>
+        <li><a href='../hotSearch.php'>搜索排行榜</a></li>
         <li style='float: right;background-color: #ddd'><input type='text' id='searchBox' style='margin-left: 1pc;height: 30px;color: #F40;padding: 0 5px;outline: none' placeholder='在此处搜索'><span id='searchText' style='display: inline-block;padding: 0 1pc;'>影视爬虫</span></li>
     </ul>";
 
