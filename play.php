@@ -8,17 +8,22 @@
 use Cinema\Common;
 use Cinema\Spider;
 
-/**
- * 类自动加载
- * @param $class
- */
-function __autoload($class)
-{
-    $file = $class . '.php';
-    if (is_file($file)) {
-        /** @noinspection PhpIncludeInspection */
-        require_once($file);
+if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {   //windows系统
+    /**
+     * 类自动加载
+     * @param $class
+     */
+    function __autoload($class)
+    {
+        $file = $class . '.php';
+        if (is_file($file)) {
+            /** @noinspection PhpIncludeInspection */
+            require_once($file);
+        }
     }
+} else {    //非windows系统（linux）
+    include_once('Cinema/Spider.php');
+    include_once('Cinema/Common.php');
 }
 
 if(!empty($_GET['play'])){
@@ -241,7 +246,7 @@ if (empty($link[2][0])) {
     document.onkeydown = function (e) {
         var theEvent = window.event || e;
         var code = theEvent.keyCode || theEvent.which;
-        if (code == 13) {
+        if (code === 13) {
             if (search.value) {
                 window.location.href="search.php?kw=" + search.value;
                 tip("正在搜索："+ search.value, "12%", 2000, "1", true);

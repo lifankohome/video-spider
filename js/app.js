@@ -40,10 +40,10 @@ document.onkeydown = function (e) {
 
     if (code === 13) {
         if (search.value) {
-            window.location.href="search.php?kw=" + search.value;
-            tip("正在搜索："+ search.value, "12%", 2000, "1", true);
+            window.location.href = "search.php?kw=" + search.value;
+            tip("正在搜索：" + search.value, "12%", 2000, "1", true);
         } else {
-            window.location.href="search.php";
+            window.location.href = "search.php";
             tip("正在搜索最热视频", "12%", 2000, "1", true);
         }
     }

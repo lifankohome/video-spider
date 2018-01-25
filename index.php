@@ -5,20 +5,26 @@
  * Date: 2017/12/6
  * Time: 12:37
  */
+
 use Cinema\Common;
 use Cinema\Spider;
 
-/**
- * 类自动加载
- * @param $class
- */
-function __autoload($class)
-{
-    $file = $class . '.php';
-    if (is_file($file)) {
-        /** @noinspection PhpIncludeInspection */
-        require_once($file);
+if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {   //windows系统
+    /**
+     * 类自动加载
+     * @param $class
+     */
+    function __autoload($class)
+    {
+        $file = $class . '.php';
+        if (is_file($file)) {
+            /** @noinspection PhpIncludeInspection */
+            require_once($file);
+        }
     }
+} else {    //非windows系统（linux）
+    include_once('Cinema/Spider.php');
+    include_once('Cinema/Common.php');
 }
 
 if (empty($_GET['cat'])) {

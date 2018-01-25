@@ -7,17 +7,21 @@
  */
 use Cinema\Common;
 
-/**
- * 类自动加载
- * @param $class
- */
-function __autoload($class)
-{
-    $file = $class . '.php';
-    if (is_file($file)) {
-        /** @noinspection PhpIncludeInspection */
-        require_once($file);
+if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {   //windows系统
+    /**
+     * 类自动加载
+     * @param $class
+     */
+    function __autoload($class)
+    {
+        $file = $class . '.php';
+        if (is_file($file)) {
+            /** @noinspection PhpIncludeInspection */
+            require_once($file);
+        }
     }
+} else {    //非windows系统（linux）
+    include_once('Cinema/Common.php');
 }
 
 ?>

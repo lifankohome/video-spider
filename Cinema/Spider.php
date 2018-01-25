@@ -14,6 +14,11 @@ class Spider
     private static $tvCat = array();
     private static $varietyCat = array();
 
+    /**
+     * @param string $cat
+     * @param int $page
+     * @return array
+     */
     public static function getMovies($cat = 'all', $page = 1)
     {
         $dom = file_get_contents('http://www.360kan.com/dianying/list.php?year=all&area=all&act=all&cat=' . $cat . '&pageno=' . $page);
@@ -67,6 +72,11 @@ class Spider
         self::$moviesCat = $moviesCat;
     }
 
+    /**
+     * @param string $cat
+     * @param int $page
+     * @return array
+     */
     public static function getTvs($cat = 'all', $page = 1)
     {
         $dom = file_get_contents('http://www.360kan.com/dianshi/list.php?year=all&area=all&act=all&cat=' . $cat . '&pageno=' . $page);
@@ -117,6 +127,11 @@ class Spider
         self::$tvCat = $tvCat;
     }
 
+    /**
+     * @param string $cat
+     * @param int $page
+     * @return array
+     */
     public static function getVarieties($cat = 'all', $page = 1)
     {
         $dom = file_get_contents('http://www.360kan.com/zongyi/list?act=all&area=all&cat=' . $cat . '&pageno=' . $page);
@@ -169,6 +184,10 @@ class Spider
         self::$varietyCat = $varietyCat;
     }
 
+    /**
+     * @param $kw
+     * @return array
+     */
     public static function search($kw)
     {
         if (empty($kw)) {
@@ -268,12 +287,12 @@ class Spider
         if (!empty($jsonHotSearch)) {
             $arrHotSearch = json_decode($jsonHotSearch, true);  //解析为数组格式
 
-            if (eregi('linux', $_SERVER['HTTP_USER_AGENT'])) {
-                @arsort($arrHotSearch);  //按从多到少排序
-                $arrHotSearch = @array_keys($arrHotSearch);  //将关键词（键）保存为新数组
-            } else {
+            if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
                 arsort($arrHotSearch);  //按从多到少排序
                 $arrHotSearch = array_keys($arrHotSearch);  //将关键词（键）保存为新数组
+            } else {
+                @arsort($arrHotSearch);  //按从多到少排序
+                $arrHotSearch = @array_keys($arrHotSearch);  //将关键词（键）保存为新数组
             }
 
             $hotWordNum = count($arrHotSearch);
@@ -292,17 +311,14 @@ class Spider
         return '';
     }
 
-    public static $parser = "
-    <div id=\"parsers\">
+    public static $parser = "<div id=\"parsers\">
                 <button onclick=\"vParser('http://api.wlzhan.com/sudu/?url=')\">解析器一</button>
                 <button onclick=\"vParser('https://api.47ks.com/webcloud/?v=')\">解析器二</button>
-                <button onclick=\"vParser('http://www.efunfilm.com/yunparse/index.php?url=')\">解析器三</button>
-                <button onclick=\"vParser('http://api.nepian.com/ckparse/?url=')\">解析器四</button>
+                <button onclick=\"vParser('https://api.flvsp.com/?url=')\">解析器三</button>
+                <button onclick=\"vParser('http://api.xfsub.com/index.php?url=')\">解析器四</button>
                 <button onclick=\"vParser('http://aikan-tv.com/?url=')\">解析器五</button>
                 <button onclick=\"vParser('http://j.zz22x.com/jx/?url=')\">解析器六</button>
                 <button onclick=\"vParser('http://jiexi.071811.cc/jx2.php?url=')\">解析器七</button>
                 <button onclick=\"vParser('http://api.wlzhan.com/sudu/?url=')\">解析器八</button>
-                <button onclick=\"vParser('http://api.xfsub.com/index.php?url=')\">解析器九</button>
-                <button onclick=\"vParser('https://api.flvsp.com/?url=')\">解析器十</button>
             </div>";
 }
