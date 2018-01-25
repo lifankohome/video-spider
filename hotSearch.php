@@ -1,10 +1,12 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: lifanko  lee
- * Date: 2017/12/7
- * Time: 18:52
+ * User: Administrator
+ * Date: 2018/1/25
+ * Time: 13:16
  */
+
+use Cinema\Spider;
 use Cinema\Common;
 
 /**
@@ -20,6 +22,9 @@ function __autoload($class)
     }
 }
 
+if (empty($_GET['max'])) { //显示的关键词数量，默认最多显示99个
+    $max = 99;
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -28,60 +33,63 @@ function __autoload($class)
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>电视机 - 影视爬虫</title>
+    <title>电影 - 影视爬虫</title>
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <style>
         body {
             width: 80%;
-            /* 10/8倍播放器宽度*/
-            min-width: 1362px;
+            min-width: 960px;
             margin: 0 auto;
             font-family: "Microsoft JhengHei UI"
         }
 
-        .tv h3 {
+        h3 {
             border-bottom: 1px #eee solid;
+            line-height: 2pc;
+            margin-bottom: 0;
         }
 
-        .player {
-            width: 90%;
-            margin: 1pc auto;
+        .list li {
+            float: left;
+            background-color: #bbb;
+            margin: .5pc 2pc .5pc 0;
+            border-radius: 3px;
+            transition: all 0.3s 0s;
         }
 
-        iframe {
-            width: 100%;
-            min-width: 1090px;
-            border: none;
-            background-color: #eee;
-            padding: 1pc;
-            border-radius: 5px;
-            margin-left: -1pc;
+        .list a {
+            display: inline-block;
+            padding: 0.5pc 1pc;
+            color: #9c2900;
+            text-decoration: none;
         }
+
+        .list li:hover {
+            background-color: #555;
+        }
+
+        .list li:hover a {
+            text-decoration: underline;
+            color: whitesmoke;
+        }
+
     </style>
     <link type="text/css" rel="stylesheet" href="css/header.css">
 </head>
 <body>
-<div id="tip"></div>
 <header>
     <img src="img/logo.png">
     <?php echo Common::getHeader() ?>
 </header>
-<div class="tv">
-    <h3>电视机——<a onclick="playTv()" href="javascript:void(0)">立即播放</a></h3>
-    <div class="player">
-        <iframe onload="iFrameLoad()" id="tv" src="loading.html" scrolling="no"></iframe>
-        <script type="text/javascript">
-            var videoFrame = document.getElementById('tv');  //全局使用
-            function iFrameLoad() {
-                videoFrame.height = videoFrame.contentWindow.document.body.scrollHeight;
-            }
-
-            function playTv(){
-                document.getElementById("tv").src = "http://tv.bingdou.net/live.html";
-            }
-        </script>
-    </div>
+<h3>搜索排行榜：</h3>
+<div class="list">
+    <ul style="list-style: decimal">
+        <?php
+        Spider::searchHistory($max);
+        ?>
+    </ul>
 </div>
+<div style="clear: both"></div>
 <footer>
     <?php
     echo Common::$QQGroup;
@@ -90,6 +98,9 @@ function __autoload($class)
 </footer>
 <script type="text/javascript" src="js/tip.min.js"></script>
 <script type="text/javascript">
+    //创建提示容器
+    document.write('<div id="tip"></div>');
+
     //搜索功能
     var search = document.getElementById('searchBox');
     var searchText = document.getElementById('searchText');
@@ -106,20 +117,20 @@ function __autoload($class)
     document.onkeydown = function (e) {
         var theEvent = window.event || e;
         var code = theEvent.keyCode || theEvent.which;
-        if (code == 13) {
+        if (code === 13) {
             if (search.value) {
-                window.location.href="search.php?kw=" + search.value;
-                tip("正在搜索："+ search.value, "12%", 2000, "1", true);
-                search.value = '正在搜索';
+                window.location.href = "search.php?kw=" + search.value;
+                tip("正在搜索：" + search.value, "12%", 2000, "1", true);
             } else {
-                search.value = '关键字为空';
+                window.location.href = "search.php";
+                tip("正在搜索最热视频", "12%", 2000, "1", true);
             }
         }
     };
 
     //百度统计
     var _hmt = _hmt || [];
-    (function() {
+    (function () {
         var hm = document.createElement("script");
         hm.src = "https://hm.baidu.com/hm.js?a258eee7e1b38615e85fde12692f95cc";
         var s = document.getElementsByTagName("script")[0];

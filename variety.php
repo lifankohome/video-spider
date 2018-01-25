@@ -48,7 +48,7 @@ $catDir = '{"101":"\u9009\u79c0","102":"\u516b\u5366","103":"\u8bbf\u8c08","104"
 <body>
 <header>
     <img src="img/logo.png">
-    <?php echo Common::$header ?>
+    <?php echo Common::getHeader() ?>
 </header>
 <div class="cat">
     <ul>

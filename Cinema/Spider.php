@@ -5,6 +5,7 @@
  * Date: 2017/12/6
  * Time: 13:25
  */
+
 namespace Cinema;
 
 class Spider
@@ -118,7 +119,7 @@ class Spider
 
     public static function getVarieties($cat = 'all', $page = 1)
     {
-        $dom = file_get_contents('http://www.360kan.com/zongyi/list?act=all&area=all&cat='.$cat.'&pageno=' . $page);
+        $dom = file_get_contents('http://www.360kan.com/zongyi/list?act=all&area=all&cat=' . $cat . '&pageno=' . $page);
 
         $varietyNameDom = '#<span class="s1">(.*?)</span>#';
         $varietyLinkDom = '#<a class="js-tongjic" href="(.*?)">#';
@@ -190,15 +191,15 @@ class Spider
         foreach ($name[1] as $key => $value) {
             $buffer['name'] = $name[1][$key];
 
-            if($img[1][$key]){
+            if ($img[1][$key]) {
                 $buffer['img'] = $img[1][$key];
-            }else{
+            } else {
                 $buffer['img'] = 'img/noCover.jpg';
             }
 
-            if(isset($type[1][$key])){
+            if (isset($type[1][$key])) {
                 $buffer['type'] = $type[1][$key];
-            }else{
+            } else {
                 $buffer['type'] = '无';
             }
 
@@ -208,6 +209,87 @@ class Spider
         }
 
         return $search;
+    }
+
+    public static function recordSearch($hotWord, $list)
+    {
+        $jsonHotSearch = self::saveInfo('searchHistory');
+
+        if (!empty($jsonHotSearch)) {
+            $arrHotSearch = json_decode($jsonHotSearch, true);  //解析为数组格式
+            if (array_key_exists($hotWord, $arrHotSearch)) { //有记录则加一
+                $arrHotSearch[$hotWord] += 1;
+
+                if ($arrHotSearch[$hotWord] == max($arrHotSearch)) {    //搜索最多的作为默认列表
+                    self::saveInfo('defaultSearch', $list);
+                }
+            } else {  //无记录则在数组中创建
+                $arrHotSearch[$hotWord] = 1;
+            }
+
+            $jsonHotSearch = json_encode($arrHotSearch);
+        } else {  //文件为空
+            $arrHotSearch = [$hotWord => 1];
+            $jsonHotSearch = json_encode($arrHotSearch);
+            self::saveInfo('defaultSearch', $list);
+        }
+
+        self::saveInfo('searchHistory', $jsonHotSearch);
+    }
+
+    public static function saveInfo($dir, $new = '')
+    {
+        $filePath = 'Cinema/' . $dir . '.txt';
+
+        if (file_exists($filePath)) {
+            if (empty($new)) {  //$new为空时是读取状态，不为空时为写入状态
+                $fp = fopen($filePath, "r");
+                $str = fread($fp, filesize($filePath));     //指定读取大小，这里把整个文件内容读取出来
+                fclose($fp);
+
+                return $str;
+            } else {
+                $fp = fopen($filePath, "w");
+                flock($fp, LOCK_EX);
+                fwrite($fp, $new);
+                flock($fp, LOCK_UN);
+                fclose($fp);
+
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static function searchHistory($max = 10)
+    {
+        $jsonHotSearch = self::saveInfo('searchHistory');
+
+        if (!empty($jsonHotSearch)) {
+            $arrHotSearch = json_decode($jsonHotSearch, true);  //解析为数组格式
+
+            if (eregi('linux', $_SERVER['HTTP_USER_AGENT'])) {
+                @arsort($arrHotSearch);  //按从多到少排序
+                $arrHotSearch = @array_keys($arrHotSearch);  //将关键词（键）保存为新数组
+            } else {
+                arsort($arrHotSearch);  //按从多到少排序
+                $arrHotSearch = array_keys($arrHotSearch);  //将关键词（键）保存为新数组
+            }
+
+            $hotWordNum = count($arrHotSearch);
+
+            if ($hotWordNum > 0 && $max == 1) {
+                return $arrHotSearch[0];
+            } else {
+                for ($i = 0; $i < ($hotWordNum > $max ? $max : $hotWordNum); $i++) {    //最多显示$max个热搜词
+                    echo "<li><a href='search.php?kw={$arrHotSearch[$i]}'>{$arrHotSearch[$i]}</a></li>";
+                }
+            }
+        } else {  //文件为空
+            echo "<li>列表为空</li>";
+        }
+
+        return '';
     }
 
     public static $parser = "

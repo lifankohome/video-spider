@@ -138,7 +138,7 @@ if (empty($link[2][0])) {
 <div id="tip"></div>
 <header>
     <img src="img/logo.png">
-    <?php echo Common::$header ?>
+    <?php echo Common::getHeader() ?>
 </header>
 <div class="container">
     <h3><?php
@@ -178,7 +178,7 @@ if (empty($link[2][0])) {
             videoA[i].href = 'javascript:void(0)';
             videoA.eq(i).attr('onclick', 'playUrl(\'' + videoLinkBuffer[i] + '\',\'' + i + '\')');
 
-            if (i > 0 && videoLinkBuffer[i] == getCookie('<?php echo $player; ?>')) {   //非第一集时提供观看进度提示
+            if (i > 0 && videoLinkBuffer[i] === getCookie('<?php echo $player; ?>')) {   //非第一集时提供观看进度提示
                 videoA[i].setAttribute("id", "cookie");
                 iBuffer = i;
             }
@@ -190,7 +190,7 @@ if (empty($link[2][0])) {
         function playUrl(sourceUrl, i) {
             setCookie('<?php echo $player; ?>', sourceUrl, 1); //保存当前播放源链接，键为爬取地址，时间为1d=24h
 
-            if (iBuffer != i) {
+            if (iBuffer !== i) {
                 //iBuffer = i;    //注释本句可以在不跳转的情况下显示已点击的链接，不注释仅显示当前播放剧集
                 videoA[i].setAttribute("id", "cookie");
             }
