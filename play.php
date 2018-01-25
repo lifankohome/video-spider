@@ -248,11 +248,11 @@ if (empty($link[2][0])) {
         var code = theEvent.keyCode || theEvent.which;
         if (code === 13) {
             if (search.value) {
-                window.location.href="search.php?kw=" + search.value;
-                tip("正在搜索："+ search.value, "12%", 2000, "1", true);
-                search.value = '正在搜索';
+                window.location.href = "search.php?kw=" + search.value;
+                tip("正在搜索：" + search.value, "12%", 2000, "1", true);
             } else {
-                search.value = '关键字为空';
+                window.location.href = "search.php";
+                tip("正在搜索最热视频", "12%", 2000, "1", true);
             }
         }
     };
