@@ -42,13 +42,13 @@ preg_match_all($nameDom, $dom, $name);
 preg_match_all($introDom, $dom, $intro);
 preg_match_all($linkDom, $dom, $link);
 
+$name = $name[1][0];
+
 if (empty($intro[1][0])) {
     $intro = "无";
 } else {
     $intro = '　　' . mb_substr($intro[1][0], 9, -14);
 }
-
-$name = $name[1][0];
 
 $sets = array();
 if (empty($link[2][0])) {
@@ -63,10 +63,12 @@ if (empty($link[2][0])) {
         $setsDivDom = '/style="display:block;">[\s\S]+<li  title=\'(.*?)\' class=\'w-newfigure w-newfigure-180x153\'>(.*?)<a href=\'(.*?)\'>/';
         preg_match_all($setsDivDom, $dom, $setsDiv);
         $setsLiDom = '/<li  title=\'(.*?)\' class=\'w-newfigure w-newfigure-180x153\'>(.*?)<a href=\'(.*?)\'>/';
-        preg_match_all($setsLiDom, $setsDiv[0][0], $sets);
+        if(!empty($setsDiv[0])){
+            preg_match_all($setsLiDom, $setsDiv[0][0], $sets);
 
-        $sets[3] = array_unique($sets[3]);  //确保不会有重复剧集
-        $sets[1] = array_unique($sets[1]);
+            $sets[3] = array_unique($sets[3]);  //确保不会有重复剧集
+            $sets[1] = array_unique($sets[1]);
+        }
     } else {
         $varietyEpisode = false;
         $setsDom = '#<a data-num="(.*?)" data-daochu="to=(.*?)" href="(.*?)">#';
@@ -76,7 +78,6 @@ if (empty($link[2][0])) {
     $multiSets = false;
     $link = $link[2][0];
 }
-
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -148,16 +149,21 @@ if (empty($link[2][0])) {
 <div class="container">
     <h3><?php
         if ($multiSets) {
-            echo '《' . $name . '》—— 总' . count($sets[3]) . '集<ul>';
-            foreach ($sets[3] as $key => $val) {
-                if ($varietyEpisode) {
-                    echo "<li><a class='videoA' href='$val' target='ajax'>{$sets[1][$key]}</a></li>";
-                } else {
-                    $key++;
-                    echo "<li><a class='videoA' href='$val' target='ajax'>第{$key}集</a></li>";   //集数从1开始
+            if(empty($sets)){
+                echo '《' . $name . '》—— 暂无播放资源';
+            }else{
+                echo '《' . $name . '》—— 总' . count($sets[3]) . '集<ul>';
+                foreach ($sets[3] as $key => $val) {
+                    if ($varietyEpisode) {
+                        echo "<li><a class='videoA' href='$val' target='ajax'>{$sets[1][$key]}</a></li>";
+                    } else {
+                        $key++;
+                        echo "<li><a class='videoA' href='$val' target='ajax'>第{$key}集</a></li>";   //集数从1开始
+                    }
                 }
+                echo '</ul><div style="clear: both;border-bottom: 1px #ddd solid;padding-top: 1pc"></div>';
             }
-            echo '</ul><div style="clear: both;border-bottom: 1px #ddd solid;padding-top: 1pc"></div>';
+
         } else {
             echo $name . "——<a class='videoA' href='$link' target='ajax'>立即播放</a>";
         }

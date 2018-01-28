@@ -319,6 +319,5 @@ class Spider
                 <button onclick=\"vParser('http://aikan-tv.com/?url=')\">解析器五</button>
                 <button onclick=\"vParser('http://j.zz22x.com/jx/?url=')\">解析器六</button>
                 <button onclick=\"vParser('http://jiexi.071811.cc/jx2.php?url=')\">解析器七</button>
-                <button onclick=\"vParser('http://api.wlzhan.com/sudu/?url=')\">解析器八</button>
             </div>";
 }
