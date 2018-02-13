@@ -27,8 +27,8 @@ if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {   //windows系统
     include_once('Cinema/Common.php');
 }
 
-if (empty($_GET['max'])) { //显示的关键词数量，默认最多显示99个
-    $max = 99;
+if (empty($_GET['max'])) { //显示的关键词数量，默认最多显示50个
+    $max = 50;
 }
 ?>
 <!DOCTYPE html>
@@ -90,7 +90,16 @@ if (empty($_GET['max'])) { //显示的关键词数量，默认最多显示99个
 <div class="list">
     <ul style="list-style: decimal">
         <?php
-        Spider::searchHistory($max);
+        Spider::getHistory($max);
+        ?>
+    </ul>
+</div>
+<div style="clear: both"></div>
+<h3>点击量排行榜：</h3>
+<div class="list">
+    <ul style="list-style: decimal">
+        <?php
+        Spider::getHistory($max, 'clickHistory');
         ?>
     </ul>
 </div>

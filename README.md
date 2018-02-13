@@ -9,8 +9,8 @@ http://ali.lifanko.cn/video/
  + Auto Crawling & Update
  + Play History Memory
  + No Register / No Sign In / No AD
- + Search recommend / Search History
- + Windows & Linus Server Auto Fit
+ + Search recommend / Search History / Click History
+ + Windows & Linus Server Auto Suit
 
 ### Server
 PHP7 + Apache/2.4.6 (CentOS)

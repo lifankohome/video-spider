@@ -31,7 +31,7 @@ if (empty($_GET['kw'])) {
     $search = json_decode(Spider::saveInfo('defaultSearch'), true);
 
     if (empty($search)) {
-        $search = Spider::search('老男孩');
+        $search = Spider::search('老男孩');    //默认搜索
 
         //历史为空为初始化记录操作
         Spider::recordSearch('老男孩', json_encode($search));
@@ -40,7 +40,7 @@ if (empty($_GET['kw'])) {
     $kw = $_GET['kw'];
     $search = Spider::search($kw);
 
-    //默认搜索不统计流量
+    //不统计无效关键字
     Spider::recordSearch($kw, json_encode($search));
 }
 

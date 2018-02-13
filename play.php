@@ -152,6 +152,9 @@ if (empty($link[2][0])) {
             if(empty($sets)){
                 echo '《' . $name . '》—— 暂无播放资源';
             }else{
+                //如果有播放资源，则点击量加一
+                Spider::clickRec('clickHistory', $name);
+
                 echo '《' . $name . '》—— 总' . count($sets[3]) . '集<ul>';
                 foreach ($sets[3] as $key => $val) {
                     if ($varietyEpisode) {
@@ -165,6 +168,9 @@ if (empty($link[2][0])) {
             }
 
         } else {
+            //如果有播放资源，则点击量加一
+            Spider::clickRec('clickHistory', $name);
+
             echo $name . "——<a class='videoA' href='$link' target='ajax'>立即播放</a>";
         }
         ?></h3>

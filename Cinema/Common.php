@@ -5,14 +5,16 @@
  * Date: 2017/12/6
  * Time: 13:12
  */
+
 namespace Cinema;
 
 include_once('Spider.php');
 
 class Common
 {
-    public static function getHeader(){
-        $defaultSearch = Spider::searchHistory(1);
+    public static function getHeader()
+    {
+        $defaultSearch = Spider::getHistory(1);
 
         return $header = "<ul>
             <li><a href='http://hpu.lifanko.cn'>首页</a></li>
@@ -25,11 +27,11 @@ class Common
 	    </ul>";
     }
 
-    public static $footer = "<p style='font-size: 12px;color: #555'>&copy; Copyright lifanko 2017 December</p>";
-
     public static $QQGroup = "<p style='text-align: center;font-size: 12px;background: #eee;padding: 6px 2px;border-radius: 2px;'>
         <a style='color: black'
            href='http://shang.qq.com/wpa/qunwpa?idkey=7d555df15dae8e5f29839bc474b172953f5ac15f3018f7e4607454dae583bd9d'
            target='_blank'>点击加入【意见建议】&【问题反馈】&【爬虫技术】交流群：567051081</a>
     </p>";
+
+    public static $footer = "<p style='font-size: 12px;color: #555'>Copyright &copy; <a href='http://hpu.lifanko.cn' style='font-size: 12px;color: #333'>lifanko</a> 2017-2018 豫ICP备16040860号-1</p>";
 }

@@ -262,11 +262,16 @@ class Spider
 
         if (file_exists($filePath)) {
             if (empty($new)) {  //$new为空时是读取状态，不为空时为写入状态
-                $fp = fopen($filePath, "r");
-                $str = fread($fp, filesize($filePath));     //指定读取大小，这里把整个文件内容读取出来
-                fclose($fp);
+                //文件不为空时返回文件内容，为空时返回json格式的空
+                if(filesize($filePath)){
+                    $fp = fopen($filePath, "r");
+                    $fJson = fread($fp, filesize($filePath));     //指定读取大小，这里把整个文件内容读取出来
+                    fclose($fp);
+                }else{
+                    $fJson = '{}';
+                }
 
-                return $str;
+                return $fJson;
             } else {
                 $fp = fopen($filePath, "w");
                 flock($fp, LOCK_EX);
@@ -277,12 +282,13 @@ class Spider
                 return true;
             }
         }
+
         return false;
     }
 
-    public static function searchHistory($max = 10)
+    public static function getHistory($max = 10, $dir = 'searchHistory')
     {
-        $jsonHotSearch = self::saveInfo('searchHistory');
+        $jsonHotSearch = self::saveInfo($dir);
 
         if (!empty($jsonHotSearch)) {
             $arrHotSearch = json_decode($jsonHotSearch, true);  //解析为数组格式
@@ -309,6 +315,26 @@ class Spider
         }
 
         return '';
+    }
+
+    public static function clickRec($dir, $name){
+        $jsonRes = self::saveInfo($dir);
+
+        if (!empty($jsonRes)) {
+            $arrRes = json_decode($jsonRes, true);  //解析为数组格式
+            if (array_key_exists($name, $arrRes)) { //有记录则加一
+                $arrRes[$name] += 1;
+            } else {  //无记录则在数组中创建
+                $arrRes[$name] = 1;
+            }
+
+            $jsonRes = json_encode($arrRes);
+        } else {  //文件为空
+            $arrRes = [$name => 1];
+            $jsonRes = json_encode($arrRes);
+        }
+
+        self::saveInfo($dir, $jsonRes);
     }
 
     public static $parser = "<div id=\"parsers\">
