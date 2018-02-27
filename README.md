@@ -17,5 +17,5 @@ PHP7 + Apache/2.4.6 (CentOS)
 
 **The TXT file in /Cinema should possess write permissions.**
 
-### Screenshots
+### Screenshot
 ![Screenshots](https://github.com/lifankohome/video-spider/blob/master/screenshot.jpg?raw=true)

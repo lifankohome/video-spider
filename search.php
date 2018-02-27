@@ -89,7 +89,7 @@ if (empty($_GET['kw'])) {
 <footer>
     <?php echo Common::$footer ?>
 </footer>
-<script type="text/javascript" src="js/tip.min.js"></script>
+<script type="text/javascript" src="http://cdn.lifanko.cn/tip10.min.js"></script>
 <script type="text/javascript" src="js/app.js"></script>
 </body>
 </html>

@@ -92,7 +92,7 @@ if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {   //windows系统
     echo Common::$footer;
     ?>
 </footer>
-<script type="text/javascript" src="js/tip.min.js"></script>
+<script type="text/javascript" src="http://cdn.lifanko.cn/tip10.min.js"></script>
 <script type="text/javascript">
     //搜索功能
     var search = document.getElementById('searchBox');
@@ -110,13 +110,14 @@ if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {   //windows系统
     document.onkeydown = function (e) {
         var theEvent = window.event || e;
         var code = theEvent.keyCode || theEvent.which;
-        if (code == 13) {
+
+        if (code === 13) {
             if (search.value) {
-                window.location.href="search.php?kw=" + search.value;
-                tip("正在搜索："+ search.value, "12%", 2000, "1", true);
-                search.value = '正在搜索';
+                window.location.href = "search.php?kw=" + search.value;
+                tip("正在搜索：" + search.value, "12%", 2000, "1", true);
             } else {
-                search.value = '关键字为空';
+                window.location.href = "search.php";
+                tip("正在搜索最热视频", "12%", 2000, "1", true);
             }
         }
     };

@@ -110,7 +110,7 @@ if (empty($_GET['max'])) { //显示的关键词数量，默认最多显示50个
     echo Common::$footer;
     ?>
 </footer>
-<script type="text/javascript" src="js/tip.min.js"></script>
+<script type="text/javascript" src="http://cdn.lifanko.cn/tip10.min.js"></script>
 <script type="text/javascript">
     //创建提示容器
     document.write('<div id="tip"></div>');

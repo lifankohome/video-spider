@@ -240,7 +240,7 @@ if (empty($link[2][0])) {
     ?>
     <p style="font-size: 12px;text-align: right;margin-top: -25px">Cookie技术有效期:24h</p>
 </footer>
-<script type="text/javascript" src="js/tip.min.js"></script>
+<script type="text/javascript" src="http://cdn.lifanko.cn/tip10.min.js"></script>
 <script type="text/javascript">
     //搜索功能
     var search = document.getElementById('searchBox');

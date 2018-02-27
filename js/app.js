@@ -1,10 +1,7 @@
 /**
  * Created by lifanko  lee on 2017/12/13.
  */
-//创建提示容器
-document.write('<div id="tip"></div>');
-
-tip("歡迎使用影視爬蟲！", "12%", 2000, "1", false);
+tip("影视爬虫祝福您：狗年大吉！", "12%", 2000, "1", false);
 
 //在窗口调整时图片大小自动适应
 var img = document.getElementsByClassName('img');

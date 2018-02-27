@@ -96,7 +96,7 @@ $catDir = '{"101":"\u9009\u79c0","102":"\u516b\u5366","103":"\u8bbf\u8c08","104"
     echo Common::$footer;
     ?>
 </footer>
-<script type="text/javascript" src="js/tip.min.js"></script>
+<script type="text/javascript" src="http://cdn.lifanko.cn/tip10.min.js"></script>
 <script type="text/javascript" src="js/app.js"></script>
 </body>
 </html>
