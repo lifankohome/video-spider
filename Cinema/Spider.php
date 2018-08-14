@@ -199,7 +199,7 @@ class Spider
         $nameDom = '#js-playicon" title="(.*?)"\s*data#';
         $linkDom = '#a href="(.*?)" class="g-playicon js-playicon"#';
         $imgDom = '#<img src="(.*?)" alt="(.*?)" \/>[\s\S]+?</a>\n</div>#';
-        $typeDom = '/类型：<\/b><span>(.*?)<\/span>/';
+        $typeDom = '#<span class="playtype">(.*?)<\/span>#';
 
         preg_match_all($nameDom, $dom, $name);
         preg_match_all($linkDom, $dom, $link);
