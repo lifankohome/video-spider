@@ -35,7 +35,7 @@ if(!empty($_GET['play'])){
 $dom = file_get_contents($player);
 
 $nameDom = '#<h1>(.*?)</h1>#';
-$introDom = '#<p class="item-desc js-open-wrap">(.*?)</p>#';
+$introDom = '#<p class="item-desc js-close-wrap" style="display:none;"><span>简介：</span>(.*?)<a href#';
 $linkDom = '#<a data-daochu(.*?) href="(.*?)" class="js-site-btn btn btn-play"></a>#';
 
 preg_match_all($nameDom, $dom, $name);
@@ -47,7 +47,7 @@ $name = $name[1][0];
 if (empty($intro[1][0])) {
     $intro = "无";
 } else {
-    $intro = '　　' . mb_substr($intro[1][0], 9, -14);
+    $intro = '　　' . $intro[1][0];
 }
 
 $sets = array();
