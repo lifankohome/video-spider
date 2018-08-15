@@ -1,16 +1,16 @@
 # Video-Spider
-An easy video-spider using PHP. Get popular videos for FREE & NO ADVERTISEMENT. 
+An easy video-spider with PHP. Get popular or vip videos for FREE && NO ADVERTISEMENT.
 
 ### Demo
 http://ali.lifanko.cn/video/
 
 ### Feature
- + No Database Support
- + Auto Crawling & Update
- + Play History Memory
+ + Run Without Database
+ + Auto Crawling && Updating
+ + Play History Record
  + No Register / No Sign In / No AD
- + Search recommend / Search History / Click History
- + Windows & Linus Server Auto Suit
+ + Search Recommend / Search History / Click History
+ + Windows && Linux Support
 
 ### Server
 PHP7 + Apache/2.4.6 (CentOS)
