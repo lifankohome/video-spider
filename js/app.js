@@ -12,9 +12,12 @@ window.onresize = function () { //监听
 };
 
 function autoSize(img) {
-    var height = (img[0].width * 1.4).toFixed(0);   //取宽度
-    for (var i = 0; i < img.length; i++) {  //根据比例统一高度
-        img[i].style.height = height + 'px'
+    //仅当有资源时才重新调整大小
+    if (img.length) {
+        var height = (img[0].width * 1.4).toFixed(0);   //取宽度
+        for (var i = 0; i < img.length; i++) {  //根据比例统一高度
+            img[i].style.height = height + 'px'
+        }
     }
 }
 
