@@ -27,8 +27,8 @@ if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {   //windows系统
     include_once('Cinema/Common.php');
 }
 
-if (empty($_GET['max'])) { //显示的关键词数量，默认最多显示50个
-    $max = 50;
+if (empty($_GET['max'])) { //显示的关键词数量，默认最多显示999个
+    $max = 999;
 }
 ?>
 <!DOCTYPE html>
@@ -57,7 +57,7 @@ if (empty($_GET['max'])) { //显示的关键词数量，默认最多显示50个
         .list li {
             float: left;
             background-color: #bbb;
-            margin: .5pc 2pc .5pc 0;
+            margin: .5pc 2pc .5pc 0.5pc;
             border-radius: 3px;
             transition: all 0.3s 0s;
         }
