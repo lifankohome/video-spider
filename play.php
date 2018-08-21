@@ -213,7 +213,7 @@ if (empty($link[2][0])) {
             }
 
             videoLink.href = sourceUrl;
-            vParser('http://aikan-tv.com/?url=');    //默认使用解析器五解析
+            vParser('https://api.flvsp.com/?url=');    //默认使用解析器三解析
         }
 
         function setCookie(cookieKey, cookieValue, expireDays) {
