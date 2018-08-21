@@ -15,23 +15,22 @@ class Common
     public static function getHeader()
     {
         $defaultSearch = Spider::getHistory(1);
+        if ($defaultSearch == '<li><a>数据为空</a></li>') {
+            $defaultSearch = '';
+        }
 
         return $header = "<ul>
             <li><a href='http://hpu.lifanko.cn'>首页</a></li>
-	        <li><a href='http://ali.lifanko.cn/video/index.php'>电影</a></li>
-	        <li><a href='http://ali.lifanko.cn/video/variety.php'>综艺</a></li>
-	        <li><a href='http://ali.lifanko.cn/video/teleplay.php'>电视剧</a></li>
-	        <li><a href='http://ali.lifanko.cn/video/television.php'>电视机</a></li>
-	        <li><a href='http://ali.lifanko.cn/video/hotSearch.php'>搜索排行榜</a></li>
+	        <li><a href='index.php'>电影</a></li>
+	        <li><a href='variety.php'>综艺</a></li>
+	        <li><a href='teleplay.php'>电视剧</a></li>
+	        <li><a href='television.php'>电视机</a></li>
+	        <li><a href='hotSearch.php'>搜索排行榜</a></li>
 	        <li style='float: right;background-color: #ddd'><input type='text' id='searchBox' style='margin-left: 1pc;height: 30px;color: #F40;padding: 0 5px;outline: none' placeholder='$defaultSearch'><span id='searchText' style='display: inline-block;padding: 0 1pc;'>影视爬虫</span></li>
 	    </ul>";
     }
 
-    public static $QQGroup = "<p style='text-align: center;font-size: 12px;background: #eee;padding: 6px 2px;border-radius: 2px;'>
-        <a style='color: black'
-           href='http://shang.qq.com/wpa/qunwpa?idkey=7d555df15dae8e5f29839bc474b172953f5ac15f3018f7e4607454dae583bd9d'
-           target='_blank'>点击加入【意见建议】&【问题反馈】&【爬虫技术】交流群：567051081</a>
-    </p>";
+    public static $QQGroup = "<p style='text-align: center;background: #eee;padding: 6px 2px;border-radius: 2px;'>网站使用cookies保存您的观看记录，如果24h内没有访问本网站观看记录会自动删除</p>";
 
     public static $footer = "<p style='font-size: 12px;color: #555'>Copyright &copy; <a href='http://hpu.lifanko.cn' style='font-size: 12px;color: #333'>lifanko</a> 2017-2018 豫ICP备16040860号-1</p>";
 }

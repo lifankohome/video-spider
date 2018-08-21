@@ -90,7 +90,7 @@ if (empty($_GET['max'])) { //显示的关键词数量，默认最多显示50个
 <div class="list">
     <ul style="list-style: decimal">
         <?php
-        Spider::getHistory($max);
+        echo Spider::getHistory($max);
         ?>
     </ul>
 </div>
@@ -99,7 +99,7 @@ if (empty($_GET['max'])) { //显示的关键词数量，默认最多显示50个
 <div class="list">
     <ul style="list-style: decimal">
         <?php
-        Spider::getHistory($max, 'clickHistory');
+        echo Spider::getHistory($max, 'clickHistory');
         ?>
     </ul>
 </div>

@@ -198,7 +198,7 @@ class Spider
 
         $nameDom = '#js-playicon" title="(.*?)"\s*data#';
         $linkDom = '#a href="(.*?)" class="g-playicon js-playicon"#';
-        $imgDom = '#<img src="(.*?)" alt="(.*?)" \/>[\s\S]+?</a>\n</div>#';
+        $imgDom = '#<img src="(.*?)" alt="(.*?)" \/>[\s\S]+?</a>#';
         $typeDom = '#<span class="playtype">(.*?)<\/span>#';
 
         preg_match_all($nameDom, $dom, $name);
@@ -210,7 +210,7 @@ class Spider
         foreach ($name[1] as $key => $value) {
             $buffer['name'] = $name[1][$key];
 
-            if ($img[1][$key]) {
+            if (isset($img[1][$key])) {
                 $buffer['img'] = $img[1][$key];
             } else {
                 $buffer['img'] = 'img/noCover.jpg';
@@ -263,11 +263,11 @@ class Spider
         if (file_exists($filePath)) {
             if (empty($new)) {  //$new为空时是读取状态，不为空时为写入状态
                 //文件不为空时返回文件内容，为空时返回json格式的空
-                if(filesize($filePath)){
+                if (filesize($filePath)) {
                     $fp = fopen($filePath, "r");
                     $fJson = fread($fp, filesize($filePath));     //指定读取大小，这里把整个文件内容读取出来
                     fclose($fp);
-                }else{
+                } else {
                     $fJson = '{}';
                 }
 
@@ -306,35 +306,41 @@ class Spider
             if ($hotWordNum > 0 && $max == 1) {
                 return $arrHotSearch[0];
             } else {
+                $res = '';
                 for ($i = 0; $i < ($hotWordNum > $max ? $max : $hotWordNum); $i++) {    //最多显示$max个热搜词
-                    echo "<li><a href='search.php?kw={$arrHotSearch[$i]}'>{$arrHotSearch[$i]}</a></li>";
+                    $res .= "<li><a href='search.php?kw={$arrHotSearch[$i]}'>{$arrHotSearch[$i]}</a></li>";
                 }
+                return $res;
             }
         } else {  //文件为空
-            echo "<li>列表为空</li>";
+            return "<li><a>数据为空</a></li>";
         }
 
         return '';
     }
 
-    public static function clickRec($dir, $name){
-        $jsonRes = self::saveInfo($dir);
+    public static function clickRec($dir, $name)
+    {
+        //确保保存的记录文件名不为空
+        if (!empty($name)) {
+            $jsonRes = self::saveInfo($dir);
 
-        if (!empty($jsonRes)) {
-            $arrRes = json_decode($jsonRes, true);  //解析为数组格式
-            if (array_key_exists($name, $arrRes)) { //有记录则加一
-                $arrRes[$name] += 1;
-            } else {  //无记录则在数组中创建
-                $arrRes[$name] = 1;
+            if (!empty($jsonRes)) {
+                $arrRes = json_decode($jsonRes, true);  //解析为数组格式
+                if (array_key_exists($name, $arrRes)) { //有记录则加一
+                    $arrRes[$name] += 1;
+                } else {  //无记录则在数组中创建
+                    $arrRes[$name] = 1;
+                }
+
+                $jsonRes = json_encode($arrRes);
+            } else {  //文件为空
+                $arrRes = [$name => 1];
+                $jsonRes = json_encode($arrRes);
             }
 
-            $jsonRes = json_encode($arrRes);
-        } else {  //文件为空
-            $arrRes = [$name => 1];
-            $jsonRes = json_encode($arrRes);
+            self::saveInfo($dir, $jsonRes);
         }
-
-        self::saveInfo($dir, $jsonRes);
     }
 
     public static $parser = "<div id=\"parsers\">
