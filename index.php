@@ -88,7 +88,7 @@ $catDir = '{"103":"\u559c\u5267","100":"\u7231\u60c5","106":"\u52a8\u4f5c","102"
 		    <a href='play.php?play={$movie['link']}' title='{$movie['actor']}' target='_blank'>
                 <img class='img' src='{$movie['img']}' alt='{$movie['name']}'>
                 <span id='score'>{$score}</span>
-                <span id='year'>{$movie['year']}</span>
+                <span id='year'>{$movie['year']} {$movie['name']}</span>
             </a>
         </li>";
         }
