@@ -35,8 +35,8 @@ if(!empty($_GET['play'])){
 $dom = file_get_contents($player);
 
 $nameDom = '#<h1>(.*?)</h1>#';
-$introDom = '#<p class="item-desc js-close-wrap" style="display:none;"><span>简介：</span>(.*?)<a href#';
-$linkDom = '#<a data-daochu(.*?) href="(.*?)" class="js-site-btn btn btn-play"></a>#';
+$introDom = '#style="display:none;"><span>简介 ：<\/span><p class="item-desc">(.*?)<a href#';
+$linkDom = '#<a data-daochu(.*?) href=(.*?) class="js-site-btn btn btn-play">#';
 
 preg_match_all($nameDom, $dom, $name);
 preg_match_all($introDom, $dom, $intro);
@@ -150,7 +150,7 @@ if (empty($link[2][0])) {
     <h3><?php
         if ($multiSets) {
             if(empty($sets)){
-                echo '《' . $name . '》—— 暂无播放资源';
+                echo '《' . $name . '》—— 暂无播放资源，请加QQ群反馈：552759097';
             }else{
                 //如果有播放资源，则点击量加一
                 Spider::clickRec('clickHistory', $name);
