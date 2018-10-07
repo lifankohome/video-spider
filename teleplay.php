@@ -46,6 +46,9 @@ $catDir = '{"101":"\u8a00\u60c5","105":"\u4f26\u7406","109":"\u559c\u5267","108"
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>电视剧 - 影视爬虫</title>
+    <?php
+    echo Common::SEO;
+    ?>
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link type="text/css" rel="stylesheet" href="css/teleplay.css">
     <link type="text/css" rel="stylesheet" href="css/header.css">
