@@ -34,9 +34,6 @@ if (empty($_GET['cat'])) {
 
 $varieties = Spider::getVarieties($cat);
 $varietyCat = Spider::getVarietyCat();
-
-$catDir = '{"101":"\u9009\u79c0","102":"\u516b\u5366","103":"\u8bbf\u8c08","104":"\u60c5\u611f","105":"\u751f\u6d3b","106":"\u665a\u4f1a","107":"\u641e\u7b11","108":"\u97f3\u4e50","109":"\u65f6\u5c1a","110":"\u6e38\u620f","111":"\u5c11\u513f","112":"\u4f53\u80b2","113":"\u7eaa\u5b9e","114":"\u79d1\u6559","115":"\u66f2\u827a","116":"\u6b4c\u821e","117":"\u8d22\u7ecf","118":"\u6c7d\u8f66","119":"\u64ad\u62a5","other":"\u5176\u4ed6"}';
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -72,9 +69,9 @@ $catDir = '{"101":"\u9009\u79c0","102":"\u516b\u5366","103":"\u8bbf\u8c08","104"
     <h3>
         <?php
         if ($cat == 'all') {
-            echo '热门综艺';
+            echo '热门综艺推荐';
         } else {
-            echo '当前分类：' . json_decode($catDir, true)[$cat];
+            echo '当前分类：' . Spider::getPresentCat();
         }
         ?>
     </h3>

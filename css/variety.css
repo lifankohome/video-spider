@@ -17,6 +17,16 @@ body {
     text-align: center;
 }
 
+.cat ul li:first-child {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.cat ul li:last-child {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
 .cat ul li a {
     color: #ff6d70;
     font-weight: bold;

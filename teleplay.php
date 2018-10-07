@@ -34,9 +34,6 @@ if (empty($_GET['cat'])) {
 
 $teleplays = Spider::getTvs($cat);
 $tvCat = Spider::getTvCat();
-
-$catDir = '{"101":"\u8a00\u60c5","105":"\u4f26\u7406","109":"\u559c\u5267","108":"\u60ac\u7591","111":"\u90fd\u5e02","100":"\u5076\u50cf","104":"\u53e4\u88c5","107":"\u519b\u4e8b","103":"\u8b66\u532a","112":"\u5386\u53f2","106":"\u6b66\u4fa0","113":"\u79d1\u5e7b","102":"\u5bab\u5ef7","114":"\u60c5\u666f","115":"\u52a8\u4f5c","116":"\u52b1\u5fd7","117":"\u795e\u8bdd","118":"\u8c0d\u6218","110":"\u7ca4\u8bed","other":"\u5176\u4ed6"}';
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -72,9 +69,9 @@ $catDir = '{"101":"\u8a00\u60c5","105":"\u4f26\u7406","109":"\u559c\u5267","108"
     <h3>
         <?php
         if ($cat == 'all') {
-            echo '热门电视剧';
+            echo '热门电视剧推荐';
         } else {
-            echo '当前分类：' . json_decode($catDir, true)[$cat];
+            echo '当前分类：' . Spider::getPresentCat();
         }
         ?>
     </h3>
