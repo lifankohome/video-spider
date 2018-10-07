@@ -21,7 +21,7 @@ class Spider
      */
     public static function getMovies($cat = 'all', $page = 1)
     {
-        $dom = file_get_contents('http://www.360kan.com/dianying/list.php?year=all&area=all&act=all&cat=' . $cat . '&pageno=' . $page);
+        $dom = file_get_contents('https://www.360kan.com/dianying/list.php?year=all&area=all&act=all&cat=' . $cat . '&pageno=' . $page);
 
         $movieNameDom = '#<span class="s1">(.*?)</span>#';
         $movieScoreDom = '#<span class="s2">(.*?)</span>#';
@@ -30,7 +30,7 @@ class Spider
         $movieActorDom = '# <p class="star">(.*?)</p>#';
         $movieImgDom = '#<div class="cover g-playicon">
                                 <img src="(.*?)">#';
-        $movieCatDom = '#<a class="js-tongjip" href="http://www.360kan.com/dianying/list.php\?year=all\&area=all\&act=all\&cat=(.*?)" target="_self">(.*?)</a>#';
+        $movieCatDom = '#<a class="js-tongjip" href="https://www.360kan.com/dianying/list.php\?year=all\&area=all\&act=all\&cat=(.*?)" target="_self">(.*?)\s+(<i class="s-hot-icon"><\/i>\s+){0,1}<\/a>#';
 
         preg_match_all($movieNameDom, $dom, $movieName);
         preg_match_all($movieScoreDom, $dom, $movieScore);
@@ -53,8 +53,8 @@ class Spider
         }
 
         $movieCatArr = array();
-        foreach ($movieCat[2] as $key => $val) {
-            $movieCatArr[$movieCat[1][$key]] = $val;
+        foreach ($movieCat[1] as $key => $val) {
+            $movieCatArr[$val] = $movieCat[2][$key];
         }
 
         self::setMoviesCat($movieCatArr);

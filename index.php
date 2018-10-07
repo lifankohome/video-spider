@@ -47,6 +47,9 @@ $catDir = '{"103":"\u559c\u5267","100":"\u7231\u60c5","106":"\u52a8\u4f5c","102"
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>电影 - 影视爬虫</title>
+    <?php
+    echo Common::SEO;
+    ?>
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link type="text/css" rel="stylesheet" href="css/index.css">
     <link type="text/css" rel="stylesheet" href="css/header.css">
@@ -70,7 +73,7 @@ $catDir = '{"103":"\u559c\u5267","100":"\u7231\u60c5","106":"\u52a8\u4f5c","102"
     <h3>
         <?php
         if ($cat == 'all') {
-            echo '热门电影';
+            echo '热门电影推荐';
         } else {
             echo '当前分类：' . json_decode($catDir, true)[$cat];
         }
