@@ -26,9 +26,9 @@ if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {   //windows系统
     include_once('Cinema/Common.php');
 }
 
-if(!empty($_GET['play'])){
+if (!empty($_GET['play'])) {
     $player = base64_decode($_GET['play']);
-}else{
+} else {
     die("<h2>无效的播放链接，将自动返回主页...<script>setTimeout(function() {window.location='index.php';},1500)</script></h2>");
 }
 
@@ -63,7 +63,7 @@ if (empty($link[2][0])) {
         $setsDivDom = '/style="display:block;">[\s\S]+<li  title=\'(.*?)\' class=\'w-newfigure w-newfigure-180x153\'>(.*?)<a href=\'(.*?)\'>/';
         preg_match_all($setsDivDom, $dom, $setsDiv);
         $setsLiDom = '/<li  title=\'(.*?)\' class=\'w-newfigure w-newfigure-180x153\'>(.*?)<a href=\'(.*?)\'>/';
-        if(!empty($setsDiv[0])){
+        if (!empty($setsDiv[0])) {
             preg_match_all($setsLiDom, $setsDiv[0][0], $sets);
 
             $sets[3] = array_unique($sets[3]);  //确保不会有重复剧集
@@ -86,6 +86,7 @@ if (empty($link[2][0])) {
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="<?php echo $name; ?>百度云 <?php echo $name; ?>在线观看 <?php echo $name; ?>下载">
     <title><?php echo $name ?> - 影视爬虫</title>
     <?php
     echo Common::SEO;
@@ -152,9 +153,9 @@ if (empty($link[2][0])) {
 <div class="container">
     <h3><?php
         if ($multiSets) {
-            if(empty($sets)){
+            if (empty($sets)) {
                 echo '《' . $name . '》—— 暂无播放资源，请加QQ群反馈：552759097';
-            }else{
+            } else {
                 //如果有播放资源，则点击量加一
                 Spider::clickRec('clickHistory', $name);
 
@@ -274,7 +275,7 @@ if (empty($link[2][0])) {
 
     //百度统计
     var _hmt = _hmt || [];
-    (function() {
+    (function () {
         var hm = document.createElement("script");
         hm.src = "https://hm.baidu.com/hm.js?a258eee7e1b38615e85fde12692f95cc";
         var s = document.getElementsByTagName("script")[0];
