@@ -68,21 +68,20 @@ $tvCat = Spider::getTvCat();
 <div class="teleplay">
     <h3>
         <?php
-        if ($cat == 'all') {
-            echo '热门电视剧推荐';
-        } else {
-            echo '当前分类：' . Spider::getPresentCat();
-        }
+        echo '当前分类：' . Spider::getPresentCat();
         ?>
     </h3>
     <ul>
         <?php
         foreach ($teleplays as $teleplay) {
+            // base64 encode
+            $link = base64_encode('https://www.360kan.com' . $teleplay['coverpage']);
+
             echo "<li>
-		    <a href='play.php?play={$teleplay['link']}' title='{$teleplay['actor']}' target='_blank'>
-                <img class='img' src='{$teleplay['img']}' alt='{$teleplay['name']}'>
-                <span id='update'>{$teleplay['update']}</span>
-                <span id='name'>{$teleplay['name']}</span>
+		    <a href='play.php?play={$link}' title='{$teleplay['desc']}' target='_blank'>
+                <img class='img' src='{$teleplay['cover']}' alt='{$teleplay['title']}'>
+                <span id='update'>{$teleplay['tag']}</span>
+                <span id='name'>{$teleplay['title']}</span>
             </a>
         </li>";
         }

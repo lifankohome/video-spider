@@ -32,52 +32,25 @@ class Spider
      */
     public static function getMovies($cat = 'all', $page = 1)
     {
-        $dom = file_get_contents('https://www.360kan.com/dianying/list.php?year=all&area=all&act=all&cat=' . $cat . '&pageno=' . $page);
+        $presentCat = ['all' => '热门推荐', '103' => '喜剧', '100' => '爱情', '106' => '动作', '102' => '恐怖', '104' => '科幻', '112' => '剧情', '105' => '犯罪', '113' => '奇幻', '108' => '战争', '115' => '悬疑', '107' => '动画', '117' => '文艺', '101' => '伦理', '118' => '纪录', '119' => '传记', '120' => '歌舞', '121' => '古装', '122' => '历史', '123' => '惊悚', 'other' => '其他'];
 
-        $movieNameDom = '#<span class="s1">(.*?)</span>#';
-        $movieScoreDom = '#<span class="s2">(.*?)</span>#';
-        $movieYearDom = '#<span class="hint">(.*?)</span>#';
-        $movieLinkDom = '#<a class="js-tongjic" href="(.*?)">#';
-        $movieActorDom = '# <p class="star">(.*?)</p>#';
-        $movieImgDom = '#<div class="cover g-playicon">
-                                <img src="(.*?)">#';
-        $movieCatDom = '#<a class="js-tongjip" href="https://www.360kan.com/dianying/list.php\?year=all\&area=all\&act=all\&cat=(.*?)" target="_self">(.*?)\s+(<i class="s-hot-icon"><\/i>\s+){0,1}<\/a>#';
-        $presentCatDom = '#<b class="on">(.*?)</b>#';
+        $dom = file_get_contents('https://www.360kan.com/dianying/list');
 
-        preg_match_all($movieNameDom, $dom, $movieName);
-        preg_match_all($movieScoreDom, $dom, $movieScore);
-        preg_match_all($movieYearDom, $dom, $movieYear);
-        preg_match_all($movieLinkDom, $dom, $movieLink);
-        preg_match_all($movieActorDom, $dom, $movieActor);
-        preg_match_all($movieImgDom, $dom, $movieImg);
+        $movieCatDom = '#<a class="js-tongjip js-chose-item" data-type="cat" data-item="(.*?)" href="javascript:;" target="_self">(.*?)\s#';
+
         preg_match_all($movieCatDom, $dom, $movieCat);
-        preg_match_all($presentCatDom, $dom, $presentCat);
-
-        self::setPresentCat($presentCat[1][0]);
-
-        $movies = array();
-        foreach ($movieName[1] as $key => $value) {
-            $buffer['link'] = base64_encode('https://www.360kan.com' . $movieLink[1][$key]);
-            $buffer['name'] = $movieName[1][$key];
-            $buffer['score'] = $movieScore[1][$key];
-            $buffer['img'] = $movieImg[1][$key];
-            $buffer['year'] = $movieYear[1][$key];
-            $buffer['actor'] = $movieActor[1][$key];
-
-            $movies[$key] = $buffer;
-        }
 
         $movieCatArr = array();
         foreach ($movieCat[1] as $key => $val) {
             $movieCatArr[$val] = $movieCat[2][$key];
         }
 
-        //为了页面美观，仅保留显示前20个分类
-        $movieCatArr = array_slice($movieCatArr, 0, 20, true);
-
         self::setMoviesCat($movieCatArr);
+        self::setPresentCat($presentCat[$cat]);
 
-        return $movies;
+        $dom = file_get_contents('https://www.360kan.com/dianying/listajax?rank=rankhot&cat=' . $cat . '&year=all&area=all&pageno=' . $page);
+
+        return json_decode($dom, true)['data']['list'];
     }
 
     public static function getMoviesCat()
@@ -97,37 +70,13 @@ class Spider
      */
     public static function getTvs($cat = 'all', $page = 1)
     {
-        $dom = file_get_contents('https://www.360kan.com/dianshi/list.php?year=all&area=all&act=all&cat=' . $cat . '&pageno=' . $page);
+        $presentCat = ['101' => '言情', '105' => '伦理', '109' => '喜剧', '108' => '悬疑', '111' => '都市', '100' => '偶像', '104' => '古装', '107' => '军事', '103' => '警匪', '112' => '历史', '102' => '宫廷', '116' => '励志', '117' => '神话', '118' => '谍战', '119' => '青春', '120' => '家庭', '115' => '动作', '114' => '情景', '106' => '武侠', '113' => '科幻', 'other' => '其他'];
 
-        $tvNameDom = '#<span class="s1">(.*?)</span>#';
-        $tvLinkDom = '#<a class="js-tongjic" href="(.*?)">#';
-        $tvActorDom = '# <p class="star">(.*?)</p>#';
-        $tvImgDom = '#<div class="cover g-playicon">
-                                <img src="(.*?)">#';
-        $tvUpdateDom = '#<span class="hint">(.*?)</span> #';
-        $tvCatDom = '#<a class="js-tongjip" href="https://www.360kan.com/dianshi/list.php\?year=all\&area\=all\&act\=all\&cat\=(.*?)" target="_self">(.*?)\s+(<i class="s-hot-icon"><\/i>\s+){0,1}<\/a>#';
-        $presentCatDom = '#<b class="on">(.*?)</b>#';
+        $dom = file_get_contents('https://www.360kan.com/dianshi/list');
 
-        preg_match_all($tvLinkDom, $dom, $tvLink);
-        preg_match_all($tvNameDom, $dom, $tvName);
-        preg_match_all($tvImgDom, $dom, $tvImg);
-        preg_match_all($tvActorDom, $dom, $tvActor);
-        preg_match_all($tvUpdateDom, $dom, $tvUpdate);
+        $tvCatDom = '#<a class="js-tongjip js-chose-item" data-type="cat" data-item="(.*?)" href="javascript:;" target="_self">(.*?)\s#';
+
         preg_match_all($tvCatDom, $dom, $tvCat);
-        preg_match_all($presentCatDom, $dom, $presentCat);
-
-        self::setPresentCat($presentCat[1][0]);
-
-        $teleplays = array();
-        foreach ($tvName[1] as $key => $value) {
-            $buffer['link'] = base64_encode('https://www.360kan.com' . $tvLink[1][$key]);
-            $buffer['name'] = $tvName[1][$key];
-            $buffer['img'] = $tvImg[1][$key];
-            $buffer['actor'] = $tvActor[1][$key];
-            $buffer['update'] = $tvUpdate[1][$key];
-
-            $teleplays[$key] = $buffer;
-        }
 
         $tvCatArr = array();
         foreach ($tvCat[1] as $key => $val) {
@@ -138,8 +87,11 @@ class Spider
         $tvCatArr = array_slice($tvCatArr, 0, 20, true);
 
         self::setTvCat($tvCatArr);
+        self::setPresentCat($presentCat[$cat]);
 
-        return $teleplays;
+        $dom = file_get_contents('https://www.360kan.com/dianshi/listajax?rank=rankhot&cat=' . $cat . '&year=all&area=all&pageno=' . $page);
+
+        return json_decode($dom, true)['data']['list'];
     }
 
     public static function getTvCat()
@@ -159,37 +111,13 @@ class Spider
      */
     public static function getVarieties($cat = 'all', $page = 1)
     {
-        $dom = file_get_contents('https://www.360kan.com/zongyi/list?act=all&area=all&cat=' . $cat . '&pageno=' . $page);
+        $presentCat = ['all' => '热门推荐', '101' => '选秀', '102' => '八卦', '103' => '访谈', '104' => '情感', '105' => '生活', '106' => '晚会', '107' => '搞笑', '108' => '音乐', '109' => '时尚', '110' => '游戏', '111' => '少儿', '112' => '体育', '113' => '纪实', '114' => '科教', '115' => '曲艺', '116' => '歌舞', '117' => '财经', '118' => '汽车', '119' => '播报', 'other' => ''];
 
-        $varietyNameDom = '#<span class="s1">(.*?)</span>#';
-        $varietyLinkDom = '#<a class="js-tongjic" href="(.*?)">#';
-        $varietyActorDom = '# <p class="star">(.*?)</p>#';
-        $varietyImgDom = '#<div class="cover g-playicon">
-                                <img src="(.*?)">#';
-        $varietyUpdateDom = '#<span class="hint">(.*?)</span> #';
-        $varietyCatDom = '#<a class="js-tongjip" href="https://www.360kan.com/zongyi/list\?act\=all\&area\=all\&cat\=(.*?)" target="_self">(.*?)\s+(<i class="s-hot-icon"><\/i>\s+){0,1}<\/a>#';
-        $presentCatDom = '#<b class="on">(.*?)</b>#';
+        $dom = file_get_contents('https://www.360kan.com/zongyi/list');
 
-        preg_match_all($varietyLinkDom, $dom, $varietyLink);
-        preg_match_all($varietyNameDom, $dom, $varietyName);
-        preg_match_all($varietyImgDom, $dom, $varietyImg);
-        preg_match_all($varietyActorDom, $dom, $varietyActor);
-        preg_match_all($varietyUpdateDom, $dom, $varietyUpdate);
+        $varietyCatDom = '#<a class="js-tongjip js-chose-item" data-type="cat" data-item="(.*?)" href="javascript:;" target="_self">(.*?)\s#';
+
         preg_match_all($varietyCatDom, $dom, $varietyCat);
-        preg_match_all($presentCatDom, $dom, $presentCat);
-
-        self::setPresentCat($presentCat[1][0]);
-
-        $teleplays = array();
-        foreach ($varietyName[1] as $key => $value) {
-            $buffer['link'] = base64_encode('https://www.360kan.com' . $varietyLink[1][$key]);
-            $buffer['name'] = $varietyName[1][$key];
-            $buffer['img'] = $varietyImg[1][$key];
-            $buffer['actor'] = $varietyActor[1][$key];
-            $buffer['update'] = $varietyUpdate[1][$key];
-
-            $teleplays[$key] = $buffer;
-        }
 
         $varietyCatArr = array();
         foreach ($varietyCat[1] as $key => $val) {
@@ -200,8 +128,11 @@ class Spider
         }
 
         self::setVarietyCat($varietyCatArr);
+        self::setPresentCat($presentCat[$cat]);
 
-        return $teleplays;
+        $dom = file_get_contents('https://www.360kan.com/zongyi/listajax?rank=rankhot&cat=' . $cat . '&year=all&area=all&pageno=' . $page);
+
+        return json_decode($dom, true)['data']['list'];
     }
 
     public static function getVarietyCat()

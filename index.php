@@ -69,26 +69,26 @@ $moviesCat = Spider::getMoviesCat();
 <div class="movie">
     <h3>
         <?php
-        if ($cat == 'all') {
-            echo '热门电影推荐';
-        } else {
-            echo '当前分类：' . Spider::getPresentCat();
-        }
+        echo '当前分类：' . Spider::getPresentCat();
         ?>
     </h3>
     <ul>
         <?php
         foreach ($movies as $movie) {
-            if (empty($movie['score'])) {
+            if (empty($movie['point'])) {
                 $score = '无';
             } else {
-                $score = $movie['score'];
+                $score = $movie['point'];
             }
+
+            // base64 encode
+            $link = base64_encode('https://www.360kan.com' . $movie['coverpage']);
+
             echo "<li>
-		    <a href='play.php?play={$movie['link']}' title='{$movie['actor']}' target='_blank'>
-                <img class='img' src='{$movie['img']}' alt='{$movie['name']}'>
+		    <a href='play.php?play={$link}' title='{$movie['desc']}' target='_blank'>
+                <img class='img' src='{$movie['cover']}' alt='{$movie['title']}'>
                 <span id='score'>{$score}</span>
-                <span id='year'>{$movie['year']} {$movie['name']}</span>
+                <span id='year'>{$movie['tag']} {$movie['title']}</span>
             </a>
         </li>";
         }
