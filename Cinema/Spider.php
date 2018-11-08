@@ -36,7 +36,7 @@ class Spider
 
         $dom = file_get_contents('https://www.360kan.com/dianying/list');
 
-        $movieCatDom = '#<a class="js-tongjip js-chose-item" data-type="cat" data-item="(.*?)" href="javascript:;" target="_self">(.*?)\s#';
+        $movieCatDom = '#<a class="js-tongjip" href=".+year=all&area=all&act=all&cat=(.*?)" target="_self">(.*?)\s#';
 
         preg_match_all($movieCatDom, $dom, $movieCat);
 
@@ -115,7 +115,7 @@ class Spider
 
         $dom = file_get_contents('https://www.360kan.com/zongyi/list');
 
-        $varietyCatDom = '#<a class="js-tongjip js-chose-item" data-type="cat" data-item="(.*?)" href="javascript:;" target="_self">(.*?)\s#';
+        $varietyCatDom = '#<a class="js-tongjip" href=".+act=all&area=all&cat=(.*?)" target="_self">(.*?)\s#';
 
         preg_match_all($varietyCatDom, $dom, $varietyCat);
 
