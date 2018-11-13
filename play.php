@@ -36,7 +36,7 @@ $dom = file_get_contents($player);
 
 $nameDom = '#<h1>(.*?)</h1>#';
 $introDom = '#style="display:none;"><span>简介 ：<\/span><p class="item-desc">(.*?)<a href#';
-$linkDom = '#<a data-daochu(.*?) href=(.*?) class="js-site-btn btn btn-play">#';
+$linkDom = '#<a data-daochu(.*?) href="(.*?)" class="js-site-btn btn btn-play">#';
 
 preg_match_all($nameDom, $dom, $name);
 preg_match_all($introDom, $dom, $intro);
@@ -170,7 +170,6 @@ if (empty($link[2][0])) {
                 }
                 echo '</ul><div style="clear: both;border-bottom: 1px #ddd solid;padding-top: 1pc"></div>';
             }
-
         } else {
             //如果有播放资源，则点击量加一
             Spider::clickRec('clickHistory', $name);
@@ -204,7 +203,9 @@ if (empty($link[2][0])) {
                 iBuffer = i;
             }
         }
+
         function vParser(url) {
+            console.log(url + videoLink.href);
             videoFrame.src = url + videoLink.href;
         }
 
@@ -217,7 +218,7 @@ if (empty($link[2][0])) {
             }
 
             videoLink.href = sourceUrl;
-            vParser('https://api.flvsp.com/?url=');    //默认使用解析器三解析
+            vParser('http://jx.598110.com/?url=');    //默认使用解析器一解析
         }
 
         function setCookie(cookieKey, cookieValue, expireDays) {

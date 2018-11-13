@@ -303,8 +303,8 @@ class Spider
     }
 
     public static $parser = "<div id=\"parsers\">
-                <button onclick=\"vParser('http://api.wlzhan.com/sudu/?url=')\">解析器一</button>
-                <button onclick=\"vParser('https://api.47ks.com/webcloud/?v=')\">解析器二</button>
+                <button onclick=\"vParser('http://jx.598110.com/?url=')\">解析器一</button>
+                <button onclick=\"vParser('http://api.wlzhan.com/sudu/?url=')\">解析器二</button>
                 <button onclick=\"vParser('https://api.flvsp.com/?url=')\">解析器三</button>
                 <button onclick=\"vParser('http://api.xfsub.com/index.php?url=')\">解析器四</button>
                 <button onclick=\"vParser('http://aikan-tv.com/?url=')\">解析器五</button>
