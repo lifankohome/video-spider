@@ -154,6 +154,12 @@ class Spider
         if (empty($kw)) {
             $dom = file_get_contents('http://www.360kan.com/dianying/list.php?year=all&area=all&act=all&cat=all&pageno=all');
         } else {
+            if (substr($kw, 0, 4) == 'http' || strpos($kw, ".com")) {
+                $url = base64_encode($kw);
+                echo $_SERVER['HTTP_HOST'];
+                header("location:parse.php?url=$url");
+            }
+
             $dom = file_get_contents('http://so.360kan.com/index.php?kw=' . $kw);
         }
 
@@ -303,12 +309,7 @@ class Spider
     }
 
     public static $parser = "<div id=\"parsers\">
-                <button onclick=\"vParser('http://jx.598110.com/?url=')\">解析器一</button>
-                <button onclick=\"vParser('http://api.wlzhan.com/sudu/?url=')\">解析器二</button>
-                <button onclick=\"vParser('https://api.flvsp.com/?url=')\">解析器三</button>
-                <button onclick=\"vParser('http://api.xfsub.com/index.php?url=')\">解析器四</button>
-                <button onclick=\"vParser('http://aikan-tv.com/?url=')\">解析器五</button>
-                <button onclick=\"vParser('http://j.zz22x.com/jx/?url=')\">解析器六</button>
-                <button onclick=\"vParser('http://jiexi.071811.cc/jx2.php?url=')\">解析器七</button>
+                <button onclick=\"vParser('https://jx.lache.me/cc/?url=')\">解析器一</button>
+                <button onclick=\"vParser('http://jx.598110.com/?url=')\">解析器二</button>
             </div>";
 }

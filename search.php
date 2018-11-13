@@ -33,7 +33,7 @@ if (empty($_GET['kw'])) {
     if (empty($search)) {
         $search = Spider::search('老男孩');    //默认搜索
 
-        //历史为空为初始化记录操作
+        //历史为空则初始化记录操作
         Spider::recordSearch('老男孩', json_encode($search));
     }
 } else {

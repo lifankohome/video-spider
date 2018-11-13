@@ -27,7 +27,7 @@ var searchText = document.getElementById('searchText');
 
 search.onkeyup = function () {
     if (search.value) {
-        searchText.innerHTML = "<a href='search.php?kw=" + search.value + "' style='background-color: #444;margin-right: -1pc'>搜索</a>";
+        searchText.innerHTML = "<a href='search.php?kw=" + search.value + "' style='background-color: #444;margin-right: -1pc;border-top-right-radius: 5px;border-bottom-right-radius: 5px'>搜索</a>";
     } else {
         searchText.innerText = '影视爬虫';
     }

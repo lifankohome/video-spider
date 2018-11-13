@@ -32,7 +32,7 @@ class Common
 	    <li><a href='hotSearch.php'>排行榜</a></li>
 	    <li><a href='about.html'>使用说明</a></li>
 	    <li style='float: right;background-color: #ddd;border-top-right-radius: 5px;border-bottom-right-radius: 5px'>
-	        <input type='text' id='searchBox' style='margin-left: 1pc;height: 30px;color: #F40;padding: 0 5px;outline: none' placeholder='$defaultSearch'>
+	        <input type='text' id='searchBox' style='margin-left: 1.5pc;height: 30px;color: #F40;padding: 0 5px;outline: none' placeholder='$defaultSearch / 粘贴视频地址'>
 	        <span id='searchText' style='display: inline-block;padding: 0 1pc;'>影视爬虫</span>
 	    </li>
 	</ul>";
