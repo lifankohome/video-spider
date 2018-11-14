@@ -1,3 +1,11 @@
+body {
+    width: 80%;
+    min-width: 995px;
+    margin: 0 auto;
+    font-family: "Microsoft JhengHei UI";
+    padding: 0 1.5pc;
+}
+
 header {
     height: 70px;
     background-color: #5FB2D7;

@@ -8,7 +8,7 @@ var img = document.getElementsByClassName('img');
 autoSize(img);  //初始化
 
 window.onresize = function () { //监听
-    autoSize(img)
+    autoSize(img);
 };
 
 function autoSize(img) {
@@ -18,6 +18,16 @@ function autoSize(img) {
         for (var i = 0; i < img.length; i++) {  //根据比例统一高度
             img[i].style.height = height + 'px'
         }
+    }
+
+    //自动调整搜索框大小
+    var win_width = document.body.clientWidth - 1050;
+
+    if (win_width) {
+        if (win_width > 125) {
+            win_width = 125;
+        }
+        document.getElementById("searchBox").style.width = win_width + 175 + 'px';
     }
 }
 

@@ -1,10 +1,3 @@
-body {
-    width: 80%;
-    min-width: 960px;
-    margin: 0 auto;
-    font-family: "Microsoft JhengHei UI"
-}
-
 .cat ul {
     list-style: none;
     padding: 0;
