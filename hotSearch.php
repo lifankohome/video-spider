@@ -144,6 +144,32 @@ if (empty($_GET['max'])) { //显示的关键词数量，默认最多显示999个
         }
     };
 
+    function autoSize(img) {
+        //仅当有资源时才重新调整大小
+        if (img.length) {
+            var height = (img[0].width * 1.4).toFixed(0);   //取宽度
+            for (var i = 0; i < img.length; i++) {  //根据比例统一高度
+                img[i].style.height = height + 'px'
+            }
+        }
+
+        //自动调整搜索框大小
+        var win_width = document.body.clientWidth - 1050;
+
+        if (win_width) {
+            if (win_width > 125) {
+                win_width = 125;
+            }
+            document.getElementById("searchBox").style.width = win_width + 175 + 'px';
+        }
+    }
+
+    autoSize([]);  //初始化
+
+    window.onresize = function () { //监听
+        autoSize([]);
+    };
+
     //百度统计
     var _hmt = _hmt || [];
     (function () {

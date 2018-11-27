@@ -57,7 +57,6 @@ if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {   //windows系统
 
         iframe {
             width: 100%;
-            min-width: 1090px;
             border: none;
             background-color: #eee;
             padding: 1pc;
@@ -123,6 +122,32 @@ if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {   //windows系统
                 tip("正在搜索最热视频", "12%", 2000, "1", true);
             }
         }
+    };
+
+    function autoSize(img) {
+        //仅当有资源时才重新调整大小
+        if (img.length) {
+            var height = (img[0].width * 1.4).toFixed(0);   //取宽度
+            for (var i = 0; i < img.length; i++) {  //根据比例统一高度
+                img[i].style.height = height + 'px'
+            }
+        }
+
+        //自动调整搜索框大小
+        var win_width = document.body.clientWidth - 1050;
+
+        if (win_width) {
+            if (win_width > 125) {
+                win_width = 125;
+            }
+            document.getElementById("searchBox").style.width = win_width + 175 + 'px';
+        }
+    }
+
+    autoSize([]);  //初始化
+
+    window.onresize = function () { //监听
+        autoSize([]);
     };
 
     //百度统计
