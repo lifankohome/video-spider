@@ -218,7 +218,7 @@ if (empty($link[2][0])) {
             }
 
             videoLink.href = sourceUrl;
-            vParser('https://jx.lache.me/cc/?url=');    //默认使用解析器一解析
+            vParser('http://api.bbbbbb.me/jx/?url=');    //默认使用解析器一解析
         }
 
         function setCookie(cookieKey, cookieValue, expireDays) {
