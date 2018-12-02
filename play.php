@@ -154,10 +154,12 @@ if (empty($link[2][0])) {
     <h3><?php
         if ($multiSets) {
             if (empty($sets)) {
-                echo '《' . $name . '》—— 暂无播放资源，请加QQ群反馈：552759097';
+                echo '《' . $name . '》—— 暂无播放资源，请稍后再来~';
             } else {
-                //如果有播放资源，则点击量加一
-                Spider::clickRec('clickHistory', $name);
+                //如果有播放资源，则点击量加一，因为搜索的时候已经记录了一次，所以不在点击量中再次记录关键词
+                if (!(isset($_GET['s']) && $_GET['s'] == 'search')) {
+                    Spider::clickRec('clickHistory', $name);
+                }
 
                 echo '《' . $name . '》—— 总' . count($sets[3]) . '集<ul>';
                 foreach ($sets[3] as $key => $val) {
@@ -171,8 +173,10 @@ if (empty($link[2][0])) {
                 echo '</ul><div style="clear: both;border-bottom: 1px #ddd solid;padding-top: 1pc"></div>';
             }
         } else {
-            //如果有播放资源，则点击量加一
-            Spider::clickRec('clickHistory', $name);
+            //如果有播放资源，则点击量加一，因为搜索的时候已经记录了一次，所以不在点击量中再次记录关键词
+            if (!(isset($_GET['s']) && $_GET['s'] == 'search')) {
+                Spider::clickRec('clickHistory', $name);
+            }
 
             echo $name . "——<a class='videoA' href='$link' target='ajax'>立即播放</a>";
         }

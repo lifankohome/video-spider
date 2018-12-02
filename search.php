@@ -79,7 +79,7 @@ if (empty($_GET['kw'])) {
         <?php
         foreach ($search as $res) {
             echo "<li>
-		    <a href='play.php?play={$res['link']}' title='{$res['name']}' target='_blank'>
+		    <a href='play.php?play={$res['link']}&s=search' title='{$res['name']}' target='_blank'>
                 <img class='img' src='{$res['img']}' alt='{$res['name']}'>
                 <span id='type'>{$res['type']}</span>
                 <span id='name'>{$res['name']}</span>
