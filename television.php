@@ -75,14 +75,14 @@ if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {   //windows系统
 <div class="tv">
     <h3>电视机——<a onclick="playTv()" href="javascript:void(0)">立即播放</a></h3>
     <div class="player">
-        <iframe onload="iFrameLoad()" id="tv" src="loading.html" scrolling="no"></iframe>
+        <iframe onload="iFrameResize()" id="tv" src="loading.html" scrolling="no"></iframe>
         <script type="text/javascript">
             var videoFrame = document.getElementById('tv');  //全局使用
-            function iFrameLoad() {
-                videoFrame.height = videoFrame.contentWindow.document.body.scrollHeight;
+            function iFrameResize() {
+                videoFrame.height = parseInt(videoFrame.scrollWidth / 16 * 8);
             }
 
-            function playTv(){
+            function playTv() {
                 document.getElementById("tv").src = "http://tv.bingdou.net/live.html";
             }
         </script>
@@ -148,11 +148,13 @@ if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {   //windows系统
 
     window.onresize = function () { //监听
         autoSize([]);
+        //Fixed player size: 16-8
+        iFrameResize();
     };
 
     //百度统计
     var _hmt = _hmt || [];
-    (function() {
+    (function () {
         var hm = document.createElement("script");
         hm.src = "https://hm.baidu.com/hm.js?a258eee7e1b38615e85fde12692f95cc";
         var s = document.getElementsByTagName("script")[0];

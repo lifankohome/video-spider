@@ -127,12 +127,17 @@ if (!empty($_GET['url'])) {
         echo "VIP视频解析——<a class='videoA' onclick='playUrl(\"$url\")' href='$url' target='ajax'>立即播放</a>";
         ?></h3>
     <div class="player">
-        <iframe onload="iFrameLoad()" id="video" src="loading.html"></iframe>
+        <iframe onload="iFrameResize()" id="video" src="loading.html"></iframe>
         <script type="text/javascript">
             var videoFrame = document.getElementById('video');  //全局使用
-            function iFrameLoad() {
-                videoFrame.height = videoFrame.contentWindow.document.body.scrollHeight;
+            function iFrameResize() {
+                videoFrame.height = parseInt(videoFrame.scrollWidth / 16 * 9);
             }
+
+            window.onresize = function () { //监听
+                //Fixed player size: 16-9
+                iFrameResize();
+            };
         </script>
     </div>
     <?php echo Spider::$parser ?>
