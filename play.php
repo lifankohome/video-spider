@@ -182,13 +182,13 @@ if (empty($link[2][0])) {
         }
         ?></h3>
     <div class="player">
-        <iframe onload="iFrameLoad()" id="video" src="loading.html"></iframe>
+        <iframe onload="iFrameResize()" id="video" src="loading.html"></iframe>
         <a style="display: none" id="videoLink" href=""></a>
         <script type="text/javascript">
             var videoFrame = document.getElementById('video');  //全局使用
             var videoLink = document.getElementById('videoLink');
-            function iFrameLoad() {
-                videoFrame.height = videoFrame.contentWindow.document.body.scrollHeight;
+            function iFrameResize() {
+                videoFrame.height = parseInt(videoFrame.scrollWidth / 16 * 9);
             }
         </script>
     </div>
@@ -302,6 +302,8 @@ if (empty($link[2][0])) {
 
     window.onresize = function () { //监听
         autoSize([]);
+        //Fixed player size: 16-9
+        iFrameResize();
     };
 
     //百度统计
