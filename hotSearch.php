@@ -52,7 +52,7 @@ if (empty($_GET['max'])) { //显示的关键词数量，默认最多显示999个
         }
 
         h3 {
-            border-bottom: 1px #eee solid;
+            border-bottom: 1px #555 solid;
             line-height: 2pc;
             margin-bottom: 0;
         }
@@ -68,7 +68,7 @@ if (empty($_GET['max'])) { //显示的关键词数量，默认最多显示999个
         .list a {
             display: inline-block;
             padding: 0.5pc 1pc;
-            color: #9c2900;
+            color: #252525;
             text-decoration: none;
         }
 
@@ -89,24 +89,33 @@ if (empty($_GET['max'])) { //显示的关键词数量，默认最多显示999个
     <img src="img/logo.png">
     <?php echo Common::getHeader() ?>
 </header>
-<h3>搜索排行榜：</h3>
-<div class="list">
-    <ul style="list-style: decimal">
-        <?php
-        echo Spider::getHistory($max);
-        ?>
-    </ul>
+<div style="margin: 2pc 0;overflow: hidden">
+    <div style="background-image: linear-gradient( 135deg, #ABDCFF 10%, #0396FF 100%);float: left;width: 50%;border-radius: 5px 0 0 5px">
+        <div style="padding: 0 1pc 1pc 1pc;overflow: hidden">
+            <h3>搜索排行榜：</h3>
+            <div class="list">
+                <ul style="list-style: decimal">
+                    <?php
+                    echo Spider::getHistory($max);
+                    ?>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div style="background-image: linear-gradient( 135deg, #FEB692 10%, #EA5455 100%);float: left;width: 50%;border-radius: 0 5px 5px 0">
+        <div style="padding: 0 1pc 1pc 1pc;overflow: hidden">
+            <h3>点击量排行榜：</h3>
+            <div class="list">
+                <ul style="list-style: decimal">
+                    <?php
+                    echo Spider::getHistory($max, 'clickHistory');
+                    ?>
+                </ul>
+            </div>
+        </div>
+    </div>
 </div>
-<div style="clear: both"></div>
-<h3>点击量排行榜：</h3>
-<div class="list">
-    <ul style="list-style: decimal">
-        <?php
-        echo Spider::getHistory($max, 'clickHistory');
-        ?>
-    </ul>
-</div>
-<div style="clear: both"></div>
+<div style="clear: both;"></div>
 <footer>
     <?php
     echo Common::$QQGroup;
