@@ -89,7 +89,7 @@ if (empty($link[2][0])) {
     <meta name="description" content="<?php echo $name; ?>百度云 <?php echo $name; ?>在线观看 <?php echo $name; ?>下载">
     <title><?php echo $name ?> - 影视爬虫</title>
     <?php
-    echo Common::SEO;
+    echo Common::SEO($name);
     ?>
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <style>

@@ -44,7 +44,7 @@ $varietyCat = Spider::getVarietyCat();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>综艺 - 影视爬虫</title>
     <?php
-    echo Common::SEO;
+    echo Common::SEO();
     ?>
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link type="text/css" rel="stylesheet" href="css/variety.css">
@@ -79,7 +79,7 @@ $varietyCat = Spider::getVarietyCat();
 
             echo "<li>
 		    <a href='play.php?play={$link}' title='{$variety['desc']}' target='_blank'>
-                <img class='img' src='{$variety['cover']}' alt='{$variety['title']}'>
+                <img class='img' src='{$variety['cover']}' onerror=\"javascript:this.src='img/noCover.jpg'\" alt='{$variety['title']}'>
                 <span id='update'>更新至:{$variety['tag']}</span>
                 <span id='name'>{$variety['title']}</span>
             </a>

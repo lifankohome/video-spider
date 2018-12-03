@@ -54,7 +54,7 @@ if (empty($_GET['kw'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>搜索 - 影视爬虫</title>
     <?php
-    echo Common::SEO;
+    echo Common::SEO($kw);
     ?>
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link type="text/css" rel="stylesheet" href="css/search.css">
@@ -80,7 +80,7 @@ if (empty($_GET['kw'])) {
         foreach ($search as $res) {
             echo "<li>
 		    <a href='play.php?play={$res['link']}&s=search' title='{$res['name']}' target='_blank'>
-                <img class='img' src='{$res['img']}' alt='{$res['name']}'>
+                <img class='img' src='{$res['img']}' onerror=\"javascript:this.src='img/noCover.jpg'\" alt='{$res['name']}'>
                 <span id='type'>{$res['type']}</span>
                 <span id='name'>{$res['name']}</span>
             </a></li>";

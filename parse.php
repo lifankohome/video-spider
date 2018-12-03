@@ -42,7 +42,7 @@ if (!empty($_GET['url'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VIP视频解析 - 影视爬虫</title>
     <?php
-    echo Common::SEO;
+    echo Common::SEO();
     ?>
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <style>

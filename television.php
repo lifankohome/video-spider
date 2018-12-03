@@ -34,7 +34,7 @@ if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {   //windows系统
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>电视机 - 影视爬虫</title>
     <?php
-    echo Common::SEO;
+    echo Common::SEO();
     ?>
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <style>

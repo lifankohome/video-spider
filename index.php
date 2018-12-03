@@ -45,7 +45,7 @@ $moviesCat = Spider::getMoviesCat();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>电影 - 影视爬虫</title>
     <?php
-    echo Common::SEO;
+    echo Common::SEO();
     ?>
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link type="text/css" rel="stylesheet" href="css/index.css">
@@ -86,7 +86,7 @@ $moviesCat = Spider::getMoviesCat();
 
             echo "<li>
 		    <a href='play.php?play={$link}' title='{$movie['desc']}' target='_blank'>
-                <img class='img' src='{$movie['cover']}' alt='{$movie['title']}'>
+                <img class='img' src='{$movie['cover']}' onerror=\"javascript:this.src='img/noCover.jpg'\" alt='{$movie['title']}'>
                 <span id='score'>{$score}</span>
                 <span id='year'>{$movie['tag']} {$movie['title']}</span>
             </a>

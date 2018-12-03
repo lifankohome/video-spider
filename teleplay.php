@@ -44,7 +44,7 @@ $tvCat = Spider::getTvCat();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>电视剧 - 影视爬虫</title>
     <?php
-    echo Common::SEO;
+    echo Common::SEO();
     ?>
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link type="text/css" rel="stylesheet" href="css/teleplay.css">
@@ -79,7 +79,7 @@ $tvCat = Spider::getTvCat();
 
             echo "<li>
 		    <a href='play.php?play={$link}' title='{$teleplay['desc']}' target='_blank'>
-                <img class='img' src='{$teleplay['cover']}' alt='{$teleplay['title']}'>
+                <img class='img' src='{$teleplay['cover']}' onerror=\"javascript:this.src='img/noCover.jpg'\" alt='{$teleplay['title']}'>
                 <span id='update'>{$teleplay['tag']}</span>
                 <span id='name'>{$teleplay['title']}</span>
             </a>

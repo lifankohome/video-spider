@@ -40,7 +40,7 @@ if (empty($_GET['max'])) { //显示的关键词数量，默认最多显示999个
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>影视排行榜 - 影视爬虫</title>
     <?php
-    echo Common::SEO;
+    echo Common::SEO();
     ?>
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <style>
@@ -89,20 +89,20 @@ if (empty($_GET['max'])) { //显示的关键词数量，默认最多显示999个
     <img src="img/logo.png">
     <?php echo Common::getHeader() ?>
 </header>
-<h3>点击量排行榜：</h3>
-<div class="list">
-    <ul style="list-style: decimal">
-        <?php
-        echo Spider::getHistory($max, 'clickHistory');
-        ?>
-    </ul>
-</div>
-<div style="clear: both"></div>
 <h3>搜索排行榜：</h3>
 <div class="list">
     <ul style="list-style: decimal">
         <?php
         echo Spider::getHistory($max);
+        ?>
+    </ul>
+</div>
+<div style="clear: both"></div>
+<h3>点击量排行榜：</h3>
+<div class="list">
+    <ul style="list-style: decimal">
+        <?php
+        echo Spider::getHistory($max, 'clickHistory');
         ?>
     </ul>
 </div>
