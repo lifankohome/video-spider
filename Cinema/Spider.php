@@ -11,8 +11,8 @@ namespace Cinema;
 class Spider
 {
     private static $moviesCat = array();
-    private static $tvCat = array();
     private static $varietyCat = array();
+    private static $teleplayCat = array();
     private static $presentCat = '';
 
     public static function getPresentCat()
@@ -68,25 +68,25 @@ class Spider
      * @param int $page
      * @return array
      */
-    public static function getTvs($cat = 'all', $page = 1)
+    public static function getTeleplays($cat = 'all', $page = 1)
     {
         $presentCat = ['all' => '热门推荐', '101' => '言情', '105' => '伦理', '109' => '喜剧', '108' => '悬疑', '111' => '都市', '100' => '偶像', '104' => '古装', '107' => '军事', '103' => '警匪', '112' => '历史', '102' => '宫廷', '116' => '励志', '117' => '神话', '118' => '谍战', '119' => '青春', '120' => '家庭', '115' => '动作', '114' => '情景', '106' => '武侠', '113' => '科幻', 'other' => '其他'];
 
         $dom = file_get_contents('https://www.360kan.com/dianshi/list');
 
-        $tvCatDom = '#<a class="js-tongjip js-chose-item" data-type="cat" data-item="(.*?)" href="javascript:;" target="_self">(.*?)\s#';
+        $teleplayCatDom = '#<a class="js-tongjip" href=".+year=all&area=all&act=all&cat=(.*?)" target="_self">(.*?)\s#';
 
-        preg_match_all($tvCatDom, $dom, $tvCat);
+        preg_match_all($teleplayCatDom, $dom, $teleplayCat);
 
-        $tvCatArr = array();
-        foreach ($tvCat[1] as $key => $val) {
-            $tvCatArr[$val] = $tvCat[2][$key];
+        $teleplayCatArr = array();
+        foreach ($teleplayCat[1] as $key => $val) {
+            $teleplayCatArr[$val] = $teleplayCat[2][$key];
         }
 
         //为了页面美观，仅保留显示前20个分类
-        $tvCatArr = array_slice($tvCatArr, 0, 20, true);
+        $teleplayCatArr = array_slice($teleplayCatArr, 0, 20, true);
 
-        self::setTvCat($tvCatArr);
+        self::setTeleplayCat($teleplayCatArr);
         self::setPresentCat($presentCat[$cat]);
 
         $dom = file_get_contents('https://www.360kan.com/dianshi/listajax?rank=rankhot&cat=' . $cat . '&year=all&area=all&pageno=' . $page);
@@ -94,14 +94,14 @@ class Spider
         return json_decode($dom, true)['data']['list'];
     }
 
-    public static function getTvCat()
+    public static function getTeleplayCat()
     {
-        return self::$tvCat;
+        return self::$teleplayCat;
     }
 
-    private static function setTvCat($tvCat)
+    private static function setTeleplayCat($teleplayCat)
     {
-        self::$tvCat = $tvCat;
+        self::$teleplayCat = $teleplayCat;
     }
 
     /**

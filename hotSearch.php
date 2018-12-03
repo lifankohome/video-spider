@@ -52,14 +52,15 @@ if (empty($_GET['max'])) { //显示的关键词数量，默认最多显示999个
         }
 
         h3 {
-            border-bottom: 1px #555 solid;
+            color: whitesmoke;
+            border-bottom: 1px whitesmoke solid;
             line-height: 2pc;
             margin-bottom: 0;
         }
 
         .list li {
             float: left;
-            background-color: #bbb;
+            background-color: #555;
             margin: .5pc 2pc .5pc 0.5pc;
             border-radius: 3px;
             transition: all 0.3s 0s;
@@ -68,17 +69,17 @@ if (empty($_GET['max'])) { //显示的关键词数量，默认最多显示999个
         .list a {
             display: inline-block;
             padding: 0.5pc 1pc;
-            color: #252525;
+            color: whitesmoke;
             text-decoration: none;
         }
 
         .list li:hover {
-            background-color: #555;
+            background-image: linear-gradient( 135deg, #81FFEF 10%, #F067B4 100%);
         }
 
         .list li:hover a {
             text-decoration: underline;
-            color: whitesmoke;
+            color: #000;
         }
 
     </style>
@@ -90,7 +91,7 @@ if (empty($_GET['max'])) { //显示的关键词数量，默认最多显示999个
     <?php echo Common::getHeader() ?>
 </header>
 <div style="margin: 2pc 0;overflow: hidden">
-    <div style="background-image: linear-gradient( 135deg, #ABDCFF 10%, #0396FF 100%);float: left;width: 50%;border-radius: 5px 0 0 5px">
+    <div style="background-image: linear-gradient( 35deg, #ABDCFF 10%, #0396FF 100%);float: left;width: 50%;border-radius: 5px 0 0 5px">
         <div style="padding: 0 1pc 1pc 1pc;overflow: hidden">
             <h3>搜索排行榜：</h3>
             <div class="list">
@@ -102,7 +103,7 @@ if (empty($_GET['max'])) { //显示的关键词数量，默认最多显示999个
             </div>
         </div>
     </div>
-    <div style="background-image: linear-gradient( 135deg, #FEB692 10%, #EA5455 100%);float: left;width: 50%;border-radius: 0 5px 5px 0">
+    <div style="background-image: linear-gradient( 35deg, #FEB692 10%, #EA5455 100%);float: left;width: 50%;border-radius: 0 5px 5px 0">
         <div style="padding: 0 1pc 1pc 1pc;overflow: hidden">
             <h3>点击量排行榜：</h3>
             <div class="list">

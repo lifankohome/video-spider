@@ -39,7 +39,7 @@ header ul li a {
 }
 
 header ul li:hover {
-    background-color: #ff4645;
+    background-image: linear-gradient( 135deg, #F6D242 10%, #FF52E5 100%);
 }
 
 header ul li:hover a {

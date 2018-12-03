@@ -32,8 +32,8 @@ if (empty($_GET['cat'])) {
     $cat = $_GET['cat'];
 }
 
-$teleplays = Spider::getTvs($cat);
-$tvCat = Spider::getTvCat();
+$teleplays = Spider::getTeleplays($cat);
+$teleplayCat = Spider::getTeleplayCat();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -58,7 +58,7 @@ $tvCat = Spider::getTvCat();
 <div class="cat">
     <ul>
         <?php
-        foreach ($tvCat as $key => $val) {
+        foreach ($teleplayCat as $key => $val) {
             echo "<li><a href='teleplay.php?cat={$key}'>$val</a></li>";
         }
         ?>

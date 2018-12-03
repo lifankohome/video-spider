@@ -28,7 +28,7 @@
 }
 
 .cat ul li:hover {
-    background-color: #ff4645;
+    background-image: linear-gradient( 135deg, #F6D242 10%, #FF52E5 100%);
 }
 
 .cat ul li:hover a {
