@@ -27,7 +27,7 @@ if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {   //windows系统
 }
 
 if (!empty($_GET['url'])) {
-    $url = base64_decode($_GET['url']);
+    $url = $_GET['url'];
 } else {
     die("<h2>无效的播放链接，将自动返回主页...<script>setTimeout(function() {window.location='index.php';},1500)</script></h2>");
 }
@@ -149,7 +149,7 @@ if (!empty($_GET['url'])) {
 
         function playUrl(url) {
             videoLink = url;
-            vParser('https://jx.lache.me/cc/?url=');
+            vParser('http://api.bbbbbb.me/jx/?url=');
         }
 
         function vParser(url) {
@@ -216,6 +216,32 @@ if (!empty($_GET['url'])) {
                 tip("正在搜索最热视频", "12%", 2000, "1", true);
             }
         }
+    };
+
+    function autoSize(img) {
+        //仅当有资源时才重新调整大小
+        if (img.length) {
+            var height = (img[0].width * 1.4).toFixed(0);   //取宽度
+            for (var i = 0; i < img.length; i++) {  //根据比例统一高度
+                img[i].style.height = height + 'px'
+            }
+        }
+
+        //自动调整搜索框大小
+        var win_width = document.body.clientWidth - 1050;
+
+        if (win_width) {
+            if (win_width > 125) {
+                win_width = 125;
+            }
+            document.getElementById("searchBox").style.width = win_width + 175 + 'px';
+        }
+    }
+
+    autoSize([]);  //初始化
+
+    window.onresize = function () { //监听
+        autoSize([]);
     };
 
     //百度统计

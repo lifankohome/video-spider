@@ -155,9 +155,7 @@ class Spider
             $dom = file_get_contents('http://www.360kan.com/dianying/list.php?year=all&area=all&act=all&cat=all&pageno=all');
         } else {
             if (substr($kw, 0, 4) == 'http' || strpos($kw, ".com")) {
-                $url = base64_encode($kw);
-                echo $_SERVER['HTTP_HOST'];
-                header("location:parse.php?url=$url");
+                header("location:parse.php?url=$kw");
             }
 
             $dom = file_get_contents('http://so.360kan.com/index.php?kw=' . $kw);

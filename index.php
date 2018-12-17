@@ -81,11 +81,8 @@ $moviesCat = Spider::getMoviesCat();
                 $score = $movie['point'];
             }
 
-            // base64 encode
-            $link = base64_encode('https://www.360kan.com' . $movie['coverpage']);
-
             echo "<li>
-		    <a href='play.php?play={$link}' title='{$movie['desc']}' target='_blank'>
+		    <a href='play.php?play={$movie['coverpage']}' title='{$movie['desc']}' target='_blank'>
                 <img class='img' src='{$movie['cover']}' onerror=\"javascript:this.src='img/noCover.jpg'\" alt='{$movie['title']}'>
                 <span id='score'>{$score}</span>
                 <span id='year'>{$movie['tag']} {$movie['title']}</span>

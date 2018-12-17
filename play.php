@@ -27,7 +27,7 @@ if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {   //windows系统
 }
 
 if (!empty($_GET['play'])) {
-    $player = base64_decode($_GET['play']);
+    $player = 'https://www.360kan.com' . $_GET['play'];
 } else {
     die("<h2>无效的播放链接，将自动返回主页...<script>setTimeout(function() {window.location='index.php';},1500)</script></h2>");
 }

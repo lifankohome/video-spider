@@ -74,11 +74,8 @@ $teleplayCat = Spider::getTeleplayCat();
     <ul>
         <?php
         foreach ($teleplays as $teleplay) {
-            // base64 encode
-            $link = base64_encode('https://www.360kan.com' . $teleplay['coverpage']);
-
             echo "<li>
-		    <a href='play.php?play={$link}' title='{$teleplay['desc']}' target='_blank'>
+		    <a href='play.php?play={$teleplay['coverpage']}' title='{$teleplay['desc']}' target='_blank'>
                 <img class='img' src='{$teleplay['cover']}' onerror=\"javascript:this.src='img/noCover.jpg'\" alt='{$teleplay['title']}'>
                 <span id='update'>{$teleplay['tag']}</span>
                 <span id='name'>{$teleplay['title']}</span>
