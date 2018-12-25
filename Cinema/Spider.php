@@ -187,7 +187,7 @@ class Spider
                 $buffer['type'] = '无';
             }
 
-            $buffer['link'] = base64_encode($link[1][$key]);
+            $buffer['link'] = substr($link[1][$key], 21);
 
             $search[$key] = $buffer;
         }
