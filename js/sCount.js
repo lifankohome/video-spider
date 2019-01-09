@@ -40,6 +40,7 @@ var client = mqtt.connect('ws://ali.lifanko.cn:8083/mqtt', {username: 'hpu-iot',
 client.publish(sub, "sCount-pre-video");
 
 // 每分钟更新一次在线信息
+client.publish(sub, "sCount-add-video");
 setInterval(function () {
     client.publish(sub, "sCount-add-video");
 }, 60000);
