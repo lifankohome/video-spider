@@ -46,5 +46,5 @@ setInterval(function () {
 
 client.subscribe('/sCount/inform/video');
 client.on("message", function (topic, payload) {
-    document.getElementById('sCount').innerText = '影视爬虫使用cookie技术保存您的观看记录，如果24h内没有访问本网站观看记录会自动删除！【' + payload.toString().substring(14) + '人在线】';
+    document.getElementById('sCount').innerText = '影视爬虫使用cookie技术保存您的观看记录，如果24h内没有访问本网站观看记录会自动删除！【' + (parseInt(payload.toString().substring(14)) + 1).toString() + '人在线】';
 });
