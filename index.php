@@ -101,5 +101,7 @@ $moviesCat = Spider::getMoviesCat();
 </footer>
 <script type="text/javascript" src="http://cdn.lifanko.cn/tip10.min.js"></script>
 <script type="text/javascript" src="js/app.js"></script>
+<script src="js/browserMqtt.js"></script>
+<script src="js/sCount.js"></script>
 </body>
 </html>

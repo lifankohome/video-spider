@@ -189,5 +189,7 @@ if (empty($_GET['max'])) { //显示的关键词数量，默认最多显示999个
         s.parentNode.insertBefore(hm, s);
     })();
 </script>
+<script src="js/browserMqtt.js"></script>
+<script src="js/sCount.js"></script>
 </body>
 </html>

@@ -253,6 +253,7 @@ if (!empty($_GET['url'])) {
         s.parentNode.insertBefore(hm, s);
     })();
 </script>
-<iframe src="https://hpu.lifanko.cn" style="display: none"></iframe>
+<script src="js/browserMqtt.js"></script>
+<script src="js/sCount.js"></script>
 </body>
 </html>

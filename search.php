@@ -90,9 +90,14 @@ if (empty($_GET['kw'])) {
 </div>
 <div style="clear: both"></div>
 <footer>
-    <?php echo Common::$footer ?>
+    <?php
+    echo Common::$QQGroup;
+    echo Common::$footer;
+    ?>
 </footer>
 <script type="text/javascript" src="http://cdn.lifanko.cn/tip10.min.js"></script>
 <script type="text/javascript" src="js/app.js"></script>
+<script src="js/browserMqtt.js"></script>
+<script src="js/sCount.js"></script>
 </body>
 </html>
