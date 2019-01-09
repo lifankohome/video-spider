@@ -27,7 +27,12 @@ if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {   //windows系统
 }
 
 if (!empty($_GET['play'])) {
-    $player = 'https://www.360kan.com' . $_GET['play'];
+    $play = $_GET['play'];
+    if (substr($play, 0, 5) == 'aHR0c') {
+        $player = base64_decode($play);
+    } else {
+        $player = 'https://www.360kan.com' . $play;
+    }
 } else {
     die("<h2>无效的播放链接，将自动返回主页...<script>setTimeout(function() {window.location='index.php';},1500)</script></h2>");
 }
@@ -209,7 +214,48 @@ if (empty($link[2][0])) {
         }
 
         function vParser(url) {
-            console.log(url + videoLink.href);
+            var parser;
+            // 使用默认解析器解释时从cookie读取解析源地址，若为空则使用1号解析器；
+            // 若指定了解析器则使用对应解析器解析，并更新cookie
+            if (url === 'default') {
+                parser = getCookie('parser');
+                switch (parser) {
+                    case '1':
+                        parser = 1;
+                        url = 'http://api.bbbbbb.me/jx/?url=';
+                        break;
+                    case '2':
+                        parser = 2;
+                        url = 'http://jx.598110.com/?url=';
+                        break;
+                    case '3':
+                        parser = 3;
+                        url = 'https://jx.lache.me/cc/?url=';
+                        break;
+                    default:
+                        parser = 1;
+                        url = 'http://api.bbbbbb.me/jx/?url=';
+                        break;
+                }
+            } else {
+                switch (url.substring(0, 15)) {
+                    case 'http://api.bbbb':
+                        parser = 1;
+                        break;
+                    case 'http://jx.59811':
+                        parser = 2;
+                        break;
+                    case 'https://jx.lach':
+                        parser = 3;
+                        break;
+                    default:
+                        parser = 1;
+                        break;
+                }
+                setCookie('parser', parser, 1); //保存用户当前使用的解析器
+            }
+
+            console.log('parser: ' + parser + ' url: ' + url + videoLink.href);
             videoFrame.src = url + videoLink.href;
         }
 
@@ -222,7 +268,7 @@ if (empty($link[2][0])) {
             }
 
             videoLink.href = sourceUrl;
-            vParser('http://api.bbbbbb.me/jx/?url=');    //默认使用解析器一解析
+            vParser('default');    //使用默认解析器解析
         }
 
         function setCookie(cookieKey, cookieValue, expireDays) {
