@@ -35,6 +35,10 @@ if (empty($_GET['kw'])) {
 
         //历史为空则初始化记录操作
         Spider::recordSearch('老男孩', json_encode($search));
+
+        $kw = '老男孩';
+    } else {
+        $kw = '最新影视';
     }
 } else {
     $kw = $_GET['kw'];
@@ -58,7 +62,6 @@ if (empty($_GET['kw'])) {
     ?>
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link type="text/css" rel="stylesheet" href="css/search.css">
-    <link type="text/css" rel="stylesheet" href="css/header.css">
 </head>
 <body>
 <header>

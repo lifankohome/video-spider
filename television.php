@@ -37,34 +37,7 @@ if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {   //windows系统
     echo Common::SEO();
     ?>
     <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <style>
-        body {
-            width: 80%;
-            /* 10/8倍播放器宽度*/
-            min-width: 1362px;
-            margin: 0 auto;
-            font-family: "Microsoft JhengHei UI"
-        }
-
-        .tv h3 {
-            border-bottom: 1px #eee solid;
-        }
-
-        .player {
-            width: 90%;
-            margin: 1pc auto;
-        }
-
-        iframe {
-            width: 100%;
-            border: none;
-            background-color: #eee;
-            padding: 1pc;
-            border-radius: 5px;
-            margin-left: -1pc;
-        }
-    </style>
-    <link type="text/css" rel="stylesheet" href="css/header.css">
+    <link type="text/css" rel="stylesheet" href="css/television.css">
 </head>
 <body>
 <div id="tip"></div>

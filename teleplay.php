@@ -47,8 +47,7 @@ $teleplayCat = Spider::getTeleplayCat();
     echo Common::SEO();
     ?>
     <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <link type="text/css" rel="stylesheet" href="css/teleplay.css">
-    <link type="text/css" rel="stylesheet" href="css/header.css">
+    <link type="text/css" rel="stylesheet" href="css/common.css">
 </head>
 <body>
 <header>
@@ -65,7 +64,7 @@ $teleplayCat = Spider::getTeleplayCat();
     </ul>
 </div>
 <div style="clear: both"></div>
-<div class="teleplay">
+<div class="videolist">
     <h3>
         <?php
         echo '当前分类：' . Spider::getPresentCat();

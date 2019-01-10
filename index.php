@@ -48,8 +48,7 @@ $moviesCat = Spider::getMoviesCat();
     echo Common::SEO();
     ?>
     <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <link type="text/css" rel="stylesheet" href="css/index.css">
-    <link type="text/css" rel="stylesheet" href="css/header.css">
+    <link type="text/css" rel="stylesheet" href="css/common.css">
 </head>
 <body>
 <header>
@@ -66,7 +65,7 @@ $moviesCat = Spider::getMoviesCat();
     </ul>
 </div>
 <div style="clear: both"></div>
-<div class="movie">
+<div class="videolist">
     <h3>
         <?php
         echo '当前分类：' . Spider::getPresentCat();

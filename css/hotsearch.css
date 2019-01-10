@@ -7,6 +7,37 @@ body {
     padding: 0 1.5pc;
 }
 
+h3 {
+    color: whitesmoke;
+    border-bottom: 1px whitesmoke solid;
+    line-height: 2pc;
+    margin-bottom: 0;
+}
+
+.list li {
+    float: left;
+    background-color: #555;
+    margin: .5pc 2pc .5pc 0.5pc;
+    border-radius: 3px;
+    transition: all 0.3s 0s;
+}
+
+.list a {
+    display: inline-block;
+    padding: 0.5pc 1pc;
+    color: whitesmoke;
+    text-decoration: none;
+}
+
+.list li:hover {
+    background-image: linear-gradient(135deg, #81FFEF 10%, #F067B4 100%);
+}
+
+.list li:hover a {
+    text-decoration: underline;
+    color: #000;
+}
+
 header {
     height: 70px;
     background-color: #5FB2D7;
@@ -60,54 +91,6 @@ header ul li:hover a {
     color: #F40;
     padding: 0 5px;
     outline: none;
-}
-
-.search h3 {
-    border-bottom: 1px #eee solid;
-    line-height: 2pc;
-    margin-bottom: 0;
-}
-
-.search ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    background-color: whitesmoke;
-}
-
-.search ul li {
-    float: left;
-    width: 14%;
-    overflow: hidden;
-    margin: 0.666%;
-    padding: 0.666%;
-    position: relative;
-    background-color: whitesmoke;
-    border-radius: 5px;
-}
-
-.search img {
-    width: 100%;
-}
-
-#type {
-    position: absolute;
-    top: 4%;
-    left: 3%;
-    background-color: rgba(255, 70, 69, 0.9);
-    color: whitesmoke;
-    font-size: 12px;
-    padding: 1px 5px;
-}
-
-#name {
-    position: absolute;
-    right: 3%;
-    bottom: 5%;
-    background-color: rgba(51, 51, 51, 0.9);
-    color: whitesmoke;
-    font-size: 12px;
-    padding: 1px 3px;
 }
 
 #sCount {

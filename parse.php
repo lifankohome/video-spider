@@ -45,75 +45,7 @@ if (!empty($_GET['url'])) {
     echo Common::SEO();
     ?>
     <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <style>
-        body {
-            width: 80%;
-            min-width: 960px;
-            margin: 0 auto;
-            /*noinspection CssNoGenericFontName*/
-            font-family: "Microsoft JhengHei UI"
-        }
-
-        .container ul {
-            list-style: none;
-        }
-
-        .container ul li {
-            float: left;
-        }
-
-        .container ul li a {
-            font-size: 12px;
-            color: black;
-            background-color: #eee;
-            padding: 5px 10px;
-            margin: 3px 5px;
-            display: inline-block;
-        }
-
-        /*noinspection CssUnusedSymbol*/
-        #cookie {
-            background-color: #FCC;
-        }
-
-        .player {
-            width: 80%;
-            margin: 1pc auto;
-        }
-
-        iframe {
-            width: 100%;
-            border: none;
-            background-color: #eee;
-            padding: 1pc;
-            border-radius: 5px;
-            margin-left: -1pc;
-        }
-
-        button {
-            cursor: pointer;
-        }
-
-        .support {
-            text-align: center;
-            width: 85%;
-            margin: 0 auto;
-        }
-
-        .support ul {
-            padding-left: 0;
-        }
-
-        .support li {
-            margin: 1pc auto;
-            width: 16.6666%;
-        }
-
-        .support img {
-            max-width: 100%;
-        }
-    </style>
-    <link type="text/css" rel="stylesheet" href="css/header.css">
+    <link type="text/css" rel="stylesheet" href="css/parse.css">
     <script type='text/javascript' src='js/jquery-2.1.1.min.js'></script>
 </head>
 <body>

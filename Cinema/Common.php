@@ -34,14 +34,14 @@ class Common
 	    <li><a href='television.php'>电视机</a></li>
 	    <li><a href='hotSearch.php'>排行榜</a></li>
 	    <li><a href='about.html'>使用说明</a></li>
-	    <li style='float: right;background-color: #ddd;border-top-right-radius: 5px;border-bottom-right-radius: 5px'>
-	        <input type='text' id='searchBox' style='margin-left: 1.5pc;height: 30px;color: #F40;padding: 0 5px;outline: none' placeholder='$defaultSearch / 粘贴视频地址'>
+	    <li id='searchli'>
+	        <input type='text' id='searchBox' placeholder='$defaultSearch / 粘贴视频地址'>
 	        <span id='searchText' style='display: inline-block;padding: 0 1pc;'>影视爬虫</span>
 	    </li>
 	</ul>";
     }
 
-    public static $QQGroup = "<p id='sCount' style='text-align: center;background: #eee;padding: 6px 2px;border-radius: 2px;'>影视爬虫使用cookie技术保存您的观看记录，如果24h内没有访问本网站观看记录会自动删除！（*人在线）</p>";
+    public static $QQGroup = "<p id='sCount'>影视爬虫使用cookie技术保存您的观看记录，如果24h内没有访问本网站观看记录会自动删除！（*人在线）</p>";
 
     public static $footer = "<p style='font-size: 12px;color: #555'>Copyright &copy; <a href='https://hpu.lifanko.cn' style='font-size: 12px;color: #333'>lifanko</a> 2017-2019 豫ICP备16040860号-1</p>";
 }

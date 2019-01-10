@@ -43,47 +43,7 @@ if (empty($_GET['max'])) { //显示的关键词数量，默认最多显示999个
     echo Common::SEO();
     ?>
     <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <style>
-        body {
-            width: 80%;
-            min-width: 960px;
-            margin: 0 auto;
-            font-family: "Microsoft JhengHei UI"
-        }
-
-        h3 {
-            color: whitesmoke;
-            border-bottom: 1px whitesmoke solid;
-            line-height: 2pc;
-            margin-bottom: 0;
-        }
-
-        .list li {
-            float: left;
-            background-color: #555;
-            margin: .5pc 2pc .5pc 0.5pc;
-            border-radius: 3px;
-            transition: all 0.3s 0s;
-        }
-
-        .list a {
-            display: inline-block;
-            padding: 0.5pc 1pc;
-            color: whitesmoke;
-            text-decoration: none;
-        }
-
-        .list li:hover {
-            background-image: linear-gradient( 135deg, #81FFEF 10%, #F067B4 100%);
-        }
-
-        .list li:hover a {
-            text-decoration: underline;
-            color: #000;
-        }
-
-    </style>
-    <link type="text/css" rel="stylesheet" href="css/header.css">
+    <link type="text/css" rel="stylesheet" href="css/hotsearch.css">
 </head>
 <body>
 <header>
