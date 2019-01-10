@@ -134,7 +134,7 @@ if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {   //windows系统
         s.parentNode.insertBefore(hm, s);
     })();
 </script>
-<script src="js/browserMqtt.js"></script>
+<script src="http://cdn.lifanko.cn/browserMqtt.js"></script>
 <script src="js/sCount.js"></script>
 </body>
 </html>

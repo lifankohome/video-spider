@@ -312,7 +312,7 @@ if (empty($link[2][0])) {
         s.parentNode.insertBefore(hm, s);
     })();
 </script>
-<script src="js/browserMqtt.js"></script>
+<script src="http://cdn.lifanko.cn/browserMqtt.js"></script>
 <script src="js/sCount.js"></script>
 </body>
 </html>
