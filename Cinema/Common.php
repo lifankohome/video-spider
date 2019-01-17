@@ -35,7 +35,7 @@ class Common
 	    <li><a href='hotSearch.php'>排行榜</a></li>
 	    <li><a href='about.html'>使用说明</a></li>
 	    <li id='searchli'>
-	        <input type='text' id='searchBox' placeholder='$defaultSearch / 粘贴视频地址'>
+	        <input type='text' id='searchBox' placeholder='$defaultSearch | 粘贴腾讯/优酷/爱奇艺VIP视频地址'>
 	        <span id='searchText' style='display: inline-block;padding: 0 1pc;'>影视爬虫</span>
 	    </li>
 	</ul>";
