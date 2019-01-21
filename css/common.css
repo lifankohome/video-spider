@@ -5,11 +5,12 @@ body {
     /*noinspection CssNoGenericFontName*/
     font-family: "Microsoft JhengHei UI";
     padding: 0 1.5pc;
+    background: url("../img/springbg.png");
+    background-attachment: fixed;
 }
 
 header {
     height: 70px;
-    background-color: #5FB2D7;
     border-radius: 5px;
 }
 
@@ -23,7 +24,7 @@ header, .videolist ul {
     list-style: none;
     padding: 0;
     margin: 0;
-    background-color: whitesmoke;
+    background-color: rgba(245, 245, 245, 0.7);
 }
 
 header ul li {
@@ -34,7 +35,7 @@ header ul li {
 
 header ul li a {
     padding: 0 20px;
-    color: #ff4645;
+    color: #000000;
     font-weight: bold;
     display: inline-block;
 }
@@ -49,7 +50,7 @@ header ul li:hover a {
 
 #searchli {
     float: right;
-    background-color: #ddd;
+    background-color: rgba(221, 221, 221, 0.7);
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
 }
@@ -69,7 +70,7 @@ header ul li:hover a {
 
 .cat ul li {
     float: left;
-    background-color: #ddd;
+    background-color: rgba(221, 221, 221, 0.7);
     width: 5%;
     text-align: center;
 }
@@ -85,7 +86,7 @@ header ul li:hover a {
 }
 
 .cat ul li a {
-    color: #ff6d70;
+    color: #000000;
     font-weight: bold;
     display: inline-block;
     padding: 1pc;
@@ -118,7 +119,7 @@ header ul li:hover a {
     margin: 0.666%;
     padding: 0.666%;
     position: relative;
-    background-color: whitesmoke;
+    background-color: rgba(245, 245, 245, 0.5);
     border-radius: 5px;
 }
 
@@ -146,13 +147,6 @@ header ul li:hover a {
     padding: 1px 3px;
 }
 
-#sCount {
-    text-align: center;
-    background-color: #eee;
-    padding: 6px 2px;
-    border-radius: 2px;
-}
-
 #update {
     position: absolute;
     top: 4%;
@@ -171,4 +165,11 @@ header ul li:hover a {
     color: whitesmoke;
     font-size: 12px;
     padding: 1px 3px;
+}
+
+#sCount {
+    text-align: center;
+    background-color: rgba(238, 238, 238, 0.7);
+    padding: 6px 2px;
+    border-radius: 2px;
 }

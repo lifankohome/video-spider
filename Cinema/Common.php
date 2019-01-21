@@ -43,5 +43,5 @@ class Common
 
     public static $QQGroup = "<p id='sCount'>影视爬虫使用cookie技术保存您的观看记录，如果24h内没有访问本网站观看记录会自动删除！（*人在线）</p>";
 
-    public static $footer = "<p style='font-size: 12px;color: #555'>Copyright &copy; <a href='https://hpu.lifanko.cn' style='font-size: 12px;color: #333'>lifanko</a> 2017-2019 豫ICP备16040860号-1</p>";
+    public static $footer = "<p style='font-size: 12px;color: #000'>Copyright &copy; <a href='https://hpu.lifanko.cn' style='color: #333'>lifanko</a> 2017-2019 <a href='http://www.miitbeian.gov.cn/' style='color: #333'>豫ICP备16040860号-1</a></p>";
 }
