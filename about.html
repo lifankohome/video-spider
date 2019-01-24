@@ -31,19 +31,20 @@
         .support img {
             max-width: 100%;
         }
+
+        table, tr, th, td {
+            border: 1px solid #eee;
+            border-collapse: collapse;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
 <h3 style="text-align: center;font-size: 30px">影视爬虫网站说明</h3>
 <div style="background-color: #eee;width: 75%;padding: 0.1pc 1pc;margin: 1pc auto;border-radius: 5px">
     <h2>搜索：</h2>
-    <p>本网站搜索功能不仅可以进行关键词搜索，还可以输入视频播放地址直接进行播放，以 优酷网 的《我不是药神》为例。</p>
-    <p><img src="img/add.jpg" style="max-width: 100%"></p>
-    <p>因为不是VIP，所在优酷网只能播放前6分钟，
-        把地址栏的视频网址复制(https://v.youku.com/v_show/id_XMzgzOTgyMzc4MA==.html?spm=a2h0k.11417342.soresults.dplaybutton&s=c6c62a475a5d4a14ab48)，然后粘贴进《影视爬虫》的搜索框：</p>
-    <p><img src="img/add2.jpg" style="max-width: 100%"></p>
-    <p>然后点击搜索按钮，即可无广告免费在线播放：</p>
-    <p><img src="img/add1.jpg" style="max-width: 100%"></p>
+    <p>本网站搜索功能不仅可以进行关键词搜索，还VIP视频解析播放功能，以 优酷网 的《我不是药神》为例。因为不是VIP，所在优酷网只能播放前6分钟，
+        把地址栏的视频网址复制(https://v.youku.com/v_show/id_XMzgzOTgyMzc4MA==.html?spm=a2h0k.11417342.soresults.dplaybutton&s=c6c62a475a5d4a14ab48)，然后粘贴进《影视爬虫》的搜索框，回车或点击搜索按钮，即可无广告免费在线播放！</p>
     <div class="support">
         <h3 style="text-align: center;margin-bottom: -1pc">支持以下网站VIP视频解析播放</h3>
         <ul>
@@ -69,23 +70,65 @@
     </div>
     <div style="clear: both"></div>
 </div>
-<div style="background-color: #eee;width: 75%;padding: 0.1pc 1pc;margin: 1pc auto;border-radius: 5px">
+<div id="cookie" style="background-color: #eee;width: 75%;padding: 0.1pc 1pc;margin: 1pc auto;border-radius: 5px">
     <h2>隐私：</h2>
     <p>本站使用网页cookies技术保存您的观看记录，记录存储于您的电脑并且最多保留24小时；假如您在观看某电视剧时关闭了网站，在24小时内再次打开播放页面，您上次观看的剧集数会标红。</p>
-    <p>本站不采集和存储任何用户隐私数据，保障您的信息安全。</p>
-</div>
-<div style="background-color: #eee;width: 75%;padding: 0.1pc 1pc;margin: 1pc auto;border-radius: 5px">
-    <h2>其它：</h2>
-    <p>本站所有能搜索到的视频从理论上均能播放，如果播放不出来请更换底部的解析器。</p>
-    <p>由于运营商劫持的原因，移动端在播放页面可能会出现不健康广告，使用电脑访问不会出现。</p>
+    <div style="width: 60%;background-color: #d05e27;margin: 0 auto 1pc auto;padding: 5px 20px;color: whitesmoke;border-radius: 5px">
+        <h3 style="text-align: center">Cookie 政策</h3>
+        <p>下文说明了在您使用影视爬虫的某些服务时我方收集和使用您信息的方式。本政策将进一步说明我方如何使用 Cookie 及您的相关选择。</p>
+        <p>浏览器 Cookie 是存储在您设备上的小数据块，可帮助网站和移动应用记住您选择的特定使用偏好。与您设备相关的网页存储和标识符等其他文件也具有同样功能。在本政策中，我方使用
+            「Cookie」一词来指称以此方式收集信息的所有文件。</p>
+        <h4 style="text-align: center">我方如何使用 Cookie</h4>
+        <p>同大多数在线服务提供商一样，影视爬虫也使用 Cookie，包括第三方
+            Cookie，原因有多方面，如保护您的数据和帐户、帮助我方了解最受欢迎的功能、统计页面的访客数、改善我方用户体验、确保我方服务安全，以及向您提供更好、更直观和更满意的服务。我方使用的 Cookie
+            通常分为以下几类。</p>
+        <table>
+            <thead>
+            <tr>
+                <th>Cookie 类型</th>
+                <th>使用 Cookie 的原因</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>必要性</td>
+                <td>
+                    <p>我方使用这些 Cookie 来运行我方网站，并帮助识别和防止安全风险。</p>
+                    <p>例如，我方可能会使用这些 Cookie 来存储您的会话信息，防止他人在未获得您用户名和密码的情况下更改您的密码。</p>
+                </td>
+            </tr>
+            <tr>
+                <td>使用偏好</td>
+                <td>
+                    <p>我方利用这些 Cookie 来记住您的设置和偏好，并改善您在我方网站上的体验。</p>
+                    <p>例如，我方可能会使用这些 Cookie 来记住您的语言偏好。</p>
+                </td>
+            </tr>
+            <tr>
+                <td>使用情况</td>
+                <td>
+                    <p>我方利用这些 Cookie 来收集关于您如何使用我方网站的信息、监控并改善网站性能、优化我方服务，同时提升您的使用体验。</p>
+                    <p>例如，我方可以使用这些 Cookie 来了解有关最受用户欢迎，以及需要稍加改进的功能的更多信息。</p>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <h4 style="text-align: center">您的选择</h4>
+        <p>浏览器 Cookie：您的浏览器可能会为您提供拒绝某些或全部浏览器 Cookie 的选项。同时，您也可以从浏览器上清除 Cookie 。有关如何管理浏览器 Cookie 的更多信息，请遵循浏览器中提供的说明。</p>
+        <p>移动设备标识符：您的移动操作系统可能会不允许使用以投放基于兴趣的广告为目的的某些设备标识符。您应参照移动设备制造商提供的说明，通常在移动设备的“设置”中。
+            当然，如果您的移动设备提供了卸载流程，则可通过卸载相关应用来阻止我方通过应用收集信息。</p>
+    </div>
 </div>
 <div style="background-color: #eee;width: 75%;padding: 0.1pc 1pc;margin: 1pc auto;border-radius: 5px">
     <h2>免责声明：</h2>
+    <p>本站所有能搜索到的视频从理论上均能播放，如果播放不出来请更换底部的解析器。</p>
+    <p>由于运营商劫持的原因，移动端在播放页面可能会出现不健康广告，使用电脑访问不会出现。</p>
     <p>本站提供的最新电影、电视剧和综艺资源均系收集于各网络视频网站，本站只提供web页面服务，不提供影片资源存储，不参与录制、上传。</p>
     <p>若本站收录的节目无意侵犯了贵司版权，请向：lifankohome#163.com 来信，我们会及时处理和回复。</p>
 </div>
 <p style="text-align: center;margin-bottom: 2.5pc">
-    <a href="index.php" style="text-decoration: none;font-size: 30px;color: #F40;background-color: #bbbbbb;border-radius: 5px;padding: 5px 50px;">返回</a>
+    <a href="index.php"
+       style="text-decoration: none;font-size: 20px;color: #8a300f;background-color: #bbbbbb;border-radius: 5px;padding: 8px 50px;">返回</a>
 </p>
 </body>
 </html>

@@ -41,7 +41,7 @@ class Common
 	</ul>";
     }
 
-    public static $QQGroup = "<p id='sCount'>影视爬虫使用cookie技术保存您的观看记录，如果24h内没有访问本网站观看记录会自动删除！（*人在线）</p>";
+    public static $QQGroup = "<p id='QQGroup'>影视爬虫使用cookie技术(包含第三方cookie)来实现网站功能，有关cookie使用的详细信息请点击<a href='../about.html/#cookie' style='color: #333'>这里</a><span id='sCount'></span></p>";
 
     public static $footer = "<p style='font-size: 12px;color: #000'>Copyright &copy; <a href='https://hpu.lifanko.cn' style='color: #333'>lifanko</a> 2017-2019 <a href='http://www.miitbeian.gov.cn/' style='color: #333'>豫ICP备16040860号-1</a></p>";
 }
