@@ -101,7 +101,6 @@ if (empty($link[2][0])) {
     <script type='text/javascript' src='js/jquery-2.1.1.min.js'></script>
 </head>
 <body>
-<div id="tip"></div>
 <header>
     <img src="img/logo.png">
     <?php echo Common::getHeader() ?>
@@ -248,6 +247,8 @@ if (empty($link[2][0])) {
 </footer>
 <script type="text/javascript" src="http://cdn.lifanko.cn/tip10.min.js"></script>
 <script type="text/javascript">
+    tip("影视爬虫祝您春节快乐、合家欢乐、万事如意！2019新年新气象！", "12%", 3000, "1", false);
+
     //搜索功能
     var search = document.getElementById('searchBox');
     var searchText = document.getElementById('searchText');

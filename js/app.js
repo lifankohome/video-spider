@@ -1,7 +1,7 @@
 /**
  * Created by lifanko  lee on 2017/12/13.
  */
-tip("影视爬虫给您拜早年啦！！^_^", "12%", 3000, "1", false);
+tip("影视爬虫祝您春节快乐、合家欢乐、万事如意！2019新年新气象！", "12%", 3000, "1", false);
 
 //在窗口调整时图片大小自动适应
 var img = document.getElementsByClassName('img');

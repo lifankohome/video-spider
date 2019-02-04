@@ -5,46 +5,7 @@ body {
     /*noinspection CssNoGenericFontName*/
     font-family: "Microsoft JhengHei UI";
     padding: 0 1.5pc;
-}
-
-.container ul {
-    list-style: none;
-}
-
-.container ul li {
-    float: left;
-}
-
-.container ul li a {
-    font-size: 12px;
-    color: black;
-    background-color: #eee;
-    padding: 5px 10px;
-    margin: 3px 5px;
-    display: inline-block;
-}
-
-/*noinspection CssUnusedSymbol*/
-#cookie {
-    background-color: #FCC;
-}
-
-.player {
-    width: 80%;
-    margin: 1pc auto;
-}
-
-iframe {
-    width: 100%;
-    border: none;
-    background-color: #eee;
-    padding: 1pc;
-    border-radius: 5px;
-    margin-left: -1pc;
-}
-
-button {
-    cursor: pointer;
+    background: url("../img/springbg.png") fixed;
 }
 
 header {
@@ -63,7 +24,7 @@ header, .videolist ul {
     list-style: none;
     padding: 0;
     margin: 0;
-    background-color: whitesmoke;
+    background-color: rgba(221, 221, 221, 0.7);
 }
 
 header ul li {
@@ -74,7 +35,7 @@ header ul li {
 
 header ul li a {
     padding: 0 20px;
-    color: #ff4645;
+    color: #000000;
     font-weight: bold;
     display: inline-block;
 }
@@ -89,7 +50,7 @@ header ul li:hover a {
 
 #searchli {
     float: right;
-    background-color: #ddd;
+    background-color: rgba(221, 221, 221, 0.7);
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
 }
@@ -102,9 +63,49 @@ header ul li:hover a {
     outline: none;
 }
 
+.container ul {
+    list-style: none;
+}
+
+.container ul li {
+    float: left;
+}
+
+.container ul li a {
+    font-size: 12px;
+    color: black;
+    background-color: rgba(221, 221, 221, 0.7);
+    padding: 5px 10px;
+    margin: 3px 5px;
+    display: inline-block;
+}
+
+/*noinspection CssUnusedSymbol*/
+#cookie {
+    background-color: #FCC;
+}
+
+.player {
+    width: 80%;
+    margin: 1pc auto;
+}
+
+iframe {
+    width: 100%;
+    border: none;
+    background-color: rgba(221, 221, 221, 0.7);
+    padding: 1pc;
+    border-radius: 5px;
+    margin-left: -1pc;
+}
+
+button {
+    cursor: pointer;
+}
+
 #QQGroup {
     text-align: center;
-    background-color: #eee;
+    background-color: rgba(221, 221, 221, 0.7);
     padding: 6px 2px;
     border-radius: 2px;
 }
