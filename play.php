@@ -137,7 +137,7 @@ if (empty($link[2][0])) {
         }
         ?></h3>
     <div class="player">
-        <iframe onload="iFrameResize()" id="video" src="loading.html"></iframe>
+        <iframe onload="iFrameResize()" id="video" src="loading.php"></iframe>
         <a style="display: none" id="videoLink" href=""></a>
         <script type="text/javascript">
             var videoFrame = document.getElementById('video');  //全局使用

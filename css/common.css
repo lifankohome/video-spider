@@ -5,8 +5,7 @@ body {
     /*noinspection CssNoGenericFontName*/
     font-family: "Microsoft JhengHei UI";
     padding: 0 1.5pc;
-    background: url("../img/springbg.png");
-    background-attachment: fixed;
+    background: url("../img/springbg.png") fixed;
 }
 
 header {
