@@ -238,6 +238,9 @@ if (empty($link[2][0])) {
     <h3 style="margin-bottom: 5px">剧情简介：</h3>
     <p style="margin-top: 0"><?php echo $intro; ?></p>
 </div>
+<div style="text-align: center">
+    <iframe src="http://hpu.lifanko.cn:81/comment/index.php?pid=<?php echo $play; ?>" id="comment"></iframe>
+</div>
 <footer>
     <?php
     echo Common::$QQGroup;

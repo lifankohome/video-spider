@@ -103,6 +103,12 @@ button {
     cursor: pointer;
 }
 
+#comment{
+    width: 97%;
+    margin: 0 auto;
+    height: 270px;
+}
+
 #QQGroup {
     text-align: center;
     background-color: rgba(221, 221, 221, 0.7);
