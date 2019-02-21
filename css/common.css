@@ -5,7 +5,8 @@ body {
     /*noinspection CssNoGenericFontName*/
     font-family: "Microsoft JhengHei UI";
     padding: 0 1.5pc;
-    background: url("../img/springbg.png") fixed;
+    background-color: #eee;
+    /*background: url("../img/springbg.png") fixed;*/
 }
 
 header {
@@ -23,7 +24,7 @@ header, .videolist ul {
     list-style: none;
     padding: 0;
     margin: 0;
-    background-color: rgba(245, 245, 245, 0.7);
+    background-color: #ddd;
 }
 
 header ul li {
@@ -34,7 +35,7 @@ header ul li {
 
 header ul li a {
     padding: 0 18px;
-    color: #000000;
+    color: #000;
     font-weight: bold;
     display: inline-block;
 }
@@ -49,7 +50,7 @@ header ul li:hover a {
 
 #searchli {
     float: right;
-    background-color: rgba(221, 221, 221, 0.7);
+    background-color: #ccc;
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
 }
@@ -69,7 +70,7 @@ header ul li:hover a {
 
 .cat ul li {
     float: left;
-    background-color: rgba(221, 221, 221, 0.7);
+    background-color: #ddd;
     width: 5%;
     text-align: center;
 }
@@ -100,8 +101,9 @@ header ul li:hover a {
 }
 
 .videolist h3 {
-    border-bottom: 1px #eee solid;
-    margin-bottom: 0;
+    padding-bottom: 5px;
+    border-bottom: 1px #999 solid;
+    margin-bottom: 5px;
 }
 
 .videolist ul {
@@ -118,7 +120,7 @@ header ul li:hover a {
     margin: 0.666%;
     padding: 0.666%;
     position: relative;
-    background-color: rgba(245, 245, 245, 0.5);
+    background-color: #ccc;
     border-radius: 5px;
 }
 
@@ -168,7 +170,7 @@ header ul li:hover a {
 
 #QQGroup {
     text-align: center;
-    background-color: rgba(238, 238, 238, 0.7);
+    background-color: #ddd;
     padding: 6px 2px;
     border-radius: 2px;
 }

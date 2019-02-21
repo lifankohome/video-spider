@@ -5,11 +5,11 @@ body {
     /*noinspection CssNoGenericFontName*/
     font-family: "Microsoft JhengHei UI";
     padding: 0 1.5pc;
+    background-color: #eee;
 }
 
 header {
     height: 70px;
-    background-color: #5FB2D7;
     border-radius: 5px;
 }
 
@@ -23,7 +23,7 @@ header, .videolist ul {
     list-style: none;
     padding: 0;
     margin: 0;
-    background-color: whitesmoke;
+    background-color: #ddd;
 }
 
 header ul li {
@@ -34,7 +34,7 @@ header ul li {
 
 header ul li a {
     padding: 0 18px;
-    color: #ff4645;
+    color: #000;
     font-weight: bold;
     display: inline-block;
 }
@@ -49,7 +49,7 @@ header ul li:hover a {
 
 #searchli {
     float: right;
-    background-color: #ddd;
+    background-color: #ccc;
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
 }
@@ -63,9 +63,9 @@ header ul li:hover a {
 }
 
 .search h3 {
-    border-bottom: 1px #eee solid;
-    line-height: 2pc;
-    margin-bottom: 0;
+    border-bottom: 1px #999 solid;
+    padding-bottom: 5px;
+    margin-bottom: 5px;
 }
 
 .search ul {
@@ -82,7 +82,7 @@ header ul li:hover a {
     margin: 0.666%;
     padding: 0.666%;
     position: relative;
-    background-color: whitesmoke;
+    background-color: #ccc;
     border-radius: 5px;
 }
 
@@ -112,7 +112,7 @@ header ul li:hover a {
 
 #QQGroup {
     text-align: center;
-    background-color: #eee;
+    background-color: #ddd;
     padding: 6px 2px;
     border-radius: 2px;
 }

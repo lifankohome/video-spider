@@ -5,11 +5,12 @@ body {
     /*noinspection CssNoGenericFontName*/
     font-family: "Microsoft JhengHei UI";
     padding: 0 1.5pc;
+    background-color: #eee;
 }
 
 h3 {
-    color: whitesmoke;
-    border-bottom: 1px whitesmoke solid;
+    color: #000;
+    border-bottom: 1px #555 solid;
     line-height: 2pc;
     margin-bottom: 0;
 }
@@ -40,7 +41,6 @@ h3 {
 
 header {
     height: 70px;
-    background-color: #5FB2D7;
     border-radius: 5px;
 }
 
@@ -54,7 +54,7 @@ header, .videolist ul {
     list-style: none;
     padding: 0;
     margin: 0;
-    background-color: whitesmoke;
+    background-color: #ddd;
 }
 
 header ul li {
@@ -65,7 +65,7 @@ header ul li {
 
 header ul li a {
     padding: 0 18px;
-    color: #ff4645;
+    color: #000;
     font-weight: bold;
     display: inline-block;
 }
@@ -95,7 +95,7 @@ header ul li:hover a {
 
 #QQGroup {
     text-align: center;
-    background-color: #eee;
+    background-color: #ddd;
     padding: 6px 2px;
     border-radius: 2px;
 }

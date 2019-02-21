@@ -175,6 +175,8 @@ if (!empty($_GET['url'])) {
 
     window.onresize = function () { //监听
         autoSize([]);
+        //Fixed player size: 16-9
+        iFrameResize();
     };
 
     //百度统计
