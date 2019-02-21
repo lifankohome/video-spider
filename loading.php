@@ -38,7 +38,7 @@
 <div id="container">
     <img id="pay" src="img/pay.jpg">
     <h2 style="margin: 1pc 0 0"><img src="img/logo.png" style="height: 70px;margin-bottom: -27px"> 影视爬虫v3.8<span
-                style="font-size: 12px">(2019/1/24 18:21更新)</span></h2>
+                style="font-size: 12px">(2019/2/21 11:46更新)</span></h2>
     <p>如果觉得本站好用，请将 <strong style="color: #F40">影视爬虫</strong> 推荐给您的朋友！</p>
     <div style="position: fixed;bottom: 0;width: 100%;margin: 0 auto">
         <p>科学上网15天仅需两元：<a href="http://jiasd.us/4297" target="_blank"><img
