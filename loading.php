@@ -10,7 +10,7 @@ if (!empty($festival)) {
             color: white;";
     } else if ($lightness == '1') {
         $css = "    text-shadow: 0px 0px 5px white;
-        color: black;";
+            color: black;";
     } else {
         $css = '    ';
     }
@@ -23,7 +23,8 @@ if (!empty($festival)) {
         #container {
             opacity: 0;
             transition: all 0.8s 0s;
-        }";
+        }
+";
 } else {
     $css = '';
 }
@@ -43,7 +44,12 @@ if (!empty($festival)) {
             height: 100%;
             overflow-y: hidden;
         <?php
-        if(!empty($css))echo $css;
+        if(!empty($css)){
+        echo $css;
+        }else{
+        echo "}
+";
+        }
         ?>
     </style>
 </head>
