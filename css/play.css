@@ -17,7 +17,8 @@ header {
 header img {
     height: 70px;
     float: left;
-    margin: 0 1pc;
+    margin-left: 1pc;
+    margin-right: 0.5pc;
 }
 
 header, .videolist ul {
