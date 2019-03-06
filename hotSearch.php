@@ -93,9 +93,9 @@ if (empty($_GET['max'])) { //显示的关键词数量，默认最多显示999个
 
     search.onkeyup = function () {
         if (search.value) {
-            searchText.innerHTML = "<a href='search.php?kw=" + search.value + "' style='background-color: #444;margin-right: -1pc'>搜索</a>";
+            searchText.innerHTML = "<a href='search.php?kw=" + search.value + "' style='background-color: #444;color: white;margin-right: -1pc;border-top-right-radius: 5px;border-bottom-right-radius: 5px'>搜索</a>";
         } else {
-            searchText.innerText = '影视爬虫';
+            searchText.innerHTML = "<img src='img/yspc.png' style='margin: 0;height: 26px;position: relative;top: 7px'>";
         }
     };
 

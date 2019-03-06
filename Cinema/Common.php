@@ -36,7 +36,7 @@ class Common
 	    <li><a href='http://ali.lifanko.cn/music/'>橡皮音乐</a></li>
 	    <li id='searchli'>
 	        <input type='text' id='searchBox' autofocus='autofocus' placeholder='$defaultSearch | 粘贴腾讯/优酷/爱奇艺VIP视频地址'>
-	        <span id='searchText' style='display: inline-block;padding: 0 1pc;'>影视爬虫</span>
+	        <span id='searchText' style='display: inline-block;padding: 0 1pc;'><img src='img/yspc.png' style='margin: 0;height: 26px;position: relative;top: 7px'></span>
 	    </li>
 	</ul>";
     }

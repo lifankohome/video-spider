@@ -80,7 +80,7 @@ header ul li:hover a {
 
 #searchli {
     float: right;
-    background-color: #ddd;
+    background-color: #ccc;
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
 }
