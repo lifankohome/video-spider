@@ -1,5 +1,5 @@
 <?php
-$festival = file_get_contents('http://ali.lifanko.cn/festival2img/index.php');
+$festival = file_get_contents('http://ali.lifanko.cn/festival2img/index.php?day=' . date('Ymd', time()));
 
 if (!empty($festival)) {
     $src = explode(':http', $festival);
@@ -43,6 +43,7 @@ if (!empty($festival)) {
             text-align: center;
             height: 100%;
             overflow-y: hidden;
+
         <?php
         if(!empty($css)){
         echo $css;
