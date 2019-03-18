@@ -295,7 +295,7 @@ if (empty($link[2][0])) {
             if (win_width > 125) {
                 win_width = 125;
             }
-            document.getElementById("searchBox").style.width = win_width + 175 + 'px';
+            document.getElementById("searchBox").style.width = win_width + 165 + 'px';
         }
     }
 

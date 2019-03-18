@@ -52,14 +52,19 @@ if (!empty($festival)) {
 ";
         }
         ?>
+
+
     </style>
 </head>
 <body>
 <div id="container">
     <h2 style="margin: 1pc 0 0"><img src="img/logo.png" style="height: 70px;margin-bottom: -27px"> 影视爬虫v3.9<span
             style="font-size: 12px">（2019/2/21 11:46更新）</span></h2>
-    <p>如果觉得本站好用，请将 <strong style="color: #467cff">影视爬虫</strong> 推荐给您的朋友！</p>
-    <p style="margin-top: 100px">科学上网海外高速节点，新用户充值10美刀送50美刀，5刀每月1000GB流量 ↓<br><a
+    <p>如果觉得本站好用，请将 <strong style="color: #467cff">影视爬虫</strong> 推荐给您的朋友 或 <span onmouseover="showDonate()"
+                                                                                onmouseout="hideDonate()"
+                                                                                style="color: #e22c1b;cursor: pointer" id="donateTip">给作者打赏~</span><img
+            src="img/wechat.jpg" id="wechat" style="width: 24%;display: block;margin: -100pc auto 100px auto;"></p>
+    <p id="ad" style="margin-top: 100px">科学上网海外高速节点，新用户充值10美刀送50美刀，5刀每月1000GB流量 ↓<br><a
             href="https://www.vultr.com/?ref=7892094" target="_blank"><img
                 src="img/vultr.png" style="background-color: #1669ba;padding: 10px;width: 50%;margin-top: 5px"></a></p>
     <div style="position: fixed;bottom: 0;width: 100%;margin: 0 auto">
@@ -70,6 +75,22 @@ if (!empty($festival)) {
 </div>
 <script>
     var container = document.getElementById("container");
+
+    var wechat = document.getElementById("wechat");
+    var ad = document.getElementById("ad");
+    var donateTip = document.getElementById("donateTip");
+
+    function showDonate() {
+        ad.style.display = 'none';
+        wechat.style.marginTop = 1 + 'pc';
+        donateTip.innerText = "给作者打赏~（感谢老板~老板大气！！）";
+    }
+
+    function hideDonate() {
+        ad.style.display = 'block';
+        wechat.style.marginTop = -100 + 'pc';
+        donateTip.innerText = "给作者打赏~";
+    }
 
     setTimeout(function () {
         container.style.opacity = '1';
