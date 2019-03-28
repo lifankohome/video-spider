@@ -100,6 +100,9 @@ if (empty($_GET['kw'])) {
 </footer>
 <script type="text/javascript" src="http://cdn.lifanko.cn/tip10.min.js"></script>
 <script type="text/javascript" src="js/app.js"></script>
+<div style="display: none">
+    <script type="text/javascript" src="https://s5.cnzz.com/z_stat.php?id=1276828562&web_id=1276828562"></script>
+</div>
 <script src="http://cdn.lifanko.cn/browserMqtt.js"></script>
 <script src="js/sCount.js"></script>
 </body>

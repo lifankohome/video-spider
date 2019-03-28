@@ -149,6 +149,9 @@ if (empty($_GET['max'])) { //显示的关键词数量，默认最多显示999个
         s.parentNode.insertBefore(hm, s);
     })();
 </script>
+<div style="display: none">
+    <script type="text/javascript" src="https://s5.cnzz.com/z_stat.php?id=1276828562&web_id=1276828562"></script>
+</div>
 <script src="http://cdn.lifanko.cn/browserMqtt.js"></script>
 <script src="js/sCount.js"></script>
 </body>
