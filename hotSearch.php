@@ -85,7 +85,7 @@ if (empty($_GET['max'])) { //显示的关键词数量，默认最多显示999个
 </footer>
 <script type="text/javascript" src="http://cdn.lifanko.cn/tip10.min.js"></script>
 <script type="text/javascript">
-    tip("影视爬虫祝福您：狗年大吉！", "12%", 2000, "1", false);
+    tip("影视爬虫祝您春节快乐、合家欢乐、万事如意！2019新年新气象！", "12%", 2000, "1", false);
 
     //搜索功能
     var search = document.getElementById('searchBox');
@@ -149,9 +149,6 @@ if (empty($_GET['max'])) { //显示的关键词数量，默认最多显示999个
         s.parentNode.insertBefore(hm, s);
     })();
 </script>
-<div style="display: none">
-    <script type="text/javascript" src="https://s5.cnzz.com/z_stat.php?id=1276828562&web_id=1276828562"></script>
-</div>
 <script src="http://cdn.lifanko.cn/browserMqtt.js"></script>
 <script src="js/sCount.js"></script>
 </body>
