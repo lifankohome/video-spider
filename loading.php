@@ -1,4 +1,7 @@
 <?php
+include_once 'Cinema/Maxim.php';
+use Cinema\Maxim;
+
 $festival = file_get_contents('http://ali.lifanko.cn/festival2img/index.php?day=' . date('Ymd', time()));
 
 if (!empty($festival)) {
@@ -63,8 +66,7 @@ if (!empty($festival)) {
     <p>如果觉得本站好用，请将 <strong style="color: #467cff">影视爬虫</strong> 推荐给您的朋友 或
         <span onmouseover="showDonate()" onmouseout="hideDonate()" style="color: #e22c1b;cursor: pointer;text-decoration: underline"
               id="donateTip">给作者打赏~</span><img src="img/wechat.jpg" id="wechat" style="width: 24%;display: block;margin: -100pc auto 100px auto;"></p>
-    <p id="ad" style="margin-top: -50px;"><span style="font-size: 25px">代下载学术论文，不论大小；</span><br>跳楼价（中文1.9元/篇，英文3.9元/篇）；<br>
-        免费提供前两页，确认论文正确后再付费；<br>中文下五篇送一篇，英文下四篇送一篇。<br><img src="img/paper.jpg" style="width: 160px;margin-top: 5px"></p>
+    <div id="ad" style="width: 60%;margin: -20px auto 0 auto;font-size: 20px;color: #777"><h4 style="border-bottom: 1px #777 solid;color: black">今日箴言</h4><?php echo Maxim::get(); ?></div>
     <div style="position: fixed;bottom: 0;width: 100%;margin: 0 auto">
         <p style="margin-top: 2%">电影请点击左上方“立即播放”、电视剧选集后即可播放<br>播放不了请尝试切换下方的解析器 或 反馈站长：lifankohome@163.com</p>
     </div>
