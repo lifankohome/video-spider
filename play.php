@@ -106,7 +106,7 @@ if (empty($link[2][0])) {
     <?php echo Common::getHeader() ?>
 </header>
 <div class="container">
-    <h3><?php
+    <h3><a style="float: right;font-size: 14px;margin-top: 2px" href="http://cdn.lifanko.cn/other/xpyy.apk">app推荐：橡皮音乐</a><?php
         if ($multiSets) {
             if (empty($sets)) {
                 echo '《' . $name . '》—— 暂无播放资源，请稍后再来~';
