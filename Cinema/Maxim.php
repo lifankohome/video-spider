@@ -25,12 +25,9 @@ class Maxim
 
     public static function get()
     {
-        $url = 'http://tool.lu/markdown/';
+        $url = 'https://hpu.lifanko.cn/maxim';
         $dom = Maxim::Curl($url);
-        $start = strpos($dom, "<div class=\"note-container\">");
-        $end = strpos($dom, "<div class=\"note-bottom\">");
-        $res = substr($dom, $start, $end - $start);
 
-        return mb_substr($res, 41, -23);
+        return $dom;
     }
 }
