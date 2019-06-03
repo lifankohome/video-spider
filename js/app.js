@@ -59,6 +59,15 @@ document.onkeydown = function (e) {
     }
 };
 
+// 播放历史显示控制
+var his_frame = document.getElementById("fra-history");
+function showHistory() {
+    his_frame.style.right = "0px";
+}
+function hideHistory() {
+    his_frame.style.right = -300 + "px";
+}
+
 //百度统计
 var _hmt = _hmt || [];
 (function () {

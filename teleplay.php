@@ -73,18 +73,19 @@ $teleplayCat = Spider::getTeleplayCat();
     <ul>
         <?php
         foreach ($teleplays as $teleplay) {
-            echo "<li>
-		    <a href='play.php?play={$teleplay['coverpage']}' title='{$teleplay['desc']}' target='_blank'>
+            echo "<li><a href='play.php?play={$teleplay['coverpage']}' title='{$teleplay['desc']}' target='_blank'>
                 <img class='img' src='{$teleplay['cover']}' onerror=\"javascript:this.src='img/noCover.jpg'\" alt='{$teleplay['title']}'>
                 <span id='update'>{$teleplay['tag']}</span>
                 <span id='name'>{$teleplay['title']}</span>
-            </a>
-        </li>";
+            </a></li>";
         }
         ?>
     </ul>
 </div>
 <div style="clear: both"></div>
+<?php
+echo Common::$history;
+?>
 <footer>
     <?php
     echo Common::$QQGroup;

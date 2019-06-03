@@ -106,7 +106,8 @@ if (empty($link[2][0])) {
     <?php echo Common::getHeader() ?>
 </header>
 <div class="container">
-    <h3><a style="float: right;font-size: 14px;margin-top: 2px" href="http://cdn.lifanko.cn/other/xpyy.apk">app推荐：橡皮音乐</a><?php
+    <h3><a style="float: right;font-size: 14px;margin-top: 2px" href="http://ali.lifanko.cn/music/">友情链接：橡皮音乐</a>
+        <?php
         if ($multiSets) {
             if (empty($sets)) {
                 echo '《' . $name . '》—— 暂无播放资源，请稍后再来~';
@@ -221,6 +222,30 @@ if (empty($link[2][0])) {
             vParser('default');    //使用默认解析器解析
         }
 
+        var title = document.title;
+        title = title.substr(0, title.length - 7) + window.location.href;
+
+        var title_obj = JSON.parse(getCookie('play-history'));
+
+        if (title_obj === null) {
+            title_obj = [title]
+        } else {
+            var pos = title_obj.indexOf(title);
+            // 若pos不等于-1则说明当前影视名称已经被保存
+            if (pos !== -1) {
+                // 删除已保存的当前影视名称
+                title_obj.splice(pos, 1);
+            } else if (title_obj.length > 9) {
+                // 若当前影视名称未保存，则数组长度才有可能超过10，所以在此处对数组长度进行检查，删除超出10的数组元素
+                title_obj.splice(9, title_obj.length - 9);
+            }
+
+            // 添加当前播放的影视名称
+            title_obj.unshift(title);
+        }
+        // 保存播放记录信息到cookie，时长为7天
+        setCookie('play-history', JSON.stringify(title_obj), 7);
+
         function setCookie(cookieKey, cookieValue, expireDays) {
             var expDate = new Date();
             expDate.setDate(expDate.getDate() + expireDays);
@@ -241,6 +266,9 @@ if (empty($link[2][0])) {
 <div style="text-align: center">
     <iframe src="http://hpu.lifanko.cn:81/comment/index.php?pid=<?php echo $play; ?>" id="comment"></iframe>
 </div>
+<?php
+echo Common::$history;
+?>
 <footer>
     <?php
     echo Common::$QQGroup;
@@ -306,6 +334,15 @@ if (empty($link[2][0])) {
         //Fixed player size: 16-9
         iFrameResize();
     };
+
+    // 播放历史显示控制
+    var his_frame = document.getElementById("fra-history");
+    function showHistory() {
+        his_frame.style.right = "0px";
+    }
+    function hideHistory() {
+        his_frame.style.right = -300 + "px";
+    }
 
     //百度统计
     var _hmt = _hmt || [];

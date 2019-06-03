@@ -113,6 +113,9 @@ if (!empty($_GET['url'])) {
     </ul>
 </div>
 <div style="clear: both"></div>
+<?php
+echo Common::$history;
+?>
 <footer>
     <?php
     echo Common::$QQGroup;
@@ -178,6 +181,15 @@ if (!empty($_GET['url'])) {
         //Fixed player size: 16-9
         iFrameResize();
     };
+
+    // 播放历史显示控制
+    var his_frame = document.getElementById("fra-history");
+    function showHistory() {
+        his_frame.style.right = "0px";
+    }
+    function hideHistory() {
+        his_frame.style.right = -300 + "px";
+    }
 
     //百度统计
     var _hmt = _hmt || [];

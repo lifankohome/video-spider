@@ -77,6 +77,9 @@ if (empty($_GET['max'])) { //显示的关键词数量，默认最多显示999个
     </div>
 </div>
 <div style="clear: both;"></div>
+<?php
+echo Common::$history;
+?>
 <footer>
     <?php
     echo Common::$QQGroup;
@@ -139,6 +142,15 @@ if (empty($_GET['max'])) { //显示的关键词数量，默认最多显示999个
     window.onresize = function () { //监听
         autoSize([]);
     };
+
+    // 播放历史显示控制
+    var his_frame = document.getElementById("fra-history");
+    function showHistory() {
+        his_frame.style.right = "0px";
+    }
+    function hideHistory() {
+        his_frame.style.right = -300 + "px";
+    }
 
     //百度统计
     var _hmt = _hmt || [];

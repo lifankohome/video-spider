@@ -92,6 +92,9 @@ if (empty($_GET['kw'])) {
     </ul>
 </div>
 <div style="clear: both"></div>
+<?php
+echo Common::$history;
+?>
 <footer>
     <?php
     echo Common::$QQGroup;

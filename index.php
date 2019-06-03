@@ -80,18 +80,19 @@ $moviesCat = Spider::getMoviesCat();
                 $score = $movie['point'];
             }
 
-            echo "<li>
-		    <a href='play.php?play={$movie['coverpage']}' title='{$movie['desc']}' target='_blank'>
+            echo "<li><a href='play.php?play={$movie['coverpage']}' title='{$movie['desc']}' target='_blank'>
                 <img class='img' src='{$movie['cover']}' onerror=\"javascript:this.src='img/noCover.jpg'\" alt='{$movie['title']}'>
                 <span id='score'>{$score}</span>
                 <span id='year'>{$movie['tag']} {$movie['title']}</span>
-            </a>
-        </li>";
+            </a></li>";
         }
         ?>
     </ul>
 </div>
 <div style="clear: both"></div>
+<?php
+echo Common::$history;
+?>
 <footer>
     <?php
     echo Common::$QQGroup;
