@@ -173,31 +173,38 @@ if (empty($link[2][0])) {
                 switch (parser) {
                     case '1':
                         parser = 1;
-                        url = 'http://api.bbbbbb.me/jx/?url=';
+                        url = 'https://660e.com/?url=';
                         break;
                     case '2':
+                        parser = 1;
+                        url = 'http://api.bbbbbb.me/jx/?url=';
+                        break;
+                    case '3':
                         parser = 2;
                         url = 'http://jx.598110.com/?url=';
                         break;
-                    case '3':
+                    case '4':
                         parser = 3;
                         url = 'https://jx.lache.me/cc/?url=';
                         break;
                     default:
                         parser = 1;
-                        url = 'http://api.bbbbbb.me/jx/?url=';
+                        url = 'https://660e.com/?url=';
                         break;
                 }
             } else {
                 switch (url.substring(0, 15)) {
-                    case 'http://api.bbbb':
+                    case 'https://660e.co':
                         parser = 1;
                         break;
-                    case 'http://jx.59811':
+                    case 'http://api.bbbb':
                         parser = 2;
                         break;
-                    case 'https://jx.lach':
+                    case 'http://jx.59811':
                         parser = 3;
+                        break;
+                    case 'https://jx.lach':
+                        parser = 4;
                         break;
                     default:
                         parser = 1;
