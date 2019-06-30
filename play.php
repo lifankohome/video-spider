@@ -106,7 +106,7 @@ if (empty($link[2][0])) {
     <?php echo Common::getHeader() ?>
 </header>
 <div class="container">
-    <h3><a style="float: right;font-size: 14px;margin-top: 2px" href="http://ali.lifanko.cn/music/">友情链接：橡皮音乐</a>
+    <h3><a style="float: right;font-size: 14px;margin-top: 2px" href="https://www.lifanko.cn/music/">友情链接：橡皮音乐</a>
         <?php
         if ($multiSets) {
             if (empty($sets)) {
@@ -164,6 +164,18 @@ if (empty($link[2][0])) {
             }
         }
 
+        showParser();
+
+        function showParser(){
+            if (getCookie('parser') === "1") {
+                document.getElementById('parser1').innerText = "默认解析器（使用中）";
+                document.getElementById('parser2').innerText = "备用解析器";
+            } else {
+                document.getElementById('parser1').innerText = "默认解析器";
+                document.getElementById('parser2').innerText = "备用解析器（使用中）";
+            }
+        }
+
         function vParser(url) {
             var parser;
             // 使用默认解析器解释时从cookie读取解析源地址，若为空则使用1号解析器；
@@ -176,15 +188,7 @@ if (empty($link[2][0])) {
                         url = 'https://660e.com/?url=';
                         break;
                     case '2':
-                        parser = 1;
-                        url = 'http://api.bbbbbb.me/jx/?url=';
-                        break;
-                    case '3':
                         parser = 2;
-                        url = 'http://jx.598110.com/?url=';
-                        break;
-                    case '4':
-                        parser = 3;
                         url = 'https://jx.lache.me/cc/?url=';
                         break;
                     default:
@@ -197,14 +201,8 @@ if (empty($link[2][0])) {
                     case 'https://660e.co':
                         parser = 1;
                         break;
-                    case 'http://api.bbbb':
-                        parser = 2;
-                        break;
-                    case 'http://jx.59811':
-                        parser = 3;
-                        break;
                     case 'https://jx.lach':
-                        parser = 4;
+                        parser = 2;
                         break;
                     default:
                         parser = 1;
@@ -212,6 +210,8 @@ if (empty($link[2][0])) {
                 }
                 setCookie('parser', parser, 1); //保存用户当前使用的解析器
             }
+
+            showParser();
 
             console.log('parser: ' + parser + ' url: ' + url + videoLink.href);
             videoFrame.src = url + videoLink.href;
@@ -270,9 +270,6 @@ if (empty($link[2][0])) {
     <h3 style="margin-bottom: 5px">剧情简介：</h3>
     <p style="margin-top: 0"><?php echo $intro; ?></p>
 </div>
-<div style="text-align: center">
-    <iframe src="http://hpu.lifanko.cn:81/comment/index.php?pid=<?php echo $play; ?>" id="comment"></iframe>
-</div>
 <?php
 echo Common::$history;
 ?>
@@ -283,7 +280,7 @@ echo Common::$history;
     ?>
     <p style="font-size: 12px;text-align: right;margin-top: -25px">Cookie技术有效期:24h</p>
 </footer>
-<script type="text/javascript" src="http://cdn.lifanko.cn/tip10.min.js"></script>
+<script type="text/javascript" src="https://cdn.lifanko.cn/js/tip.min.js"></script>
 <script type="text/javascript">
     tip("欢迎使用影视爬虫！", "12%", 3000, "1", false);
 
@@ -360,7 +357,7 @@ echo Common::$history;
         s.parentNode.insertBefore(hm, s);
     })();
 </script>
-<script src="http://cdn.lifanko.cn/browserMqtt.js"></script>
+<script src="https://cdn.lifanko.cn/js/browserMqtt.js"></script>
 <script src="js/sCount.js"></script>
 </body>
 </html>

@@ -27,25 +27,28 @@ function getRandomString(len) {
     return pwd;
 }
 
-var sub;
+if (window.location.protocol === 'http:') {
+    var sub;
 
-if (getCookie('sCount')) {
-    sub = getCookie('sCount');
-} else {
-    sub = '/sCount/video/' + getRandomString(64);
-    setCookie("sCount", sub, 1);
+    if (getCookie('sCount')) {
+        sub = getCookie('sCount');
+    } else {
+        sub = '/sCount/video/' + getRandomString(64);
+        setCookie("sCount", sub, 1);
+    }
+
+    var client = mqtt.connect('ws://ali.lifanko.cn:8083/mqtt', {username: 'hpu-iot', password: '1420mqtt'});
+    client.publish(sub, "sCount-pre-video");
+
+    // 每分钟更新一次在线信息
+    client.publish(sub, "sCount-add-video");
+    setInterval(function () {
+        client.publish(sub, "sCount-add-video");
+    }, 60000);
+
+    client.subscribe('/sCount/inform/video');
+    client.on("message", function (topic, payload) {
+        document.getElementById('sCount').innerText = '【' + (parseInt(payload.toString().substring(14)) + 1).toString() + '人在线】';
+    });
 }
 
-var client = mqtt.connect('ws://ali.lifanko.cn:8083/mqtt', {username: 'hpu-iot', password: '1420mqtt'});
-client.publish(sub, "sCount-pre-video");
-
-// 每分钟更新一次在线信息
-client.publish(sub, "sCount-add-video");
-setInterval(function () {
-    client.publish(sub, "sCount-add-video");
-}, 60000);
-
-client.subscribe('/sCount/inform/video');
-client.on("message", function (topic, payload) {
-    document.getElementById('sCount').innerText = '【' + (parseInt(payload.toString().substring(14)) + 1).toString() + '人在线】';
-});
