@@ -46,7 +46,7 @@ if (!empty($_GET['url'])) {
     ?>
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link type="text/css" rel="stylesheet" href="css/parse.css">
-    <script type='text/javascript' src='js/jquery-2.1.1.min.js'></script>
+    <script src="https://cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
 </head>
 <body>
 <header>
@@ -123,7 +123,7 @@ echo Common::$history;
     ?>
     <p style="font-size: 12px;text-align: right;margin-top: -25px">Cookie技术有效期:24h</p>
 </footer>
-<script type="text/javascript" src="http://cdn.lifanko.cn/tip10.min.js"></script>
+<script type="text/javascript" src="https://cdn.lifanko.cn/js/tip.min.js"></script>
 <script type="text/javascript">
     tip("欢迎使用影视爬虫！", "12%", 3000, "1", false);
 
@@ -200,7 +200,7 @@ echo Common::$history;
         s.parentNode.insertBefore(hm, s);
     })();
 </script>
-<script src="http://cdn.lifanko.cn/browserMqtt.js"></script>
+<script src="https://cdn.lifanko.cn/js/browserMqtt.js"></script>
 <script src="js/sCount.js"></script>
 </body>
 </html>

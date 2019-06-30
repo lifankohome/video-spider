@@ -98,7 +98,7 @@ if (empty($link[2][0])) {
     ?>
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link type="text/css" rel="stylesheet" href="css/play.css">
-    <script type='text/javascript' src='js/jquery-2.1.1.min.js'></script>
+    <script src="https://cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
 </head>
 <body>
 <header>
