@@ -94,7 +94,5 @@ echo Common::$history;
 </footer>
 <script type="text/javascript" src="https://cdn.lifanko.cn/js/tip.min.js"></script>
 <script type="text/javascript" src="js/app.js"></script>
-<script src="https://cdn.lifanko.cn/js/browserMqtt.js"></script>
-<script src="js/sCount.js"></script>
 </body>
 </html>

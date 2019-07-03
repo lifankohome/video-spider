@@ -357,7 +357,5 @@ echo Common::$history;
         s.parentNode.insertBefore(hm, s);
     })();
 </script>
-<script src="https://cdn.lifanko.cn/js/browserMqtt.js"></script>
-<script src="js/sCount.js"></script>
 </body>
 </html>
