@@ -32,7 +32,7 @@ if ($festival != 'No Festival') {
 <div id="container">
     <h2 style="margin: 1pc 0 0">
         <img src="img/logo.png" style="height: 70px;margin-bottom: -27px"> 影视爬虫v4.0
-        <span style="font-size: 12px">(2019/6/30 17:27更新 已支持HTTPS)</span>
+        <span style="font-size: 12px">(2019/6/30 17:27更新 全站已支持HTTPS)</span>
     </h2>
     <p>
         如果觉得本站好用，请将 <strong style="color: #467cff">影视爬虫</strong> 推荐给您的朋友 或

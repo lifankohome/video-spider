@@ -64,11 +64,6 @@ if (!empty($_GET['url'])) {
             function iFrameResize() {
                 videoFrame.height = parseInt(videoFrame.scrollWidth / 16 * 9);
             }
-
-            window.onresize = function () { //监听
-                //Fixed player size: 16-9
-                iFrameResize();
-            };
         </script>
     </div>
     <?php echo Spider::$parser ?>
@@ -78,14 +73,76 @@ if (!empty($_GET['url'])) {
 
         var videoLink = '';
 
-        function playUrl(url) {
-            videoLink = url;
-            vParser('http://api.bbbbbb.me/jx/?url=');
+        showParser();
+
+        function showParser(){
+            if (getCookie('parser') === "1") {
+                document.getElementById('parser1').innerText = "默认解析器（使用中）";
+                document.getElementById('parser2').innerText = "备用解析器";
+            } else {
+                document.getElementById('parser1').innerText = "默认解析器";
+                document.getElementById('parser2').innerText = "备用解析器（使用中）";
+            }
         }
 
         function vParser(url) {
-            console.log(url + videoLink);
-            videoFrame.src = url + videoLink;
+            var parser;
+            // 使用默认解析器解释时从cookie读取解析源地址，若为空则使用1号解析器；
+            // 若指定了解析器则使用对应解析器解析，并更新cookie
+            if (url === 'default') {
+                parser = getCookie('parser');
+                switch (parser) {
+                    case '1':
+                        parser = 1;
+                        url = 'https://660e.com/?url=';
+                        break;
+                    case '2':
+                        parser = 2;
+                        url = 'https://jx.lache.me/cc/?url=';
+                        break;
+                    default:
+                        parser = 1;
+                        url = 'https://660e.com/?url=';
+                        break;
+                }
+            } else {
+                switch (url.substring(0, 15)) {
+                    case 'https://660e.co':
+                        parser = 1;
+                        break;
+                    case 'https://jx.lach':
+                        parser = 2;
+                        break;
+                    default:
+                        parser = 1;
+                        break;
+                }
+                setCookie('parser', parser, 1); //保存用户当前使用的解析器
+            }
+
+            showParser();
+
+            console.log('parser: ' + parser + ' url: ' + url + videoLink.href);
+            videoFrame.src = url + videoLink.href;
+        }
+
+        function playUrl(url) {
+            videoLink = url;
+            vParser('default');
+        }
+
+        function setCookie(cookieKey, cookieValue, expireDays) {
+            var expDate = new Date();
+            expDate.setDate(expDate.getDate() + expireDays);
+            //noinspection JSDeprecatedSymbols
+            document.cookie = cookieKey + "=" + escape(cookieValue) +
+                ((expireDays == null) ? "" : "; expires=" + expDate.toGMTString());
+        }
+
+        function getCookie(cookieKey) {
+            var arr, reg = new RegExp("(^| )" + cookieKey + "=([^;]*)(;|$)");
+            //noinspection JSDeprecatedSymbols
+            return (arr = document.cookie.match(reg)) ? unescape(arr[2]) : null;
         }
     </script
 </div>
