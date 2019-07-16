@@ -167,7 +167,8 @@ if (empty($link[2][0])) {
         showParser();
 
         function showParser(){
-            if (getCookie('parser') === "1") {
+            var parser = getCookie('parser');
+            if (parser == "1" || parser == null) {
                 document.getElementById('parser1').innerText = "默认解析器（使用中）";
                 document.getElementById('parser2').innerText = "备用解析器";
             } else {

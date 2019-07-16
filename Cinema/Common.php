@@ -15,7 +15,8 @@ class Common
     public static function SEO($source = '')
     {
         return "<meta name=\"keywords\" content=\"lifanko 影视爬虫 {$source}百度云 {$source}免费播放 {$source}在线播放 电视直播 电视点播 最新电影 最新大片 最热电视剧 VIP视频解析\">
-    <meta name=\"description\" content=\"lifanko 影视爬虫 {$source}百度云 {$source}免费播放 {$source}在线播放 电视直播 电视点播 最新电影 最新大片 最热电视剧 VIP视频解析\">";
+    <meta name=\"description\" content=\"lifanko 影视爬虫 {$source}百度云 {$source}免费播放 {$source}在线播放 电视直播 电视点播 最新电影 最新大片 最热电视剧 VIP视频解析\">
+";
     }
 
     public static function getHeader()
@@ -35,7 +36,9 @@ class Common
 	    <li id='searchli'>
 	        <input type='text' id='searchBox' autofocus='autofocus' placeholder='$defaultSearch | 粘贴腾讯/优酷/爱奇艺VIP视频地址'>
 	        <span id='searchText' style='display: inline-block;padding: 0 1pc;margin-left: -0.5pc'><img src='img/yspc.png' style='margin: 0;height: 26px;position: relative;top: 7px'></span>
-	    </li></ul>";
+	    </li>
+	</ul>
+";
     }
 
     public static $history = '<div class="history" style="position: fixed;right: 2pc;top: 40%;">
