@@ -1,9 +1,6 @@
 # Video-Spider
 An easy video-spider with PHP. Get popular or vip videos for FREE && NO ADVERTISEMENT.
 
-### Demo
-http://ali.lifanko.cn/video/
-
 ### Feature
  + Run Without Database
  + Auto Crawling && Updating
@@ -17,5 +14,10 @@ PHP7 + Apache/2.4.6 (CentOS)
 
 **The TXT file in /Cinema should possess write permissions.**
 
-### Screenshot
-![Screenshots](https://github.com/lifankohome/video-spider/blob/master/screenshot.jpg?raw=true)
+### Demo
+https://www.lifanko.cn/video/
+
+![Demo](https://gitee.com/lifanko/others/raw/master/images/video.png)
+
+### Extra
+If you'd like to using these code on your website, please contact lifankohome@163.com and get AUTHORIZATION first.
