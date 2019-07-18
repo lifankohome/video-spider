@@ -138,7 +138,7 @@ if (empty($link[2][0])) {
         }
         ?></h3>
     <div class="player">
-        <iframe onload="iFrameResize()" id="video" src="loading.php"></iframe>
+        <iframe onload="iFrameResize()" id="video" src="loading.php?s=lifanko"></iframe>
         <a style="display: none" id="videoLink" href=""></a>
         <script type="text/javascript">
             var videoFrame = document.getElementById('video');  //全局使用
@@ -166,7 +166,7 @@ if (empty($link[2][0])) {
 
         showParser();
 
-        function showParser(){
+        function showParser() {
             var parser = getCookie('parser');
             if (parser == "1" || parser == null) {
                 document.getElementById('parser1').innerText = "默认解析器（使用中）";
