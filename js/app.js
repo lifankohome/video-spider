@@ -1,7 +1,7 @@
 /**
  * Created by lifanko  lee on 2017/12/13.
  */
-tip("欢迎使用影视爬虫！", "12%", 3000, "1", false);
+tip("欢迎使用 0 广告视频网站——影视爬虫", "12%", 3000, "1", false);
 
 //在窗口调整时图片大小自动适应
 var img = document.getElementsByClassName('img');
@@ -76,3 +76,5 @@ var _hmt = _hmt || [];
     var s = document.getElementsByTagName("script")[0];
     s.parentNode.insertBefore(hm, s);
 })();
+
+console.log("你知道吗？《影视爬虫》为开源程序，于2017年12月6日开始编写并不断维护更新，至今已成长为一个稳定可靠的视频播放网站！\n开源地址：https://github.com/lifankohome/video-spider \n\n欢迎使用本开源代码建造属于自己的视频网站，任何人均可无限制地传播和使用本程序，但您需要在您的网站添加友情链接并告知lifankohome@163.com，否则，《影视爬虫》将通过合法手段撤回您对源代码的使用权。");
