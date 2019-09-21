@@ -308,6 +308,7 @@ class Spider
 
     public static $parser = "<div id=\"parsers\">
                 <button id='parser1' onclick=\"vParser('https://660e.com/?url=')\">默认解析器</button>
-                <button id='parser2' onclick=\"vParser('https://jx.lache.me/cc/?url=')\">备用解析器</button>
+                <button id='parser2' onclick=\"vParser('https://jx.lache.me/cc/?url=')\">备用解析器1</button>
+                <button id='parser3' onclick=\"vParser('https://jx.618ge.com/?url=')\">备用解析器2</button>
             </div>";
 }
