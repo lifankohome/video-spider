@@ -5,6 +5,7 @@
  * Date: 2017/12/6
  * Time: 12:37
  */
+
 use Cinema\Common;
 use Cinema\Spider;
 
@@ -73,7 +74,7 @@ $teleplayCat = Spider::getTeleplayCat();
     <ul>
         <?php
         foreach ($teleplays as $teleplay) {
-            echo "<li><a href='play.php?play={$teleplay['coverpage']}' title='{$teleplay['desc']}' target='_blank'>
+            echo "<li class='resList'><div class='imgTip'><p style='text-align: center'>{$teleplay['desc']}</p></div><a href='play.php?play={$teleplay['coverpage']}' title='点击播放' target='_blank'>
                 <img class='img' src='{$teleplay['cover']}' onerror=\"javascript:this.src='img/noCover.jpg'\" alt='{$teleplay['title']}'>
                 <span id='update'>{$teleplay['tag']}</span>
                 <span id='name'>{$teleplay['title']}</span>

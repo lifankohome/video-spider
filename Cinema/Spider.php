@@ -48,7 +48,7 @@ class Spider
         self::setMoviesCat($movieCatArr);
         self::setPresentCat($presentCat[$cat]);
 
-        $dom = file_get_contents('https://www.360kan.com/dianying/listajax?rank=createtime&cat=' . $cat . '&year=all&area=all&pageno=' . $page);
+        $dom = file_get_contents('https://www.360kan.com/dianying/listajax?cat=' . $cat . '&year=all&area=all&pageno=' . $page);
 
         return json_decode($dom, true)['data']['list'];
     }
@@ -89,7 +89,7 @@ class Spider
         self::setTeleplayCat($teleplayCatArr);
         self::setPresentCat($presentCat[$cat]);
 
-        $dom = file_get_contents('https://www.360kan.com/dianshi/listajax?rank=rankhot&cat=' . $cat . '&year=all&area=all&pageno=' . $page);
+        $dom = file_get_contents('https://www.360kan.com/dianshi/listajax?cat=' . $cat . '&year=all&area=all&pageno=' . $page);
 
         return json_decode($dom, true)['data']['list'];
     }
@@ -130,7 +130,7 @@ class Spider
         self::setVarietyCat($varietyCatArr);
         self::setPresentCat($presentCat[$cat]);
 
-        $dom = file_get_contents('https://www.360kan.com/zongyi/listajax?rank=rankhot&cat=' . $cat . '&year=all&area=all&pageno=' . $page);
+        $dom = file_get_contents('https://www.360kan.com/zongyi/listajax?cat=' . $cat . '&year=all&area=all&pageno=' . $page);
 
         return json_decode($dom, true)['data']['list'];
     }

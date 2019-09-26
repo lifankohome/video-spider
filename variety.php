@@ -5,6 +5,7 @@
  * Date: 2017/12/9
  * Time: 21:29
  */
+
 use Cinema\Common;
 use Cinema\Spider;
 
@@ -73,7 +74,7 @@ $varietyCat = Spider::getVarietyCat();
     <ul>
         <?php
         foreach ($varieties as $variety) {
-            echo "<li><a href='play.php?play={$variety['coverpage']}' title='{$variety['desc']}' target='_blank'>
+            echo "<li class='resList'><div class='imgTip'><p style='text-align: center'>{$variety['desc']}</p></div><a href='play.php?play={$variety['coverpage']}' title='点击播放' target='_blank'>
                 <img class='img' src='{$variety['cover']}' onerror=\"javascript:this.src='img/noCover.jpg'\" alt='{$variety['title']}'>
                 <span id='update'>更新至:{$variety['tag']}</span>
                 <span id='name'>{$variety['title']}</span>
