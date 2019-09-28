@@ -182,7 +182,7 @@ echo Common::$history;
 </footer>
 <script type="text/javascript" src="https://cdn.lifanko.cn/js/tip.min.js"></script>
 <script type="text/javascript">
-    tip("欢迎使用 0 广告视频网站——影视爬虫", "12%", 3000, "1", false);
+    tip("欢迎使用影视爬虫，祝您国庆快乐~", "12%", 3000, "1", false);
 
     //搜索功能
     var search = document.getElementById('searchBox');

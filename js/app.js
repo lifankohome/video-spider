@@ -1,7 +1,7 @@
 /**
  * Created by lifanko  lee on 2017/12/13.
  */
-tip("欢迎使用 0 广告视频网站——影视爬虫", "12%", 3000, "1", false);
+tip("欢迎使用影视爬虫，祝您国庆快乐~", "12%", 3000, "1", false);
 
 //在窗口调整时图片大小自动适应
 var img = document.getElementsByClassName('img');

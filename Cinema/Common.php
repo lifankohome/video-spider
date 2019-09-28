@@ -43,12 +43,12 @@ class Common
 
     public static $history = '<div class="history" style="position: fixed;right: 2pc;top: 40%;">
     <span onmouseover="showHistory()" onmouseout="hideHistory()" class="btn-history"
-          style="background-color: #ddd;padding: 7px 12px;display: inline-block;cursor: pointer;box-shadow: 1px 1px 5px 0 #777;">播放<br>历史</span>
+          style="background-color: rgba(221,221,221,0.7);padding: 7px 12px;display: inline-block;cursor: pointer;box-shadow: 1px 1px 5px 0 #777;">播放<br>历史</span>
     <iframe onmouseover="showHistory()" onmouseout="hideHistory()" id="fra-history" class="fra-history"
             src="history.html" style="position: absolute;border: none;box-shadow: 1px 1px 5px 0 #777;right: -300px;height: 300px;background-color: #ddd;width: 245px;transition: all .3s 0s;padding: 0;border-radius: 0"></iframe>
             </div>';
 
-    public static $QQGroup = "<p id='QQGroup'>影视爬虫使用cookie技术(包含第三方cookie)来实现网站功能，有关cookie使用的详细信息请点击<a href='/video/about.html#cookie' style='color: #333'>这里</a><span id='sCount'></span></p>";
+    public static $QQGroup = "<p id='QQGroup'>影视爬虫使用cookie技术(包含第三方cookie)来实现网站功能，有关cookie使用的详细信息请点击<a href='about.html#cookie' style='color: #333'>这里</a><span id='sCount'></span></p>";
 
     public static $footer = "<p style='font-size: 12px;color: #000'>Copyright &copy; <a href='https://hpu.lifanko.cn' style='color: #333'>lifanko</a> 2017-2019 <a href='http://www.miitbeian.gov.cn/' style='color: #333'>豫ICP备16040860号-1</a></p>";
 }
