@@ -84,6 +84,10 @@ if (empty($link[2][0])) {
     $multiSets = false;
     $link = $link[2][0];
 }
+
+// SEO
+$description = mb_strlen($intro) > 70 ? mb_substr($intro, 2, 70) . '...' : ($intro == '无' ? $name . '免费在线播放' : mb_substr($intro, 2));
+
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -92,11 +96,9 @@ if (empty($link[2][0])) {
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="<?php echo $name; ?>百度云 <?php echo $name; ?>在线观看 <?php echo $name; ?>下载">
-    <title><?php echo $name ?> - 影视爬虫</title>
-    <?php
-    echo Common::SEO($name);
-    ?>
+    <meta name="keywords" content="<?php echo $name; ?>免费在线播放 <?php echo $name; ?>在线播放 <?php echo $name; ?>在线观看 <?php echo $name; ?>百度云 <?php echo $name; ?>下载">
+    <meta name="description" content="<?php echo $description; ?>">
+    <title><?php echo $name; ?>免费在线播放 - 影视爬虫</title>
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link type="text/css" rel="stylesheet" href="css/play.css">
     <script src="https://cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>

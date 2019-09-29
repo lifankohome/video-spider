@@ -35,7 +35,7 @@ class Common
 	    <li><a href='about.html'>使用说明</a></li>
 	    <li id='searchli'>
 	        <input type='text' id='searchBox' autofocus='autofocus' placeholder='$defaultSearch | 粘贴腾讯/优酷/爱奇艺VIP视频地址'>
-	        <span id='searchText' style='display: inline-block;padding: 0 1pc;margin-left: -0.5pc'><img src='img/yspc.png' style='margin: 0;height: 26px;position: relative;top: 7px'></span>
+	        <span id='searchText' style='display: inline-block;padding: 0 1pc;margin-left: -0.5pc'><img src='img/yspc.png' style='margin: 0;height: 34px;position: relative;top: 11px'></span>
 	    </li>
 	</ul>
 ";
