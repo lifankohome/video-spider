@@ -66,7 +66,7 @@ class Spider
         self::setPresentCat($presentCat[$cat]);
 
         $movieNameDom = '#<span class="s1">(.*?)</span>#';
-        $movieScoreDom = '#<span class="s2">(.*?)</span>#';
+        $movieScoreDom = '#<span class="point">(.*?)</span>#';
         $movieYearDom = '#<span class="hint">(.*?)</span>#';
         $movieLinkDom = '#<a class="js-tongjic" href="(.*?)">#';
         $movieActorDom = '# <p class="star">(.*?)</p>#';
