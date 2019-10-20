@@ -75,13 +75,20 @@ if (!empty($_GET['url'])) {
 
         showParser();
 
-        function showParser(){
-            if (getCookie('parser') === "1") {
+        function showParser() {
+            var parser = getCookie('parser');
+            if (parser == "1" || parser == null) {
                 document.getElementById('parser1').innerText = "默认解析器（使用中）";
-                document.getElementById('parser2').innerText = "备用解析器";
-            } else {
+                document.getElementById('parser2').innerText = "备用解析器1";
+                document.getElementById('parser3').innerText = "备用解析器2";
+            } else if (parser == "2") {
                 document.getElementById('parser1').innerText = "默认解析器";
-                document.getElementById('parser2').innerText = "备用解析器（使用中）";
+                document.getElementById('parser2').innerText = "备用解析器1（使用中）";
+                document.getElementById('parser3').innerText = "备用解析器2";
+            } else if (parser == "3") {
+                document.getElementById('parser1').innerText = "默认解析器";
+                document.getElementById('parser2').innerText = "备用解析器1";
+                document.getElementById('parser3').innerText = "备用解析器2（使用中）";
             }
         }
 
@@ -100,6 +107,10 @@ if (!empty($_GET['url'])) {
                         parser = 2;
                         url = 'https://jx.lache.me/cc/?url=';
                         break;
+                    case '3':
+                        parser = 3;
+                        url = 'https://jx.618ge.com/?url=';
+                        break;
                     default:
                         parser = 1;
                         url = 'https://660e.com/?url=';
@@ -112,6 +123,9 @@ if (!empty($_GET['url'])) {
                         break;
                     case 'https://jx.lach':
                         parser = 2;
+                        break;
+                    case 'https://jx.618g':
+                        parser = 3;
                         break;
                     default:
                         parser = 1;

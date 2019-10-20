@@ -241,7 +241,7 @@ class Spider
             $dom = self::curl_get_contents('https://www.360kan.com/dianying/list?year=all&area=all&act=all&cat=all');
         } else {
             if (substr($kw, 0, 4) == 'http' || strpos($kw, ".com")) {
-                header("location:/parse.php?url=$kw");
+                header("location:parse.php?url=$kw");
             }
 
             $dom = self::curl_get_contents('https://so.360kan.com/index.php?kw=' . $kw);
