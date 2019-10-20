@@ -66,7 +66,7 @@ class Spider
         self::setPresentCat($presentCat[$cat]);
 
         $movieNameDom = '#<span class="s1">(.*?)</span>#';
-        $movieScoreDom = '#<span class="point">(.*?)</span>#';
+        $movieScoreDom = '#<span class="hint">[\w]+</span>[\s]+(.*?)</div>#';
         $movieYearDom = '#<span class="hint">(.*?)</span>#';
         $movieLinkDom = '#<a class="js-tongjic" href="(.*?)">#';
         $movieActorDom = '# <p class="star">(.*?)</p>#';
@@ -83,7 +83,7 @@ class Spider
         $movies = array();
         foreach ($movieName[1] as $key => $value) {
             $buffer['title'] = $movieName[1][$key];
-            $buffer['point'] = $movieScore[1][$key];
+            $buffer['point'] = empty($movieScore[1][$key]) ? '无' : $movieScore[1][$key];
             $buffer['tag'] = $movieYear[1][$key];
             $buffer['coverpage'] = $movieLink[1][$key];
             $buffer['desc'] = $movieActor[1][$key];
@@ -238,18 +238,18 @@ class Spider
     public static function search($kw)
     {
         if (empty($kw)) {
-            $dom = file_get_contents('http://www.360kan.com/dianying/list.php?year=all&area=all&act=all&cat=all&pageno=all');
+            $dom = self::curl_get_contents('https://www.360kan.com/dianying/list?year=all&area=all&act=all&cat=all');
         } else {
             if (substr($kw, 0, 4) == 'http' || strpos($kw, ".com")) {
-                header("location:http://ali.lifanko.cn/video/parse.php?url=$kw");
+                header("location:/parse.php?url=$kw");
             }
 
-            $dom = file_get_contents('http://so.360kan.com/index.php?kw=' . $kw);
+            $dom = self::curl_get_contents('https://so.360kan.com/index.php?kw=' . $kw);
         }
 
         $nameDom = '#js-playicon" title="(.*?)"\s*data#';
         $linkDom = '#a href="(.*?)" class="g-playicon js-playicon"#';
-        $imgDom = '#<img src="(.*?)" alt="(.*?)" \/>[\s\S]+?</a>#';
+        $imgDom = '#<img src="(.*?)" alt="[\S]+" \/>[\s\S]+?</a>#';
         $typeDom = '#<span class="playtype">(.*?)<\/span>#';
 
         preg_match_all($nameDom, $dom, $name);
