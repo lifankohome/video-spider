@@ -148,7 +148,7 @@ $description = mb_strlen($intro) > 70 ? mb_substr($intro, 2, 70) . '...' : ($int
             var videoLink = document.getElementById('videoLink');
 
             function iFrameResize() {
-                videoFrame.height = parseInt(videoFrame.scrollWidth / 16 * 9);
+                videoFrame.height = Math.floor(videoFrame.scrollWidth / 16 * 9);
             }
         </script>
     </div>
@@ -196,7 +196,7 @@ $description = mb_strlen($intro) > 70 ? mb_substr($intro, 2, 70) . '...' : ($int
                 switch (parser) {
                     case '1':
                         parser = 1;
-                        url = 'https://660e.com/?url=';
+                        url = 'http://api2.drgxj.com/?url=';
                         break;
                     case '2':
                         parser = 2;
@@ -204,7 +204,7 @@ $description = mb_strlen($intro) > 70 ? mb_substr($intro, 2, 70) . '...' : ($int
                         break;
                     case '3':
                         parser = 3;
-                        url = 'https://jx.618ge.com/?url=';
+                        url = 'https://660e.com/?url=';
                         break;
                     default:
                         parser = 1;
@@ -213,13 +213,13 @@ $description = mb_strlen($intro) > 70 ? mb_substr($intro, 2, 70) . '...' : ($int
                 }
             } else {
                 switch (url.substring(0, 15)) {
-                    case 'https://660e.co':
+                    case 'http://api2.drg':
                         parser = 1;
                         break;
                     case 'https://jx.lach':
                         parser = 2;
                         break;
-                    case 'https://jx.618g':
+                    case 'https://660e.co':
                         parser = 3;
                         break;
                     default:
