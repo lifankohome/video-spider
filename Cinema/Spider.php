@@ -25,7 +25,7 @@ class Spider
         self::$presentCat = $presentCat;
     }
 
-    private static function curl_get_contents($url)
+    public static function curl_get_contents($url)
     {
         $user_agent = 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.81 Safari/537.36';
         $ch = curl_init();
@@ -393,7 +393,7 @@ class Spider
     }
 
     public static $parser = "<div id=\"parsers\">
-                <button id='parser1' onclick=\"vParser('http://api2.drgxj.com/?url=')\">默认解析器</button>
+                <button id='parser1' onclick=\"vParser('https://vip.bljiex.com/?v=')\">默认解析器</button>
                 <button id='parser2' onclick=\"vParser('https://jx.lache.me/cc/?url=')\">备用解析器1</button>
                 <button id='parser3' onclick=\"vParser('https://660e.com/?url=')\">备用解析器2</button>
             </div>";

@@ -101,7 +101,7 @@ if (!empty($_GET['url'])) {
                 switch (parser) {
                     case '1':
                         parser = 1;
-                        url = 'https://660e.com/?url=';
+                        url = 'https://vip.bljiex.com/?v=';
                         break;
                     case '2':
                         parser = 2;
@@ -109,7 +109,7 @@ if (!empty($_GET['url'])) {
                         break;
                     case '3':
                         parser = 3;
-                        url = 'https://jx.618ge.com/?url=';
+                        url = 'https://660e.com/?url=';
                         break;
                     default:
                         parser = 1;
@@ -118,13 +118,13 @@ if (!empty($_GET['url'])) {
                 }
             } else {
                 switch (url.substring(0, 15)) {
-                    case 'https://660e.co':
+                    case 'https://vip.blj':
                         parser = 1;
                         break;
                     case 'https://jx.lach':
                         parser = 2;
                         break;
-                    case 'https://jx.618g':
+                    case 'https://660e.co':
                         parser = 3;
                         break;
                     default:

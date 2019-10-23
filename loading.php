@@ -71,8 +71,8 @@ if ($festival != 'No Festival') {
         <h4 style="border-bottom: 1px #999 solid;">今日<?php echo $festival; ?>箴言</h4>
         <p style="font-size: 18px;margin-top: -1pc;font-style: italic"><?php echo Maxim::get(); ?></p>
     </div>
-    <div style="position: fixed;bottom: 0;width: 100%;margin: 0 auto;font-size: 12px">
-        <p>电影请点击左上方“立即播放”、电视剧选集后即可播放<br>播放不了请尝试切换下方的解析器 或 反馈站长：lifankohome@163.com</p>
+    <div style="position: fixed;bottom: 0;width: 100%;margin: 0 auto;font-size: 14px;color: #000;text-shadow: none;">
+        若影视无法播放请尝试切换下方的解析器 或 反馈站长：lifankohome@163.com
     </div>
 </div>
 <script>
