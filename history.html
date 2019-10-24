@@ -13,7 +13,7 @@
 
         a {
             color: #000;
-            font-family: "Microsoft JhengHei UI";
+            font-family: "等线";
         }
 
         li:hover {
@@ -42,7 +42,7 @@
     for (var i = 0; i < 10; i++) {
         if (res !== null && i < res.length) {
             var buffer = res[i].split('http');
-            list += "<li><a href='http" + buffer[1] + "' target='_blank'>" + buffer[0] + "</a></li>";
+            list += "<li><a href='http" + buffer[1] + "' title='点击播放' target='_blank'>" + buffer[0] + "</a></li>";
         } else {
             list += "<li>无</li>";
         }

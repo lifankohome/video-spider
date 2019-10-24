@@ -49,9 +49,6 @@ $moviesCat = Spider::getMoviesCat();
     ?>
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link type="text/css" rel="stylesheet" href="css/common.css">
-    <style>
-
-    </style>
 </head>
 <body>
 <header>
@@ -77,15 +74,9 @@ $moviesCat = Spider::getMoviesCat();
     <ul>
         <?php
         foreach ($movies as $movie) {
-            if (empty($movie['point'])) {
-                $score = '无';
-            } else {
-                $score = $movie['point'];
-            }
-
             echo "<li class='resList'><div class='imgTip'><p style='text-align: center'>{$movie['desc']}</p></div><a href='play.php?play={$movie['coverpage']}' title='点击播放' target='_blank'>
                 <img class='img' src='{$movie['cover']}' onerror=\"javascript:this.src='img/noCover.jpg'\" alt='{$movie['title']}'>
-                <span id='score'>{$score}</span>
+                <span id='score'>{$movie['point']}</span>
                 <span id='year'>{$movie['tag']} {$movie['title']}</span>
             </a></li>";
         }

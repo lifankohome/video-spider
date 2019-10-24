@@ -38,11 +38,11 @@ if (!empty($_GET['play'])) {
     die("<h2>无效的播放链接，将自动返回主页...<script>setTimeout(function() {window.location='index.php';},1500)</script></h2>");
 }
 
-$dom = file_get_contents($player);
+$dom = Spider::curl_get_contents($player);
 
 $nameDom = '#<h1>(.*?)</h1>#';
 $introDom = '#style="display:none;"><span>简介 ：<\/span><p class="item-desc">(.*?)<a href#';
-$linkDom = '#<a data-daochu(.*?) href="(.*?)" class="js-site-btn btn btn-play">#';
+$linkDom = '#<a data-daochu=(.*?) class=(.*?) href="(.*?)">#';
 
 preg_match_all($nameDom, $dom, $name);
 preg_match_all($introDom, $dom, $intro);
@@ -57,7 +57,7 @@ if (empty($intro[1][0])) {
 }
 
 $sets = array();
-if (empty($link[2][0])) {
+if (empty($link[3][0])) {
     $multiSets = true;
 
     $setsDivDom = '/<div class="num-tab-main g-clear js-tab"( style="display:none;")?>[\s\S]+<a data-num="(.*?)" data-daochu="(.*?)" href=(.*?)>/';
@@ -82,7 +82,7 @@ if (empty($link[2][0])) {
     }
 } else {
     $multiSets = false;
-    $link = $link[2][0];
+    $link = $link[3];
 }
 
 // SEO
@@ -137,7 +137,13 @@ $description = mb_strlen($intro) > 70 ? mb_substr($intro, 2, 70) . '...' : ($int
                 Spider::clickRec('clickHistory', $name);
             }
 
-            echo $name . "——<a class='videoA' href='$link' target='ajax'>立即播放</a>";
+            echo "《" . $name . "》<span style='font-size: 14px'>点击选择源后即可播放";
+            $n = 0;
+            foreach ($link as $s) {
+                $n++;
+                echo "<a class='videoA' href='$s' target='ajax'>{$n}号源</a>";
+            }
+            echo "</span>";
         }
         ?></h3>
     <div class="player">
@@ -148,7 +154,7 @@ $description = mb_strlen($intro) > 70 ? mb_substr($intro, 2, 70) . '...' : ($int
             var videoLink = document.getElementById('videoLink');
 
             function iFrameResize() {
-                videoFrame.height = parseInt(videoFrame.scrollWidth / 16 * 9);
+                videoFrame.height = Math.floor(videoFrame.scrollWidth / 16 * 9);
             }
         </script>
     </div>
@@ -196,7 +202,7 @@ $description = mb_strlen($intro) > 70 ? mb_substr($intro, 2, 70) . '...' : ($int
                 switch (parser) {
                     case '1':
                         parser = 1;
-                        url = 'https://660e.com/?url=';
+                        url = 'https://vip.bljiex.com/?v=';
                         break;
                     case '2':
                         parser = 2;
@@ -204,22 +210,22 @@ $description = mb_strlen($intro) > 70 ? mb_substr($intro, 2, 70) . '...' : ($int
                         break;
                     case '3':
                         parser = 3;
-                        url = 'https://jx.618ge.com/?url=';
+                        url = 'https://660e.com/?url=';
                         break;
                     default:
                         parser = 1;
-                        url = 'https://660e.com/?url=';
+                        url = 'https://vip.bljiex.com/?v=';
                         break;
                 }
             } else {
                 switch (url.substring(0, 15)) {
-                    case 'https://660e.co':
+                    case 'https://vip.blj':
                         parser = 1;
                         break;
                     case 'https://jx.lach':
                         parser = 2;
                         break;
-                    case 'https://jx.618g':
+                    case 'https://660e.co':
                         parser = 3;
                         break;
                     default:
@@ -300,7 +306,7 @@ echo Common::$history;
 </footer>
 <script type="text/javascript" src="https://cdn.lifanko.cn/js/tip.min.js"></script>
 <script type="text/javascript">
-    tip("欢迎使用 0 广告视频网站——影视爬虫", "12%", 3000, "1", false);
+    tip("欢迎使用影视爬虫，祝您国庆快乐~", "12%", 3000, "1", false);
 
     //搜索功能
     var search = document.getElementById('searchBox');

@@ -56,13 +56,13 @@ if ($festival != 'No Festival') {
 <body>
 <div id="container">
     <h2 style="margin: 1pc 0 0">
-        <img src="img/logo.png" style="height: 70px;margin-bottom: -27px"> 影视爬虫v4.0
-        <span style="font-size: 12px">(2019/6/30 17:27更新 全站已支持HTTPS)</span>
+        <img src="img/logo.png" style="height: 70px;margin-bottom: -27px"> 影视爬虫v4.2
+        <span style="font-size: 12px">（2019/10/23 23:27 重磅更新）</span>
     </h2>
     <p>
-        如果觉得本站好用，请将 <strong style="color: #467cff">影视爬虫</strong> 推荐给您的朋友 或
+        如果觉得本站好用，请将 <strong style="color: #467cff;text-shadow: none">影视爬虫</strong> 添加到书签、推荐给您的朋友 或
         <span onmouseover="showDonate()" onmouseout="hideDonate()"
-              style="color: #e22c1b;cursor: pointer;text-decoration: underline"
+              style="color: #e22c1b;cursor: pointer;text-decoration: underline;text-shadow: none"
               id="donateTip">给作者打赏~
         </span>
         <img src="img/wechat.jpg" id="wechat" style="width: 24%;display: block;margin: -100pc auto 100px auto;">
@@ -71,8 +71,8 @@ if ($festival != 'No Festival') {
         <h4 style="border-bottom: 1px #999 solid;">今日<?php echo $festival; ?>箴言</h4>
         <p style="font-size: 18px;margin-top: -1pc;font-style: italic"><?php echo Maxim::get(); ?></p>
     </div>
-    <div style="position: fixed;bottom: 0;width: 100%;margin: 0 auto;font-size: 12px">
-        <p>电影请点击左上方“立即播放”、电视剧选集后即可播放<br>播放不了请尝试切换下方的解析器 或 反馈站长：lifankohome@163.com</p>
+    <div style="position: fixed;bottom: 0;width: 100%;margin: 0 auto;font-size: 14px;color: #000;text-shadow: none;">
+        若影视无法播放请尝试切换下方的解析器 或 反馈站长：lifankohome@163.com
     </div>
 </div>
 <script>
@@ -85,13 +85,13 @@ if ($festival != 'No Festival') {
     function showDonate() {
         ad.style.display = 'none';
         wechat.style.marginTop = 1 + 'pc';
-        donateTip.innerText = "给作者打赏~（感谢老板~老板大气！！）";
+        donateTip.innerText = "赏点小费（感谢老板~老板大气！！）";
     }
 
     function hideDonate() {
         ad.style.display = 'block';
         wechat.style.marginTop = -100 + 'pc';
-        donateTip.innerText = "给作者打赏~";
+        donateTip.innerText = "赏点小费~";
     }
 
     setTimeout(function () {

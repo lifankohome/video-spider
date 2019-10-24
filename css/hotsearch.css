@@ -3,9 +3,10 @@ body {
     min-width: 995px;
     margin: 0 auto;
     /*noinspection CssNoGenericFontName*/
-    font-family: "Microsoft JhengHei UI";
+    font-family: "等线";
     padding: 0 1.5pc;
-    background-color: #eee;
+    /*background-color: #eee;*/
+    background: url("../img/springbg.png") fixed;
 }
 
 h3 {
@@ -55,7 +56,7 @@ header, .videolist ul {
     list-style: none;
     padding: 0;
     margin: 0;
-    background-color: #ddd;
+    background-color: rgba(221, 221, 221, 0.5);
 }
 
 header ul li {
@@ -81,7 +82,7 @@ header ul li:hover a {
 
 #searchli {
     float: right;
-    background-color: #ccc;
+    background-color: rgba(204, 204, 204, 0.5);
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
 }
