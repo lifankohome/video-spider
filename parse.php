@@ -136,8 +136,8 @@ if (!empty($_GET['url'])) {
 
             showParser();
 
-            console.log('parser: ' + parser + ' url: ' + url + videoLink.href);
-            videoFrame.src = url + videoLink.href;
+            console.log('parser: ' + parser + ' url: ' + url + videoLink);
+            videoFrame.src = url + videoLink;
         }
 
         function playUrl(url) {
