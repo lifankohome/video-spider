@@ -98,7 +98,7 @@ $description = mb_strlen($intro) > 70 ? mb_substr($intro, 2, 70) . '...' : ($int
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="keywords" content="<?php echo $name; ?>免费在线播放 <?php echo $name; ?>在线播放 <?php echo $name; ?>在线观看 <?php echo $name; ?>百度云 <?php echo $name; ?>下载">
     <meta name="description" content="<?php echo $description; ?>">
-    <title><?php echo $name; ?>免费在线播放 - 影视爬虫</title>
+    <title>《<?php echo $name; ?>》免费在线播放 - 影视爬虫</title>
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link type="text/css" rel="stylesheet" href="css/play.css">
     <script src="https://cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
@@ -254,7 +254,7 @@ $description = mb_strlen($intro) > 70 ? mb_substr($intro, 2, 70) . '...' : ($int
         }
 
         var title = document.title;
-        title = title.substr(0, title.length - 7) + window.location.href;
+        title = title.substr(1, title.length - 15) + window.location.href;
 
         var title_obj = JSON.parse(getCookie('play-history'));
 
@@ -306,7 +306,7 @@ echo Common::$history;
 </footer>
 <script type="text/javascript" src="https://cdn.lifanko.cn/js/tip.min.js"></script>
 <script type="text/javascript">
-    tip("欢迎使用影视爬虫，祝您国庆快乐~", "12%", 3000, "1", false);
+    tip("欢迎使用影视爬虫~", "12%", 3000, "1", false);
 
     //搜索功能
     var search = document.getElementById('searchBox');

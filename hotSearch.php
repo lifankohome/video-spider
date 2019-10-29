@@ -38,7 +38,7 @@ if (empty($_GET['max'])) { //显示的关键词数量，默认最多显示999个
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>影视排行榜 - 影视爬虫</title>
+    <title>排行榜 - 影视爬虫</title>
     <?php
     echo Common::SEO();
     ?>
@@ -88,7 +88,7 @@ echo Common::$history;
 </footer>
 <script type="text/javascript" src="https://cdn.lifanko.cn/js/tip.min.js"></script>
 <script type="text/javascript">
-    tip("欢迎使用影视爬虫，祝您国庆快乐~", "12%", 2000, "1", false);
+    tip("欢迎使用影视爬虫~", "12%", 2000, "1", false);
 
     //搜索功能
     var search = document.getElementById('searchBox');
