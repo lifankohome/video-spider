@@ -58,7 +58,7 @@ if (!empty($_GET['url'])) {
         echo "VIP视频解析——<a class='videoA' onclick='playUrl(\"$url\")' href='$url' target='ajax'>立即播放</a>";
         ?></h3>
     <div class="player">
-        <iframe onload="iFrameResize()" id="video" src="loading.php"></iframe>
+        <iframe onload="iFrameResize()" allowtransparency="true" allowfullscreen="allowfullscreen" id="video" src="loading.php"></iframe>
         <script type="text/javascript">
             var videoFrame = document.getElementById('video');  //全局使用
             function iFrameResize() {

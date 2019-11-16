@@ -147,7 +147,7 @@ $description = mb_strlen($intro) > 70 ? mb_substr($intro, 2, 70) . '...' : ($int
         }
         ?></h3>
     <div class="player">
-        <iframe onload="iFrameResize()" id="video" src="loading.php"></iframe>
+        <iframe onload="iFrameResize()" allowtransparency="true" allowfullscreen="allowfullscreen" id="video" src="loading.php"></iframe>
         <a style="display: none" id="videoLink" href=""></a>
         <script type="text/javascript">
             var videoFrame = document.getElementById('video');  //全局使用
