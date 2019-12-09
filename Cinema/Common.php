@@ -14,8 +14,8 @@ class Common
 {
     public static function SEO($source = '')
     {
-        return "<meta name=\"keywords\" content=\"影视爬虫 {$source}百度云 {$source}免费播放 {$source}在线播放 电视直播 电视点播 最新电影 最新大片 最热电视剧 VIP视频解析\">
-    <meta name=\"description\" content=\"影视爬虫 {$source}百度云 {$source}免费播放 {$source}在线播放 电视直播 电视点播 最新电影 最新大片 最热电视剧 VIP视频解析\">
+        return "<meta name=\"keywords\" content=\"影视爬虫,{$source}百度云,{$source}免费播放,{$source}在线播放,电视直播,电视点播,最新电影,最新大片,最热电视剧,VIP视频解析\">
+    <meta name=\"description\" content=\"影视爬虫,{$source}百度云,{$source}免费播放,{$source}在线播放,电视直播,电视点播,最新电影,最新大片,最热电视剧,VIP视频解析\">
 ";
     }
 

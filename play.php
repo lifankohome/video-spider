@@ -86,8 +86,8 @@ if (empty($link[3][0])) {
 }
 
 // SEO
-$description = mb_strlen($intro) > 70 ? mb_substr($intro, 2, 70) . '...' : ($intro == '无' ? $name . '免费在线播放' : mb_substr($intro, 2));
-
+$keywords = $name . '免费在线播放,' . $name . '在线播放,' . $name . '在线观看,' . $name . '百度云,' . $name . '下载 ';
+$description = mb_strlen($intro) > 70 ? '《' . $name . '》剧情简介：' . mb_substr($intro, 2, 70) . '...' : ($intro == '无' ? $name . '免费在线播放' : mb_substr($intro, 2));
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -96,7 +96,7 @@ $description = mb_strlen($intro) > 70 ? mb_substr($intro, 2, 70) . '...' : ($int
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="keywords" content="<?php echo $name; ?>免费在线播放 <?php echo $name; ?>在线播放 <?php echo $name; ?>在线观看 <?php echo $name; ?>百度云 <?php echo $name; ?>下载">
+    <meta name="keywords" content="<?php echo $keywords; ?>">
     <meta name="description" content="<?php echo $description; ?>">
     <title>《<?php echo $name; ?>》免费在线播放 - 影视爬虫</title>
     <link rel="icon" href="favicon.ico" type="image/x-icon">
