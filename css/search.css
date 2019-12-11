@@ -117,3 +117,9 @@ header ul li:hover a {
     padding: 6px 2px;
     border-radius: 2px;
 }
+
+@media screen and (max-width: 768px) {
+    .btn-history {
+        display: none !important;
+    }
+}
