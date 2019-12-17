@@ -45,7 +45,30 @@ if (!empty($_GET['url'])) {
     echo Common::SEO();
     ?>
     <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <link type="text/css" rel="stylesheet" href="css/parse.css">
+    <link type="text/css" rel="stylesheet" href="css/common.css">
+    <link type="text/css" rel="stylesheet" href="css/play.css">
+    <style>
+        .support {
+            text-align: center;
+            width: 85%;
+            margin: 0 auto;
+        }
+
+        .support ul {
+            padding-left: 0;
+        }
+
+        .support li {
+            margin: 0 auto;
+            width: 16.6666%;
+            padding: 10px 0;
+            background-color: #fff;
+        }
+
+        .support img {
+            max-width: 100%;
+        }
+    </style>
     <script src="https://cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
 </head>
 <body>
@@ -161,7 +184,7 @@ if (!empty($_GET['url'])) {
     </script
 </div>
 <div class="support">
-    <h2 style="margin-bottom: -1pc">支持以下网站VIP视频解析播放</h2>
+    <h3>支持以下网站VIP视频解析播放</h3>
     <ul>
         <li><img src="http://www.5ifxw.com/vip/2/aqylogo.png"></li>
         <li><img src="http://www.5ifxw.com/vip/2/youkulogo.png"></li>
@@ -189,10 +212,9 @@ echo Common::$history;
 ?>
 <footer>
     <?php
-    echo Common::$QQGroup;
+    echo Common::$tip;
     echo Common::$footer;
     ?>
-    <p style="font-size: 12px;text-align: right;margin-top: -25px">Cookie技术有效期:24h</p>
 </footer>
 <script type="text/javascript" src="https://cdn.lifanko.cn/js/tip.min.js"></script>
 <script type="text/javascript">

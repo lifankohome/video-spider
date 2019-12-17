@@ -43,6 +43,7 @@ if (empty($_GET['max'])) { //显示的关键词数量，默认最多显示999个
     echo Common::SEO();
     ?>
     <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link type="text/css" rel="stylesheet" href="css/common.css">
     <link type="text/css" rel="stylesheet" href="css/hotsearch.css">
 </head>
 <body>
@@ -82,7 +83,7 @@ echo Common::$history;
 ?>
 <footer>
     <?php
-    echo Common::$QQGroup;
+    echo Common::$tip;
     echo Common::$footer;
     ?>
 </footer>

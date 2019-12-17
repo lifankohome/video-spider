@@ -4,8 +4,22 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <style>
+        @font-face {
+            font-family: "PingFang SC";
+            src: url("font/PingFangSC-Regular.woff2");
+        }
+
+        @font-face {
+            font-family: "SF Pro Text";
+            src: url("font/sf-pro-text_regular.woff2");
+        }
+
+        body {
+            font-family: "PingFang SC", "SF Pro Text", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+        }
+
         li {
-            width: 180px;
+            /*width: 180px;*/
             border-bottom: 1px #bbb solid;
             padding: 2px 0;
             text-align: center;
@@ -13,7 +27,9 @@
 
         a {
             color: #000;
-            font-family: "等线";
+            display: inline-block;
+            width: 100%;
+            font-size: 14px;
         }
 
         li:hover {
@@ -27,7 +43,8 @@
 </head>
 <body>
 <div>
-    <ul id="list" style="list-style: decimal;padding-left: 30px"></ul>
+    <p style="text-align: center;margin-bottom: -15px;background-color: #bbb;font-weight: bold">仅保存最近十条播放记录哦~</p>
+    <ul id="list" style="list-style: none;padding-left: 0"></ul>
 </div>
 <script>
     function getCookie(cookieKey) {

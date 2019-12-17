@@ -49,6 +49,7 @@ $moviesCat = Spider::getMoviesCat();
     ?>
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link type="text/css" rel="stylesheet" href="css/common.css">
+    <link type="text/css" rel="stylesheet" href="css/video.css">
 </head>
 <body>
 <header>
@@ -89,7 +90,7 @@ echo Common::$history;
 ?>
 <footer>
     <?php
-    echo Common::$QQGroup;
+    echo Common::$tip;
     echo Common::$footer;
     ?>
 </footer>

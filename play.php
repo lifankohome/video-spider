@@ -50,11 +50,7 @@ preg_match_all($linkDom, $dom, $link);
 
 $name = $name[1][0];
 
-if (empty($intro[1][0])) {
-    $intro = "无";
-} else {
-    $intro = '　　' . $intro[1][0];
-}
+$intro = empty($intro[1][0]) ? "暂无" : $intro[1][0];
 
 $sets = array();
 if (empty($link[3][0])) {
@@ -87,7 +83,7 @@ if (empty($link[3][0])) {
 
 // SEO
 $keywords = $name . '免费在线播放,' . $name . '在线播放,' . $name . '在线观看,' . $name . '百度云,' . $name . '下载 ';
-$description = mb_strlen($intro) > 70 ? '《' . $name . '》剧情简介：' . mb_substr($intro, 2, 70) . '...' : ($intro == '无' ? $name . '免费在线播放' : mb_substr($intro, 2));
+$description = mb_strlen($intro) > 70 ? '《' . $name . '》剧情简介：' . mb_substr($intro, 0, 70) . '...' : ($intro == '暂无' ? $keywords : mb_substr($intro, 2));
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -100,6 +96,7 @@ $description = mb_strlen($intro) > 70 ? '《' . $name . '》剧情简介：' . m
     <meta name="description" content="<?php echo $description; ?>">
     <title>《<?php echo $name; ?>》免费在线播放 - 影视爬虫</title>
     <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link type="text/css" rel="stylesheet" href="css/common.css">
     <link type="text/css" rel="stylesheet" href="css/play.css">
     <script src="https://cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
 </head>
@@ -109,45 +106,47 @@ $description = mb_strlen($intro) > 70 ? '《' . $name . '》剧情简介：' . m
     <?php echo Common::getHeader() ?>
 </header>
 <div class="container">
-    <h3><a style="float: right;font-size: 14px;margin-top: 2px" href="https://www.lifanko.cn/music/">友情链接：橡皮音乐</a>
-        <?php
-        if ($multiSets) {
-            if (empty($sets)) {
-                echo '《' . $name . '》—— 暂无播放资源，请稍后再来~';
-            } else {
-                //如果有播放资源，则点击量加一，因为搜索的时候已经记录了一次，所以不在点击量中再次记录关键词
-                if (!(isset($_GET['s']) && $_GET['s'] == 'search')) {
-                    Spider::clickRec('clickHistory', $name);
-                }
-
-                echo '《' . $name . '》—— 总' . count($sets[3]) . '集<ul>';
-                foreach ($sets[3] as $key => $val) {
-                    if ($varietyEpisode) {
-                        echo "<li><a class='videoA' href='$val' target='ajax'>{$sets[1][$key]}</a></li>";
-                    } else {
-                        $key++;
-                        echo "<li><a class='videoA' href='$val' target='ajax'>第{$key}集</a></li>";   //集数从1开始
-                    }
-                }
-                echo '</ul><div style="clear: both;border-bottom: 1px #ddd solid;padding-top: 1pc"></div>';
-            }
+    <?php
+    echo Spider::$parser;
+    if ($multiSets) {
+        if (empty($sets)) {
+            echo "<h3>《" . $name . "》<span style='font-size: 15px'>暂无播放资源，请稍后再来~</span></h3>";
         } else {
             //如果有播放资源，则点击量加一，因为搜索的时候已经记录了一次，所以不在点击量中再次记录关键词
             if (!(isset($_GET['s']) && $_GET['s'] == 'search')) {
                 Spider::clickRec('clickHistory', $name);
             }
 
-            echo "《" . $name . "》<span style='font-size: 14px'>点击选择源后即可播放";
-            $n = 0;
-            foreach ($link as $s) {
-                $n++;
-                echo "<a class='videoA' href='$s' target='ajax'>{$n}号源</a>";
+            echo "<h3>《" . $name . "》—— 总" . count($sets[3]) . "集</h3><ul>";
+            foreach ($sets[3] as $key => $val) {
+                if ($varietyEpisode) {
+                    echo "<li><a class='videoA' href='$val' target='ajax'>{$sets[1][$key]}</a></li>";
+                } else {
+                    $key++;
+                    echo "<li><a class='videoA' href='$val' target='ajax'>第{$key}集</a></li>";   //集数从1开始
+                }
             }
-            echo "</span>";
+            echo '</ul><div style="clear: both;padding-top: .2pc"></div>';
         }
-        ?></h3>
+    } else {
+        //如果有播放资源，则点击量加一，因为搜索的时候已经记录了一次，所以不在点击量中再次记录关键词
+        if (!(isset($_GET['s']) && $_GET['s'] == 'search')) {
+            Spider::clickRec('clickHistory', $name);
+        }
+
+        echo "<h3>《" . $name . "》<span style='font-size: 15px'>点击选择源后即可播放</span>";
+        $n = 0;
+        foreach ($link as $s) {
+            $n++;
+            echo "<a class='videoA videoS' href='$s' target='ajax'>{$n}号源</a>";
+        }
+        echo "</h3>";
+    }
+    ?>
+
     <div class="player">
-        <iframe onload="iFrameResize()" allowtransparency="true" allowfullscreen="allowfullscreen" id="video" src="loading.php"></iframe>
+        <iframe onload="iFrameResize()" allowtransparency="true" allowfullscreen="allowfullscreen" id="video"
+                src="loading.php"></iframe>
         <a style="display: none" id="videoLink" href=""></a>
         <script type="text/javascript">
             var videoFrame = document.getElementById('video');  //全局使用
@@ -158,7 +157,6 @@ $description = mb_strlen($intro) > 70 ? '《' . $name . '》剧情简介：' . m
             }
         </script>
     </div>
-    <?php echo Spider::$parser ?>
     <script type="text/javascript">
         var videoA = $(".videoA");
         var videoLinkBuffer = [];
@@ -179,17 +177,17 @@ $description = mb_strlen($intro) > 70 ? '《' . $name . '》剧情简介：' . m
         function showParser() {
             var parser = getCookie('parser');
             if (parser == "1" || parser == null) {
-                document.getElementById('parser1').innerText = "默认解析器（使用中）";
-                document.getElementById('parser2').innerText = "备用解析器1";
-                document.getElementById('parser3').innerText = "备用解析器2";
+                document.getElementById('parser1').innerText = "解析器1(使用中)";
+                document.getElementById('parser2').innerText = "解析器2";
+                document.getElementById('parser3').innerText = "解析器3";
             } else if (parser == "2") {
-                document.getElementById('parser1').innerText = "默认解析器";
-                document.getElementById('parser2').innerText = "备用解析器1（使用中）";
-                document.getElementById('parser3').innerText = "备用解析器2";
+                document.getElementById('parser1').innerText = "解析器1";
+                document.getElementById('parser2').innerText = "解析器2(使用中)";
+                document.getElementById('parser3').innerText = "解析器3";
             } else if (parser == "3") {
-                document.getElementById('parser1').innerText = "默认解析器";
-                document.getElementById('parser2').innerText = "备用解析器1";
-                document.getElementById('parser3').innerText = "备用解析器2（使用中）";
+                document.getElementById('parser1').innerText = "解析器1";
+                document.getElementById('parser2').innerText = "解析器2";
+                document.getElementById('parser3').innerText = "解析器3(使用中)";
             }
         }
 
@@ -291,18 +289,17 @@ $description = mb_strlen($intro) > 70 ? '《' . $name . '》剧情简介：' . m
             return (arr = document.cookie.match(reg)) ? unescape(arr[2]) : null;
         }
     </script>
-    <h3 style="margin-bottom: 5px">剧情简介：</h3>
-    <p style="margin-top: 0"><?php echo $intro; ?></p>
+    <h3 style="margin-top: -10px">剧情简介：</h3>
+    <p style="margin-top: -15px;line-height: 25px">　　<?php echo $intro; ?></p>
 </div>
 <?php
 echo Common::$history;
 ?>
 <footer>
     <?php
-    echo Common::$QQGroup;
+    echo Common::$tip;
     echo Common::$footer;
     ?>
-    <p style="font-size: 12px;text-align: right;margin-top: -25px">Cookie技术有效期:24h</p>
 </footer>
 <script type="text/javascript" src="https://cdn.lifanko.cn/js/tip.min.js"></script>
 <script type="text/javascript">

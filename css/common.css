@@ -1,12 +1,23 @@
+@font-face {
+    font-family: "PingFang SC";
+    src: url("../font/PingFangSC-Regular.woff2");
+}
+
+@font-face {
+    font-family: "SF Pro Text";
+    src: url("../font/sf-pro-text_regular.woff2");
+}
+
 body {
     width: 80%;
     min-width: 995px;
     margin: 0 auto;
-    /*noinspection CssNoGenericFontName*/
-    font-family: "等线";
+    font-family: "PingFang SC", "SF Pro Text", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
     padding: 0 1.5pc;
-    /*background-color: #eee;*/
     background: url("../img/springbg.png") fixed;
+    font-size: 17px;
+    letter-spacing: 0.022em;
+    line-height: 20px;
 }
 
 header {
@@ -37,7 +48,7 @@ header ul li {
 header ul li a {
     padding: 0 18px;
     color: #000;
-    font-weight: bold;
+    font-weight: 600;
     display: inline-block;
 }
 
@@ -64,135 +75,67 @@ header ul li:hover a {
     outline: none;
 }
 
-.cat ul {
-    list-style: none;
-    padding: 0;
-}
-
-.cat ul li {
-    float: left;
-    background-color: rgba(221, 221, 221, 0.5);
-    width: 5%;
-    text-align: center;
-}
-
-.cat ul li:first-child {
-    border-top-left-radius: 5px;
-    border-bottom-left-radius: 5px;
-}
-
-.cat ul li:last-child {
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
-}
-
-.cat ul li a {
-    color: #000000;
-    font-weight: bold;
+#searchText {
     display: inline-block;
-    padding: 1pc;
+    padding: 0 1pc;
+    margin-left: -0.5pc;
 }
 
-.cat ul li:hover {
-    background-image: linear-gradient(135deg, #F6D242 10%, #FF52E5 100%);
-}
-
-.cat ul li:hover a {
-    color: whitesmoke;
-}
-
-.videolist h3 {
-    padding-bottom: 5px;
-    border-bottom: 1px #999 solid;
-    margin-bottom: 5px;
-}
-
-.videolist ul {
-    list-style: none;
-    padding: 0;
+#searchText img {
     margin: 0;
-}
-
-.videolist ul li {
-    float: left;
-    width: 14%;
-    overflow: hidden;
-    margin: 0.666%;
-    padding: 0.666%;
+    height: 34px;
     position: relative;
-    background-color: rgba(204, 204, 204, 0.5);
-    border-radius: 5px;
+    top: 11px;
 }
 
-.videolist img {
-    width: 100%;
-}
-
-.imgTip {
-    position: absolute;
-    top: -40%;
-    width: 100%;
-    background-image: linear-gradient(135deg, #52E5E7 10%, #130CB7 100%);
-    color: whitesmoke;
-    margin-left: -4.5%;
-    font-size: 14px;
-    transition: all .5s 0s;
-    z-index: 1;
-}
-
-.resList:hover .imgTip {
-    top: 0;
-}
-
-#score {
-    position: absolute;
-    top: 4%;
-    left: 3%;
-    background-color: rgba(255, 70, 69, 0.9);
-    color: whitesmoke;
-    font-size: 12px;
-    padding: 1px 5px;
-}
-
-#year {
-    position: absolute;
-    right: 3%;
-    bottom: 5%;
-    background-color: rgba(51, 51, 51, 0.9);
-    color: whitesmoke;
-    font-size: 12px;
-    padding: 1px 3px;
-}
-
-#update {
-    position: absolute;
-    top: 4%;
-    left: 3%;
-    background-color: rgba(255, 70, 69, 0.9);
-    color: whitesmoke;
-    font-size: 12px;
-    padding: 1px 5px;
-}
-
-#name {
-    position: absolute;
-    right: 3%;
-    bottom: 5%;
-    background-color: rgba(51, 51, 51, 0.9);
-    color: whitesmoke;
-    font-size: 12px;
-    padding: 1px 3px;
-}
-
-#QQGroup {
+#tip {
     text-align: center;
     background-color: rgba(221, 221, 221, 0.5);
     padding: 6px 2px;
     border-radius: 2px;
 }
 
+.history {
+    position: fixed;
+    right: 2pc;
+    top: 40%;
+    opacity: .5;
+}
+
+.history:hover {
+    opacity: 1;
+}
+
+.btn-history {
+    background-color: rgba(221, 221, 221, 0.7);
+    padding: 7px 12px;
+    display: inline-block;
+    cursor: pointer;
+    box-shadow: 1px 1px 5px 0 #777;
+    border-radius: 10px;
+    transition: all 0.5s 0s;
+}
+
+.history:hover .btn-history {
+    border-radius: 0;
+    background-color: #ddd;
+}
+
 @media screen and (max-width: 768px) {
     .btn-history {
         display: none !important;
     }
+}
+
+.fra-history {
+    position: absolute;
+    border: none;
+    box-shadow: 1px 1px 5px 0 #777;
+    right: -300px;
+    height: 340px;
+    background-color: #ddd;
+    width: 245px;
+    transition: all .3s 0s;
+    padding: 0;
+    border-radius: 0;
 }

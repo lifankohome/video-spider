@@ -1,5 +1,6 @@
 <?php
 include_once 'Cinema/Maxim.php';
+
 use Cinema\Maxim;
 
 $info = file_get_contents('https://www.lifanko.cn/festival2img/api.php');
@@ -39,9 +40,18 @@ if ($festival != 'No Festival') {
     <meta charset="UTF-8">
     <title>Title</title>
     <style>
+        @font-face {
+            font-family: "PingFang SC";
+            src: url("font/PingFangSC-Regular.woff2");
+        }
+
+        @font-face {
+            font-family: "SF Pro Text";
+            src: url("font/sf-pro-text_regular.woff2");
+        }
+
         body {
-            /*noinspection CssNoGenericFontName*/
-            font-family: "Microsoft YaHei UI Light";
+            font-family: "PingFang SC", "SF Pro Text", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
             margin: 0;
             padding: 0;
             text-align: center;
@@ -50,7 +60,7 @@ if ($festival != 'No Festival') {
             text-shadow: 0 0 3px black;
             color: white;
         <?php echo $css; ?>
-}
+        }
     </style>
 </head>
 <body>
@@ -68,11 +78,11 @@ if ($festival != 'No Festival') {
         <img src="img/wechat.jpg" id="wechat" style="width: 24%;display: block;margin: -100pc auto 100px auto;">
     </p>
     <div id="ad" style="width: 60%;margin: 3pc auto 0 auto;font-size: 24px;">
-        <h4 style="border-bottom: 1px #999 solid;">今日<?php echo $festival; ?>箴言</h4>
-        <p style="font-size: 18px;margin-top: -1pc;font-style: italic"><?php echo Maxim::get(); ?></p>
+        <h4 style="border-bottom: 1px #999 solid;padding-bottom: 5px">Today's Maxim<?php echo $festival; ?></h4>
+        <p style="font-size: 24px;margin-top: -1pc;font-style: italic"><?php echo Maxim::get(); ?></p>
     </div>
     <div style="position: fixed;bottom: 0;width: 100%;margin: 0 auto;font-size: 14px;color: #000;text-shadow: none;">
-        若影视无法播放请尝试切换下方的解析器 或 反馈站长：lifankohome@163.com
+        若影视无法播放请尝试切换右上方解析器 或 反馈站长：lifankohome@163.com
     </div>
 </div>
 <script>

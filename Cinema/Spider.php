@@ -392,9 +392,9 @@ class Spider
         }
     }
 
-    public static $parser = "<div id=\"parsers\">
-                <button id='parser1' onclick=\"vParser('https://vip.bljiex.com/?v=')\">默认解析器</button>
-                <button id='parser2' onclick=\"vParser('https://jx.lache.me/cc/?url=')\">备用解析器1</button>
-                <button id='parser3' onclick=\"vParser('https://660e.com/?url=')\">备用解析器2</button>
+    public static $parser = "<div id='parsers'><span style='font-size: 15px;font-weight: bold'>播放失败可尝试切换解析器</span>
+                <a id='parser1' onclick=\"vParser('https://vip.bljiex.com/?v=')\">解析器1</a>
+                <a id='parser2' onclick=\"vParser('https://jx.lache.me/cc/?url=')\">解析器2</a>
+                <a id='parser3' onclick=\"vParser('https://660e.com/?url=')\">解析器3</a>
             </div>";
 }

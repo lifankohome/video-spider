@@ -61,6 +61,7 @@ if (empty($_GET['kw'])) {
     echo Common::SEO($kw);
     ?>
     <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link type="text/css" rel="stylesheet" href="css/common.css">
     <link type="text/css" rel="stylesheet" href="css/search.css">
 </head>
 <body>
@@ -97,7 +98,7 @@ echo Common::$history;
 ?>
 <footer>
     <?php
-    echo Common::$QQGroup;
+    echo Common::$tip;
     echo Common::$footer;
     ?>
 </footer>
