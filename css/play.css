@@ -5,7 +5,11 @@ h3 {
 
 #parsers {
     float: right;
+}
+
+#parsers a {
     cursor: pointer;
+    margin: 0 !important;
 }
 
 .container ul {
