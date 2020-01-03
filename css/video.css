@@ -35,6 +35,118 @@
     color: whitesmoke;
 }
 
+.slider {
+    margin-top: 15px;
+    margin-bottom: -10px;
+}
+
+.slider ul {
+    padding-left: 0;
+    margin: 0;
+    height: 350px;
+    overflow: hidden;
+    border-radius: 5px;
+}
+
+.slider ul li {
+    list-style: none;
+    display: block !important;
+    opacity: 1 !important;
+}
+
+.slider span {
+    background: no-repeat center center;
+    background-size: cover;
+    display: block;
+    opacity: 0.3;
+}
+
+.slider .active {
+    height: 350px;
+    transition: all .5s 0s;
+    opacity: 1;
+}
+
+.rank {
+    width: 310px;
+    background-color: rgba(214, 211, 211, 0.3);
+    font-size: 14px;
+    margin-top: -335px;
+    position: relative;
+    transition: all 0.2s 0s;
+    border-radius: 5px;
+    float: right;
+    margin-right: 5px;
+}
+
+.rank:hover {
+    background-color: rgba(214, 211, 211, 0.9);
+}
+
+.rank ul {
+    padding-left: 5px;
+    margin: 0;
+}
+
+.rank ul li {
+    list-style: none;
+    height: 30px;
+    border-bottom: 1px solid rgba(240, 240, 240, 0.5);
+}
+
+.rank ul li:last-child {
+    border-bottom: none;
+}
+
+.rank ul li a {
+    text-decoration: none;
+    color: #333;
+    line-height: 24px;
+    display: inline-block;
+    margin: 2px;
+}
+
+.rank ul li a .p-cat-rank {
+    width: 24px;
+    font-size: 12px;
+    background-color: rgba(243, 243, 243, 0.8);
+    display: inline-block;
+    border-radius: 12px;
+    text-align: center;
+    color: #666;
+}
+
+.rank ul li a .p-cat-topthree {
+    background-color: rgba(188, 150, 78, 0.8);
+    color: whitesmoke;
+}
+
+.rank ul li a .p-cat-videoname {
+    width: 190px;
+    display: inline-block;
+}
+
+.rank ul li a .p-cat-playcount {
+    width: 54px;
+    display: inline-block;
+    font-size: 12px;
+    color: #333;
+}
+
+.rank ul li a .p-cat-trend.p-inc {
+    width: 10px;
+    height: 13px;
+    display: inline-block;
+    background: url(https://p0.ssl.qhimg.com/t010fa89976bfce7a9c.png) no-repeat;
+}
+
+.rank ul li a .p-cat-trend.p-dec {
+    width: 10px;
+    height: 13px;
+    display: inline-block;
+    background-image: url(https://p1.ssl.qhimg.com/t01b48a178fc69b92a0.png);
+}
+
 .videolist h3 {
     padding-bottom: 5px;
     border-bottom: 1px #999 solid;

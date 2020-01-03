@@ -139,39 +139,3 @@ header ul li:hover a {
     padding: 0;
     border-radius: 0;
 }
-
-.slider {
-    margin-top: 15px;
-    margin-bottom: -10px;
-}
-
-.slider ul {
-    padding-left: 0;
-    margin: 0;
-    height: 350px;
-    overflow: hidden;
-    border-radius: 5px;
-}
-
-.slider ul li {
-    list-style: none;
-    display: block !important;
-    opacity: 1 !important;
-}
-
-.slider span {
-    background: no-repeat center center;
-    background-size: cover;
-    display: block;
-    opacity: 0.3;
-}
-
-.slider span:hover {
-    height: 360px;
-}
-
-.slider .active {
-    height: 350px;
-    transition: all .5s 0s;
-    opacity: 1;
-}

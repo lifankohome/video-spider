@@ -34,7 +34,7 @@ class Common
 	    <li><a href='hotsearch.php'>影视推荐</a></li>
 	    <li><a href='about.html'>说明</a></li>
 	    <li id='searchli'>
-	        <input type='text' id='searchBox' autofocus='autofocus' placeholder='$defaultSearch | 粘贴腾讯/优酷/爱奇艺VIP视频地址'>
+	        <input type='text' id='searchBox' placeholder='$defaultSearch | 输入关键词进行搜索'>
 	        <span id='searchText'><img src='img/yspc.png' style=''></span>
 	    </li>
 	</ul>
@@ -47,5 +47,5 @@ class Common
 
     public static $tip = "<p id='tip'>影视爬虫使用cookie技术(包含第三方cookie)来实现网站功能，有关cookie使用的详细信息请点击<a href='about.html#cookie' style='color: #333'>这里</a><span id='sCount'></span></p>";
 
-    public static $footer = "<p style='font-size: 12px;color: #000;margin-top: -5px'>Copyright &copy; <a href='https://hpu.lifanko.cn' style='color: #333'>lifanko</a> 2017-2019 <a href='http://www.miitbeian.gov.cn/' style='color: #333'>豫ICP备16040860号-1</a><span style='float: right;font-weight: bold'>Cookie技术有效期: 24h</span></p>";
+    public static $footer = "<p style='font-size: 12px;color: #000;margin-top: -5px'>Copyright &copy; <a href='https://hpu.lifanko.cn' style='color: #333'>lifanko</a> 2017-2020 <a href='http://www.miitbeian.gov.cn/' style='color: #333'>豫ICP备16040860号-1</a><span style='float: right;font-weight: bold'>Cookie技术有效期: 24h</span></p>";
 }

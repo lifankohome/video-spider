@@ -15,7 +15,8 @@ class Spider
     private static $teleplayCat = array();
     private static $presentCat = '';
 
-    private static $slider = '';
+    private static $slider = null;
+    private static $rank = null;
 
     public static function getPresentCat()
     {
@@ -109,6 +110,23 @@ class Spider
         self::$slider = '<div class="slider">' . str_replace('https://www.360kan.com', 'play.php?play=', $slider) . '</div>';
 
         return self::$slider;
+    }
+
+    public static function getRank()
+    {
+        $dom = self::curl_get_contents('https://www.360kan.com/rank/index');
+
+        $rank_start = mb_strpos($dom, '<ul class="p-cat-videolist">', 15000);
+        $rank_end = mb_strpos($dom, '</ul>', $rank_start);
+
+        $rank = mb_substr($dom, $rank_start, $rank_end - $rank_start) . '</ul>';
+        self::$rank = '<div class="rank"><ul class="p-cat-videolist" style="font-weight: 600">
+        <li class="p-cat-video" style="border-bottom: 1px solid rgba(240, 240, 240, 0.5);">
+            <a><span class="p-cat-rank p-cat-topthree" style="margin-left: 5px"></span><span class="p-cat-videoname">作品名称</span>
+                <span class="p-cat-playcount" style="font-size: 14px">播放量</span></a></li></ul>' .
+            str_replace('http://www.360kan.com', 'play.php?play=', $rank) . '</div>';
+
+        return self::$rank;
     }
 
     public static function getMoviesCat()
