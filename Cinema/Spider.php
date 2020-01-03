@@ -120,6 +120,8 @@ class Spider
         $rank_end = mb_strpos($dom, '</ul>', $rank_start);
 
         $rank = mb_substr($dom, $rank_start, $rank_end - $rank_start) . '</ul>';
+
+        $rank = str_replace(' href="', ' target="_blank" href="', $rank);
         self::$rank = '<div class="rank"><ul class="p-cat-videolist" style="font-weight: 600">
         <li class="p-cat-video" style="border-bottom: 1px solid rgba(240, 240, 240, 0.5);">
             <a><span class="p-cat-rank p-cat-topthree" style="margin-left: 5px"></span><span class="p-cat-videoname">作品名称</span>

@@ -51,6 +51,8 @@ preg_match_all($linkDom, $dom, $link);
 $name = $name[1][0];
 
 $intro = empty($intro[1][0]) ? "暂无" : $intro[1][0];
+// 去除多余的缩进（空格）
+$intro = str_replace('　', '', $intro);
 
 $sets = array();
 if (empty($link[3][0])) {
