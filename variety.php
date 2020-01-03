@@ -66,6 +66,10 @@ $varietyCat = Spider::getVarietyCat();
     </ul>
 </div>
 <div style="clear: both"></div>
+
+<!--影视推荐轮播图-->
+<?php echo Spider::getSlider('zongyi'); ?>
+
 <div class="videolist">
     <h3>
         <?php

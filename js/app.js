@@ -61,11 +61,28 @@ document.onkeydown = function (e) {
 
 // 播放历史显示控制
 var his_frame = document.getElementById("fra-history");
+
 function showHistory() {
     his_frame.style.right = "0px";
 }
+
 function hideHistory() {
     his_frame.style.right = -300 + "px";
+}
+
+// 当元素存在时轮播图片
+var ele = document.getElementsByClassName('js-slide-img');
+
+if (ele.length > 0) {
+    ele[0].setAttribute('class', 'b-topslidernew-img js-slide-img active');
+    var i = 1;
+    var ii = 0;
+    setInterval(function () {
+        ele[ii].setAttribute('class', 'b-topslidernew-img js-slide-img');
+        ele[i].setAttribute('class', 'b-topslidernew-img js-slide-img active');
+        i = ++i === ele.length ? 0 : i;
+        ii = ++ii === ele.length ? 0 : ii;
+    }, 3500);
 }
 
 //百度统计

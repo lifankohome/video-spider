@@ -66,6 +66,10 @@ $moviesCat = Spider::getMoviesCat();
     </ul>
 </div>
 <div style="clear: both"></div>
+
+<!--影视推荐轮播图-->
+<?php echo Spider::getSlider('dianying'); ?>
+
 <div class="videolist">
     <h3>
         <?php

@@ -66,6 +66,10 @@ $teleplayCat = Spider::getTeleplayCat();
     </ul>
 </div>
 <div style="clear: both"></div>
+
+<!--影视推荐轮播图-->
+<?php echo Spider::getSlider('ertong'); ?>
+
 <div class="videolist">
     <h3>
         <?php

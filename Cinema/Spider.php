@@ -15,6 +15,8 @@ class Spider
     private static $teleplayCat = array();
     private static $presentCat = '';
 
+    private static $slider = '';
+
     public static function getPresentCat()
     {
         return self::$presentCat;
@@ -93,6 +95,20 @@ class Spider
         }
 
         return $movies;
+    }
+
+    public static function getSlider($type = 'dianying')
+    {
+        $dom = self::curl_get_contents('https://www.360kan.com/' . $type . '/index.html');
+
+        $slider_start = mb_strpos($dom, '<ul class="b-topslidernew-list js-slide-list">', 15000);
+        $slider_end = mb_strpos($dom, '<ul class="b-topslidernew-btns js-slide-btns">', $slider_start);
+        $slider = mb_substr($dom, $slider_start, $slider_end - $slider_start);
+
+        $slider = str_replace(' href="', ' target="_blank" href="', $slider);
+        self::$slider = '<div class="slider">' . str_replace('https://www.360kan.com', 'play.php?play=', $slider) . '</div>';
+
+        return self::$slider;
     }
 
     public static function getMoviesCat()
