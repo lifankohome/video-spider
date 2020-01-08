@@ -77,8 +77,9 @@ if (!empty($_GET['url'])) {
     <?php echo Common::getHeader() ?>
 </header>
 <div class="container">
+    <?php echo Spider::$parser ?>
     <h3><?php
-        echo "VIP视频解析——<a class='videoA' onclick='playUrl(\"$url\")' href='$url' target='ajax'>立即播放</a>";
+        echo "VIP视频解析——<a class='videoA videoS' onclick='playUrl(\"$url\")' href='$url' target='ajax'>立即播放</a>";
         ?></h3>
     <div class="player">
         <iframe onload="iFrameResize()" allowtransparency="true" allowfullscreen="allowfullscreen" id="video" src="loading.php"></iframe>
@@ -89,7 +90,6 @@ if (!empty($_GET['url'])) {
             }
         </script>
     </div>
-    <?php echo Spider::$parser ?>
     <script type="text/javascript">
         var videoA = $(".videoA");
         videoA[0].href = 'javascript:void(0)';
@@ -101,17 +101,17 @@ if (!empty($_GET['url'])) {
         function showParser() {
             var parser = getCookie('parser');
             if (parser == "1" || parser == null) {
-                document.getElementById('parser1').innerText = "默认解析器（使用中）";
-                document.getElementById('parser2').innerText = "备用解析器1";
-                document.getElementById('parser3').innerText = "备用解析器2";
+                document.getElementById('parser1').innerText = "解析器1(使用中)";
+                document.getElementById('parser2').innerText = "解析器2";
+                document.getElementById('parser3').innerText = "解析器3";
             } else if (parser == "2") {
-                document.getElementById('parser1').innerText = "默认解析器";
-                document.getElementById('parser2').innerText = "备用解析器1（使用中）";
-                document.getElementById('parser3').innerText = "备用解析器2";
+                document.getElementById('parser1').innerText = "解析器1";
+                document.getElementById('parser2').innerText = "解析器2(使用中)";
+                document.getElementById('parser3').innerText = "解析器3";
             } else if (parser == "3") {
-                document.getElementById('parser1').innerText = "默认解析器";
-                document.getElementById('parser2').innerText = "备用解析器1";
-                document.getElementById('parser3').innerText = "备用解析器2（使用中）";
+                document.getElementById('parser1').innerText = "解析器1";
+                document.getElementById('parser2').innerText = "解析器2";
+                document.getElementById('parser3').innerText = "解析器3(使用中)";
             }
         }
 
@@ -136,7 +136,7 @@ if (!empty($_GET['url'])) {
                         break;
                     default:
                         parser = 1;
-                        url = 'https://660e.com/?url=';
+                        url = 'https://vip.bljiex.com/?v=';
                         break;
                 }
             } else {
