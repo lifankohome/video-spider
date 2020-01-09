@@ -70,7 +70,7 @@ $varietyCat = Spider::getVarietyCat();
 <!--影视推荐轮播图-->
 <?php echo Spider::getSlider('zongyi'); ?>
 
-<!--影视推荐轮播图-->
+<!--影视排行榜-->
 <?php echo Spider::getRank(); ?>
 
 <div class="videolist">

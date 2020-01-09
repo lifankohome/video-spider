@@ -70,7 +70,7 @@ $moviesCat = Spider::getMoviesCat();
 <!--影视推荐轮播图-->
 <?php echo Spider::getSlider('dianying'); ?>
 
-<!--影视推荐轮播图-->
+<!--影视排行榜-->
 <?php echo Spider::getRank(); ?>
 
 <div class="videolist">

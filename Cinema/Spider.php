@@ -107,7 +107,7 @@ class Spider
         $slider = mb_substr($dom, $slider_start, $slider_end - $slider_start);
 
         $slider = str_replace(' href="', ' target="_blank" href="', $slider);
-        self::$slider = '<div class="slider">' . str_replace('https://www.360kan.com', 'play.php?play=', $slider) . '</div>';
+        self::$slider = '<div class="slider"><ul id="nav"></ul>' . str_replace('https://www.360kan.com', 'play.php?play=', $slider) . '</div>';
 
         return self::$slider;
     }

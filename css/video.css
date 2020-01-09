@@ -38,6 +38,7 @@
 .slider {
     margin-top: 15px;
     margin-bottom: -10px;
+    position: relative;
 }
 
 .slider ul {
@@ -145,6 +146,32 @@
     height: 13px;
     display: inline-block;
     background-image: url(https://p1.ssl.qhimg.com/t01b48a178fc69b92a0.png);
+}
+
+#nav {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+#nav li {
+    width: 30px;
+    height: 20px;
+    border-radius: 10px;
+    background-color: #4040409e;
+    margin: 6px;
+    box-shadow: 0 0 3px 1px #9d9d9d;
+    cursor: pointer;
+    text-align: center;
+    color: #b9b8b8;
+    font-size: 12px;
+    line-height: 20px;
+}
+
+#nav .active {
+    color: #ffe200;
+    font-weight: 600;
 }
 
 .videolist h3 {
