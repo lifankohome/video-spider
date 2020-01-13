@@ -56,7 +56,7 @@ if (empty($_GET['kw'])) {
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>搜索 - 影视爬虫</title>
+    <title>《<?php echo $kw; ?>》搜索 - 影视爬虫</title>
     <?php
     echo Common::SEO($kw);
     ?>
@@ -83,7 +83,7 @@ if (empty($_GET['kw'])) {
         <?php
         foreach ($search as $res) {
             echo "<li>
-		    <a href='play.php?play={$res['link']}&s=search' title='{$res['name']}' target='_blank'>
+		    <a href='play.php?play={$res['link']}&s=search' title='{$res['desc']}' target='_blank'>
                 <img class='img' src='{$res['img']}' onerror=\"javascript:this.src='img/noCover.jpg'\" alt='{$res['name']}'>
                 <span id='type'>{$res['type']}</span>
                 <span id='name'>{$res['name']}</span>

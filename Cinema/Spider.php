@@ -56,7 +56,7 @@ class Spider
 
         $dom = self::curl_get_contents('https://www.360kan.com/dianying/list?year=all&area=all&act=all&cat=' . $cat);
 
-        $movieCatDom = '#<a class="js-tongjip" href=".+year=all&area=all&act=all&cat=(.*?)" target="_self">(.*?)\s#';
+        $movieCatDom = '/<a class="js-tongjip" href=".+year=all&area=all&act=all&cat=(.*?)" target="_self">(.*?)\s/';
 
         preg_match_all($movieCatDom, $dom, $movieCat);
 
@@ -68,13 +68,12 @@ class Spider
         self::setMoviesCat($movieCatArr);
         self::setPresentCat($presentCat[$cat]);
 
-        $movieNameDom = '#<span class="s1">(.*?)</span>#';
-        $movieScoreDom = '#<span class="hint">[\w]+</span>[\s]+(.*?)</div>#';
-        $movieYearDom = '#<span class="hint">(.*?)</span>#';
-        $movieLinkDom = '#<a class="js-tongjic" href="(.*?)">#';
-        $movieActorDom = '# <p class="star">(.*?)</p>#';
-        $movieImgDom = '#<div class="cover g-playicon">
-                                <img src="(.*?)">#';
+        $movieNameDom = '/<span class="s1">(.*?)<\/span>/';
+        $movieScoreDom = '/<span class="hint">[\w]+<\/span>[\s]+(.*?)<\/div>/';
+        $movieYearDom = '/<span class="hint">(.*?)<\/span>/';
+        $movieLinkDom = '/<a class="js-tongjic" href="(.*?)">/';
+        $movieActorDom = '/<p class="star">(.*?)<\/p>/';
+        $movieImgDom = '/<div class="cover g-playicon">\s+<img src="(.*?)">/';
 
         preg_match_all($movieNameDom, $dom, $movieName);
         preg_match_all($movieScoreDom, $dom, $movieScore);
@@ -167,12 +166,11 @@ class Spider
         self::setTeleplayCat($teleplayCatArr);
         self::setPresentCat($presentCat[$cat]);
 
-        $tvNameDom = '#<span class="s1">(.*?)</span>#';
-        $tvUpdateDom = '#<span class="hint">(.*?)</span>#';
-        $tvLinkDom = '#<a class="js-tongjic" href="(.*?)">#';
-        $tvActorDom = '# <p class="star">(.*?)</p>#';
-        $tvImgDom = '#<div class="cover g-playicon">
-                                <img src="(.*?)">#';
+        $tvNameDom = '/<span class="s1">(.*?)<\/span>/';
+        $tvUpdateDom = '/<span class="hint">(.*?)<\/span>/';
+        $tvLinkDom = '/<a class="js-tongjic" href="(.*?)">/';
+        $tvActorDom = '/<p class="star">(.*?)<\/p>/';
+        $tvImgDom = '/<div class="cover g-playicon">\s+<img src="(.*?)">/';
 
         preg_match_all($tvNameDom, $dom, $tvName);
         preg_match_all($tvUpdateDom, $dom, $tvUpdate);
@@ -230,12 +228,11 @@ class Spider
         self::setVarietyCat($varietyCatArr);
         self::setPresentCat($presentCat[$cat]);
 
-        $varietyNameDom = '#<span class="s1">(.*?)</span>#';
-        $varietyUpdateDom = '#<span class="hint">(.*?)</span>#';
-        $varietyLinkDom = '#<a class="js-tongjic" href="(.*?)">#';
-        $varietyActorDom = '# <p class="star">(.*?)</p>#';
-        $varietyImgDom = '#<div class="cover g-playicon">
-                                <img src="(.*?)">#';
+        $varietyNameDom = '/<span class="s1">(.*?)<\/span>/';
+        $varietyUpdateDom = '/<span class="hint">(.*?)<\/span>/';
+        $varietyLinkDom = '/<a class="js-tongjic" href="(.*?)">/';
+        $varietyActorDom = '/<p class="star">(.*?)<\/p>/';
+        $varietyImgDom = '/<div class="cover g-playicon">\s+<img src="(.*?)">/';
 
         preg_match_all($varietyNameDom, $dom, $varietyName);
         preg_match_all($varietyUpdateDom, $dom, $varietyUpdate);
@@ -279,26 +276,27 @@ class Spider
             if (substr($kw, 0, 4) == 'http' || strpos($kw, ".com")) {
                 header("location:parse.php?url=$kw");
             }
-
             $dom = self::curl_get_contents('https://so.360kan.com/index.php?kw=' . $kw);
         }
 
-        $nameDom = '#js-playicon" title="(.*?)"\s*data#';
-        $linkDom = '#a href="(.*?)" class="g-playicon js-playicon"#';
-        $imgDom = '#<img src="(.*?)" alt="[\S]+" \/>[\s\S]+?</a>#';
-        $typeDom = '#<span class="playtype">(.*?)<\/span>#';
+        $nameDom = '/js-playicon" title="(.*?)"\s*data/';
+        $linkDom = '/a href="(.*?)" class="g-playicon js-playicon"/';
+        $imgDom = '/js-playicon" title="(.*?)\s{0,}<img src="(.*?)" alt="(.*?)" \/>/';
+        $typeDom = '/<span class="playtype">(.*?)<\/span>/';
+        $descDom = '/<p>(<i>(.*?)<\/i>){0,}(.*?)<\/p>/';
 
         preg_match_all($nameDom, $dom, $name);
         preg_match_all($linkDom, $dom, $link);
         preg_match_all($imgDom, $dom, $img);
         preg_match_all($typeDom, $dom, $type);
+        preg_match_all($descDom, $dom, $desc);
 
         $search = array();
         foreach ($name[1] as $key => $value) {
             $buffer['name'] = $name[1][$key];
 
-            if (isset($img[1][$key])) {
-                $buffer['img'] = $img[1][$key];
+            if (isset($img[2][$key])) {
+                $buffer['img'] = $img[2][$key];
             } else {
                 $buffer['img'] = 'img/noCover.jpg';
             }
@@ -307,6 +305,12 @@ class Spider
                 $buffer['type'] = $type[1][$key];
             } else {
                 $buffer['type'] = '无';
+            }
+
+            if (isset($desc[3][$key])) {
+                $buffer['desc'] = $desc[3][$key];
+            } else {
+                $buffer['desc'] = '无';
             }
 
             $buffer['link'] = substr($link[1][$key], 21);
