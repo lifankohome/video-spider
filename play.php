@@ -71,7 +71,6 @@ if (empty($link[3][0])) {
             preg_match_all($setsLiDom, $setsDiv[0][0], $sets);
 
             $sets[3] = array_unique($sets[3]);  //确保不会有重复剧集
-            $sets[1] = array_unique($sets[1]);
         }
     } else {
         $varietyEpisode = false;
