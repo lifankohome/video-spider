@@ -123,7 +123,7 @@ class Spider
         $rank = str_replace(' href="', ' target="_blank" href="', $rank);
         self::$rank = '<div class="rank"><ul class="p-cat-videolist" style="font-weight: 600">
         <li class="p-cat-video" style="border-bottom: 1px solid rgba(240, 240, 240, 0.5);">
-            <a><span class="p-cat-rank p-cat-topthree" style="margin-left: 5px"></span><span class="p-cat-videoname">作品名称</span>
+            <a><span class="p-cat-rank p-cat-topthree" style="margin-left: 5px"></span><span class="p-cat-videoname">播放量排行榜</span>
                 <span class="p-cat-playcount" style="font-size: 14px">播放量</span></a></li></ul>' .
             str_replace('http://www.360kan.com', 'play.php?play=', $rank) . '</div>';
 
@@ -282,13 +282,13 @@ class Spider
         $nameDom = '/js-playicon" title="(.*?)"\s*data/';
         $linkDom = '/a href="(.*?)" class="g-playicon js-playicon"/';
         $imgDom = '/js-playicon" title="(.*?)\s{0,}<img src="(.*?)" alt="(.*?)" \/>/';
-        $typeDom = '/<span class="playtype">(.*?)<\/span>/';
+        $scoreDom = '/<div class="m-score">(.*?)<\/div>/';
         $descDom = '/<p>(<i>(.*?)<\/i>){0,}(.*?)<\/p>/';
 
         preg_match_all($nameDom, $dom, $name);
         preg_match_all($linkDom, $dom, $link);
         preg_match_all($imgDom, $dom, $img);
-        preg_match_all($typeDom, $dom, $type);
+        preg_match_all($scoreDom, $dom, $score);
         preg_match_all($descDom, $dom, $desc);
 
         $search = array();
@@ -301,10 +301,10 @@ class Spider
                 $buffer['img'] = 'img/noCover.jpg';
             }
 
-            if (isset($type[1][$key])) {
-                $buffer['type'] = $type[1][$key];
+            if (!empty($score[1][$key])) {
+                $buffer['score'] = $score[1][$key];
             } else {
-                $buffer['type'] = '无';
+                $buffer['score'] = '无';
             }
 
             if (isset($desc[3][$key])) {

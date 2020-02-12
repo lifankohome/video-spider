@@ -85,7 +85,7 @@ if (empty($_GET['kw'])) {
             echo "<li>
 		    <a href='play.php?play={$res['link']}&s=search' title='{$res['desc']}' target='_blank'>
                 <img class='img' src='{$res['img']}' onerror=\"javascript:this.src='img/noCover.jpg'\" alt='{$res['name']}'>
-                <span id='type'>{$res['type']}</span>
+                <span id='type'>{$res['score']}</span>
                 <span id='name'>{$res['name']}</span>
             </a></li>";
         }
