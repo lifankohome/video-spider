@@ -2,8 +2,8 @@
 /**
  * Created by PhpStorm.
  * User: lifanko  lee
- * Date: 2017/12/9
- * Time: 21:29
+ * Date: 2020/02/29
+ * Time: 16:59
  */
 
 use Cinema\Common;
@@ -28,8 +28,9 @@ if (empty($_GET['cat'])) {
     $cat = $_GET['cat'];
 }
 
-$varieties = Spider::getVarieties($cat);
-$varietyCat = Spider::getVarietyCat();
+$animes = Spider::getAnimes($cat);
+$animeCat = Spider::getAnimeCat();
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -38,7 +39,7 @@ $varietyCat = Spider::getVarietyCat();
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>综艺 - 影视爬虫</title>
+    <title>动漫 - 影视爬虫</title>
     <?php echo Common::SEO(); ?>
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link type="text/css" rel="stylesheet" href="css/common.css">
@@ -50,9 +51,9 @@ $varietyCat = Spider::getVarietyCat();
     <ul>
         <li><a href='hot.php'>首页</a></li>
         <li><a href='index.php'>电影</a></li>
-        <li class="active"><a href='variety.php'>综艺</a></li>
+        <li><a href='variety.php'>综艺</a></li>
         <li><a href='teleplay.php'>电视剧</a></li>
-        <li><a href='anime.php'>动漫</a></li>
+        <li class="active"><a href=''>动漫</a></li>
         <li><a href='other/about.html'>说明</a></li>
         <li id='searchli'>
             <label for='searchBox'></label><input type='text' id='searchBox' placeholder='输入关键词 - 黑科技全网搜索'>
@@ -66,28 +67,30 @@ $varietyCat = Spider::getVarietyCat();
 <div class="cat">
     <ul>
         <?php
-        foreach ($varietyCat as $key => $val) {
-            echo "<li><a href='variety.php?cat={$key}'>$val</a></li>";
-        } ?>
+        foreach ($animeCat as $key => $val) {
+            echo "<li><a href='anime.php?cat={$key}'>$val</a></li>";
+        }
+        ?>
     </ul>
 </div>
 <div style="clear: both"></div>
 <!--影视推荐轮播图-->
-<?php echo Spider::getSlider('zongyi'); ?>
+<?php echo Spider::getSlider('dongman'); ?>
 
 <!--影视排行榜-->
 <?php echo Spider::getRank(); ?>
 
-<!--影视列表-->
 <div class="videolist">
-    <h3><?php echo '当前分类：' . Spider::getPresentCat(); ?></h3>
+    <h3>
+        <?php echo '当前分类：' . Spider::getPresentCat(); ?>
+    </h3>
     <ul>
         <?php
-        foreach ($varieties as $variety) {
-            echo "<li class='resList'><div class='imgTip'><p>{$variety['desc']}</p></div><a href='play.php?play={$variety['coverpage']}' title='点击播放' target='_blank'>
-                <img class='img' src='{$variety['cover']}' onerror=\"javascript:this.src='img/noCover.jpg'\" alt='{$variety['title']}'>
-                <span id='update'>更新至:{$variety['tag']}</span>
-                <span id='name'>{$variety['title']}</span>
+        foreach ($animes as $anime) {
+            echo "<li class='resList'><a href='play.php?play={$anime['coverpage']}' title='点击播放' target='_blank'>
+                <img class='img' src='{$anime['cover']}' onerror=\"javascript:this.src='img/noCover.jpg'\" alt='{$anime['title']}'>
+                <span id='update'>{$anime['tag']}</span>
+                <span id='name'>{$anime['title']}</span>
             </a></li>";
         } ?>
     </ul>
@@ -105,7 +108,7 @@ $varietyCat = Spider::getVarietyCat();
 <script type="text/javascript" src="https://cdn.lifanko.cn/js/tip.min.js"></script>
 <script type="text/javascript" src="js/app.js"></script>
 <script>
-    tip("影视爬虫 - 综艺频道", "12%", 3000, "1", false);
+    tip("影视爬虫 - 动漫频道", "12%", 3000, "1", false);
 </script>
 </body>
 </html>

@@ -21,6 +21,12 @@
     border-radius: 5px;
 }
 
+.search ul li a{
+    display: block;
+    min-width: 141px;
+    min-height: 200px;
+}
+
 .search img {
     width: 100%;
 }

@@ -9,20 +9,15 @@
 use Cinema\Common;
 use Cinema\Spider;
 
-if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {   //windows系统
-    /**
-     * 类自动加载
-     * @param $class
-     */
+if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
     function __autoload($class)
     {
         $file = $class . '.php';
         if (is_file($file)) {
-            /** @noinspection PhpIncludeInspection */
             require_once($file);
         }
     }
-} else {    //非windows系统（linux）
+} else {
     include_once('Cinema/Spider.php');
     include_once('Cinema/Common.php');
 }
@@ -69,8 +64,8 @@ if (empty($link[3][0])) {
         $setsLiDom = '/<li  title=\'(.*?)\' class=\'w-newfigure w-newfigure-180x153\'>(.*?)<a href=\'(.*?)\'>/';
         if (!empty($setsDiv[0])) {
             preg_match_all($setsLiDom, $setsDiv[0][0], $sets);
-
-            $sets[3] = array_unique($sets[3]);  //确保不会有重复剧集
+            //确保不会有重复剧集
+            $sets[3] = array_unique($sets[3]);
         }
     } else {
         $varietyEpisode = false;
@@ -82,17 +77,15 @@ if (empty($link[3][0])) {
     $link = $link[3];
 }
 
-// SEO
 $keywords = $name . '免费在线播放,' . $name . '在线播放,' . $name . '在线观看,' . $name . '百度云,' . $name . '下载 ';
 $description = mb_strlen($intro) > 70 ? '《' . $name . '》剧情简介：' . mb_substr($intro, 0, 70) . '...' : ($intro == '暂无' ? $keywords : mb_substr($intro, 2));
 ?>
 <!DOCTYPE HTML>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="keywords" content="<?php echo $keywords; ?>">
     <meta name="description" content="<?php echo $description; ?>">
     <title>《<?php echo $name; ?>》免费在线播放 - 影视爬虫</title>
@@ -103,12 +96,23 @@ $description = mb_strlen($intro) > 70 ? '《' . $name . '》剧情简介：' . m
 </head>
 <body>
 <header>
-    <img src="img/logo.png">
-    <?php echo Common::getHeader() ?>
+    <img src='img/logo.png' alt='logo'>
+    <ul>
+        <li><a href='hot.php'>首页</a></li>
+        <li><a href='index.php'>电影</a></li>
+        <li><a href='variety.php'>综艺</a></li>
+        <li><a href='teleplay.php'>电视剧</a></li>
+        <li><a href=''>动漫</a></li>
+        <li><a href='other/about.html'>说明</a></li>
+        <li id='searchli'>
+            <label for='searchBox'></label><input type='text' id='searchBox' placeholder='输入关键词 - 黑科技全网搜索'>
+            <span id='searchText'><img src='img/yspc.png' style='' alt='yspc'></span>
+        </li>
+    </ul>
 </header>
 <div class="container">
     <?php
-    echo Spider::$parser;
+    echo Common::$parser;
     if ($multiSets) {
         if (empty($sets)) {
             echo "<h3>《" . $name . "》<span style='font-size: 15px'>暂无播放资源，请稍后再来~</span></h3>";
@@ -147,7 +151,7 @@ $description = mb_strlen($intro) > 70 ? '《' . $name . '》剧情简介：' . m
 
     <div class="player">
         <iframe onload="iFrameResize()" allowtransparency="true" allowfullscreen="allowfullscreen" id="video"
-                src="loading.php"></iframe>
+                src="other/loading.php"></iframe>
         <a style="display: none" id="videoLink" href=""></a>
         <script type="text/javascript">
             var videoFrame = document.getElementById('video');  //全局使用
@@ -177,15 +181,15 @@ $description = mb_strlen($intro) > 70 ? '《' . $name . '》剧情简介：' . m
 
         function showParser() {
             var parser = getCookie('parser');
-            if (parser == "1" || parser == null) {
+            if (parser === "1" || parser == null) {
                 document.getElementById('parser1').innerText = "解析器1(使用中)";
                 document.getElementById('parser2').innerText = "解析器2";
                 document.getElementById('parser3').innerText = "解析器3";
-            } else if (parser == "2") {
+            } else if (parser === "2") {
                 document.getElementById('parser1').innerText = "解析器1";
                 document.getElementById('parser2').innerText = "解析器2(使用中)";
                 document.getElementById('parser3').innerText = "解析器3";
-            } else if (parser == "3") {
+            } else if (parser === "3") {
                 document.getElementById('parser1').innerText = "解析器1";
                 document.getElementById('parser2').innerText = "解析器2";
                 document.getElementById('parser3').innerText = "解析器3(使用中)";
@@ -293,9 +297,7 @@ $description = mb_strlen($intro) > 70 ? '《' . $name . '》剧情简介：' . m
     <h3 style="margin-top: -10px">剧情简介：</h3>
     <p style="margin-top: -15px;line-height: 25px">　　<?php echo $intro; ?></p>
 </div>
-<?php
-echo Common::$history;
-?>
+<?php echo Common::$history; ?>
 <footer>
     <?php
     echo Common::$tip;
@@ -304,7 +306,7 @@ echo Common::$history;
 </footer>
 <script type="text/javascript" src="https://cdn.lifanko.cn/js/tip.min.js"></script>
 <script type="text/javascript">
-    tip("欢迎使用影视爬虫~", "12%", 3000, "1", false);
+    tip("影视爬虫 - yspc.vip", "12%", 3000, "1", false);
 
     //搜索功能
     var search = document.getElementById('searchBox');
@@ -314,7 +316,7 @@ echo Common::$history;
         if (search.value) {
             searchText.innerHTML = "<a href='search.php?kw=" + search.value + "' style='background-color: #444;color: white;margin-right: -1pc;border-top-right-radius: 5px;border-bottom-right-radius: 5px'>搜索</a>";
         } else {
-            searchText.innerHTML = "<img src='img/yspc.png' style='margin: 0;height: 26px;position: relative;top: 7px'>";
+            searchText.innerHTML = "<img src='img/yspc.png' style='margin: 0;height: 26px;position: relative;top: 7px' alt='tip'>";
         }
     };
 

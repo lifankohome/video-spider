@@ -13,6 +13,7 @@ class Spider
     private static $moviesCat = array();
     private static $varietyCat = array();
     private static $teleplayCat = array();
+    private static $animeCat = array();
     private static $presentCat = '';
 
     private static $slider = null;
@@ -88,7 +89,7 @@ class Spider
             $buffer['point'] = empty($movieScore[1][$key]) ? '无' : $movieScore[1][$key];
             $buffer['tag'] = $movieYear[1][$key];
             $buffer['coverpage'] = $movieLink[1][$key];
-            $buffer['desc'] = $movieActor[1][$key];
+            $buffer['desc'] = mb_substr($movieActor[1][$key], 3);
             $buffer['cover'] = $movieImg[1][$key];
 
             $movies[$key] = $buffer;
@@ -101,10 +102,15 @@ class Spider
     {
         $dom = self::curl_get_contents('https://www.360kan.com/' . $type . '/index.html');
 
-        $slider_start = mb_strpos($dom, '<ul class="b-topslidernew-list js-slide-list">', 15000);
-        $slider_end = mb_strpos($dom, '<ul class="b-topslidernew-btns js-slide-btns">', $slider_start);
-        $slider = mb_substr($dom, $slider_start, $slider_end - $slider_start);
-
+        if ($type == 'dongman') {
+            $slider_start = mb_strpos($dom, '<ul class="b-topslider-list js-slide-list">', 15000);
+            $slider_end = mb_strpos($dom, '<ul class="b-topslider-btns js-slide-btns">', $slider_start);
+            $slider = mb_substr($dom, $slider_start, $slider_end - $slider_start);
+        } else {
+            $slider_start = mb_strpos($dom, '<ul class="b-topslidernew-list js-slide-list">', 15000);
+            $slider_end = mb_strpos($dom, '<ul class="b-topslidernew-btns js-slide-btns">', $slider_start);
+            $slider = mb_substr($dom, $slider_start, $slider_end - $slider_start);
+        }
         $slider = str_replace(' href="', ' target="_blank" href="', $slider);
         self::$slider = '<div class="slider"><ul id="nav"></ul>' . str_replace('https://www.360kan.com', 'play.php?play=', $slider) . '</div>';
 
@@ -262,6 +268,72 @@ class Spider
     private static function setVarietyCat($varietyCat)
     {
         self::$varietyCat = $varietyCat;
+    }
+
+    /**
+     * @param string $cat
+     * @param int $page
+     * @return array
+     */
+    public static function getAnimes($cat = 'all', $page = 1)
+    {
+        $presentCat = ['all' => '最近热播', '100' => '热血', '134' => '科幻', '109' => '魔幻', '135' => '经典', '136' => '励志', '111' => '少儿', '107' => '冒险', '105' => '搞笑', '137' => '推理', '101' => '恋爱', '138' => '治愈', '106' => '幻想', '104' => '校园', '110' => '动物', '112' => '机战', '131' => '亲子', '139' => '儿歌', '103' => '运动', '108' => '悬疑', '113' => '怪物'];
+
+        $dom = self::curl_get_contents('https://www.360kan.com/dongman/list?year=all&area=all&cat=' . $cat);
+        $dom .= self::curl_get_contents('https://www.360kan.com/dongman/list?year=all&area=all&cat=' . $cat . '&pageno=2');
+
+        $animeCatDom = '/<a class="js-tongjip" href=".+year=all&area=all&cat=(.*?)" target="_self">(.*?)\s/';
+
+        preg_match_all($animeCatDom, $dom, $animeCat);
+
+        $animeCatArr = array();
+        foreach ($animeCat[1] as $key => $val) {
+            //为了页面美观，仅保留分类长度为2个字的动漫
+            if (mb_strlen($animeCat[2][$key]) <= 2) {
+                $animeCatArr[$val] = $animeCat[2][$key];
+            }
+            // 仅显示20个分类
+            if (count($animeCatArr) == 20) {
+                break;
+            }
+        }
+
+        self::setanimeCat($animeCatArr);
+        self::setPresentCat($presentCat[$cat]);
+
+        $animeNameDom = '/<span class="s1">(.*?)<\/span>/';
+        $animeUpdateDom = '/<span class="hint">(.*?)<\/span>/';
+        $animeLinkDom = '/<a class="js-tongjic" href="(.*?)">/';
+        $animeImgDom = '/<div class="cover g-playicon">\s+<img src="(.*?)">/';
+
+        preg_match_all($animeNameDom, $dom, $animeName);
+        preg_match_all($animeUpdateDom, $dom, $animeUpdate);
+        preg_match_all($animeLinkDom, $dom, $animeLink);
+        preg_match_all($animeImgDom, $dom, $animeImg);
+
+        $animes = array();
+        foreach ($animeName[1] as $key => $value) {
+            $buffer['title'] = $animeName[1][$key];
+            $buffer['tag'] = $animeUpdate[1][$key];
+            $buffer['coverpage'] = $animeLink[1][$key];
+            $buffer['cover'] = $animeImg[1][$key];
+
+            $animes[$key] = $buffer;
+        }
+        array_pop($animes);
+        array_pop($animes);
+
+        return $animes;
+    }
+
+    public static function getAnimeCat()
+    {
+        return self::$animeCat;
+    }
+
+    private static function setAnimeCat($animeCat)
+    {
+        self::$animeCat = $animeCat;
     }
 
     /**
@@ -431,10 +503,4 @@ class Spider
             self::saveInfo($dir, $jsonRes);
         }
     }
-
-    public static $parser = "<div id='parsers'><span style='font-size: 15px;font-weight: bold'>播放失败可尝试切换解析器</span>
-                <a id='parser1' onclick=\"vParser('https://vip.bljiex.com/?v=')\">解析器1</a>
-                <a id='parser2' onclick=\"vParser('https://jx.lache.me/cc/?url=')\">解析器2</a>
-                <a id='parser3' onclick=\"vParser('https://660e.com/?url=')\">解析器3</a>
-            </div>";
 }

@@ -44,12 +44,23 @@ if (empty($_GET['max'])) { //显示的关键词数量，默认最多显示999个
     ?>
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link type="text/css" rel="stylesheet" href="css/common.css">
-    <link type="text/css" rel="stylesheet" href="css/hotsearch.css">
+    <link type="text/css" rel="stylesheet" href="css/hot.css">
 </head>
 <body>
 <header>
-    <img src="img/logo.png">
-    <?php echo Common::getHeader() ?>
+    <img src='img/logo.png' alt='logo'>
+    <ul>
+        <li class="active"><a href='hot.php'>首页</a></li>
+        <li><a href='index.php'>电影</a></li>
+        <li><a href='variety.php'>综艺</a></li>
+        <li><a href='teleplay.php'>电视剧</a></li>
+        <li><a href='anime.php'>动漫</a></li>
+        <li><a href='other/about.html'>说明</a></li>
+        <li id='searchli'>
+            <label for='searchBox'></label><input type='text' id='searchBox' placeholder='输入关键词 - 黑科技全网搜索'>
+            <span id='searchText'><img src='img/yspc.png' style='' alt='yspc'></span>
+        </li>
+    </ul>
 </header>
 <div style="margin: 2pc 0;overflow: hidden">
     <div style="background-image: linear-gradient( 35deg, #ABDCFF 10%, #0396FF 100%);float: left;width: 50%;border-radius: 5px 0 0 5px">

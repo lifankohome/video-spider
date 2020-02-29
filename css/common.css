@@ -29,7 +29,7 @@ header img {
     height: 70px;
     float: left;
     margin-left: 1pc;
-    margin-right: 0.5pc;
+    margin-right: 1pc;
 }
 
 header, .videolist ul {
@@ -46,13 +46,14 @@ header ul li {
 }
 
 header ul li a {
-    padding: 0 18px;
+    padding: 0 15px;
     color: #000;
+    font-size: 18px;
     font-weight: 600;
     display: inline-block;
 }
 
-header ul li:hover {
+header ul li:hover, .active {
     background-image: linear-gradient(135deg, #F6D242 10%, #FF52E5 100%);
 }
 
@@ -112,13 +113,8 @@ header ul li:hover a {
     display: inline-block;
     cursor: pointer;
     box-shadow: 1px 1px 5px 0 #777;
-    border-radius: 10px;
+    border-radius: 5px;
     transition: all 0.5s 0s;
-}
-
-.history:hover .btn-history {
-    border-radius: 0;
-    background-color: #ddd;
 }
 
 @media screen and (max-width: 768px) {
