@@ -50,7 +50,6 @@ if (empty($_GET['kw'])) {
     <meta charset="UTF-8">
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>《<?php echo $kw; ?>》搜索 - 影视爬虫</title>
     <?php echo Common::SEO(); ?>
     <link rel="icon" href="favicon.ico" type="image/x-icon">
@@ -65,7 +64,7 @@ if (empty($_GET['kw'])) {
         <li><a href='index.php'>电影</a></li>
         <li><a href='variety.php'>综艺</a></li>
         <li><a href='teleplay.php'>电视剧</a></li>
-        <li><a href=''>动漫</a></li>
+        <li><a href='anime.php'>动漫</a></li>
         <li><a href='other/about.html'>说明</a></li>
         <li id='searchli'>
             <label for='searchBox'></label><input type='text' id='searchBox' placeholder='输入关键词 - 黑科技全网搜索'>

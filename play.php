@@ -53,24 +53,32 @@ $sets = array();
 if (empty($link[3][0])) {
     $multiSets = true;
 
-    $setsDivDom = '/<div class="num-tab-main g-clear js-tab"( style="display:none;")?>[\s\S]+<a data-num="(.*?)" data-daochu="(.*?)" href=(.*?)>/';
+    $setsADom = '/<a data-num="(.*?)"\s*data-daochu="to=(.*?)" href="(.*?)">/';
+    preg_match_all($setsADom, $dom, $setsA);
 
-    preg_match_all($setsDivDom, $dom, $setsDiv);
-    if (empty($setsDiv[0])) {
-        $varietyEpisode = true;
+    if (empty($setsA[0])) {
+        $isVariety = true;
 
-        $setsDivDom = '/style="display:block;">[\s\S]+<li  title=\'(.*?)\' class=\'w-newfigure w-newfigure-180x153\'>(.*?)<a href=\'(.*?)\'>/';
-        preg_match_all($setsDivDom, $dom, $setsDiv);
-        $setsLiDom = '/<li  title=\'(.*?)\' class=\'w-newfigure w-newfigure-180x153\'>(.*?)<a href=\'(.*?)\'>/';
-        if (!empty($setsDiv[0])) {
-            preg_match_all($setsLiDom, $setsDiv[0][0], $sets);
-            //确保不会有重复剧集
-            $sets[3] = array_unique($sets[3]);
+        $setsLiDom = "/<li\s*title='(.*?)' class='w-newfigure w-newfigure-180x153'><a href='(.*?)'/";
+        preg_match_all($setsLiDom, $dom, $setsLi);
+        $href = array_unique($setsLi[2]);
+        $title = array_unique($setsLi[1]);
+
+        for ($i = 0; $i < count($href); $i++) {
+            $sets[$title[$i]] = $href[$i];
         }
     } else {
-        $varietyEpisode = false;
-        $setsDom = '#<a data-num="(.*?)" data-daochu="to=(.*?)" href="(.*?)">#';
-        preg_match_all($setsDom, implode("", $setsDiv[0]), $sets);
+        $isVariety = false;
+
+        $offset = array_search(array_shift($setsA[3]), $setsA[3]);
+        if ($offset) {
+            $sets = [];
+            for ($i = $offset; $i < count($setsA[3]); $i++) {
+                array_push($sets, $setsA[3][$i]);
+            }
+        } else {
+            $sets = $setsA[3];
+        }
     }
 } else {
     $multiSets = false;
@@ -102,7 +110,7 @@ $description = mb_strlen($intro) > 70 ? '《' . $name . '》剧情简介：' . m
         <li><a href='index.php'>电影</a></li>
         <li><a href='variety.php'>综艺</a></li>
         <li><a href='teleplay.php'>电视剧</a></li>
-        <li><a href=''>动漫</a></li>
+        <li><a href='anime.php'>动漫</a></li>
         <li><a href='other/about.html'>说明</a></li>
         <li id='searchli'>
             <label for='searchBox'></label><input type='text' id='searchBox' placeholder='输入关键词 - 黑科技全网搜索'>
@@ -122,13 +130,13 @@ $description = mb_strlen($intro) > 70 ? '《' . $name . '》剧情简介：' . m
                 Spider::clickRec('clickHistory', $name);
             }
 
-            echo "<h3>《" . $name . "》—— 总" . count($sets[3]) . "集</h3><ul>";
-            foreach ($sets[3] as $key => $val) {
-                if ($varietyEpisode) {
-                    echo "<li><a class='videoA' href='$val' target='ajax'>{$sets[1][$key]}</a></li>";
+            echo "<h3>《" . $name . "》—— 总" . count($sets) . "集</h3><ul>";
+            foreach ($sets as $key => $val) {
+                if ($isVariety) {
+                    echo "<li><a class='videoA' href='$val' target='ajax'>{$key}</a></li>";
                 } else {
-                    $key++;
-                    echo "<li><a class='videoA' href='$val' target='ajax'>第{$key}集</a></li>";   //集数从1开始
+                    $key += 1;
+                    echo "<li><a class='videoA' href='$val' target='ajax'>第{$key}集</a></li>";
                 }
             }
             echo '</ul><div style="clear: both;padding-top: .2pc"></div>';
@@ -169,7 +177,7 @@ $description = mb_strlen($intro) > 70 ? '《' . $name . '》剧情简介：' . m
         for (var i = 0; i < videoA.length; i++) {
             videoLinkBuffer.push(videoA[i].href);
             videoA[i].href = 'javascript:void(0)';
-            videoA.eq(i).attr('onclick', 'playUrl(\'' + videoLinkBuffer[i] + '\',\'' + i + '\')');
+            videoA[i].setAttribute('onclick', 'playUrl(\'' + videoLinkBuffer[i] + '\',\'' + i + '\')');
 
             if (i > 0 && videoLinkBuffer[i] === getCookie('<?php echo $player; ?>')) {   //非第一集时提供观看进度提示
                 videoA[i].setAttribute("id", "cookie");

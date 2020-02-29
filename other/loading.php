@@ -67,7 +67,7 @@ if ($festival != 'No Festival') {
 <div id="container">
     <img src="../img/logo.png" style="height: 100px;margin-bottom: -40px" alt="">
     <h1 style="display: inline-block">
-        影视爬虫<span style="font-size: 16px"> v4.5</span>
+        影视爬虫<span style="font-size: 16px"> v4.5 2020/2/29 22:03更新</span>
     </h1>
     <p style="font-size: 20px">影视爬虫重金购买网址<strong style="color: #467cff;font-size: 30px">yspc.vip</strong>，一秒钟即可记住</p>
     <div id="ad" style="width: 60%;margin: 3pc auto 0 auto;font-size: 24px;">

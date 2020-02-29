@@ -37,7 +37,6 @@ $varietyCat = Spider::getVarietyCat();
     <meta charset="UTF-8">
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>综艺 - 影视爬虫</title>
     <?php echo Common::SEO(); ?>
     <link rel="icon" href="favicon.ico" type="image/x-icon">
