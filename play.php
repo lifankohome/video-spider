@@ -82,7 +82,7 @@ if (empty($link[3][0])) {
     }
 } else {
     $multiSets = false;
-    $link = $link[3];
+    $sets = $link[3];
 }
 
 // 可以设置偏移量的数组查询函数
@@ -169,7 +169,7 @@ $description = mb_strlen($intro) > 70 ? '《' . $name . '》剧情简介：' . m
         }
 
         echo "<h3>《" . $name . "》<span style='font-size: 15px'>点击选择源后即可播放</span>";
-        foreach ($link as $key => $val) {
+        foreach ($sets as $key => $val) {
             $num = $key + 1;
             echo "<a class='videoA' onclick='playUrl(\"{$val}\", \"{$key}\")'>{$num}号源</a>";
         }
@@ -216,12 +216,31 @@ $description = mb_strlen($intro) > 70 ? '《' . $name . '》剧情简介：' . m
             // 若指定了解析器则使用对应解析器解析，并更新cookie
             if (parser_id === undefined) {
                 parser_id = getCookie('parser');
+                if (parser_id === null) {
+                    parser_id = 1;
+                    setCookie('parser', parser_id, 1);
+                }
             } else {
                 setCookie('parser', parser_id, 1); //保存用户当前使用的解析器
             }
-            var url = parser_id === null ? res[0] : res[parseInt(parser_id) - 1];
+            var url = res[parseInt(parser_id) - 1];
 
             showParser();
+
+            // 未选择解析器时直接点击解析器则播放最近一次播放的视频
+            // 若没有最近播放的视频则播放列表第一个
+            if (videoLink.href === window.location.href) {
+                var recent = getCookie('<?php echo $player; ?>');
+                if (recent === null) {
+                    videoLink.href = '<?php echo $sets[0] ?>';
+                    tip("您未选择视频源，使用1号源（第一集）开始播放", "12%", 3000, "1", false);
+                } else {
+                    videoLink.href = recent;
+                    tip("您未选择视频源，将继续播放您上次观看的视频", "12%", 3000, "1", false);
+                }
+            } else {
+                tip("正在加载视频~", "50%", 3000, "1", false);
+            }
 
             console.log('parser: ' + parser_id + ' url: ' + url + videoLink.href);
             videoFrame.src = url + videoLink.href;
