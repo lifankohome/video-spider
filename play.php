@@ -70,7 +70,7 @@ if (empty($link[3][0])) {
     } else {
         $isVariety = false;
 
-        $offset = array_search(array_shift($setsA[3]), $setsA[3]);
+        $offset = array_sea($setsA[3][0], $setsA[3], 1);
         if ($offset) {
             $sets = [];
             for ($i = $offset; $i < count($setsA[3]); $i++) {
@@ -83,6 +83,17 @@ if (empty($link[3][0])) {
 } else {
     $multiSets = false;
     $link = $link[3];
+}
+
+// 可以设置偏移量的数组查询函数
+function array_sea($needle, array $haystack, $offset = 0)
+{
+    for ($i = $offset; $i < count($haystack); $i++) {
+        if ($needle == $haystack[$i]) {
+            return $i;
+        }
+    }
+    return false;
 }
 
 $keywords = $name . '免费在线播放,' . $name . '在线播放,' . $name . '在线观看,' . $name . '百度云,' . $name . '下载 ';
@@ -101,6 +112,12 @@ $description = mb_strlen($intro) > 70 ? '《' . $name . '》剧情简介：' . m
     <link type="text/css" rel="stylesheet" href="css/common.css">
     <link type="text/css" rel="stylesheet" href="css/play.css">
     <script src="https://cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+    <script>
+        Object.defineProperty(navigator, "userAgent", {
+            value: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.122 Safari/537.36",
+            writable: false
+        });
+    </script>
 </head>
 <body>
 <header>
@@ -119,8 +136,8 @@ $description = mb_strlen($intro) > 70 ? '《' . $name . '》剧情简介：' . m
     </ul>
 </header>
 <div class="container">
+    <div id='parsers'></div>
     <?php
-    echo Common::$parser;
     if ($multiSets) {
         if (empty($sets)) {
             echo "<h3>《" . $name . "》<span style='font-size: 15px'>暂无播放资源，请稍后再来~</span></h3>";
@@ -131,12 +148,16 @@ $description = mb_strlen($intro) > 70 ? '《' . $name . '》剧情简介：' . m
             }
 
             echo "<h3>《" . $name . "》—— 总" . count($sets) . "集</h3><ul>";
+
+            // 显示剧集
+            $num = 0;
             foreach ($sets as $key => $val) {
                 if ($isVariety) {
-                    echo "<li><a class='videoA' href='$val' target='ajax'>{$key}</a></li>";
+                    echo "<li><a class='videoA' onclick='playUrl(\"{$val}\", \"{$num}\")'>{$key}</a></li>";
+                    $num++;
                 } else {
-                    $key += 1;
-                    echo "<li><a class='videoA' href='$val' target='ajax'>第{$key}集</a></li>";
+                    $num = $key + 1;
+                    echo "<li><a class='videoA' onclick='playUrl(\"{$val}\", \"{$key}\")'>第{$num}集</a></li>";
                 }
             }
             echo '</ul><div style="clear: both;padding-top: .2pc"></div>';
@@ -148,10 +169,9 @@ $description = mb_strlen($intro) > 70 ? '《' . $name . '》剧情简介：' . m
         }
 
         echo "<h3>《" . $name . "》<span style='font-size: 15px'>点击选择源后即可播放</span>";
-        $n = 0;
-        foreach ($link as $s) {
-            $n++;
-            echo "<a class='videoA videoS' href='$s' target='ajax'>{$n}号源</a>";
+        foreach ($link as $key => $val) {
+            $num = $key + 1;
+            echo "<a class='videoA' onclick='playUrl(\"{$val}\", \"{$key}\")'>{$num}号源</a>";
         }
         echo "</h3>";
     }
@@ -171,97 +191,51 @@ $description = mb_strlen($intro) > 70 ? '《' . $name . '》剧情简介：' . m
         </script>
     </div>
     <script type="text/javascript">
-        var videoA = $(".videoA");
-        var videoLinkBuffer = [];
-        var iBuffer = 0;
-        for (var i = 0; i < videoA.length; i++) {
-            videoLinkBuffer.push(videoA[i].href);
-            videoA[i].href = 'javascript:void(0)';
-            videoA[i].setAttribute('onclick', 'playUrl(\'' + videoLinkBuffer[i] + '\',\'' + i + '\')');
-
-            if (i > 0 && videoLinkBuffer[i] === getCookie('<?php echo $player; ?>')) {   //非第一集时提供观看进度提示
-                videoA[i].setAttribute("id", "cookie");
-                iBuffer = i;
-            }
-        }
+        // 解析器列表
+        var res = ['https://jiexi.380k.com/?url=', 'https://vip.bljiex.com/?v=', 'https://jx.lache.me/cc/?url=', 'https://660e.com/?url='];
 
         showParser();
 
         function showParser() {
-            var parser = getCookie('parser');
-            if (parser === "1" || parser == null) {
-                document.getElementById('parser1').innerText = "解析器1(使用中)";
-                document.getElementById('parser2').innerText = "解析器2";
-                document.getElementById('parser3').innerText = "解析器3";
-            } else if (parser === "2") {
-                document.getElementById('parser1').innerText = "解析器1";
-                document.getElementById('parser2').innerText = "解析器2(使用中)";
-                document.getElementById('parser3').innerText = "解析器3";
-            } else if (parser === "3") {
-                document.getElementById('parser1').innerText = "解析器1";
-                document.getElementById('parser2').innerText = "解析器2";
-                document.getElementById('parser3').innerText = "解析器3(使用中)";
+            var parser_id = getCookie('parser');
+            var parsers = document.getElementById('parsers');
+
+            var parse_btn = "<span style='font-size: 15px;font-weight: bold'>无法播放请切换解析器</span>";
+            for (var i = 1; i <= res.length; i++) {
+                if (parser_id === i.toString()) {
+                    parse_btn += "<a class='active' onclick='vParser(" + i + ")'>解析器" + i + "</a>";
+                } else {
+                    parse_btn += "<a onclick='vParser(" + i + ")'>解析器" + i + "</a>";
+                }
             }
+            parsers.innerHTML = parse_btn;
         }
 
-        function vParser(url) {
-            var parser;
+        function vParser(parser_id) {
             // 使用默认解析器解释时从cookie读取解析源地址，若为空则使用1号解析器；
             // 若指定了解析器则使用对应解析器解析，并更新cookie
-            if (url === 'default') {
-                parser = getCookie('parser');
-                switch (parser) {
-                    case '1':
-                        parser = 1;
-                        url = 'https://vip.bljiex.com/?v=';
-                        break;
-                    case '2':
-                        parser = 2;
-                        url = 'https://jx.lache.me/cc/?url=';
-                        break;
-                    case '3':
-                        parser = 3;
-                        url = 'https://660e.com/?url=';
-                        break;
-                    default:
-                        parser = 1;
-                        url = 'https://vip.bljiex.com/?v=';
-                        break;
-                }
+            if (parser_id === undefined) {
+                parser_id = getCookie('parser');
             } else {
-                switch (url.substring(0, 15)) {
-                    case 'https://vip.blj':
-                        parser = 1;
-                        break;
-                    case 'https://jx.lach':
-                        parser = 2;
-                        break;
-                    case 'https://660e.co':
-                        parser = 3;
-                        break;
-                    default:
-                        parser = 1;
-                        break;
-                }
-                setCookie('parser', parser, 1); //保存用户当前使用的解析器
+                setCookie('parser', parser_id, 1); //保存用户当前使用的解析器
             }
+            var url = parser_id === null ? res[0] : res[parseInt(parser_id) - 1];
 
             showParser();
 
-            console.log('parser: ' + parser + ' url: ' + url + videoLink.href);
+            console.log('parser: ' + parser_id + ' url: ' + url + videoLink.href);
             videoFrame.src = url + videoLink.href;
         }
 
         function playUrl(sourceUrl, i) {
-            setCookie('<?php echo $player; ?>', sourceUrl, 1); //保存当前播放源链接，键为爬取地址，时间为1d=24h
+            //保存当前播放源链接时间为1d=24h
+            setCookie('<?php echo $player; ?>', sourceUrl, 1);
 
-            if (iBuffer !== i) {
-                //iBuffer = i;    //注释本句可以在不跳转的情况下显示已点击的链接，不注释仅显示当前播放剧集
-                videoA[i].setAttribute("id", "cookie");
-            }
+            var sets = document.getElementsByClassName('videoA');
+            sets[i].setAttribute('id', 'cookie');
 
             videoLink.href = sourceUrl;
-            vParser('default');    //使用默认解析器解析
+            vParser();    //使用默认解析器解析
         }
 
         var title = document.title;

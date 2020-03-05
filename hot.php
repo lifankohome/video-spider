@@ -28,7 +28,7 @@ if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {   //windows系统
 }
 
 if (empty($_GET['max'])) { //显示的关键词数量，默认最多显示999个
-    $max = 666;
+    $max = 100;
 }
 ?>
 <!DOCTYPE html>
@@ -44,6 +44,11 @@ if (empty($_GET['max'])) { //显示的关键词数量，默认最多显示999个
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link type="text/css" rel="stylesheet" href="css/common.css">
     <link type="text/css" rel="stylesheet" href="css/hot.css">
+    <style>
+        body{
+            width: 96% !important;
+        }
+    </style>
 </head>
 <body>
 <header>
@@ -109,7 +114,7 @@ echo Common::$history;
         if (search.value) {
             searchText.innerHTML = "<a href='search.php?kw=" + search.value + "' style='background-color: #444;color: white;margin-right: -1pc;border-top-right-radius: 5px;border-bottom-right-radius: 5px'>搜索</a>";
         } else {
-            searchText.innerHTML = "<img src='img/yspc.png' style='margin: 0;height: 26px;position: relative;top: 7px'>";
+            searchText.innerHTML = "<img src='img/yspc.png' alt='tip'>";
         }
     };
 

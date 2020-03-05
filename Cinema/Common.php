@@ -15,19 +15,10 @@ class Common
     public static function SEO($source = '')
     {
         return '<meta name="keywords" content="影视爬虫,' . $source . '百度云,' . $source . '免费播放,' . $source . '在线播放,电视直播,电视点播,最新电影,最新大片,最热电视剧,VIP视频解析">
-    <meta name="description" content="影视爬虫,' . $source . '百度云,' . $source . '免费播放,' . $source . '在线播放,电视直播,电视点播,最新电影,最新大片,最热电视剧,VIP视频解析">
-';
+    <meta name="description" content="影视爬虫,' . $source . '百度云,' . $source . '免费播放,' . $source . '在线播放,电视直播,电视点播,最新电影,最新大片,最热电视剧,VIP视频解析">';
     }
 
-    public static $ad = "<p style='text-align: center;font-size: 20px;background-color: #333;padding: 10px 5px;color: #FFF;border-radius: 5px'>
-    影视爬虫小提示：浏览器输入<span style='font-size:30px;color: #F40'>yspc.vip</span>就可以找到我，聪明人一秒就记住了
-</p>";
-
-    public static $parser = "<div id='parsers'><span style='font-size: 15px;font-weight: bold'>无法播放请切换解析器</span>
-                <a id='parser1' onclick=\"vParser('https://vip.bljiex.com/?v=')\">解析器1</a>
-                <a id='parser2' onclick=\"vParser('https://jx.lache.me/cc/?url=')\">解析器2</a>
-                <a id='parser3' onclick=\"vParser('https://660e.com/?url=')\">解析器3</a>
-            </div>";
+    public static $ad = "<p style='text-align: center;font-size: 20px;background-color: #333;padding: 10px 5px;color: #FFF;border-radius: 5px'>影视爬虫小提示：浏览器输入<span style='font-size:30px;color: #F40'>yspc.vip</span>就可以找到我，聪明人一秒就记住了</p>";
 
     public static $history = '<div class="history">
     <span onmouseover="showHistory()" onmouseout="hideHistory()" class="btn-history">播放<br>历史</span>
