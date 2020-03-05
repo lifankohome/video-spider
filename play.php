@@ -38,10 +38,12 @@ $dom = Spider::curl_get_contents($player);
 $nameDom = '#<h1>(.*?)</h1>#';
 $introDom = '#style="display:none;"><span>简介 ：<\/span><p class="item-desc">(.*?)<a href#';
 $linkDom = '#<a data-daochu=(.*?) class=(.*?) href="(.*?)">#';
+$albumDom = '/class="g-playicon s-cover-img" data-daochu="to=(.*?)\s+<img src="(.*?)">/';
 
 preg_match_all($nameDom, $dom, $name);
 preg_match_all($introDom, $dom, $intro);
 preg_match_all($linkDom, $dom, $link);
+preg_match_all($albumDom, $dom, $album);
 
 $name = $name[1][0];
 
@@ -61,11 +63,11 @@ if (empty($link[3][0])) {
 
         $setsLiDom = "/<li\s*title='(.*?)' class='w-newfigure w-newfigure-180x153'><a href='(.*?)'/";
         preg_match_all($setsLiDom, $dom, $setsLi);
-        $href = array_unique($setsLi[2]);
-        $title = array_unique($setsLi[1]);
 
-        for ($i = 0; $i < count($href); $i++) {
-            $sets[$title[$i]] = $href[$i];
+        $offset = array_sea($setsLi[2][0], $setsLi[2], 1);
+
+        for ($i = $offset; $i < count($setsLi[2]); $i++) {
+            $sets[$setsLi[1][$i]] = $setsLi[2][$i];
         }
     } else {
         $isVariety = false;
@@ -97,7 +99,9 @@ function array_sea($needle, array $haystack, $offset = 0)
 }
 
 $keywords = $name . '免费在线播放,' . $name . '在线播放,' . $name . '在线观看,' . $name . '百度云,' . $name . '下载 ';
-$description = mb_strlen($intro) > 70 ? '《' . $name . '》剧情简介：' . mb_substr($intro, 0, 70) . '...' : ($intro == '暂无' ? $keywords : mb_substr($intro, 2));
+$description = mb_strlen($intro) > 70 ? '《' . $name . '》剧情简介：' . mb_substr($intro, 0, 70) . '...' : ($intro == '暂无' ? $keywords : '《' . $name . '》剧情简介：' . $intro);
+
+$og_img = $album[2][0];
 ?>
 <!DOCTYPE HTML>
 <html lang="en">
@@ -107,17 +111,12 @@ $description = mb_strlen($intro) > 70 ? '《' . $name . '》剧情简介：' . m
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="keywords" content="<?php echo $keywords; ?>">
     <meta name="description" content="<?php echo $description; ?>">
+    <meta property="og:image" content="<?php echo $og_img; ?>">
     <title>《<?php echo $name; ?>》免费在线播放 - 影视爬虫</title>
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link type="text/css" rel="stylesheet" href="css/common.css">
     <link type="text/css" rel="stylesheet" href="css/play.css">
     <script src="https://cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
-    <script>
-        Object.defineProperty(navigator, "userAgent", {
-            value: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.122 Safari/537.36",
-            writable: false
-        });
-    </script>
 </head>
 <body>
 <header>
@@ -308,6 +307,11 @@ $description = mb_strlen($intro) > 70 ? '《' . $name . '》剧情简介：' . m
 <script type="text/javascript" src="https://cdn.lifanko.cn/js/tip.min.js"></script>
 <script type="text/javascript">
     tip("影视爬虫 - yspc.vip", "12%", 3000, "1", false);
+
+    Object.defineProperty(navigator, "userAgent", {
+        value: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.122 Safari/537.36",
+        writable: false
+    });
 
     //搜索功能
     var search = document.getElementById('searchBox');
