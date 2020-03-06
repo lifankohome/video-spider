@@ -98,7 +98,7 @@ function array_sea($needle, array $haystack, $offset = 0)
     return false;
 }
 
-$keywords = $name . '免费在线播放,' . $name . '在线播放,' . $name . '在线观看,' . $name . '百度云,' . $name . '下载 ';
+$keywords = '影视爬虫,yspc.vip,' . $name . '免费在线播放,' . $name . '在线播放,' . $name . '在线观看,' . $name . '百度云,' . $name . '下载';
 $description = mb_strlen($intro) > 70 ? '《' . $name . '》剧情简介：' . mb_substr($intro, 0, 70) . '...' : ($intro == '暂无' ? $keywords : '《' . $name . '》剧情简介：' . $intro);
 
 $og_img = $album[2][0];
@@ -191,7 +191,7 @@ $og_img = $album[2][0];
     </div>
     <script type="text/javascript">
         // 解析器列表
-        var res = ['https://jiexi.380k.com/?url=', 'https://vip.bljiex.com/?v=', 'https://jx.lache.me/cc/?url=', 'https://660e.com/?url='];
+        var res = ['https://jiexi.380k.com/?url=', 'https://jx.lache.me/cc/?url=', 'https://660e.com/?url='];
 
         showParser();
 
@@ -321,7 +321,7 @@ $og_img = $album[2][0];
         if (search.value) {
             searchText.innerHTML = "<a href='search.php?kw=" + search.value + "' style='background-color: #444;color: white;margin-right: -1pc;border-top-right-radius: 5px;border-bottom-right-radius: 5px'>搜索</a>";
         } else {
-            searchText.innerHTML = "<img src='img/yspc.png' style='margin: 0;height: 26px;position: relative;top: 7px' alt='tip'>";
+            searchText.innerHTML = "<img src='img/yspc.png' alt='tip'>";
         }
     };
 
