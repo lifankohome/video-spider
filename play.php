@@ -36,7 +36,7 @@ if (!empty($_GET['play'])) {
 $dom = Spider::curl_get_contents($player);
 
 $nameDom = '#<h1>(.*?)</h1>#';
-$introDom = '#style="display:none;"><span>简介 ：<\/span><p class="item-desc">(.*?)<a href#';
+$introDom = '/style="display:none;"><span>简介 ：<\/span><p class="item-desc">([\s\S]*)<a href="#"/';
 $linkDom = '#<a data-daochu=(.*?) class=(.*?) href="(.*?)">#';
 $albumDom = '/class="g-playicon s-cover-img" data-daochu="to=(.*?)\s+<img src="(.*?)">/';
 
@@ -87,6 +87,8 @@ if (empty($link[3][0])) {
     $sets = $link[3];
 }
 
+$default_link = $isVariety ? array_values($sets)[0] : $sets[0];
+
 // 可以设置偏移量的数组查询函数
 function array_sea($needle, array $haystack, $offset = 0)
 {
@@ -99,8 +101,8 @@ function array_sea($needle, array $haystack, $offset = 0)
 }
 
 $keywords = '影视爬虫,yspc.vip,' . $name . '免费在线播放,' . $name . '在线播放,' . $name . '在线观看,' . $name . '百度云,' . $name . '下载';
-$description = mb_strlen($intro) > 70 ? '《' . $name . '》剧情简介：' . mb_substr($intro, 0, 70) . '...' : ($intro == '暂无' ? $keywords : '《' . $name . '》剧情简介：' . $intro);
-
+$intro_desc = str_replace("\n", '', $intro);
+$description = mb_strlen($intro_desc) > 70 ? '《' . $name . '》剧情简介：' . mb_substr($intro_desc, 0, 70) . '...' : ($intro_desc == '暂无' ? $keywords : '《' . $name . '》剧情简介：' . $intro_desc);
 $og_img = $album[2][0];
 ?>
 <!DOCTYPE HTML>
@@ -231,7 +233,7 @@ $og_img = $album[2][0];
             if (videoLink.href === window.location.href) {
                 var recent = getCookie('<?php echo $player; ?>');
                 if (recent === null) {
-                    videoLink.href = '<?php echo $sets[0] ?>';
+                    videoLink.href = '<?php echo $default_link; ?>';
                     tip("您未选择视频源，使用1号源（第一集）开始播放", "12%", 3000, "1", false);
                 } else {
                     videoLink.href = recent;
@@ -295,7 +297,7 @@ $og_img = $album[2][0];
         }
     </script>
     <h3 style="margin-top: -10px">剧情简介：</h3>
-    <p style="margin-top: -15px;line-height: 25px">　　<?php echo $intro; ?></p>
+    <p style="margin-top: -15px;line-height: 25px">　　<?php echo str_replace("\n", '<br>　　', $intro); ?></p>
 </div>
 <?php echo Common::$history; ?>
 <footer>
