@@ -45,7 +45,7 @@ if (empty($_GET['max'])) { //显示的关键词数量，默认最多显示999个
     <link type="text/css" rel="stylesheet" href="css/common.css">
     <link type="text/css" rel="stylesheet" href="css/hot.css">
     <style>
-        body{
+        body {
             width: 96% !important;
         }
     </style>
@@ -66,7 +66,14 @@ if (empty($_GET['max'])) { //显示的关键词数量，默认最多显示999个
         </li>
     </ul>
 </header>
-<div style="margin: 2pc 0;overflow: hidden">
+<div style="background-color: rgba(255,255,255,0.51);padding: .2pc 1pc;margin-top: 1pc;border-radius: 5px">
+    <h1>向我捐赠</h1>
+    <p style="line-height: 25px">
+        本人长期致力于影视爬虫应用开发，你的帮助是对我们最大的支持和动力！<br>影视爬虫一直在坚持不懈地努力，坚持开源和免费提供使用，帮助更多人便捷地观看视频！<br>如果您对影视爬虫表示认同并且觉得对你有所帮助，可酌情向我捐赠~
+        <a href="img/wechat.jpg" target="_blank" style="font-size: 22px">点我显示捐赠二维码</a>
+    </p>
+</div>
+<div style="margin: 1pc 0;overflow: hidden">
     <div style="background-image: linear-gradient( 35deg, #ABDCFF 10%, #0396FF 100%);float: left;width: 50%;border-radius: 5px 0 0 5px">
         <div style="padding: 0 1pc 1pc 1pc;overflow: hidden">
             <h3>搜索排行榜：</h3>
@@ -161,9 +168,11 @@ echo Common::$history;
 
     // 播放历史显示控制
     var his_frame = document.getElementById("fra-history");
+
     function showHistory() {
         his_frame.style.right = "0px";
     }
+
     function hideHistory() {
         his_frame.style.right = -300 + "px";
     }

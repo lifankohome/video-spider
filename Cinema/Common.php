@@ -15,7 +15,8 @@ class Common
     public static function SEO($source = '')
     {
         return '<meta name="keywords" content="影视爬虫,' . $source . '百度云,' . $source . '免费播放,' . $source . '在线播放,电视直播,电视点播,最新电影,最新大片,最热电视剧,VIP视频解析">
-    <meta name="description" content="影视爬虫,' . $source . '百度云,' . $source . '免费播放,' . $source . '在线播放,电视直播,电视点播,最新电影,最新大片,最热电视剧,VIP视频解析">';
+    <meta name="description" content="影视爬虫,' . $source . '百度云,' . $source . '免费播放,' . $source . '在线播放,电视直播,电视点播,最新电影,最新大片,最热电视剧,VIP视频解析">
+';
     }
 
     public static $ad = "<p style='text-align: center;font-size: 20px;background-color: #333;padding: 10px 5px;color: #FFF;border-radius: 5px'>影视爬虫小提示：浏览器输入<span style='font-size:30px;color: #F40'>yspc.vip</span>就可以找到我，聪明人一秒就记住了</p>";
