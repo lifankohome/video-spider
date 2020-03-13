@@ -65,8 +65,8 @@ h3 {
 iframe {
     width: 100%;
     border: none;
-    background-color: rgba(221, 221, 221, 0.9);
-    padding: 1pc;
+    background-color: rgba(220, 220, 220, 0.9);
+    padding: .5pc;
     border-radius: 5px;
-    margin-left: -1pc;
+    margin-left: -0.5pc;
 }

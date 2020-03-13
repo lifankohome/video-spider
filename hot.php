@@ -9,26 +9,21 @@
 use Cinema\Spider;
 use Cinema\Common;
 
-if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {   //windows系统
-    /**
-     * 类自动加载
-     * @param $class
-     */
+if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
     function __autoload($class)
     {
         $file = $class . '.php';
         if (is_file($file)) {
-            /** @noinspection PhpIncludeInspection */
             require_once($file);
         }
     }
-} else {    //非windows系统（linux）
+} else {
     include_once('Cinema/Spider.php');
     include_once('Cinema/Common.php');
 }
 
 if (empty($_GET['max'])) { //显示的关键词数量，默认最多显示999个
-    $max = 100;
+    $max = 200;
 }
 ?>
 <!DOCTYPE html>

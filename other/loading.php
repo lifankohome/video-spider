@@ -15,7 +15,7 @@ if ($pos2 !== false) {
     $festivalImgUrl = '';
 }
 if ($festival != 'No Festival') {
-    $festival = '（' . $festival . '）';
+    $festival = '（今天是：' . $festival . '）';
 
     if (!empty($festivalImgUrl)) {
         $css = "    background: url($festivalImgUrl) no-repeat fixed center;
@@ -71,11 +71,12 @@ if ($festival != 'No Festival') {
     </h1>
     <p style="font-size: 20px">影视爬虫重金购买网址<strong style="color: #467cff;font-size: 30px">yspc.vip</strong>，一秒钟即可记住</p>
     <div id="ad" style="width: 60%;margin: 3pc auto 0 auto;font-size: 24px;">
-        <h4 style="border-bottom: 1px #999 solid;padding-bottom: 5px">Today's Maxim<?php echo $festival; ?></h4>
+        <h4 style="border-bottom: 1px #999 solid;padding-bottom: 5px;color: #467cff;text-shadow: none">全网影视免费看，尽在影视爬虫 -
+            就是好看！<?php echo $festival; ?></h4>
         <p style="font-size: 24px;margin-top: -1pc;font-style: italic"><?php echo Maxim::get(); ?></p>
     </div>
     <h3 style="position: fixed;bottom: 0;width: 100%;margin: 0 auto;font-size: 16px;color: #5a0814;">
-        VIP观影体验，尽在影视爬虫！
+        对本网站的意见或建议请发送邮件至：lzw@lifanko.cn
     </h3>
 </div>
 <script>

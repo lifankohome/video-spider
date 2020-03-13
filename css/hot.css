@@ -8,20 +8,20 @@ h3 {
 .list li {
     float: left;
     background-color: #555;
-    margin: .5pc 2pc .5pc 0.5pc;
     border-radius: 3px;
-    transition: all 0.3s 0s;
+    margin: .2pc 1.8pc .2pc .5pc;
+    font-size: 14px;
 }
 
 .list a {
     display: inline-block;
-    padding: 0.5pc 1pc;
+    padding: .2pc .4pc;
     color: whitesmoke;
     text-decoration: none;
 }
 
 .list li:hover {
-    background-image: linear-gradient(135deg, #81FFEF 10%, #F067B4 100%);
+    background-image: linear-gradient(135deg, #fffce6 10%, #ecf071 100%);
 }
 
 .list li:hover a {
