@@ -61,15 +61,17 @@ if (empty($_GET['max'])) { //显示的关键词数量，默认最多显示999个
         </li>
     </ul>
 </header>
-<div style="background-color: rgba(255,255,255,0.51);padding: .2pc 1pc;margin-top: 1pc;border-radius: 5px">
+<div style="background-color: rgba(255,255,255,0.51);padding: .2pc 1pc;margin-top: 1pc;border-radius: 5px;position: relative">
+    <img src="img/wechat.jpg" style="position: absolute;right: 5px;top: 5px;height: 153px;cursor: pointer" onclick="window.location.href='img/wechat.jpg'">
     <h1>向我捐赠</h1>
     <p style="line-height: 25px">
-        本人长期致力于影视爬虫应用开发，你的帮助是对我们最大的支持和动力！<br>影视爬虫一直在坚持不懈地努力，坚持开源和免费提供使用，帮助更多人便捷地观看视频！<br>如果您对影视爬虫表示认同并且觉得对你有所帮助，可酌情向我捐赠~
-        <a href="img/wechat.jpg" target="_blank" style="font-size: 22px">点我显示捐赠二维码</a>
+        本人长期致力于影视爬虫应用开发，你的帮助是对我们最大的支持和动力！<br>
+        影视爬虫一直在坚持不懈地努力，坚持开源和免费提供使用，帮助更多人便捷地观看视频！<br>
+        如果您对影视爬虫表示认同并且觉得对你有所帮助，可使用微信扫描右侧二维码酌情向我捐赠~
     </p>
 </div>
-<div style="margin: 1pc 0;overflow: hidden">
-    <div style="background-image: linear-gradient( 35deg, #ABDCFF 10%, #0396FF 100%);float: left;width: 50%;border-radius: 5px 0 0 5px">
+<div style="margin: 1pc 0;overflow: hidden;font-family: 'Microsoft YaHei UI',sans-serif">
+    <div style="background-color: rgba(120,120,120,0.7);float: left;width: 50%;border-radius: 5px 0 0 5px">
         <div style="padding: 0 1pc 1pc 1pc;overflow: hidden">
             <h3>搜索排行榜：</h3>
             <div class="list">
@@ -81,7 +83,7 @@ if (empty($_GET['max'])) { //显示的关键词数量，默认最多显示999个
             </div>
         </div>
     </div>
-    <div style="background-image: linear-gradient( 35deg, #FEB692 10%, #EA5455 100%);float: left;width: 50%;border-radius: 0 5px 5px 0">
+    <div style="background-color: rgba(100,100,100,0.7);float: left;width: 50%;border-radius: 0 5px 5px 0">
         <div style="padding: 0 1pc 1pc 1pc;overflow: hidden">
             <h3>点击量排行榜：</h3>
             <div class="list">

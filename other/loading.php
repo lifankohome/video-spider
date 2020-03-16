@@ -15,7 +15,7 @@ if ($pos2 !== false) {
     $festivalImgUrl = '';
 }
 if ($festival != 'No Festival') {
-    $festival = '（今天是：' . $festival . '）';
+    $festival = '（今日：' . $festival . '）';
 
     if (!empty($festivalImgUrl)) {
         $css = "    background: url($festivalImgUrl) no-repeat fixed center;
@@ -69,15 +69,19 @@ if ($festival != 'No Festival') {
     <h1 style="display: inline-block">
         影视爬虫<span style="font-size: 16px"> v4.5 2020/2/29 22:03更新</span>
     </h1>
-    <p style="font-size: 20px">影视爬虫重金购买网址<strong style="color: #467cff;font-size: 30px">yspc.vip</strong>，一秒钟即可记住</p>
-    <div id="ad" style="width: 60%;margin: 3pc auto 0 auto;font-size: 24px;">
-        <h4 style="border-bottom: 1px #999 solid;padding-bottom: 5px;color: #467cff;text-shadow: none">全网影视免费看，尽在影视爬虫 -
-            就是好看！<?php echo $festival; ?></h4>
+    <p style="font-size: 20px;margin: 0">影视爬虫重金购买网址<strong style="color: #467cff;font-size: 30px">yspc.vip</strong>，一秒钟即可记住~
+    </p>
+    <div id="ad" style="width: 60%;margin: 2pc auto 0 auto;font-size: 24px;">
+        <h4 style="border-bottom: 1px #999 solid;padding-bottom: 5px;color: #467cff">全网影视免费看，尽在影视爬虫！<span
+                    style="font-size: 14px;display: block"><?php echo $festival; ?></span></h4>
         <p style="font-size: 24px;margin-top: -1pc;font-style: italic"><?php echo Maxim::get(); ?></p>
     </div>
     <h3 style="position: fixed;bottom: 0;width: 100%;margin: 0 auto;font-size: 16px;color: #5a0814;">
-        对本网站的意见或建议请发送邮件至：lzw@lifanko.cn
+        对本网站的意见或建议请发送邮件至：lzw@lifanko.cn <span style="text-decoration: underline;cursor: pointer;color: #0071e3"
+                                              onclick="toggle()">打赏</span>
     </h3>
+    <img id="donate" src="../img/wechat.jpg"
+         style="width: 200px;position: fixed;z-index: 1;bottom: 30px;display: none;margin-left: -100px">
 </div>
 <script>
     var container = document.getElementById("container");
@@ -85,6 +89,16 @@ if ($festival != 'No Festival') {
     setTimeout(function () {
         container.style.opacity = '1';
     }, 3000);
+
+    var donate = document.getElementById('donate');
+
+    function toggle() {
+        if (donate.style.display === 'none') {
+            donate.style.display = 'inline';
+        } else {
+            donate.style.display = 'none';
+        }
+    }
 </script>
 </body>
 </html>
