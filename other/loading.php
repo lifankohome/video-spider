@@ -24,7 +24,7 @@ if ($festival != 'No Festival') {
 
         #container {
             opacity: 0;
-            transition: all 0.5s 0s;
+            transition: all 2s 0s;
         ";
     } else {
         $css = "";
@@ -57,14 +57,14 @@ if ($festival != 'No Festival') {
             text-align: center;
             height: 100%;
             overflow-y: hidden;
-            text-shadow: 0 0 2px #d5d5d5;
+            text-shadow: 0 0 1px #fff;
             color: #000;
         <?php echo $css; ?>
         }
     </style>
 </head>
 <body>
-<div id="container">
+<div id="container" style="background-color: rgba(224,222,222,0.5)">
     <img src="../img/logo.png" style="height: 100px;margin-bottom: -40px" alt="">
     <h1 style="display: inline-block">
         影视爬虫<span style="font-size: 16px"> v4.5 2020/2/29 22:03更新</span>
@@ -72,12 +72,12 @@ if ($festival != 'No Festival') {
     <p style="font-size: 20px;margin: 0">影视爬虫重金购买网址<strong style="color: #467cff;font-size: 30px">yspc.vip</strong>，一秒钟即可记住~
     </p>
     <div id="ad" style="width: 60%;margin: 2pc auto 0 auto;font-size: 24px;">
-        <h4 style="border-bottom: 1px #999 solid;padding-bottom: 5px;color: #467cff">全网影视免费看，尽在影视爬虫！<span
+        <h4 style="border-bottom: 1px #999 solid;padding-bottom: 5px;color: #1e5cf4">全网影视免费看，尽在影视爬虫！<span
                     style="font-size: 14px;display: block"><?php echo $festival; ?></span></h4>
         <p style="font-size: 24px;margin-top: -1pc;font-style: italic"><?php echo Maxim::get(); ?></p>
     </div>
     <h3 style="position: fixed;bottom: 0;width: 100%;margin: 0 auto;font-size: 16px;color: #5a0814;">
-        对本网站的意见或建议请发送邮件至：lzw@lifanko.cn <span style="text-decoration: underline;cursor: pointer;color: #0071e3"
+        对本网站的意见或建议请发送邮件至：lzw@lifanko.cn <span style="text-decoration: underline;cursor: pointer;color: #1e5cf4"
                                               onclick="toggle()">打赏</span>
     </h3>
     <img id="donate" src="../img/wechat.jpg"
@@ -88,7 +88,7 @@ if ($festival != 'No Festival') {
 
     setTimeout(function () {
         container.style.opacity = '1';
-    }, 3000);
+    }, 1000);
 
     var donate = document.getElementById('donate');
 
@@ -99,6 +99,8 @@ if ($festival != 'No Festival') {
             donate.style.display = 'none';
         }
     }
+
+    container.style.height = parseInt(document.documentElement.clientWidth * 9 / 16 + 10) + "px";
 </script>
 </body>
 </html>
