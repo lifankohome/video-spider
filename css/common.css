@@ -3,16 +3,11 @@
     src: url("../font/PingFangSC-Regular.woff2");
 }
 
-@font-face {
-    font-family: "SF Pro Text";
-    src: url("../font/sf-pro-text_regular.woff2");
-}
-
 body {
     width: 80%;
     min-width: 995px;
     margin: 0 auto;
-    font-family: "PingFang SC", "SF Pro Text", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+    font-family: "PingFang SC", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
     padding: 0 1.5pc;
     background: url("../img/springbg.png") fixed;
     font-size: 17px;
