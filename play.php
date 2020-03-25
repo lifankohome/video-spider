@@ -130,6 +130,10 @@ $og_img = $album[2][0];
         <li><a href='teleplay.php'>电视剧</a></li>
         <li><a href='anime.php'>动漫</a></li>
         <li><a href='other/about.html'>说明</a></li>
+        <li style="background-color: rgba(255,0,0,0.5);color: white;line-height: 45px;padding-top: 10px;margin-left: 10px">
+            <a href='http://finance.lifanko.cn' target="_blank"
+               style="font-family: '华文仿宋',sans-serif;color: yellow;text-decoration: none;font-size: 20px;line-height: 25px;">助力理财<br>晫重财经</a>
+        </li>
         <li id='searchli'>
             <label for='searchBox'></label><input type='text' id='searchBox' placeholder='输入关键词 - 黑科技全网搜索'>
             <span id='searchText'><img src='img/yspc.png' style='' alt='yspc'></span>
@@ -193,7 +197,7 @@ $og_img = $album[2][0];
     </div>
     <script type="text/javascript">
         // 解析器列表
-        var res = ['https://jiexi.380k.com/?url=', 'https://jx.lache.me/cc/?url=', 'https://660e.com/?url='];
+        var res = ['https://660e.com/?url=', 'https://jiexi.380k.com/?url=', 'https://jx.lache.me/cc/?url='];
 
         showParser();
 

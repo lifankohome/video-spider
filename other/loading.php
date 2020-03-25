@@ -50,6 +50,11 @@ if ($festival != 'No Festival') {
             src: url("../font/sf-pro-text_regular.woff2");
         }
 
+        @font-face {
+            font-family: "boleyaya";
+            src: url("../font/boleyaya.woff2");
+        }
+
         body {
             font-family: "PingFang SC", "SF Pro Text", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
             margin: 0;
@@ -57,24 +62,25 @@ if ($festival != 'No Festival') {
             text-align: center;
             height: 100%;
             overflow-y: hidden;
-            text-shadow: 0 0 1px #fff;
+            text-shadow: 0 0 2px #afafaf;
             color: #000;
         <?php echo $css; ?>
         }
     </style>
 </head>
 <body>
-<div id="container" style="background-color: rgba(224,222,222,0.5)">
+<div id="container" style="background-color: rgba(224,222,222,0.5);">
     <img src="../img/logo.png" style="height: 100px;margin-bottom: -40px" alt="">
-    <h1 style="display: inline-block">
+    <h1 style="display: inline-block;">
         影视爬虫<span style="font-size: 16px"> v4.5 2020/2/29 22:03更新</span>
     </h1>
     <p style="font-size: 20px;margin: 0">影视爬虫重金购买网址<strong style="color: #467cff;font-size: 30px">yspc.vip</strong>，一秒钟即可记住~
     </p>
-    <div id="ad" style="width: 60%;margin: 2pc auto 0 auto;font-size: 24px;">
-        <h4 style="border-bottom: 1px #999 solid;padding-bottom: 5px;color: #1e5cf4">全网影视免费看，尽在影视爬虫！<span
+    <div id="ad" style="width: 60%;margin: 2pc auto 0 auto;font-size: 26px;">
+        <h4 style="border-bottom: 1px #999 solid;padding-bottom: 5px;color: #1e5cf4;font-family: 'boleyaya',sans-serif;">
+            全网影视免费看，尽在影视爬虫！<span
                     style="font-size: 14px;display: block"><?php echo $festival; ?></span></h4>
-        <p style="font-size: 24px;margin-top: -1pc;font-style: italic"><?php echo Maxim::get(); ?></p>
+        <p style="font-size: 32px;margin-top: -1pc;font-style: italic;font-family: 'boleyaya', sans-serif"><?php echo Maxim::get(); ?></p>
     </div>
     <h3 style="position: fixed;bottom: 0;width: 100%;margin: 0 auto;font-size: 16px;color: #5a0814;">
         对本网站的意见或建议请发送邮件至：lzw@lifanko.cn <span style="text-decoration: underline;cursor: pointer;color: #1e5cf4"
