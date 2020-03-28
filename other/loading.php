@@ -41,12 +41,17 @@ if ($festival != 'No Festival') {
     <title>Title</title>
     <style>
         @font-face {
+            font-family: "PingFang SC";
+            src: url("https://cdn.lifanko.cn/fonts/PingFangSC-Regular.woff2");
+        }
+
+        @font-face {
             font-family: "boleyaya";
-            src: url("../font/boleyaya.woff2");
+            src: url("https://cdn.lifanko.cn/fonts/boleyaya.woff2");
         }
 
         body {
-            font-family: "华文细黑", sans-serif;
+            font-family: "PingFang SC", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
             margin: 0;
             padding: 0;
             text-align: center;
