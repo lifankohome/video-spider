@@ -105,8 +105,6 @@ $teleplayCat = Spider::getTeleplayCat();
 </footer>
 <script type="text/javascript" src="https://cdn.lifanko.cn/js/tip.min.js"></script>
 <script type="text/javascript" src="js/app.js"></script>
-<script>
-    tip("影视爬虫 - 电视剧频道", "12%", 3000, "1", false);
-</script>
+<script type="text/javascript" src="js/tip.js"></script>
 </body>
 </html>

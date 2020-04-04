@@ -312,8 +312,6 @@ $og_img = $album[2][0];
 </footer>
 <script type="text/javascript" src="https://cdn.lifanko.cn/js/tip.min.js"></script>
 <script type="text/javascript">
-    tip("2020/4/4举行全国性哀悼活动，期间，全国和驻外使领馆下半旗志哀，全国停止公共娱乐活动。", "12%", 3000, "1", false);
-
     Object.defineProperty(navigator, "userAgent", {
         value: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.122 Safari/537.36",
         writable: false
@@ -396,5 +394,6 @@ $og_img = $album[2][0];
 
     console.log("你知道吗？《影视爬虫》为开源程序，于2017年12月6日开始编写并不断维护更新，至今已成长为一个稳定可靠的视频播放网站！\n开源地址：https://github.com/lifankohome/video-spider \n\n欢迎使用本开源代码建造属于自己的视频网站，任何人均可无限制地传播和使用本程序，但您需要在您的网站添加友情链接并告知lifankohome@163.com，否则，《影视爬虫》将通过合法手段撤回您对源代码的使用权。");
 </script>
+<script type="text/javascript" src="js/tip.js"></script>
 </body>
 </html>
