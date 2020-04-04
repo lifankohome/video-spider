@@ -64,6 +64,10 @@ class Spider
         $movieCatArr = array();
         foreach ($movieCat[1] as $key => $val) {
             $movieCatArr[$val] = $movieCat[2][$key];
+
+            if (count($movieCatArr) == 20) {
+                break;
+            }
         }
 
         self::setMoviesCat($movieCatArr);
@@ -102,12 +106,28 @@ class Spider
     {
         $dom = self::curl_get_contents('https://www.360kan.com/' . $type . '/index.html');
 
+        $offset = 10000;
+
         if ($type == 'dongman') {
-            $slider_start = mb_strpos($dom, '<ul class="b-topslider-list js-slide-list">', 15000);
+            for ($k = 0; $k < 5; $k++) {
+                $slider_start = mb_strpos($dom, '<ul class="b-topslider-list js-slide-list">', $offset);
+                if ($slider_start === false) {
+                    $offset -= 1000;
+                } else {
+                    break;
+                }
+            }
             $slider_end = mb_strpos($dom, '<ul class="b-topslider-btns js-slide-btns">', $slider_start);
             $slider = mb_substr($dom, $slider_start, $slider_end - $slider_start);
         } else {
-            $slider_start = mb_strpos($dom, '<ul class="b-topslidernew-list js-slide-list">', 15000);
+            for ($k = 0; $k < 5; $k++) {
+                $slider_start = mb_strpos($dom, '<ul class="b-topslidernew-list js-slide-list">', $offset);
+                if ($slider_start === false) {
+                    $offset -= 1000;
+                } else {
+                    break;
+                }
+            }
             $slider_end = mb_strpos($dom, '<ul class="b-topslidernew-btns js-slide-btns">', $slider_start);
             $slider = mb_substr($dom, $slider_start, $slider_end - $slider_start);
         }
@@ -164,6 +184,9 @@ class Spider
         $teleplayCatArr = array();
         foreach ($teleplayCat[1] as $key => $val) {
             $teleplayCatArr[$val] = $teleplayCat[2][$key];
+            if (count($teleplayCatArr) == 20) {
+                break;
+            }
         }
 
         //为了页面美观，仅保留显示前20个分类
@@ -228,6 +251,9 @@ class Spider
             //为了页面美观，仅保留分类长度为2个字的综艺
             if (mb_strlen($varietyCat[2][$key]) <= 2) {
                 $varietyCatArr[$val] = $varietyCat[2][$key];
+            }
+            if (count($varietyCatArr) == 20) {
+                break;
             }
         }
 

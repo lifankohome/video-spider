@@ -312,7 +312,7 @@ $og_img = $album[2][0];
 </footer>
 <script type="text/javascript" src="https://cdn.lifanko.cn/js/tip.min.js"></script>
 <script type="text/javascript">
-    tip("影视爬虫 - yspc.vip", "12%", 3000, "1", false);
+    tip("2020/4/4举行全国性哀悼活动，期间，全国和驻外使领馆下半旗志哀，全国停止公共娱乐活动。", "12%", 3000, "1", false);
 
     Object.defineProperty(navigator, "userAgent", {
         value: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.122 Safari/537.36",

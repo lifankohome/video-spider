@@ -3,6 +3,17 @@
     src: url("https://cdn.lifanko.cn/fonts/PingFangSC-Regular.woff2");
 }
 
+html {
+    filter:progid:DXImageTransform.Microsoft.BasicImage(grayscale=1);
+    -webkit-filter: grayscale(100%);
+}
+
+@media only screen and (-webkit-min-device-pixel-ratio: 2) {
+    html {
+        -webkit-transform: translateZ(0);
+    }
+}
+
 body {
     width: 80%;
     min-width: 995px;
