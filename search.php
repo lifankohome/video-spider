@@ -51,7 +51,7 @@ if (empty($_GET['kw'])) {
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title>《<?php echo $kw; ?>》搜索 - 影视爬虫</title>
-    <?php echo Common::SEO(); ?>
+    <?php echo Common::SEO($kw); ?>
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link type="text/css" rel="stylesheet" href="css/common.css">
     <link type="text/css" rel="stylesheet" href="css/search.css">

@@ -21,5 +21,3 @@ switch (url.substring(url.lastIndexOf('/'), url.length)) {
         tip("影视爬虫 - yspc.vip", "15%", 3000, "1", false);
         break;
 }
-
-tip("2020/4/4举行全国性哀悼活动，期间，全国和驻外使领馆下半旗志哀，全国停止公共娱乐活动。", "15%", 5000, "1", false);

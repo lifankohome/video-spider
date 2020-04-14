@@ -100,9 +100,9 @@ function array_sea($needle, array $haystack, $offset = 0)
     return false;
 }
 
-$keywords = '影视爬虫,yspc.vip,' . $name . '免费在线播放,' . $name . '在线播放,' . $name . '在线观看,' . $name . '百度云,' . $name . '下载';
+$keywords = '影视爬虫,' . $name . '免费在线播放,' . $name . '免费播放,' . $name . '在线播放,' . $name . '未删减版,' . $name . '下载,' . $name . '百度云';
 $intro_desc = str_replace("\n", '', $intro);
-$description = mb_strlen($intro_desc) > 70 ? '《' . $name . '》剧情简介：' . mb_substr($intro_desc, 0, 70) . '...' : ($intro_desc == '暂无' ? $keywords : '《' . $name . '》剧情简介：' . $intro_desc);
+$description = mb_strlen($intro_desc) > 140 ? '《' . $name . '》剧情简介：' . mb_substr($intro_desc, 0, 140) . '...' : ($intro_desc == '暂无' ? $keywords : '《' . $name . '》剧情简介：' . $intro_desc);
 $og_img = $album[2][0];
 ?>
 <!DOCTYPE HTML>
@@ -198,6 +198,11 @@ $og_img = $album[2][0];
     <script type="text/javascript">
         // 解析器列表
         var res = ['https://660e.com/?url=', 'https://jiexi.380k.com/?url=', 'https://jx.lache.me/cc/?url='];
+        if (!(/(iPhone|iPad|iPod|iOS|Android)/i.test(navigator.userAgent))) {
+            var buf = res[0];
+            res[0] = res[1];
+            res[1] = buf;
+        }
 
         showParser();
 

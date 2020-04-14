@@ -33,15 +33,13 @@ if (empty($_GET['max'])) { //显示的关键词数量，默认最多显示999个
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title>排行榜 - 影视爬虫</title>
-    <?php
-    echo Common::SEO();
-    ?>
+    <?php echo Common::SEO(); ?>
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link type="text/css" rel="stylesheet" href="css/common.css">
     <link type="text/css" rel="stylesheet" href="css/hot.css">
     <style>
         body {
-            width: 96% !important;
+            width: 96%;
         }
     </style>
 </head>
@@ -62,7 +60,8 @@ if (empty($_GET['max'])) { //显示的关键词数量，默认最多显示999个
     </ul>
 </header>
 <div style="background-color: rgba(255,255,255,0.51);padding: .2pc 1pc;margin-top: 1pc;border-radius: 5px;position: relative">
-    <img src="img/wechat.jpg" style="position: absolute;right: 5px;top: 5px;height: 153px;cursor: pointer" onclick="window.location.href='img/wechat.jpg'">
+    <img src="img/wechat.jpg" style="position: absolute;right: 5px;top: 5px;height: 153px;cursor: pointer"
+         onclick="window.location.href='img/wechat.jpg'">
     <h1>向我捐赠</h1>
     <p style="line-height: 25px">
         本人长期致力于影视爬虫应用开发，你的帮助是对我们最大的支持和动力！<br>
