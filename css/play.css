@@ -9,7 +9,8 @@ h3 {
 
 #parsers a {
     cursor: pointer;
-    margin: 0 !important;
+    color: white !important;
+    text-shadow: 0 0 1px white;
 }
 
 .container ul {
@@ -21,14 +22,16 @@ h3 {
     float: left;
 }
 
-.videoS, #parsers a {
+.videoA, #parsers a {
     color: #eee;
     background-color: #0071e3;
     font-size: 12px;
     line-height: 15px;
-    padding: 6px 11px;
+    padding: 6px 8px;
     border-radius: 3px;
     margin: 0 .2pc;
+    cursor: pointer;
+    text-decoration: underline;
 }
 
 .container ul li a {
@@ -62,8 +65,8 @@ h3 {
 iframe {
     width: 100%;
     border: none;
-    background-color: rgba(221, 221, 221, 0.9);
-    padding: 1pc;
+    background-color: rgba(220, 220, 220, 0.9);
+    padding: .5pc;
     border-radius: 5px;
-    margin-left: -1pc;
+    margin-left: -0.5pc;
 }

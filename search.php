@@ -9,20 +9,15 @@
 use Cinema\Common;
 use Cinema\Spider;
 
-if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {   //windows系统
-    /**
-     * 类自动加载
-     * @param $class
-     */
+if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
     function __autoload($class)
     {
         $file = $class . '.php';
         if (is_file($file)) {
-            /** @noinspection PhpIncludeInspection */
             require_once($file);
         }
     }
-} else {    //非windows系统（linux）
+} else {
     include_once('Cinema/Spider.php');
     include_once('Cinema/Common.php');
 }
@@ -55,20 +50,31 @@ if (empty($_GET['kw'])) {
     <meta charset="UTF-8">
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>《<?php echo $kw; ?>》搜索 - 影视爬虫</title>
-    <?php
-    echo Common::SEO($kw);
-    ?>
+    <?php echo Common::SEO($kw); ?>
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link type="text/css" rel="stylesheet" href="css/common.css">
     <link type="text/css" rel="stylesheet" href="css/search.css">
 </head>
 <body>
 <header>
-    <img src="img/logo.png">
-    <?php echo Common::getHeader() ?>
+    <img src='img/logo.png' alt='logo'>
+    <ul>
+        <li><a href='hot.php'>首页</a></li>
+        <li><a href='index.php'>电影</a></li>
+        <li><a href='variety.php'>综艺</a></li>
+        <li><a href='teleplay.php'>电视剧</a></li>
+        <li><a href='anime.php'>动漫</a></li>
+        <li><a href='other/about.html'>说明</a></li>
+        <li id='searchli'>
+            <label for='searchBox'></label><input type='text' id='searchBox' placeholder='输入关键词 - 黑科技全网搜索'>
+            <span id='searchText'><img src='img/yspc.png' style='' alt='yspc'></span>
+        </li>
+    </ul>
 </header>
+<!--公告-->
+<?php echo Common::$ad; ?>
+
 <div class="search">
     <h3>
         <?php
@@ -76,8 +82,7 @@ if (empty($_GET['kw'])) {
             echo '搜索量最多的视频：';
         } else {
             echo '《' . $kw . '》搜索结果：';
-        }
-        ?>
+        } ?>
     </h3>
     <ul>
         <?php
@@ -88,14 +93,13 @@ if (empty($_GET['kw'])) {
                 <span id='type'>{$res['score']}</span>
                 <span id='name'>{$res['name']}</span>
             </a></li>";
-        }
-        ?>
+        } ?>
     </ul>
 </div>
 <div style="clear: both"></div>
-<?php
-echo Common::$history;
-?>
+<!--播放历史-->
+<?php echo Common::$history; ?>
+
 <footer>
     <?php
     echo Common::$tip;
@@ -104,5 +108,8 @@ echo Common::$history;
 </footer>
 <script type="text/javascript" src="https://cdn.lifanko.cn/js/tip.min.js"></script>
 <script type="text/javascript" src="js/app.js"></script>
+<script>
+    tip("《<?php echo $kw; ?>》搜索结果", "12%", 3000, "1", false);
+</script>
 </body>
 </html>

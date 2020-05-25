@@ -1,8 +1,6 @@
 /**
  * Created by lifanko  lee on 2017/12/13.
  */
-tip("欢迎使用影视爬虫~", "12%", 3000, "1", false);
-
 //在窗口调整时图片大小自动适应
 var img = document.getElementsByClassName('img');
 autoSize(img);  //初始化
@@ -16,7 +14,7 @@ function autoSize(img) {
     if (img.length) {
         var height = (img[0].width * 1.4).toFixed(0);   //取宽度
         for (var i = 0; i < img.length; i++) {  //根据比例统一高度
-            img[i].style.height = height + 'px'
+            img[i].style.height = height + 'px';
         }
     }
 
@@ -32,14 +30,14 @@ function autoSize(img) {
 }
 
 //搜索功能
-var search = document.getElementById('searchBox');
+var searchBox = document.getElementById('searchBox');
 var searchText = document.getElementById('searchText');
 
-search.onkeyup = function () {
-    if (search.value) {
-        searchText.innerHTML = "<a href='search.php?kw=" + search.value + "' style='background-color: #444;color: white;margin-right: -1pc;border-top-right-radius: 5px;border-bottom-right-radius: 5px'>搜索</a>";
+searchBox.onkeyup = function () {
+    if (searchBox.value) {
+        searchText.innerHTML = "<a onclick='s();' style='cursor: pointer;background-color: #444;color: white;margin-right: -1pc;border-top-right-radius: 5px;border-bottom-right-radius: 5px'>搜索</a>";
     } else {
-        searchText.innerHTML = "<img src='img/yspc.png' style='margin: 0;height: 26px;position: relative;top: 7px'>";
+        searchText.innerHTML = "<img src='img/yspc.png' alt='tip'>";
     }
 };
 
@@ -49,15 +47,21 @@ document.onkeydown = function (e) {
     var code = theEvent.keyCode || theEvent.which;
 
     if (code === 13) {
-        if (search.value) {
-            window.location.href = "search.php?kw=" + search.value;
-            tip("正在搜索：" + search.value, "12%", 2000, "1", true);
-        } else {
-            window.location.href = "search.php";
-            tip("正在搜索最热视频", "12%", 2000, "1", true);
-        }
+        search();
     }
 };
+
+function s() {search();}
+
+function search() {
+    if (searchBox.value) {
+        window.location.href = "search.php?kw=" + searchBox.value;
+        tip("正在搜索：" + searchBox.value, "12%", 2000, "1", true);
+    } else {
+        window.location.href = "search.php";
+        tip("正在搜索最热视频", "12%", 2000, "1", true);
+    }
+}
 
 // 播放历史显示控制
 var his_frame = document.getElementById("fra-history");

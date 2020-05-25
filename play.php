@@ -9,20 +9,15 @@
 use Cinema\Common;
 use Cinema\Spider;
 
-if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {   //windows系统
-    /**
-     * 类自动加载
-     * @param $class
-     */
+if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
     function __autoload($class)
     {
         $file = $class . '.php';
         if (is_file($file)) {
-            /** @noinspection PhpIncludeInspection */
             require_once($file);
         }
     }
-} else {    //非windows系统（linux）
+} else {
     include_once('Cinema/Spider.php');
     include_once('Cinema/Common.php');
 }
@@ -41,12 +36,14 @@ if (!empty($_GET['play'])) {
 $dom = Spider::curl_get_contents($player);
 
 $nameDom = '#<h1>(.*?)</h1>#';
-$introDom = '#style="display:none;"><span>简介 ：<\/span><p class="item-desc">(.*?)<a href#';
+$introDom = '/style="display:none;"><span>简介 ：<\/span><p class="item-desc">([\s\S]*)<a href="#"/';
 $linkDom = '#<a data-daochu=(.*?) class=(.*?) href="(.*?)">#';
+$albumDom = '/class="g-playicon s-cover-img" data-daochu="to=(.*?)\s+<img src="(.*?)">/';
 
 preg_match_all($nameDom, $dom, $name);
 preg_match_all($introDom, $dom, $intro);
 preg_match_all($linkDom, $dom, $link);
+preg_match_all($albumDom, $dom, $album);
 
 $name = $name[1][0];
 
@@ -58,43 +55,65 @@ $sets = array();
 if (empty($link[3][0])) {
     $multiSets = true;
 
-    $setsDivDom = '/<div class="num-tab-main g-clear js-tab"( style="display:none;")?>[\s\S]+<a data-num="(.*?)" data-daochu="(.*?)" href=(.*?)>/';
+    $setsADom = '/<a data-num="(.*?)"\s*data-daochu="to=(.*?)" href="(.*?)">/';
+    preg_match_all($setsADom, $dom, $setsA);
 
-    preg_match_all($setsDivDom, $dom, $setsDiv);
-    if (empty($setsDiv[0])) {
-        $varietyEpisode = true;
+    if (empty($setsA[0])) {
+        $isVariety = true;
 
-        $setsDivDom = '/style="display:block;">[\s\S]+<li  title=\'(.*?)\' class=\'w-newfigure w-newfigure-180x153\'>(.*?)<a href=\'(.*?)\'>/';
-        preg_match_all($setsDivDom, $dom, $setsDiv);
-        $setsLiDom = '/<li  title=\'(.*?)\' class=\'w-newfigure w-newfigure-180x153\'>(.*?)<a href=\'(.*?)\'>/';
-        if (!empty($setsDiv[0])) {
-            preg_match_all($setsLiDom, $setsDiv[0][0], $sets);
+        $setsLiDom = "/<li\s*title='(.*?)' class='w-newfigure w-newfigure-180x153'><a href='(.*?)'/";
+        preg_match_all($setsLiDom, $dom, $setsLi);
 
-            $sets[3] = array_unique($sets[3]);  //确保不会有重复剧集
+        $offset = array_sea($setsLi[2][0], $setsLi[2], 1);
+
+        for ($i = $offset; $i < count($setsLi[2]); $i++) {
+            $sets[$setsLi[1][$i]] = $setsLi[2][$i];
         }
     } else {
-        $varietyEpisode = false;
-        $setsDom = '#<a data-num="(.*?)" data-daochu="to=(.*?)" href="(.*?)">#';
-        preg_match_all($setsDom, implode("", $setsDiv[0]), $sets);
+        $isVariety = false;
+
+        $offset = array_sea($setsA[3][0], $setsA[3], 1);
+        if ($offset) {
+            $sets = [];
+            for ($i = $offset; $i < count($setsA[3]); $i++) {
+                array_push($sets, $setsA[3][$i]);
+            }
+        } else {
+            $sets = $setsA[3];
+        }
     }
 } else {
     $multiSets = false;
-    $link = $link[3];
+    $sets = $link[3];
 }
 
-// SEO
-$keywords = $name . '免费在线播放,' . $name . '在线播放,' . $name . '在线观看,' . $name . '百度云,' . $name . '下载 ';
-$description = mb_strlen($intro) > 70 ? '《' . $name . '》剧情简介：' . mb_substr($intro, 0, 70) . '...' : ($intro == '暂无' ? $keywords : mb_substr($intro, 2));
+$default_link = $isVariety ? array_values($sets)[0] : $sets[0];
+
+// 可以设置偏移量的数组查询函数
+function array_sea($needle, array $haystack, $offset = 0)
+{
+    for ($i = $offset; $i < count($haystack); $i++) {
+        if ($needle == $haystack[$i]) {
+            return $i;
+        }
+    }
+    return false;
+}
+
+$keywords = '影视爬虫,' . $name . '免费在线播放,' . $name . '免费播放,' . $name . '在线播放,' . $name . '未删减版,' . $name . '下载,' . $name . '百度云';
+$intro_desc = str_replace("\n", '', $intro);
+$description = mb_strlen($intro_desc) > 140 ? '《' . $name . '》剧情简介：' . mb_substr($intro_desc, 0, 140) . '...' : ($intro_desc == '暂无' ? $keywords : '《' . $name . '》剧情简介：' . $intro_desc);
+$og_img = $album[2][0];
 ?>
 <!DOCTYPE HTML>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="keywords" content="<?php echo $keywords; ?>">
     <meta name="description" content="<?php echo $description; ?>">
+    <meta property="og:image" content="<?php echo $og_img; ?>">
     <title>《<?php echo $name; ?>》免费在线播放 - 影视爬虫</title>
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link type="text/css" rel="stylesheet" href="css/common.css">
@@ -103,12 +122,27 @@ $description = mb_strlen($intro) > 70 ? '《' . $name . '》剧情简介：' . m
 </head>
 <body>
 <header>
-    <img src="img/logo.png">
-    <?php echo Common::getHeader() ?>
+    <img src='img/logo.png' alt='logo'>
+    <ul>
+        <li><a href='hot.php'>首页</a></li>
+        <li><a href='index.php'>电影</a></li>
+        <li><a href='variety.php'>综艺</a></li>
+        <li><a href='teleplay.php'>电视剧</a></li>
+        <li><a href='anime.php'>动漫</a></li>
+        <li><a href='other/about.html'>说明</a></li>
+        <li style="background-color: rgba(255,0,0,0.5);color: white;line-height: 45px;padding-top: 10px;margin-left: 10px">
+            <a href='http://finance.lifanko.cn' target="_blank"
+               style="font-family: '华文仿宋',sans-serif;color: yellow;text-decoration: none;font-size: 20px;line-height: 25px;">助力理财<br>晫重财经</a>
+        </li>
+        <li id='searchli'>
+            <label for='searchBox'></label><input type='text' id='searchBox' placeholder='输入关键词 - 黑科技全网搜索'>
+            <span id='searchText'><img src='img/yspc.png' style='' alt='yspc'></span>
+        </li>
+    </ul>
 </header>
 <div class="container">
+    <div id='parsers'></div>
     <?php
-    echo Spider::$parser;
     if ($multiSets) {
         if (empty($sets)) {
             echo "<h3>《" . $name . "》<span style='font-size: 15px'>暂无播放资源，请稍后再来~</span></h3>";
@@ -118,13 +152,17 @@ $description = mb_strlen($intro) > 70 ? '《' . $name . '》剧情简介：' . m
                 Spider::clickRec('clickHistory', $name);
             }
 
-            echo "<h3>《" . $name . "》—— 总" . count($sets[3]) . "集</h3><ul>";
-            foreach ($sets[3] as $key => $val) {
-                if ($varietyEpisode) {
-                    echo "<li><a class='videoA' href='$val' target='ajax'>{$sets[1][$key]}</a></li>";
+            echo "<h3>《" . $name . "》—— 总" . count($sets) . "集</h3><ul>";
+
+            // 显示剧集
+            $num = 0;
+            foreach ($sets as $key => $val) {
+                if ($isVariety) {
+                    echo "<li><a class='videoA' onclick='playUrl(\"{$val}\", \"{$num}\")'>{$key}</a></li>";
+                    $num++;
                 } else {
-                    $key++;
-                    echo "<li><a class='videoA' href='$val' target='ajax'>第{$key}集</a></li>";   //集数从1开始
+                    $num = $key + 1;
+                    echo "<li><a class='videoA' onclick='playUrl(\"{$val}\", \"{$key}\")'>第{$num}集</a></li>";
                 }
             }
             echo '</ul><div style="clear: both;padding-top: .2pc"></div>';
@@ -136,10 +174,9 @@ $description = mb_strlen($intro) > 70 ? '《' . $name . '》剧情简介：' . m
         }
 
         echo "<h3>《" . $name . "》<span style='font-size: 15px'>点击选择源后即可播放</span>";
-        $n = 0;
-        foreach ($link as $s) {
-            $n++;
-            echo "<a class='videoA videoS' href='$s' target='ajax'>{$n}号源</a>";
+        foreach ($sets as $key => $val) {
+            $num = $key + 1;
+            echo "<a class='videoA' onclick='playUrl(\"{$val}\", \"{$key}\")'>{$num}号源</a>";
         }
         echo "</h3>";
     }
@@ -147,7 +184,7 @@ $description = mb_strlen($intro) > 70 ? '《' . $name . '》剧情简介：' . m
 
     <div class="player">
         <iframe onload="iFrameResize()" allowtransparency="true" allowfullscreen="allowfullscreen" id="video"
-                src="loading.php"></iframe>
+                src="other/loading.php"></iframe>
         <a style="display: none" id="videoLink" href=""></a>
         <script type="text/javascript">
             var videoFrame = document.getElementById('video');  //全局使用
@@ -159,97 +196,75 @@ $description = mb_strlen($intro) > 70 ? '《' . $name . '》剧情简介：' . m
         </script>
     </div>
     <script type="text/javascript">
-        var videoA = $(".videoA");
-        var videoLinkBuffer = [];
-        var iBuffer = 0;
-        for (var i = 0; i < videoA.length; i++) {
-            videoLinkBuffer.push(videoA[i].href);
-            videoA[i].href = 'javascript:void(0)';
-            videoA.eq(i).attr('onclick', 'playUrl(\'' + videoLinkBuffer[i] + '\',\'' + i + '\')');
-
-            if (i > 0 && videoLinkBuffer[i] === getCookie('<?php echo $player; ?>')) {   //非第一集时提供观看进度提示
-                videoA[i].setAttribute("id", "cookie");
-                iBuffer = i;
-            }
+        // 解析器列表
+        var res = ['https://660e.com/?url=', 'https://jiexi.380k.com/?url=', 'https://jx.lache.me/cc/?url='];
+        if (!(/(iPhone|iPad|iPod|iOS|Android)/i.test(navigator.userAgent))) {
+            var buf = res[0];
+            res[0] = res[1];
+            res[1] = buf;
         }
 
         showParser();
 
         function showParser() {
-            var parser = getCookie('parser');
-            if (parser == "1" || parser == null) {
-                document.getElementById('parser1').innerText = "解析器1(使用中)";
-                document.getElementById('parser2').innerText = "解析器2";
-                document.getElementById('parser3').innerText = "解析器3";
-            } else if (parser == "2") {
-                document.getElementById('parser1').innerText = "解析器1";
-                document.getElementById('parser2').innerText = "解析器2(使用中)";
-                document.getElementById('parser3').innerText = "解析器3";
-            } else if (parser == "3") {
-                document.getElementById('parser1').innerText = "解析器1";
-                document.getElementById('parser2').innerText = "解析器2";
-                document.getElementById('parser3').innerText = "解析器3(使用中)";
+            var parser_id = getCookie('parser');
+            var parsers = document.getElementById('parsers');
+
+            var parse_btn = "<span style='font-size: 15px;font-weight: bold'>无法播放请切换解析器</span>";
+            for (var i = 1; i <= res.length; i++) {
+                if (parser_id === i.toString()) {
+                    parse_btn += "<a class='active' onclick='vParser(" + i + ")'>解析器" + i + "</a>";
+                } else {
+                    parse_btn += "<a onclick='vParser(" + i + ")'>解析器" + i + "</a>";
+                }
             }
+            parsers.innerHTML = parse_btn;
         }
 
-        function vParser(url) {
-            var parser;
+        function vParser(parser_id) {
             // 使用默认解析器解释时从cookie读取解析源地址，若为空则使用1号解析器；
             // 若指定了解析器则使用对应解析器解析，并更新cookie
-            if (url === 'default') {
-                parser = getCookie('parser');
-                switch (parser) {
-                    case '1':
-                        parser = 1;
-                        url = 'https://vip.bljiex.com/?v=';
-                        break;
-                    case '2':
-                        parser = 2;
-                        url = 'https://jx.lache.me/cc/?url=';
-                        break;
-                    case '3':
-                        parser = 3;
-                        url = 'https://660e.com/?url=';
-                        break;
-                    default:
-                        parser = 1;
-                        url = 'https://vip.bljiex.com/?v=';
-                        break;
+            if (parser_id === undefined) {
+                parser_id = getCookie('parser');
+                if (parser_id === null) {
+                    parser_id = 1;
+                    setCookie('parser', parser_id, 1);
                 }
             } else {
-                switch (url.substring(0, 15)) {
-                    case 'https://vip.blj':
-                        parser = 1;
-                        break;
-                    case 'https://jx.lach':
-                        parser = 2;
-                        break;
-                    case 'https://660e.co':
-                        parser = 3;
-                        break;
-                    default:
-                        parser = 1;
-                        break;
-                }
-                setCookie('parser', parser, 1); //保存用户当前使用的解析器
+                setCookie('parser', parser_id, 1); //保存用户当前使用的解析器
             }
+            var url = res[parseInt(parser_id) - 1];
 
             showParser();
 
-            console.log('parser: ' + parser + ' url: ' + url + videoLink.href);
+            // 未选择解析器时直接点击解析器则播放最近一次播放的视频
+            // 若没有最近播放的视频则播放列表第一个
+            if (videoLink.href === window.location.href) {
+                var recent = getCookie('<?php echo $player; ?>');
+                if (recent === null) {
+                    videoLink.href = '<?php echo $default_link; ?>';
+                    tip("您未选择视频源，使用1号源（第一集）开始播放", "12%", 3000, "1", false);
+                } else {
+                    videoLink.href = recent;
+                    tip("您未选择视频源，将继续播放您上次观看的视频", "12%", 3000, "1", false);
+                }
+            } else {
+                tip("正在加载视频~", "50%", 3000, "1", false);
+            }
+
+            console.log('parser: ' + parser_id + ' url: ' + url + videoLink.href);
             videoFrame.src = url + videoLink.href;
         }
 
         function playUrl(sourceUrl, i) {
-            setCookie('<?php echo $player; ?>', sourceUrl, 1); //保存当前播放源链接，键为爬取地址，时间为1d=24h
+            //保存当前播放源链接时间为1d=24h
+            setCookie('<?php echo $player; ?>', sourceUrl, 1);
 
-            if (iBuffer !== i) {
-                //iBuffer = i;    //注释本句可以在不跳转的情况下显示已点击的链接，不注释仅显示当前播放剧集
-                videoA[i].setAttribute("id", "cookie");
-            }
+            var sets = document.getElementsByClassName('videoA');
+            sets[i].setAttribute('id', 'cookie');
 
             videoLink.href = sourceUrl;
-            vParser('default');    //使用默认解析器解析
+            vParser();    //使用默认解析器解析
         }
 
         var title = document.title;
@@ -291,11 +306,13 @@ $description = mb_strlen($intro) > 70 ? '《' . $name . '》剧情简介：' . m
         }
     </script>
     <h3 style="margin-top: -10px">剧情简介：</h3>
-    <p style="margin-top: -15px;line-height: 25px">　　<?php echo $intro; ?></p>
+    <p style="margin-top: -15px;line-height: 25px">　　<?php echo str_replace("\n", '<br>　　', $intro); ?></p>
+
+    <iframe style="background-color: transparent;padding: unset;height: 555px;margin: -10px 0;"
+            src=<?php $u = substr($play, strpos($play, '/', 1) + 1, -5);
+    echo "https://www.lifanko.cn/chat/index.php?u=" . $u . '&n=' . $name; ?>></iframe>
 </div>
-<?php
-echo Common::$history;
-?>
+<?php echo Common::$history; ?>
 <footer>
     <?php
     echo Common::$tip;
@@ -304,7 +321,10 @@ echo Common::$history;
 </footer>
 <script type="text/javascript" src="https://cdn.lifanko.cn/js/tip.min.js"></script>
 <script type="text/javascript">
-    tip("欢迎使用影视爬虫~", "12%", 3000, "1", false);
+    Object.defineProperty(navigator, "userAgent", {
+        value: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.122 Safari/537.36",
+        writable: false
+    });
 
     //搜索功能
     var search = document.getElementById('searchBox');
@@ -314,7 +334,7 @@ echo Common::$history;
         if (search.value) {
             searchText.innerHTML = "<a href='search.php?kw=" + search.value + "' style='background-color: #444;color: white;margin-right: -1pc;border-top-right-radius: 5px;border-bottom-right-radius: 5px'>搜索</a>";
         } else {
-            searchText.innerHTML = "<img src='img/yspc.png' style='margin: 0;height: 26px;position: relative;top: 7px'>";
+            searchText.innerHTML = "<img src='img/yspc.png' alt='tip'>";
         }
     };
 
@@ -383,5 +403,6 @@ echo Common::$history;
 
     console.log("你知道吗？《影视爬虫》为开源程序，于2017年12月6日开始编写并不断维护更新，至今已成长为一个稳定可靠的视频播放网站！\n开源地址：https://github.com/lifankohome/video-spider \n\n欢迎使用本开源代码建造属于自己的视频网站，任何人均可无限制地传播和使用本程序，但您需要在您的网站添加友情链接并告知lifankohome@163.com，否则，《影视爬虫》将通过合法手段撤回您对源代码的使用权。");
 </script>
+<script type="text/javascript" src="js/tip.js"></script>
 </body>
 </html>
