@@ -95,11 +95,14 @@ if (empty($_GET['kw'])) {
             </a></li>";
         } ?>
     </ul>
+    <div style="clear: both"></div>
 </div>
-<div style="clear: both"></div>
 <!--播放历史-->
 <?php echo Common::$history; ?>
 
+<h3>若无法搜索到资源，可在下方留言~</h3>
+<iframe style="background-color: transparent;padding: unset;height: 555px;border: none;width: 100%;margin: 5px 0 -10px;"
+        src="https://www.lifanko.cn/chat/index.php?u=search&n=资源搜索不到"></iframe>
 <footer>
     <?php
     echo Common::$tip;

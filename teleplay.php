@@ -92,8 +92,21 @@ $teleplayCat = Spider::getTeleplayCat();
             </a></li>";
         } ?>
     </ul>
+    <div style="clear: both"></div>
+    <div class="bounce">
+        <span>想要观看的影视不在列表中？</span>
+        <span class="letter">在</span>
+        <span class="letter">页</span>
+        <span class="letter">面</span>
+        <span class="letter">右</span>
+        <span class="letter">上</span>
+        <span class="letter">角</span>
+        <span class="letter">搜</span>
+        <span class="letter">索</span>
+        <span class="letter">试</span>
+        <span class="letter">试</span>
+    </div>
 </div>
-<div style="clear: both"></div>
 <!--播放历史-->
 <?php echo Common::$history; ?>
 

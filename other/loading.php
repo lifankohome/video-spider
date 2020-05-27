@@ -71,11 +71,11 @@ if ($festival != 'No Festival') {
     </h2>
     <p style="font-size: 20px;margin: 0">影视爬虫重金购买网址<strong style="color: #467cff;font-size: 30px">yspc.vip</strong>，一秒钟即可记住~
     </p>
-    <div id="ad" style="width: 60%;margin: 2pc auto 0 auto;font-size: 26px;">
-        <h4 style="border-bottom: 1px #999 solid;padding-bottom: 5px;color: #1e5cf4;font-family: 'boleyaya',sans-serif;">
+    <div id="ad" style="width: 70%;margin: 0 auto;font-family: 'boleyaya', sans-serif">
+        <h4 style="border-bottom: 1px #999 solid;padding-bottom: 5px;color: #1e5cf4;margin: 1.5pc 0 0;font-size: 35px">
             全网影视免费看，尽在影视爬虫！<span
                     style="font-size: 14px;display: block"><?php echo $festival; ?></span></h4>
-        <p style="font-size: 32px;margin-top: -1.5pc;font-style: italic;font-family: 'boleyaya', sans-serif"><?php echo Maxim::get(); ?></p>
+        <p style="font-size: 30px;font-style: italic"><?php echo Maxim::get(); ?></p>
     </div>
     <h3 style="position: fixed;bottom: 0;width: 100%;margin: 0 auto;font-size: 16px;color: #5a0814;">
         对本网站的意见或建议请发送邮件至：lzw@lifanko.cn <span style="text-decoration: underline;cursor: pointer;color: #1e5cf4"
@@ -101,7 +101,7 @@ if ($festival != 'No Festival') {
         }
     }
 
-    container.style.height = parseInt(document.documentElement.clientWidth * 9 / 16 + 10) + "px";
+    container.style.height = Math.floor(document.documentElement.clientWidth * 9 / 16 + 10) + "px";
 </script>
 </body>
 </html>
