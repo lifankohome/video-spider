@@ -3,22 +3,24 @@ include_once '../Cinema/Maxim.php';
 
 use Cinema\Maxim;
 
-$info = file_get_contents('https://www.lifanko.cn/festival2img/api.php');
-$pos1 = mb_strpos($info, ':');
-$pos2 = mb_strpos($info, 'http');
+$info = Maxim::Curl('https://www.lifanko.cn/festival2img/api.php');
 
-if ($pos2 !== false) {
-    $festival = mb_substr($info, $pos1 + 1, $pos2 - $pos1 - 1);
-    $festivalImgUrl = mb_substr($info, $pos2);
-} else {
-    $festival = mb_substr($info, $pos1 + 1);
-    $festivalImgUrl = '';
-}
-if ($festival != 'No Festival') {
-    $festival = '（今日：' . $festival . '）';
+if (!empty($info)) {
+    $pos1 = mb_strpos($info, ':');
+    $pos2 = mb_strpos($info, 'http');
 
-    if (!empty($festivalImgUrl)) {
-        $css = "    background: url($festivalImgUrl) no-repeat fixed center;
+    if ($pos2 !== false) {
+        $festival = mb_substr($info, $pos1 + 1, $pos2 - $pos1 - 1);
+        $festivalImgUrl = mb_substr($info, $pos2);
+    } else {
+        $festival = mb_substr($info, $pos1 + 1);
+        $festivalImgUrl = '';
+    }
+    if ($festival != 'No Festival') {
+        $festival = '（今日：' . $festival . '）';
+
+        if (!empty($festivalImgUrl)) {
+            $css = "    background: url($festivalImgUrl) no-repeat fixed center;
             background-size: 100% 100%;
         }
 
@@ -26,7 +28,11 @@ if ($festival != 'No Festival') {
             opacity: 0;
             transition: all 2s 0s;
         ";
+        } else {
+            $css = "";
+        }
     } else {
+        $festival = '';
         $css = "";
     }
 } else {
@@ -81,7 +87,7 @@ if ($festival != 'No Festival') {
         对本网站的意见或建议请发送邮件至：lzw@lifanko.cn <span style="text-decoration: underline;cursor: pointer;color: #1e5cf4"
                                               onclick="toggle()">打赏</span>
     </h3>
-    <img id="donate" src="../img/wechat.jpg"
+    <img alt="" id="donate" src="../img/wechat.jpg"
          style="width: 200px;position: fixed;z-index: 1;bottom: 30px;display: none;margin-left: -100px">
 </div>
 <script>
