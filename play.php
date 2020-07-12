@@ -55,7 +55,7 @@ $sets = array();
 if (empty($link[3][0])) {
     $multiSets = true;
 
-    $setsADom = '/<a data-num="(.*?)"\s*data-daochu="to=(.*?)" href="(.*?)">/';
+    $setsADom = '/<a data-num="(.*?)"\s*data-daochu="to=(.*?)" href="(.*?)"/';
     preg_match_all($setsADom, $dom, $setsA);
 
     if (empty($setsA[0])) {
@@ -103,7 +103,11 @@ function array_sea($needle, array $haystack, $offset = 0)
 $keywords = '影视爬虫,' . $name . '免费在线播放,' . $name . '免费播放,' . $name . '在线播放,' . $name . '未删减版,' . $name . '下载,' . $name . '百度云';
 $intro_desc = str_replace("\n", '', $intro);
 $description = mb_strlen($intro_desc) > 140 ? '《' . $name . '》剧情简介：' . mb_substr($intro_desc, 0, 140) . '...' : ($intro_desc == '暂无' ? $keywords : '《' . $name . '》剧情简介：' . $intro_desc);
-$og_img = $album[2][0];
+if (empty($album[2][0])) {
+    $og_img = '';
+} else {
+    $og_img = $album[2][0];
+}
 ?>
 <!DOCTYPE HTML>
 <html lang="en">
