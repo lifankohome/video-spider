@@ -144,13 +144,10 @@ if (empty($album[2][0])) {
         </li>
     </ul>
 </header>
-<!--公告-->
-<p class="ad">
-    <?php
-    echo Common::$ad;
-    echo Common::visits();
-    ?>
-</p>
+<?php
+echo "<p class='ad'>" . Common::$ad . Common::visits() . "</p>";
+echo Common::inform();
+?>
 
 <div class="container">
     <div id='parsers'></div>

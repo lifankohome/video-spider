@@ -20,6 +20,21 @@ class Common
 ';
     }
 
+    public static function inform()
+    {
+        $inform = file_get_contents('Cinema/inform.json');
+        if (!empty($inform)) {
+            $inform = json_decode($inform);
+            if ($inform->end < time()) {
+                return false;
+            }
+
+            return "<div class='inform'>" . $inform->content . "</div>";
+        } else {
+            return false;
+        }
+    }
+
     public static function visits()
     {
         $filename = 'Cinema/visits.txt';
@@ -28,7 +43,7 @@ class Common
         }
 
         file_put_contents($filename, '*', FILE_APPEND);
-        $visits = strlen(file_get_contents('Cinema/visits.txt'));
+        $visits = strlen(file_get_contents($filename));
 
         $filename_history = 'Cinema/visits_history.json';
         if (!is_file($filename_history)) {
@@ -60,10 +75,10 @@ class Common
             }
         }
 
-        return ' 访问量:' . $sum;
+        return '<span style="font-size: 12px;color: #afafaf"> 访客:' . $sum . '</span>';
     }
 
-    public static $ad = "小提示：浏览器输入<span style='color: #F40'>yspc.vip</span> 或 百度搜索<span style='color: #F40'>“影视爬虫”</span>就可以找到我，聪明人一秒就记住了";
+    public static $ad = "小提示：浏览器输入<span style='color: #F40'>yspc.vip</span>或百度搜索<span style='color: #F40'>“影视爬虫”</span>就可以找到我，聪明人一秒就记住";
 
     public static $history = '<div class="history">
     <span onmouseover="showHistory()" onmouseout="hideHistory()" class="btn-history">播放<br>历史</span>
