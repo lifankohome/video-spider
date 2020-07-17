@@ -60,7 +60,12 @@ $moviesCat = Spider::getMoviesCat();
     </ul>
 </header>
 <!--公告-->
-<?php echo Common::$ad; ?>
+<p class="ad">
+    <?php
+    echo Common::$ad;
+    echo Common::visits();
+    ?>
+</p>
 
 <div class="cat">
     <ul>

@@ -53,8 +53,6 @@ $intro = str_replace('　', '', $intro);
 
 $sets = array();
 if (empty($link[3][0])) {
-    $multiSets = true;
-
     $setsADom = '/<a data-num="(.*?)"\s*data-daochu="to=(.*?)" href="(.*?)"/';
     preg_match_all($setsADom, $dom, $setsA);
 
@@ -70,7 +68,7 @@ if (empty($link[3][0])) {
             $sets[$setsLi[1][$i]] = $setsLi[2][$i];
         }
     } else {
-        $isVariety = false;
+        $isTeleplay = $isAnime = true;
 
         $offset = array_sea($setsA[3][0], $setsA[3], 1);
         if ($offset) {
@@ -83,11 +81,13 @@ if (empty($link[3][0])) {
         }
     }
 } else {
-    $multiSets = false;
+    $isMovie = true;
+
     $sets = $link[3];
+    $default_link = $sets[0];
 }
 
-$default_link = $isVariety ? array_values($sets)[0] : $sets[0];
+$default_link = empty($isVariety) ? $sets[0] : array_values($sets)[0];
 
 // 可以设置偏移量的数组查询函数
 function array_sea($needle, array $haystack, $offset = 0)
@@ -144,10 +144,18 @@ if (empty($album[2][0])) {
         </li>
     </ul>
 </header>
+<!--公告-->
+<p class="ad">
+    <?php
+    echo Common::$ad;
+    echo Common::visits();
+    ?>
+</p>
+
 <div class="container">
     <div id='parsers'></div>
     <?php
-    if ($multiSets) {
+    if (empty($isMovie)) {
         if (empty($sets)) {
             echo "<h3>《" . $name . "》<span style='font-size: 15px'>暂无播放资源，请稍后再来~</span></h3>";
         } else {
@@ -161,7 +169,7 @@ if (empty($album[2][0])) {
             // 显示剧集
             $num = 0;
             foreach ($sets as $key => $val) {
-                if ($isVariety) {
+                if (!empty($isVariety)) {
                     echo "<li><a class='videoA' onclick='playUrl(\"{$val}\", \"{$num}\")'>{$key}</a></li>";
                     $num++;
                 } else {
@@ -189,10 +197,10 @@ if (empty($album[2][0])) {
     <div class="player">
         <iframe onload="iFrameResize()" allowtransparency="true" allowfullscreen="allowfullscreen" id="video"
                 src="other/loading.php"></iframe>
-        <a style="display: none" id="videoLink" href=""></a>
         <script type="text/javascript">
             var videoFrame = document.getElementById('video');  //全局使用
-            var videoLink = document.getElementById('videoLink');
+            var videoLink = '<?php echo $default_link; ?>';
+            var sets = document.getElementsByClassName('videoA');
 
             function iFrameResize() {
                 videoFrame.height = Math.floor(videoFrame.scrollWidth / 16 * 9);
@@ -225,6 +233,27 @@ if (empty($album[2][0])) {
             parsers.innerHTML = parse_btn;
         }
 
+        function recover() {
+            var info = getCookie('<?php echo $player; ?>');
+
+            if (info !== null) {
+                info = JSON.parse(info);
+
+                sets[info['episode']].setAttribute('id', 'cookie');
+
+                var msg = '记忆您上次看到第 ' + (parseInt(info['episode']) + 1) + ' 集';
+
+                var isMovie = <?php echo empty($isMovie) ? 0 : 1; ?>;
+                if (isMovie) {
+                    msg = '记忆您上次使用 ' + (parseInt(info['episode']) + 1) + '号源 播放';
+                }
+
+                tip(msg, "35%", 5000, "1", false);
+
+                videoLink = info['link'];
+            }
+        }
+
         function vParser(parser_id) {
             // 使用默认解析器解释时从cookie读取解析源地址，若为空则使用1号解析器；
             // 若指定了解析器则使用对应解析器解析，并更新cookie
@@ -232,42 +261,29 @@ if (empty($album[2][0])) {
                 parser_id = getCookie('parser');
                 if (parser_id === null) {
                     parser_id = 1;
-                    setCookie('parser', parser_id, 1);
+                    setCookie('parser', parser_id);
                 }
             } else {
-                setCookie('parser', parser_id, 1); //保存用户当前使用的解析器
+                setCookie('parser', parser_id); //保存用户当前使用的解析器
             }
-            var url = res[parseInt(parser_id) - 1];
 
             showParser();
 
-            // 未选择解析器时直接点击解析器则播放最近一次播放的视频
-            // 若没有最近播放的视频则播放列表第一个
-            if (videoLink.href === window.location.href) {
-                var recent = getCookie('<?php echo $player; ?>');
-                if (recent === null) {
-                    videoLink.href = '<?php echo $default_link; ?>';
-                    tip("您未选择视频源，使用1号源（第一集）开始播放", "12%", 3000, "1", false);
-                } else {
-                    videoLink.href = recent;
-                    tip("您未选择视频源，将继续播放您上次观看的视频", "12%", 3000, "1", false);
-                }
-            } else {
-                tip("正在加载视频~", "50%", 3000, "1", false);
-            }
-
-            console.log('parser: ' + parser_id + ' url: ' + url + videoLink.href);
-            videoFrame.src = url + videoLink.href;
+            videoFrame.src = res[parseInt(parser_id) - 1] + videoLink;
+            console.log('Parser: ' + parser_id + ' URL: ' + videoFrame.src);
+            tip("正在加载视频~", "50%", 3000, "1", false);
         }
 
         function playUrl(sourceUrl, i) {
-            //保存当前播放源链接时间为1d=24h
-            setCookie('<?php echo $player; ?>', sourceUrl, 1);
+            var info = {'link': sourceUrl, 'episode': i};
+            setCookie('<?php echo $player; ?>', JSON.stringify(info));
 
-            var sets = document.getElementsByClassName('videoA');
+            for (var j = 0; j < sets.length; j++) {
+                sets[j].setAttribute('id', '');
+            }
             sets[i].setAttribute('id', 'cookie');
 
-            videoLink.href = sourceUrl;
+            videoLink = sourceUrl;
             vParser();    //使用默认解析器解析
         }
 
@@ -293,14 +309,14 @@ if (empty($album[2][0])) {
             title_obj.unshift(title);
         }
         // 保存播放记录信息到cookie，时长为7天
-        setCookie('play-history', JSON.stringify(title_obj), 7);
+        setCookie('play-history', JSON.stringify(title_obj));
 
-        function setCookie(cookieKey, cookieValue, expireDays) {
+        function setCookie(cookieKey, cookieValue) {
+            var expireDays = 7;
             var expDate = new Date();
             expDate.setDate(expDate.getDate() + expireDays);
             //noinspection JSDeprecatedSymbols
-            document.cookie = cookieKey + "=" + escape(cookieValue) +
-                ((expireDays == null) ? "" : "; expires=" + expDate.toGMTString());
+            document.cookie = cookieKey + "=" + escape(cookieValue) + ("; expires=" + expDate.toGMTString());
         }
 
         function getCookie(cookieKey) {
@@ -378,6 +394,9 @@ if (empty($album[2][0])) {
     }
 
     autoSize([]);  //初始化
+    setTimeout(function () {
+        recover(); //恢复播放
+    }, 50);
 
     window.onresize = function () { //监听
         autoSize([]);

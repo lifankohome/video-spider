@@ -20,7 +20,50 @@ class Common
 ';
     }
 
-    public static $ad = "<p style='text-align: center;font-size: 20px;background-color: #333;padding: 10px 5px;color: #FFF;border-radius: 5px'>小提示：浏览器输入<span style='color: #F40'>yspc.vip</span> 或 百度搜索<span style='color: #F40'>“影视爬虫”</span>就可以找到我，聪明人一秒就记住了</p>";
+    public static function visits()
+    {
+        $filename = 'Cinema/visits.txt';
+        if (!is_file($filename)) {
+            file_put_contents($filename, '');
+        }
+
+        file_put_contents($filename, '*', FILE_APPEND);
+        $visits = strlen(file_get_contents('Cinema/visits.txt'));
+
+        $filename_history = 'Cinema/visits_history.json';
+        if (!is_file($filename_history)) {
+            file_put_contents($filename_history, '{}');
+        }
+        $visits_history = json_decode(file_get_contents($filename_history), true);
+        $date = date('Y-m-d', time() + 3600 * 24 * 2);
+
+        if (!isset($visits_history[$date])) {
+            if (count($visits_history) > 0) {
+                if (end($visits_history) == '?') {
+                    $visits_history[key($visits_history)] = $visits;
+                }
+            }
+
+            $visits_history[$date] = '?';
+            file_put_contents($filename_history, json_encode($visits_history));
+            file_put_contents($filename, '');
+
+            $sum = 0;
+        } else {
+            $sum = $visits;
+        }
+
+        $visits_history = array_values($visits_history);
+        foreach ($visits_history as $val) {
+            if (is_numeric($val)) {
+                $sum += $val;
+            }
+        }
+
+        return ' 访问量:' . $sum;
+    }
+
+    public static $ad = "小提示：浏览器输入<span style='color: #F40'>yspc.vip</span> 或 百度搜索<span style='color: #F40'>“影视爬虫”</span>就可以找到我，聪明人一秒就记住了";
 
     public static $history = '<div class="history">
     <span onmouseover="showHistory()" onmouseout="hideHistory()" class="btn-history">播放<br>历史</span>
@@ -28,5 +71,5 @@ class Common
 
     public static $tip = "<p id='tip'>影视爬虫使用cookie技术(包含第三方cookie)来实现网站功能，有关详细信息请点击<a href='other/about.html#cookie' style='color: #333'>这里</a></p>";
 
-    public static $footer = "<p style='font-size: 12px;color: #000;margin-top: -5px'>Copyright &copy; <a href='https://hpu.lifanko.cn' style='color: #333'>lifanko</a> 2017-2020 <a href='http://www.beian.miit.gov.cn/' style='color: #333'>豫ICP备16040860号-1</a><span style='float: right;font-weight: bold'>Cookie技术有效期: 24h</span></p>";
+    public static $footer = "<p style='font-size: 12px;color: #000;margin-top: -5px'>Copyright &copy; <a href='https://hpu.lifanko.cn' style='color: #333'>lifanko</a> 2017-2020 <a href='http://www.beian.miit.gov.cn/' style='color: #333'>豫ICP备16040860号-1</a><span style='float: right;font-weight: bold'>Cookie技术有效期: 7d</span></p>";
 }

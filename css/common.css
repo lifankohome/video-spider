@@ -130,3 +130,12 @@ header ul li:hover a {
     padding: 0;
     border-radius: 0;
 }
+
+.ad {
+    text-align: center;
+    font-size: 20px;
+    background-color: #333;
+    padding: 10px 5px;
+    color: #FFF;
+    border-radius: 5px;
+}

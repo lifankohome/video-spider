@@ -59,8 +59,16 @@ if (empty($_GET['max'])) { //显示的关键词数量，默认最多显示999个
         </li>
     </ul>
 </header>
+<!--公告-->
+<p class="ad">
+    <?php
+    echo Common::$ad;
+    echo Common::visits();
+    ?>
+</p>
+
 <div style="background-color: rgba(255,255,255,0.51);padding: .2pc 1pc;margin-top: 1pc;border-radius: 5px;position: relative">
-    <img src="img/wechat.jpg" style="position: absolute;right: 5px;top: 5px;height: 153px;cursor: pointer"
+    <img src="img/wechat.jpg" alt="" style="position: absolute;right: 5px;top: 5px;height: 153px;cursor: pointer"
          onclick="window.location.href='img/wechat.jpg'">
     <h1>向我捐赠</h1>
     <p style="line-height: 25px">

@@ -73,7 +73,12 @@ if (empty($_GET['kw'])) {
     </ul>
 </header>
 <!--公告-->
-<?php echo Common::$ad; ?>
+<p class="ad">
+    <?php
+    echo Common::$ad;
+    echo Common::visits();
+    ?>
+</p>
 
 <div class="search">
     <h3>
