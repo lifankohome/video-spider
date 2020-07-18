@@ -25,7 +25,7 @@ class Common
         $inform = file_get_contents('Cinema/inform.json');
         if (!empty($inform)) {
             $inform = json_decode($inform);
-            if ($inform->end < time()) {
+            if ($inform->start > time() || $inform->end < time()) {
                 return false;
             }
 
