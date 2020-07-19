@@ -70,9 +70,28 @@ echo Common::inform();
     <h1>向我捐赠</h1>
     <p style="line-height: 25px">
         本人长期致力于影视爬虫应用开发，你的帮助是对我们最大的支持和动力！<br>
-        影视爬虫一直在坚持不懈地努力，坚持开源和免费提供使用，帮助更多人便捷地观看视频！<br>
-        如果您对影视爬虫表示认同并且觉得对你有所帮助，可使用微信扫描右侧二维码酌情向我捐赠~
+        影视爬虫一直在坚持不懈地努力，帮助更多人便捷地观看视频！<br>
+        如果您觉得影视爬虫对你有所帮助，可使用微信扫描右侧二维码酌情向我捐赠~
     </p>
+
+    <p>感谢
+        <?php
+        $filename = 'donate/donate.json';
+
+        $donate = file_get_contents($filename);
+
+        $donate = json_decode($donate);
+
+        $nickname = '';
+        for ($i = 0; $i < 5; $i++) {
+            $nickname .= '<span style="font-weight: 600;color: #F40;">' . $donate->nickname[$i] . '</span>, ';
+        }
+        $nickname = mb_substr($nickname, 0, mb_strlen($nickname) - 2);
+        echo $nickname;
+        ?>
+        ……的捐赠支持!
+    </p>
+    <p>完整的捐赠列表请点击 <a href="http://yspc.vip" target="_blank" style="color: #F40">这里</a> 查看。</p>
 </div>
 <div style="margin: 1pc 0;overflow: hidden;font-family: 'Microsoft YaHei UI',sans-serif">
     <div style="background-color: rgba(120,120,120,0.7);float: left;width: 50%;border-radius: 5px 0 0 5px">
