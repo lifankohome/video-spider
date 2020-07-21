@@ -8,7 +8,10 @@
 
 namespace Cinema;
 
-include_once('Spider.php');
+use Visits\Visits;
+
+include_once 'Spider.php';
+include_once 'Visits/Visits.php';
 
 class Common
 {
@@ -37,45 +40,9 @@ class Common
 
     public static function visits()
     {
-        $filename = 'Cinema/visits.txt';
-        if (!is_file($filename)) {
-            file_put_contents($filename, '');
-        }
+        $Visits = new Visits('Visits/', 'cinema');
 
-        file_put_contents($filename, '*', FILE_APPEND);
-        $visits = strlen(file_get_contents($filename));
-
-        $filename_history = 'Cinema/visits_history.json';
-        if (!is_file($filename_history)) {
-            file_put_contents($filename_history, '{}');
-        }
-        $visits_history = json_decode(file_get_contents($filename_history), true);
-        $date = date('Y-m-d', time() + 3600 * 24 * 2);
-
-        if (!isset($visits_history[$date])) {
-            if (count($visits_history) > 0) {
-                if (end($visits_history) == '?') {
-                    $visits_history[key($visits_history)] = $visits;
-                }
-            }
-
-            $visits_history[$date] = '?';
-            file_put_contents($filename_history, json_encode($visits_history));
-            file_put_contents($filename, '');
-
-            $sum = 0;
-        } else {
-            $sum = $visits;
-        }
-
-        $visits_history = array_values($visits_history);
-        foreach ($visits_history as $val) {
-            if (is_numeric($val)) {
-                $sum += $val;
-            }
-        }
-
-        return '<span style="font-size: 12px;color: #afafaf"> 访客:' . $sum . '</span>';
+        return $Visits->update();
     }
 
     public static $ad = "小提示：浏览器输入<span style='color: #F40'>yspc.vip</span>或百度搜索<span style='color: #F40'>“影视爬虫”</span>就可以找到我，聪明人一秒就记住";
