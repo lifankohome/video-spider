@@ -237,6 +237,8 @@ echo Common::inform();
                 info = JSON.parse(info);
 
                 sets[info['episode']].setAttribute('id', 'cookie');
+                sets[info['episode']].setAttribute('onmouseout', 'remove_hover()');
+                sets[info['episode']].innerHTML = sets[info['episode']].innerText + '<span id="tooltip" class="hover">上次观看到这里</span>';
 
                 var msg = '记忆您上次看到第 ' + (parseInt(info['episode']) + 1) + ' 集';
 
@@ -245,10 +247,14 @@ echo Common::inform();
                     msg = '记忆您上次使用 ' + (parseInt(info['episode']) + 1) + '号源 播放';
                 }
 
-                tip(msg, "35%", 5000, "1", false);
+                tip(msg, "35%", 3000, "1", false);
 
                 videoLink = info['link'];
             }
+        }
+
+        function remove_hover() {
+            document.getElementById('tooltip').classList.remove('hover');
         }
 
         function vParser(parser_id) {
