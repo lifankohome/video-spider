@@ -53,11 +53,6 @@ if (!empty($info)) {
             src: url("https://cdn.lifanko.cn/fonts/PingFangSC-Regular.woff2");
         }
 
-        @font-face {
-            font-family: "boleyaya";
-            src: url("https://cdn.lifanko.cn/fonts/boleyaya.woff2");
-        }
-
         body {
             font-family: "PingFang SC", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
             margin: 0;
@@ -75,11 +70,11 @@ if (!empty($info)) {
 <div id="container" style="background-color: rgba(224,222,222,0.5);">
     <img src="../img/logo.png" style="height: 100px;margin-bottom: -40px" alt="logo" class="tiktok">
     <h2 style="display: inline-block;">
-        影视爬虫<span style="font-size: 16px"> v4.5 2020/2/29 22:03更新</span>
+        影视爬虫<span style="font-size: 16px"> v4.6 2020/7/29 12:43更新</span>
     </h2>
     <p style="font-size: 20px;margin: 0">影视爬虫重金购买网址<strong style="color: #467cff;font-size: 30px">yspc.vip</strong>，一秒钟即可记住~
     </p>
-    <div id="ad" style="width: 70%;margin: 0 auto;font-family: 'boleyaya', sans-serif">
+    <div id="ad" style="width: 70%;margin: 0 auto;">
         <h4 style="border-bottom: 1px #999 solid;padding-bottom: 5px;color: #1e5cf4;margin: 1.5pc 0 0;font-size: 35px">
             全网影视免费看，尽在影视爬虫！<span
                     style="font-size: 14px;display: block"><?php echo $festival; ?></span></h4>
