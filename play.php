@@ -206,11 +206,11 @@ echo Common::inform();
     </div>
     <script type="text/javascript">
         // 解析器列表
-        var res = ['https://660e.com/?url=', 'https://jiexi.380k.com/?url=', 'https://jx.lache.me/cc/?url='];
-        if (!(/(iPhone|iPad|iPod|iOS|Android)/i.test(navigator.userAgent))) {
+        var res = ['https://jiexi.380k.com/?url=', 'https://660e.com/?url=', 'https://jx.lache.me/cc/?url='];
+        if ((/(iPhone|iPad|iPod|iOS|Android)/i.test(navigator.userAgent))) {
             var buf = res[0];
-            res[0] = res[1];
-            res[1] = buf;
+            res[0] = res[2];
+            res[2] = buf;
         }
 
         showParser();
@@ -254,7 +254,10 @@ echo Common::inform();
         }
 
         function remove_hover() {
-            document.getElementById('tooltip').classList.remove('hover');
+            var tooltip_class = document.getElementById('tooltip').classList;
+            if (tooltip_class.length) {
+                tooltip_class.remove('hover');
+            }
         }
 
         function vParser(parser_id) {
@@ -278,6 +281,8 @@ echo Common::inform();
         }
 
         function playUrl(sourceUrl, i) {
+            remove_hover();
+
             var info = {'link': sourceUrl, 'episode': i};
             setCookie('<?php echo $player; ?>', JSON.stringify(info));
 
