@@ -46,6 +46,8 @@ if (!empty($info)) {
     <meta charset="UTF-8">
     <title>Title</title>
     <style>
+        @import "../css/tiktok.css";
+
         @font-face {
             font-family: "PingFang SC";
             src: url("https://cdn.lifanko.cn/fonts/PingFangSC-Regular.woff2");
@@ -71,7 +73,7 @@ if (!empty($info)) {
 </head>
 <body>
 <div id="container" style="background-color: rgba(224,222,222,0.5);">
-    <img src="../img/logo.png" style="height: 100px;margin-bottom: -40px" alt="">
+    <img src="../img/logo.png" style="height: 100px;margin-bottom: -40px" alt="logo" class="tiktok">
     <h2 style="display: inline-block;">
         影视爬虫<span style="font-size: 16px"> v4.5 2020/2/29 22:03更新</span>
     </h2>

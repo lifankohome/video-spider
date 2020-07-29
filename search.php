@@ -58,7 +58,7 @@ if (empty($_GET['kw'])) {
 </head>
 <body>
 <header>
-    <img src='img/logo.png' alt='logo'>
+    <img src='img/logo.png' alt='logo' class="tiktok">
     <ul>
         <li><a href='hot.php'>首页</a></li>
         <li><a href='index.php'>电影</a></li>
@@ -91,7 +91,7 @@ echo Common::inform();
         foreach ($search as $res) {
             echo "<li>
 		    <a href='play.php?play={$res['link']}&s=search' title='{$res['desc']}' target='_blank'>
-                <img class='img' src='{$res['img']}' onerror=\"javascript:this.src='img/noCover.jpg'\" alt='{$res['name']}'>
+                <img class='img' src='{$res['img']}' alt='{$res['name']}'>
                 <span id='type'>{$res['score']}</span>
                 <span id='name'>{$res['name']}</span>
             </a></li>";

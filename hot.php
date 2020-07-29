@@ -45,7 +45,7 @@ if (empty($_GET['max'])) { //显示的关键词数量，默认最多显示999个
 </head>
 <body>
 <header>
-    <img src='img/logo.png' alt='logo'>
+    <img src='img/logo.png' alt='logo' class="tiktok">
     <ul>
         <li class="active"><a href='hot.php'>首页</a></li>
         <li><a href='index.php'>电影</a></li>

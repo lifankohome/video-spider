@@ -35,9 +35,9 @@ if (!empty($_GET['play'])) {
 
 $dom = Spider::curl_get_contents($player);
 
-$nameDom = '#<h1>(.*?)</h1>#';
+$nameDom = '/<h1>(.*?)<\/h1>/';
 $introDom = '/style="display:none;"><span>简介 ：<\/span><p class="item-desc">([\s\S]*)<a href="#"/';
-$linkDom = '#<a data-daochu=(.*?) class=(.*?) href="(.*?)">#';
+$linkDom = '/<a data-daochu=(.*?) class=(.*?) href="(.*?)">/';
 $albumDom = '/class="g-playicon s-cover-img" data-daochu="to=(.*?)\s+<img src="(.*?)">/';
 
 preg_match_all($nameDom, $dom, $name);
@@ -126,7 +126,7 @@ if (empty($album[2][0])) {
 </head>
 <body>
 <header>
-    <img src='img/logo.png' alt='logo'>
+    <img src='img/logo.png' alt='logo' class="tiktok">
     <ul>
         <li><a href='hot.php'>首页</a></li>
         <li><a href='index.php'>电影</a></li>

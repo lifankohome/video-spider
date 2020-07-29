@@ -45,7 +45,7 @@ $moviesCat = Spider::getMoviesCat();
 </head>
 <body>
 <header>
-    <img src='img/logo.png' alt='logo'>
+    <img src='img/logo.png' alt='logo' class="tiktok">
     <ul>
         <li><a href='hot.php'>首页</a></li>
         <li class="active"><a href='index.php'>电影</a></li>
@@ -86,7 +86,7 @@ echo Common::inform();
         <?php
         foreach ($movies as $movie) {
             echo "<li class='resList'><div class='imgTip'><p>{$movie['desc']}</p></div><a href='play.php?play={$movie['coverpage']}' title='点击播放' target='_blank'>
-                <img class='img' src='{$movie['cover']}' onerror=\"javascript:this.src='img/noCover.jpg'\" alt='{$movie['title']}'>
+                <img class='img' src='{$movie['cover']}' alt='{$movie['title']}'>
                 <span id='score'>{$movie['point']}</span>
                 <span id='name'>{$movie['tag']} {$movie['title']}</span>
             </a></li>";

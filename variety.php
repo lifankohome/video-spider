@@ -45,7 +45,7 @@ $varietyCat = Spider::getVarietyCat();
 </head>
 <body>
 <header>
-    <img src='img/logo.png' alt='logo'>
+    <img src='img/logo.png' alt='logo' class="tiktok">
     <ul>
         <li><a href='hot.php'>首页</a></li>
         <li><a href='index.php'>电影</a></li>
@@ -86,7 +86,7 @@ echo Common::inform();
         <?php
         foreach ($varieties as $variety) {
             echo "<li class='resList'><div class='imgTip'><p>{$variety['desc']}</p></div><a href='play.php?play={$variety['coverpage']}' title='点击播放' target='_blank'>
-                <img class='img' src='{$variety['cover']}' onerror=\"javascript:this.src='img/noCover.jpg'\" alt='{$variety['title']}'>
+                <img class='img' src='{$variety['cover']}' alt='{$variety['title']}'>
                 <span id='update'>更新至:{$variety['tag']}</span>
                 <span id='name'>{$variety['title']}</span>
             </a></li>";

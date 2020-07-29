@@ -55,9 +55,9 @@ class Spider
     {
         $presentCat = ['all' => '热门推荐', '103' => '喜剧', '100' => '爱情', '106' => '动作', '102' => '恐怖', '104' => '科幻', '112' => '剧情', '105' => '犯罪', '113' => '奇幻', '108' => '战争', '115' => '悬疑', '107' => '动画', '117' => '文艺', '101' => '伦理', '118' => '纪录', '119' => '传记', '120' => '歌舞', '121' => '古装', '122' => '历史', '123' => '惊悚', 'other' => '其他'];
 
-        $dom = self::curl_get_contents('https://www.360kan.com/dianying/list?year=all&area=all&act=all&cat=' . $cat);
-        $dom .= self::curl_get_contents('https://www.360kan.com/dianying/list?year=all&area=all&act=all&cat=' . $cat . '&pageno=2');
-        $dom .= self::curl_get_contents('https://www.360kan.com/dianying/list?year=all&area=all&act=all&cat=' . $cat . '&pageno=3');
+        $dom = self::curl_get_contents('https://www.360kan.com/dianying/list?year=all&area=all&act=all&cat=' . $cat . '&pageno=' . $page);
+        $dom .= self::curl_get_contents('https://www.360kan.com/dianying/list?year=all&area=all&act=all&cat=' . $cat . '&pageno=' . ($page + 1));
+        $dom .= self::curl_get_contents('https://www.360kan.com/dianying/list?year=all&area=all&act=all&cat=' . $cat . '&pageno=' . ($page + 2));
 
         $movieCatDom = '/<a class="js-tongjip" href=".+year=all&area=all&act=all&cat=(.*?)" target="_self">(.*?)\s/';
 
@@ -177,9 +177,9 @@ class Spider
     {
         $presentCat = ['all' => '热门推荐', '101' => '言情', '105' => '伦理', '109' => '喜剧', '108' => '悬疑', '111' => '都市', '100' => '偶像', '104' => '古装', '107' => '军事', '103' => '警匪', '112' => '历史', '102' => '宫廷', '116' => '励志', '117' => '神话', '118' => '谍战', '119' => '青春', '120' => '家庭', '115' => '动作', '114' => '情景', '106' => '武侠', '113' => '科幻', 'other' => '其他'];
 
-        $dom = self::curl_get_contents('https://www.360kan.com/dianshi/list.php?year=all&area=all&act=all&cat=' . $cat);
-        $dom .= self::curl_get_contents('https://www.360kan.com/dianshi/list.php?year=all&area=all&act=all&cat=' . $cat . '&pageno=2');
-        $dom .= self::curl_get_contents('https://www.360kan.com/dianshi/list.php?year=all&area=all&act=all&cat=' . $cat . '&pageno=3');
+        $dom = self::curl_get_contents('https://www.360kan.com/dianshi/list.php?year=all&area=all&act=all&cat=' . $cat . '&pageno=' . $page);
+        $dom .= self::curl_get_contents('https://www.360kan.com/dianshi/list.php?year=all&area=all&act=all&cat=' . $cat . '&pageno=' . ($page + 1));
+        $dom .= self::curl_get_contents('https://www.360kan.com/dianshi/list.php?year=all&area=all&act=all&cat=' . $cat . '&pageno=' . ($page + 2));
 
         $teleplayCatDom = '/<a class="js-tongjip" href=".+year=all&area=all&act=all&cat=(.*?)" target="_self">(.*?)\s/';
 
@@ -244,9 +244,9 @@ class Spider
     {
         $presentCat = ['all' => '热门推荐', '101' => '选秀', '102' => '八卦', '103' => '访谈', '104' => '情感', '105' => '生活', '106' => '晚会', '107' => '搞笑', '108' => '音乐', '109' => '时尚', '110' => '游戏', '111' => '少儿', '112' => '体育', '113' => '纪实', '114' => '科教', '115' => '曲艺', '116' => '歌舞', '117' => '财经', '118' => '汽车', '119' => '播报', 'other' => ''];
 
-        $dom = self::curl_get_contents('https://www.360kan.com/zongyi/list?act=all&area=all&cat=' . $cat);
-        $dom .= self::curl_get_contents('https://www.360kan.com/zongyi/list?act=all&area=all&cat=' . $cat. '&pageno=2');
-        $dom .= self::curl_get_contents('https://www.360kan.com/zongyi/list?act=all&area=all&cat=' . $cat. '&pageno=3');
+        $dom = self::curl_get_contents('https://www.360kan.com/zongyi/list?act=all&area=all&cat=' . $cat . '&pageno=' . $page);
+        $dom .= self::curl_get_contents('https://www.360kan.com/zongyi/list?act=all&area=all&cat=' . $cat . '&pageno=' . ($page + 1));
+        $dom .= self::curl_get_contents('https://www.360kan.com/zongyi/list?act=all&area=all&cat=' . $cat . '&pageno=' . ($page + 2));
 
         $varietyCatDom = '/<a class="js-tongjip" href=".+act=all&area=all&cat=(.*?)" target="_self">(.*?)\s/';
 
@@ -311,8 +311,8 @@ class Spider
     {
         $presentCat = ['all' => '最近热播', '100' => '热血', '134' => '科幻', '109' => '魔幻', '135' => '经典', '136' => '励志', '111' => '少儿', '107' => '冒险', '105' => '搞笑', '137' => '推理', '101' => '恋爱', '138' => '治愈', '106' => '幻想', '104' => '校园', '110' => '动物', '112' => '机战', '131' => '亲子', '139' => '儿歌', '103' => '运动', '108' => '悬疑', '113' => '怪物'];
 
-        $dom = self::curl_get_contents('https://www.360kan.com/dongman/list?year=all&area=all&cat=' . $cat);
-        $dom .= self::curl_get_contents('https://www.360kan.com/dongman/list?year=all&area=all&cat=' . $cat . '&pageno=2');
+        $dom = self::curl_get_contents('https://www.360kan.com/dongman/list?year=all&area=all&cat=' . $cat . '&pageno=' . $page);
+        $dom .= self::curl_get_contents('https://www.360kan.com/dongman/list?year=all&area=all&cat=' . $cat . '&pageno=' . ($page + 1));
 
         $animeCatDom = '/<a class="js-tongjip" href=".+year=all&area=all&cat=(.*?)" target="_self">(.*?)\s/';
 
@@ -402,7 +402,7 @@ class Spider
             if (isset($img[2][$key])) {
                 $buffer['img'] = $img[2][$key];
             } else {
-                $buffer['img'] = 'img/noCover.jpg';
+                $buffer['img'] = '';
             }
 
             if (!empty($score[1][$key])) {

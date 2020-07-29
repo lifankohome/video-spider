@@ -45,7 +45,7 @@ $teleplayCat = Spider::getTeleplayCat();
 </head>
 <body>
 <header>
-    <img src='img/logo.png' alt='logo'>
+    <img src='img/logo.png' alt='logo' class="tiktok">
     <ul>
         <li><a href='hot.php'>首页</a></li>
         <li><a href='index.php'>电影</a></li>
@@ -88,7 +88,7 @@ echo Common::inform();
         <?php
         foreach ($teleplays as $teleplay) {
             echo "<li class='resList'><div class='imgTip'><p style='text-align: center'>{$teleplay['desc']}</p></div><a href='play.php?play={$teleplay['coverpage']}' title='点击播放' target='_blank'>
-                <img class='img' src='{$teleplay['cover']}' onerror=\"javascript:this.src='img/noCover.jpg'\" alt='{$teleplay['title']}'>
+                <img class='img' src='{$teleplay['cover']}' alt='{$teleplay['title']}'>
                 <span id='update'>{$teleplay['tag']}</span>
                 <span id='name'>{$teleplay['title']}</span>
             </a></li>";

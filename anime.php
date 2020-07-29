@@ -46,7 +46,7 @@ $animeCat = Spider::getAnimeCat();
 </head>
 <body>
 <header>
-    <img src='img/logo.png' alt='logo'>
+    <img src='img/logo.png' alt='logo' class="tiktok">
     <ul>
         <li><a href='hot.php'>首页</a></li>
         <li><a href='index.php'>电影</a></li>
@@ -89,7 +89,7 @@ echo Common::inform();
         <?php
         foreach ($animes as $anime) {
             echo "<li class='resList'><a href='play.php?play={$anime['coverpage']}' title='点击播放' target='_blank'>
-                <img class='img' src='{$anime['cover']}' onerror=\"javascript:this.src='img/noCover.jpg'\" alt='{$anime['title']}'>
+                <img class='img' src='{$anime['cover']}' alt='{$anime['title']}'>
                 <span id='update'>{$anime['tag']}</span>
                 <span id='name'>{$anime['title']}</span>
             </a></li>";
