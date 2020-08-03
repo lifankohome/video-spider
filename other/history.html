@@ -32,8 +32,8 @@
 </head>
 <body>
 <div>
-    <p style="text-align: center;margin-bottom: -15px;background-color: #bbb;font-weight: bold">仅保存最近十条播放记录哦~</p>
-    <ul id="list" style="list-style: none;padding-left: 0"></ul>
+    <p style="text-align: center;margin: 2px 0;background-color: #bbb;font-weight: bold">仅保存最近10条播放记录哦~</p>
+    <ul id="list" style="list-style: decimal;padding-left: 25px;margin: 0;"></ul>
 </div>
 <script>
     function getCookie(cookieKey) {
@@ -48,9 +48,9 @@
     for (var i = 0; i < 10; i++) {
         if (res !== null && i < res.length) {
             var buffer = res[i].split('http');
-            list += "<li><a href='http" + buffer[1] + "' title='点击播放' target='_blank'>" + buffer[0] + "</a></li>";
+            list += "<li><a href='http" + buffer[1] + "' title='立即播放《" + buffer[0] + "》' target='_blank'>" + buffer[0] + "</a></li>";
         } else {
-            list += "<li>无</li>";
+            list += "<li>-</li>";
         }
     }
     document.getElementById("list").innerHTML = list;
