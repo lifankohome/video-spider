@@ -254,9 +254,9 @@ echo Common::inform();
         }
 
         function remove_hover() {
-            var tooltip_class = document.getElementById('tooltip').classList;
-            if (tooltip_class.length) {
-                tooltip_class.remove('hover');
+            var tooltip_class = document.getElementById('tooltip');
+            if (tooltip_class !== null) {
+                tooltip_class.classList.remove('hover');
             }
         }
 
