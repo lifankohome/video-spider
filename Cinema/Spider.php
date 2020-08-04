@@ -387,7 +387,7 @@ class Spider
         $linkDom = '/a href="(.*?)" class="g-playicon js-playicon"/';
         $imgDom = '/js-playicon" title="(.*?)\s{0,}<img src="(.*?)" alt="(.*?)" \/>/';
         $scoreDom = '/<div class="m-score">(.*?)<\/div>/';
-        $descDom = '/<p>(<i>(.*?)<\/i>){0,}(.*?)<\/p>/';
+        $descDom = '/<i>简&nbsp;&nbsp;介&nbsp;：<\/i>\s*(<p>)?(.*?)<\/p>/';
 
         preg_match_all($nameDom, $dom, $name);
         preg_match_all($linkDom, $dom, $link);
@@ -411,8 +411,8 @@ class Spider
                 $buffer['score'] = '无';
             }
 
-            if (isset($desc[3][$key])) {
-                $buffer['desc'] = $desc[3][$key];
+            if (isset($desc[2][$key])) {
+                $buffer['desc'] = $desc[2][$key];
             } else {
                 $buffer['desc'] = '无';
             }
