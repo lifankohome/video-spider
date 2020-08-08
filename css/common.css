@@ -110,6 +110,7 @@ header ul li:hover a {
     transition: all 0.5s 0s;
     font-size: 14px;
     font-weight: bold;
+    line-height: 18px;
 }
 
 @media screen and (max-width: 768px) {
