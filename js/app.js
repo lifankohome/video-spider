@@ -63,17 +63,6 @@ function search() {
     }
 }
 
-// 播放历史显示控制
-var his_frame = document.getElementById("fra-history");
-
-function showHistory() {
-    his_frame.style.right = "0px";
-}
-
-function hideHistory() {
-    his_frame.style.right = -300 + "px";
-}
-
 // 当元素存在时轮播图片
 var ele = document.getElementsByClassName('js-slide-img');
 var nav_index = document.getElementsByClassName('nav_index');

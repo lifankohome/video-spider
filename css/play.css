@@ -69,7 +69,6 @@ iframe {
     font-weight: bold;
     background-color: #FFEB3B;
     position: relative;
-    display: inline-block;
 }
 
 #cookie #tooltip {
@@ -110,14 +109,16 @@ iframe {
 }
 
 #qus {
-    position: absolute;
-    top: 145px;
+    position: fixed;
     right: 2pc;
+    top: 312px;
     color: #F40;
 }
 
-#qus:hover #que-tip {
-    display: block;
+@media screen and (max-width: 768px) {
+    #qus {
+        display: none !important;
+    }
 }
 
 #qus-btn {
@@ -136,12 +137,18 @@ iframe {
 #que-tip {
     border-radius: 3px;
     position: absolute;
-    right: 0;
+    right: -330px;
     font-size: 12px;
-    background-color: black;
+    background-color: rgba(0, 0, 0, 0.7);
     color: white;
     padding: 10px;
-    width: 297px;
+    width: 265px;
     margin-top: 5px;
-    display: none;
+    box-shadow: 0 0 10px 2px #565656;
+    transition: all 0.3s 0s;
+    bottom: 57px;
+}
+
+#qus:hover #que-tip {
+    right: 0;
 }

@@ -59,7 +59,7 @@ if (empty($link[3][0])) {
     if (empty($setsA[0])) {
         $isVariety = true;
 
-        $setsLiDom = "/<li\s*title='(.*?)' class='w-newfigure w-newfigure-180x153'><a href='(.*?)'/";
+        $setsLiDom = "/<li\s*title='(.*?)' class='w-newfigure w-newfigure-180x153\s*'><a href='(.*?)'/";
         preg_match_all($setsLiDom, $dom, $setsLi);
 
         $offset = array_sea($setsLi[2][0], $setsLi[2], 1);
@@ -343,13 +343,13 @@ echo Common::inform();
             src=<?php $u = substr($play, strpos($play, '/', 1) + 1, -5);
     echo "https://www.lifanko.cn/chat/index.php?u=" . $u . '&n=' . $name; ?>></iframe>
 </div>
-<?php echo Common::$history; ?>
 <div id="qus">
     <span id="qus-btn">无法<br>播放</span>
     <div id="que-tip">视频无法播放的解决方法：<br>&nbsp;&nbsp;&nbsp;※ 切换上方的 播放器1 或 播放器2 或 播放器3<br>三个播放器均无法播放
         或 点击按钮无反应：<br>&nbsp;&nbsp;&nbsp;※ 发送邮件：lzw@163.com 或 添加微信：lifanko
     </div>
 </div>
+<?php echo Common::$history; ?>
 <footer>
     <?php
     echo Common::$tip;
@@ -423,17 +423,6 @@ echo Common::inform();
         // Fixed player size: 16-9
         iFrameResize();
     };
-
-    // 播放历史显示控制
-    var his_frame = document.getElementById("fra-history");
-
-    function showHistory() {
-        his_frame.style.right = "0px";
-    }
-
-    function hideHistory() {
-        his_frame.style.right = -300 + "px";
-    }
 
     // 百度统计
     var _hmt = _hmt || [];

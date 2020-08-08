@@ -15,6 +15,10 @@ body {
     font-size: 17px;
     letter-spacing: 0.022em;
     line-height: 20px;
+    max-height: 100%;
+    -webkit-text-size-adjust: none;
+    -ms-text-size-adjust: none;
+    -moz-text-size-adjust: none;
 }
 
 header {
@@ -93,14 +97,13 @@ header ul li:hover a {
     border-radius: 2px;
 }
 
-.history {
+#history {
     position: fixed;
     right: 2pc;
-    top: 200px;
-    opacity: .8;
+    top: 370px;
 }
 
-.btn-history {
+#history-btn {
     background-color: rgba(221, 221, 221, 0.7);
     padding: 7px 12px;
     display: inline-block;
@@ -114,12 +117,12 @@ header ul li:hover a {
 }
 
 @media screen and (max-width: 768px) {
-    .btn-history {
+    #history {
         display: none !important;
     }
 }
 
-.fra-history {
+#history-tip {
     position: absolute;
     border: none;
     box-shadow: 1px 1px 5px 0 #777;
@@ -130,6 +133,10 @@ header ul li:hover a {
     transition: all .3s 0s;
     padding: 0;
     border-radius: 5px;
+}
+
+#history:hover #history-tip {
+    right: 0;
 }
 
 .ad {
