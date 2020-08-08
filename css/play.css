@@ -108,3 +108,41 @@ iframe {
 #cookie:hover #tooltip {
     display: block;
 }
+
+#qus {
+    position: absolute;
+    top: 140px;
+    right: 2pc;
+    color: #F40;
+}
+
+#qus:hover #que-tip {
+    display: block;
+}
+
+#qus-btn {
+    background-color: rgba(221, 221, 221, 0.7);
+    padding: 7px 12px;
+    display: inline-block;
+    cursor: pointer;
+    box-shadow: 1px 1px 5px 0 #777;
+    border-radius: 3px;
+    transition: all 0.5s 0s;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+}
+
+#que-tip {
+    border-radius: 3px;
+    position: absolute;
+    right: 0;
+    font-size: 12px;
+    background-color: black;
+    color: white;
+    padding: 10px;
+    width: 297px;
+    margin-top: 5px;
+    transition: all 0.5s 0s;
+    display: none;
+}

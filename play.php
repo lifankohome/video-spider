@@ -156,7 +156,7 @@ echo Common::inform();
         if (empty($sets)) {
             echo "<h3>《" . $name . "》<span style='font-size: 15px'>暂无播放资源，请稍后再来~</span></h3>";
         } else {
-            //如果有播放资源，则点击量加一，因为搜索的时候已经记录了一次，所以不在点击量中再次记录关键词
+            // 如果有播放资源，则点击量加一，因为搜索的时候已经记录了一次，所以不在点击量中再次记录关键词
             if (!(isset($_GET['s']) && $_GET['s'] == 'search')) {
                 Spider::clickRec('clickHistory', $name);
             }
@@ -177,7 +177,7 @@ echo Common::inform();
             echo '</ul><div style="clear: both;padding-top: .2pc"></div>';
         }
     } else {
-        //如果有播放资源，则点击量加一，因为搜索的时候已经记录了一次，所以不在点击量中再次记录关键词
+        // 如果有播放资源，则点击量加一，因为搜索的时候已经记录了一次，所以不在点击量中再次记录关键词
         if (!(isset($_GET['s']) && $_GET['s'] == 'search')) {
             Spider::clickRec('clickHistory', $name);
         }
@@ -195,7 +195,7 @@ echo Common::inform();
         <iframe onload="iFrameResize()" allowtransparency="true" allowfullscreen="allowfullscreen" id="video"
                 src="other/loading.php"></iframe>
         <script type="text/javascript">
-            var videoFrame = document.getElementById('video');  //全局使用
+            var videoFrame = document.getElementById('video');  // 全局使用
             var videoLink = '<?php echo $default_link; ?>';
             var sets = document.getElementsByClassName('videoA');
 
@@ -205,7 +205,7 @@ echo Common::inform();
         </script>
     </div>
     <script type="text/javascript">
-        // 解析器列表
+        // 播放器列表
         var res = ['https://jiexi.380k.com/?url=', 'https://660e.com/?url=', 'https://jx.lache.me/cc/?url='];
         if ((/(iPhone|iPad|iPod|iOS|Android)/i.test(navigator.userAgent))) {
             var buf = res[0];
@@ -219,12 +219,12 @@ echo Common::inform();
             var parser_id = getCookie('parser');
             var parsers = document.getElementById('parsers');
 
-            var parse_btn = "<span style='font-size: 15px;font-weight: bold'>无法播放请切换解析器</span>";
+            var parse_btn = "<span style='font-size: 15px;font-weight: bold'>播放器：</span>";
             for (var i = 1; i <= res.length; i++) {
                 if (parser_id === i.toString()) {
-                    parse_btn += "<a class='active' onclick='vParser(" + i + ")'>解析器" + i + "</a>";
+                    parse_btn += "<a class='active' onclick='vParser(" + i + ")'>播放器" + i + "</a>";
                 } else {
-                    parse_btn += "<a onclick='vParser(" + i + ")'>解析器" + i + "</a>";
+                    parse_btn += "<a onclick='vParser(" + i + ")'>播放器" + i + "</a>";
                 }
             }
             parsers.innerHTML = parse_btn;
@@ -261,8 +261,8 @@ echo Common::inform();
         }
 
         function vParser(parser_id) {
-            // 使用默认解析器解释时从cookie读取解析源地址，若为空则使用1号解析器；
-            // 若指定了解析器则使用对应解析器解析，并更新cookie
+            // 使用默认播放器解释时从cookie读取播放地址，若为空则使用1号播放器；
+            // 若指定了播放器则使用对应播放器播放，并更新cookie
             if (parser_id === undefined) {
                 parser_id = getCookie('parser');
                 if (parser_id === null) {
@@ -270,7 +270,8 @@ echo Common::inform();
                     setCookie('parser', parser_id);
                 }
             } else {
-                setCookie('parser', parser_id); //保存用户当前使用的解析器
+                // 保存当前使用的播放器
+                setCookie('parser', parser_id);
             }
 
             showParser();
@@ -287,12 +288,14 @@ echo Common::inform();
             setCookie('<?php echo $player; ?>', JSON.stringify(info));
 
             for (var j = 0; j < sets.length; j++) {
-                sets[j].setAttribute('id', '');
+                sets[j].removeAttribute('id');
             }
             sets[i].setAttribute('id', 'cookie');
 
             videoLink = sourceUrl;
-            vParser();    //使用默认解析器解析
+
+            // 使用默认播放器
+            vParser();
         }
 
         var title = document.title;
@@ -323,13 +326,13 @@ echo Common::inform();
             var expireDays = 7;
             var expDate = new Date();
             expDate.setDate(expDate.getDate() + expireDays);
-            //noinspection JSDeprecatedSymbols
+            // noinspection JSDeprecatedSymbols
             document.cookie = cookieKey + "=" + escape(cookieValue) + ("; expires=" + expDate.toGMTString());
         }
 
         function getCookie(cookieKey) {
             var arr, reg = new RegExp("(^| )" + cookieKey + "=([^;]*)(;|$)");
-            //noinspection JSDeprecatedSymbols
+            // noinspection JSDeprecatedSymbols
             return (arr = document.cookie.match(reg)) ? unescape(arr[2]) : null;
         }
     </script>
@@ -341,6 +344,12 @@ echo Common::inform();
     echo "https://www.lifanko.cn/chat/index.php?u=" . $u . '&n=' . $name; ?>></iframe>
 </div>
 <?php echo Common::$history; ?>
+<div id="qus">
+    <span id="qus-btn">无法<br>播放</span>
+    <div id="que-tip">视频无法播放的解决方法：<br>&nbsp;&nbsp;&nbsp;※ 切换上方的 播放器1 或 播放器2 或 播放器3<br>三个播放器均无法播放
+        或 点击按钮无反应：<br>&nbsp;&nbsp;&nbsp;※ 发送邮件：lzw@163.com 或 添加微信：lifanko
+    </div>
+</div>
 <footer>
     <?php
     echo Common::$tip;
@@ -354,7 +363,7 @@ echo Common::inform();
         writable: false
     });
 
-    //搜索功能
+    // 搜索功能
     var search = document.getElementById('searchBox');
     var searchText = document.getElementById('searchText');
 
@@ -366,7 +375,7 @@ echo Common::inform();
         }
     };
 
-    //回车搜索
+    // 回车搜索
     document.onkeydown = function (e) {
         var theEvent = window.event || e;
         var code = theEvent.keyCode || theEvent.which;
@@ -382,17 +391,17 @@ echo Common::inform();
     };
 
     function autoSize(img) {
-        //仅当有资源时才重新调整大小
+        // 仅当有资源时才重新调整大小
         if (img.length) {
-            var height = (img[0].width * 1.4).toFixed(0);   //取宽度
-            for (var i = 0; i < img.length; i++) {  //根据比例统一高度
+            // 根据宽度计算高度，比例 5:7
+            var height = (img[0].width * 1.4).toFixed(0);
+            for (var i = 0; i < img.length; i++) {
                 img[i].style.height = height + 'px'
             }
         }
 
-        //自动调整搜索框大小
+        // 自动调整搜索框大小
         var win_width = document.body.clientWidth - 1050;
-
         if (win_width) {
             if (win_width > 125) {
                 win_width = 125;
@@ -401,14 +410,17 @@ echo Common::inform();
         }
     }
 
-    autoSize([]);  //初始化
+    // 初始化
+    autoSize([]);
+
+    // 显示播放历史
     setTimeout(function () {
-        recover(); //恢复播放
+        recover();
     }, 50);
 
-    window.onresize = function () { //监听
+    window.onresize = function () {
         autoSize([]);
-        //Fixed player size: 16-9
+        // Fixed player size: 16-9
         iFrameResize();
     };
 
@@ -423,7 +435,7 @@ echo Common::inform();
         his_frame.style.right = -300 + "px";
     }
 
-    //百度统计
+    // 百度统计
     var _hmt = _hmt || [];
     (function () {
         var hm = document.createElement("script");

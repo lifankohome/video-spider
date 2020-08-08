@@ -96,7 +96,7 @@ header ul li:hover a {
 .history {
     position: fixed;
     right: 2pc;
-    top: 40%;
+    top: 200px;
     opacity: .8;
 }
 
@@ -108,6 +108,8 @@ header ul li:hover a {
     box-shadow: 1px 1px 5px 0 #777;
     border-radius: 3px;
     transition: all 0.5s 0s;
+    font-size: 14px;
+    font-weight: bold;
 }
 
 @media screen and (max-width: 768px) {

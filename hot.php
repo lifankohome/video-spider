@@ -145,8 +145,8 @@ echo Common::$history;
 
     //回车搜索
     document.onkeydown = function (e) {
-        var theEvent = window.event || e;
-        var code = theEvent.keyCode || theEvent.which;
+        var theEvent = window["event"] || e;
+        var code = theEvent["keyCode"] || theEvent.which;
         if (code === 13) {
             if (search.value) {
                 window.location.href = "search.php?kw=" + search.value;
