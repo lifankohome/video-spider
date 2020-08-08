@@ -92,7 +92,7 @@ if (!empty($info)) {
 
     setTimeout(function () {
         container.style.opacity = '1';
-    }, 1000);
+    }, 2000);
 
     var donate = document.getElementById('donate');
 

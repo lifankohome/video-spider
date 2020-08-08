@@ -37,7 +37,7 @@ $dom = Spider::curl_get_contents($player);
 
 $nameDom = '/<h1>(.*?)<\/h1>/';
 $introDom = '/style="display:none;"><span>简介 ：<\/span><p class="item-desc">([\s\S]*)<a href="#"/';
-$linkDom = '/<a data-daochu=(.*?) class=(.*?) href="(.*?)">/';
+$linkDom = '/<a data-daochu=(.*?) class=(.*?) href="([\S]+)"/';
 $albumDom = '/class="g-playicon s-cover-img" data-daochu="to=(.*?)\s+<img src="(.*?)">/';
 
 preg_match_all($nameDom, $dom, $name);

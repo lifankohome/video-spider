@@ -58,6 +58,7 @@ class Spider
         $dom = self::curl_get_contents('https://www.360kan.com/dianying/list?year=all&area=all&act=all&cat=' . $cat . '&pageno=' . $page);
         $dom .= self::curl_get_contents('https://www.360kan.com/dianying/list?year=all&area=all&act=all&cat=' . $cat . '&pageno=' . ($page + 1));
         $dom .= self::curl_get_contents('https://www.360kan.com/dianying/list?year=all&area=all&act=all&cat=' . $cat . '&pageno=' . ($page + 2));
+        $dom = str_replace('<span class="s1">{if src}{src}{else}为您推荐{/if}</span>', '', $dom);
 
         $movieCatDom = '/<a class="js-tongjip" href=".+year=all&area=all&act=all&cat=(.*?)" target="_self">(.*?)\s/';
 
@@ -180,6 +181,7 @@ class Spider
         $dom = self::curl_get_contents('https://www.360kan.com/dianshi/list.php?year=all&area=all&act=all&cat=' . $cat . '&pageno=' . $page);
         $dom .= self::curl_get_contents('https://www.360kan.com/dianshi/list.php?year=all&area=all&act=all&cat=' . $cat . '&pageno=' . ($page + 1));
         $dom .= self::curl_get_contents('https://www.360kan.com/dianshi/list.php?year=all&area=all&act=all&cat=' . $cat . '&pageno=' . ($page + 2));
+        $dom = str_replace('<span class="s1">{if src}{src}{else}为您推荐{/if}</span>', '', $dom);
 
         $teleplayCatDom = '/<a class="js-tongjip" href=".+year=all&area=all&act=all&cat=(.*?)" target="_self">(.*?)\s/';
 
@@ -247,6 +249,7 @@ class Spider
         $dom = self::curl_get_contents('https://www.360kan.com/zongyi/list?act=all&area=all&cat=' . $cat . '&pageno=' . $page);
         $dom .= self::curl_get_contents('https://www.360kan.com/zongyi/list?act=all&area=all&cat=' . $cat . '&pageno=' . ($page + 1));
         $dom .= self::curl_get_contents('https://www.360kan.com/zongyi/list?act=all&area=all&cat=' . $cat . '&pageno=' . ($page + 2));
+        $dom = str_replace('<span class="s1">{if src}{src}{else}为您推荐{/if}</span>', '', $dom);
 
         $varietyCatDom = '/<a class="js-tongjip" href=".+act=all&area=all&cat=(.*?)" target="_self">(.*?)\s/';
 
@@ -313,6 +316,7 @@ class Spider
 
         $dom = self::curl_get_contents('https://www.360kan.com/dongman/list?year=all&area=all&cat=' . $cat . '&pageno=' . $page);
         $dom .= self::curl_get_contents('https://www.360kan.com/dongman/list?year=all&area=all&cat=' . $cat . '&pageno=' . ($page + 1));
+        $dom = str_replace('<span class="s1">{if src}{src}{else}为您推荐{/if}</span>', '', $dom);
 
         $animeCatDom = '/<a class="js-tongjip" href=".+year=all&area=all&cat=(.*?)" target="_self">(.*?)\s/';
 
