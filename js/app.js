@@ -26,6 +26,7 @@ function autoSize(img) {
             win_width = 125;
         }
         document.getElementById("searchBox").style.width = win_width + 175 + 'px';
+        document.getElementById("holder").style.width = win_width + 197 + 'px';
     }
 }
 
@@ -33,13 +34,48 @@ function autoSize(img) {
 var searchBox = document.getElementById('searchBox');
 var searchText = document.getElementById('searchText');
 
-searchBox.onkeyup = function () {
+//搜索候选
+var holder_timer;
+var holder_list = document.getElementById("holder_list");
+
+function holder() {
     if (searchBox.value) {
-        searchText.innerHTML = "<a onclick='s();' style='cursor: pointer;background-color: #444;color: white;margin-right: -1pc;border-top-right-radius: 5px;border-bottom-right-radius: 5px'>搜索</a>";
+        searchText.innerHTML = "<a href='search.php?kw=" + searchBox.value + "' style='background-color: #444;color: white;margin-right: -1pc;border-top-right-radius: 5px;border-bottom-right-radius: 5px'>搜索</a>";
+
+        holder_list.style.display = 'block';
+
+        clearTimeout(holder_timer);
+        holder_timer = setTimeout(function () {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', 'holder.php?kw=' + searchBox.value, true);
+            xhr.onload = function () {
+                var holder_list = document.getElementById("holder_list");
+                var ret = JSON.parse(this.responseText)
+
+                var holder_list_html = '';
+                if (ret.length) {
+                    for (var i = 0; i < ret.length; i++) {
+                        holder_list_html += "<li title='点击将《" + ret[i] + "》填充进搜索框' onclick='holder_up(\"" + ret[i] + "\")'>" + ret[i] + "</li>";
+                    }
+                } else {
+                    holder_list_html = "<li style='font-size: 12px;text-align: center'>无搜索推荐</li>";
+                }
+
+                holder_list.innerHTML = holder_list_html;
+            }
+            xhr.send();
+        }, 500)
     } else {
         searchText.innerHTML = "<img src='img/yspc.png' alt='tip'>";
+
+        holder_list.style.display = 'none';
     }
-};
+}
+
+function holder_up(kw) {
+    searchBox.value = kw;
+    searchText.innerHTML = "<a href='search.php?kw=" + searchBox.value + "' style='background-color: #444;color: white;margin-right: -1pc;border-top-right-radius: 5px;border-bottom-right-radius: 5px'>搜索</a>";
+}
 
 //回车搜索
 document.onkeydown = function (e) {
@@ -63,7 +99,7 @@ function search() {
     }
 }
 
-// 当元素存在时轮播图片
+//当元素存在时轮播图片
 var ele = document.getElementsByClassName('js-slide-img');
 var nav_index = document.getElementsByClassName('nav_index');
 var index = 0;

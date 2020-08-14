@@ -45,6 +45,15 @@ class Common
         return $Visits->update();
     }
 
+    public static $search_box = "<li id='searchli' style=\"position: relative\">
+            <label for='searchBox'></label>
+            <input type='text' id='searchBox' onkeyup=\"holder()\" placeholder='输入关键词 - 黑科技全网搜索' autocomplete=\"off\">
+            <div id=\"holder\">
+                <ul id=\"holder_list\"></ul>
+            </div>
+            <span id='searchText'><img src='img/yspc.png' style='' alt='yspc'></span>
+        </li>";
+
     public static $ad = "小提示：浏览器输入<span style='color: #F40'>yspc.vip</span>或百度搜索<span style='color: #F40'>“影视爬虫”</span>就可以找到我，聪明人一秒就记住";
 
     public static $history = '<div id="history"><span id="history-btn">播放<br>历史</span><iframe id="history-tip" src="other/history.html"></iframe></div>';

@@ -70,11 +70,13 @@ header ul li:hover a {
 }
 
 #searchBox {
-    margin-left: 1.5pc;
+    margin-left: 14px;
     height: 30px;
     color: #F40;
-    padding: 0 5px;
+    padding: 0 10px;
     outline: none;
+    font-size: 14px;
+    font-weight: 600;
 }
 
 #searchText {
@@ -88,6 +90,26 @@ header ul li:hover a {
     height: 34px;
     position: relative;
     top: 11px;
+}
+
+#holder {
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0.95);
+    left: 15px;
+    top: 54px;
+    z-index: 1;
+}
+
+#holder_list {
+    display: none;
+    padding: 5px;
+}
+
+#holder li {
+    float: none;
+    font-size: 14px;
+    line-height: 24px;
+    padding: 0 6px;
 }
 
 #tip {

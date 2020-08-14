@@ -53,10 +53,7 @@ if (empty($_GET['max'])) { //显示的关键词数量，默认最多显示999个
         <li><a href='teleplay.php'>电视剧</a></li>
         <li><a href='anime.php'>动漫</a></li>
         <li><a href='other/about.html'>说明</a></li>
-        <li id='searchli'>
-            <label for='searchBox'></label><input type='text' id='searchBox' placeholder='输入关键词 - 黑科技全网搜索'>
-            <span id='searchText'><img src='img/yspc.png' style='' alt='yspc'></span>
-        </li>
+        <?php echo Common::$search_box; ?>
     </ul>
 </header>
 <?php
@@ -135,13 +132,47 @@ echo Common::$history;
     var search = document.getElementById('searchBox');
     var searchText = document.getElementById('searchText');
 
-    search.onkeyup = function () {
+    var holder_timer;
+    var holder_list = document.getElementById("holder_list");
+
+    function holder() {
         if (search.value) {
             searchText.innerHTML = "<a href='search.php?kw=" + search.value + "' style='background-color: #444;color: white;margin-right: -1pc;border-top-right-radius: 5px;border-bottom-right-radius: 5px'>搜索</a>";
+
+            holder_list.style.display = 'block';
+
+            clearTimeout(holder_timer);
+            holder_timer = setTimeout(function () {
+                var xhr = new XMLHttpRequest();
+                xhr.open('GET', 'holder.php?kw=' + search.value, true);
+                xhr.onload = function () {
+                    var holder_list = document.getElementById("holder_list");
+                    var ret = JSON.parse(this.responseText)
+
+                    var holder_list_html = '';
+                    if (ret.length) {
+                        for (var i = 0; i < ret.length; i++) {
+                            holder_list_html += "<li title='点击将《" + ret[i] + "》填充进搜索框' onclick='holder_up(\"" + ret[i] + "\")'>" + ret[i] + "</li>";
+                        }
+                    } else {
+                        holder_list_html = "<li style='font-size: 12px;text-align: center'>无搜索推荐</li>";
+                    }
+
+                    holder_list.innerHTML = holder_list_html;
+                }
+                xhr.send();
+            }, 500)
         } else {
             searchText.innerHTML = "<img src='img/yspc.png' alt='tip'>";
+
+            holder_list.style.display = 'none';
         }
-    };
+    }
+
+    function holder_up(kw) {
+        search.value = kw;
+        searchText.innerHTML = "<a href='search.php?kw=" + search.value + "' style='background-color: #444;color: white;margin-right: -1pc;border-top-right-radius: 5px;border-bottom-right-radius: 5px'>搜索</a>";
+    }
 
     //回车搜索
     document.onkeydown = function (e) {
@@ -174,7 +205,8 @@ echo Common::$history;
             if (win_width > 125) {
                 win_width = 125;
             }
-            document.getElementById("searchBox").style.width = win_width + 175 + 'px';
+            document.getElementById("searchBox").style.width = win_width + 190 + 'px';
+            document.getElementById("holder").style.width = win_width + 212 + 'px';
         }
     }
 
@@ -186,14 +218,6 @@ echo Common::$history;
 
     // 播放历史显示控制
     var his_frame = document.getElementById("fra-history");
-
-    function showHistory() {
-        his_frame.style.right = "0px";
-    }
-
-    function hideHistory() {
-        his_frame.style.right = -300 + "px";
-    }
 
     //百度统计
     var _hmt = _hmt || [];

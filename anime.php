@@ -54,10 +54,7 @@ $animeCat = Spider::getAnimeCat();
         <li><a href='teleplay.php'>电视剧</a></li>
         <li class="active"><a href=''>动漫</a></li>
         <li><a href='other/about.html'>说明</a></li>
-        <li id='searchli'>
-            <label for='searchBox'></label><input type='text' id='searchBox' placeholder='输入关键词 - 黑科技全网搜索'>
-            <span id='searchText'><img src='img/yspc.png' style='' alt='yspc'></span>
-        </li>
+        <?php echo Common::$search_box; ?>
     </ul>
 </header>
 <?php
