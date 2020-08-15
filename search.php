@@ -23,7 +23,7 @@ if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
 }
 
 if (empty($_GET['kw'])) {
-    $search = json_decode(Spider::saveInfo('defaultSearch'), true);
+    $search = json_decode(Spider::saveInfo('search_d'), true);
 
     if (empty($search)) {
         $search = Spider::search('老男孩');    //默认搜索
@@ -33,7 +33,7 @@ if (empty($_GET['kw'])) {
 
         $kw = '老男孩';
     } else {
-        $kw = '最新影视';
+        $kw = '最热影视';
     }
 } else {
     $kw = $_GET['kw'];

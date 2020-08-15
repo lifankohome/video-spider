@@ -110,6 +110,11 @@ header ul li:hover a {
     font-size: 14px;
     line-height: 24px;
     padding: 0 6px;
+    cursor: pointer;
+}
+
+#holder li b {
+    color: #F40;
 }
 
 #tip {

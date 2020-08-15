@@ -108,9 +108,7 @@ echo Common::inform();
             <h3>点击量排行榜：</h3>
             <div class="list">
                 <ul style="list-style: decimal">
-                    <?php
-                    echo Spider::getHistory($max, 'clickHistory');
-                    ?>
+                    <?php echo Spider::getHistory($max, 'click'); ?>
                 </ul>
             </div>
         </div>
@@ -152,7 +150,9 @@ echo Common::$history;
                     var holder_list_html = '';
                     if (ret.length) {
                         for (var i = 0; i < ret.length; i++) {
-                            holder_list_html += "<li title='点击将《" + ret[i] + "》填充进搜索框' onclick='holder_up(\"" + ret[i] + "\")'>" + ret[i] + "</li>";
+                            var kw = ret[i].replace('<b>', '');
+                            kw = kw.replace('</b>', '')
+                            holder_list_html += "<li title='点击将《" + kw + "》填充进搜索框' onclick='holder_up(\"" + kw + "\")'>" + ret[i] + "</li>";
                         }
                     } else {
                         holder_list_html = "<li style='font-size: 12px;text-align: center'>无搜索推荐</li>";

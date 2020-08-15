@@ -122,7 +122,6 @@ if (empty($album[2][0])) {
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link type="text/css" rel="stylesheet" href="css/common.css">
     <link type="text/css" rel="stylesheet" href="css/play.css">
-    <script src="https://cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
 </head>
 <body>
 <header>
@@ -153,11 +152,6 @@ echo Common::inform();
         if (empty($sets)) {
             echo "<h3>《" . $name . "》<span style='font-size: 15px'>暂无播放资源，请稍后再来~</span></h3>";
         } else {
-            // 如果有播放资源，则点击量加一，因为搜索的时候已经记录了一次，所以不在点击量中再次记录关键词
-            if (!(isset($_GET['s']) && $_GET['s'] == 'search')) {
-                Spider::clickRec('clickHistory', $name);
-            }
-
             echo "<h3>《" . $name . "》—— 总" . count($sets) . "集</h3><ul>";
 
             // 显示剧集
@@ -174,11 +168,6 @@ echo Common::inform();
             echo '</ul><div style="clear: both;padding-top: .2pc"></div>';
         }
     } else {
-        // 如果有播放资源，则点击量加一，因为搜索的时候已经记录了一次，所以不在点击量中再次记录关键词
-        if (!(isset($_GET['s']) && $_GET['s'] == 'search')) {
-            Spider::clickRec('clickHistory', $name);
-        }
-
         echo "<h3>《" . $name . "》<span style='font-size: 15px'>点击选择源后即可播放</span>";
         foreach ($sets as $key => $val) {
             $num = $key + 1;
@@ -186,6 +175,9 @@ echo Common::inform();
         }
         echo "</h3>";
     }
+
+    // 记录进点击量，无论是否可以解析
+    Spider::clickRec('click', $name);
     ?>
 
     <div class="player">
@@ -361,22 +353,22 @@ echo Common::inform();
     });
 
     // 搜索功能
-    var search = document.getElementById('searchBox');
+    var searchBox = document.getElementById('searchBox');
     var searchText = document.getElementById('searchText');
 
     var holder_timer;
     var holder_list = document.getElementById("holder_list");
 
     function holder() {
-        if (search.value) {
-            searchText.innerHTML = "<a href='search.php?kw=" + search.value + "' style='background-color: #444;color: white;margin-right: -1pc;border-top-right-radius: 5px;border-bottom-right-radius: 5px'>搜索</a>";
+        if (searchBox.value) {
+            searchText.innerHTML = "<a href='search.php?kw=" + searchBox.value + "' style='background-color: #444;color: white;margin-right: -1pc;border-top-right-radius: 5px;border-bottom-right-radius: 5px'>搜索</a>";
 
             holder_list.style.display = 'block';
 
             clearTimeout(holder_timer);
             holder_timer = setTimeout(function () {
                 var xhr = new XMLHttpRequest();
-                xhr.open('GET', 'holder.php?kw=' + search.value, true);
+                xhr.open('GET', 'holder.php?kw=' + searchBox.value, true);
                 xhr.onload = function () {
                     var holder_list = document.getElementById("holder_list");
                     var ret = JSON.parse(this.responseText)
@@ -384,7 +376,9 @@ echo Common::inform();
                     var holder_list_html = '';
                     if (ret.length) {
                         for (var i = 0; i < ret.length; i++) {
-                            holder_list_html += "<li title='点击将《" + ret[i] + "》填充进搜索框' onclick='holder_up(\"" + ret[i] + "\")'>" + ret[i] + "</li>";
+                            var kw = ret[i].replace('<b>', '');
+                            kw = kw.replace('</b>', '')
+                            holder_list_html += "<li title='点击将《" + kw + "》填充进搜索框' onclick='holder_up(\"" + kw + "\")'>" + ret[i] + "</li>";
                         }
                     } else {
                         holder_list_html = "<li style='font-size: 12px;text-align: center'>无搜索推荐</li>";
@@ -402,8 +396,8 @@ echo Common::inform();
     }
 
     function holder_up(kw) {
-        search.value = kw;
-        searchText.innerHTML = "<a href='search.php?kw=" + search.value + "' style='background-color: #444;color: white;margin-right: -1pc;border-top-right-radius: 5px;border-bottom-right-radius: 5px'>搜索</a>";
+        searchBox.value = kw;
+        searchText.innerHTML = "<a href='search.php?kw=" + searchBox.value + "' style='background-color: #444;color: white;margin-right: -1pc;border-top-right-radius: 5px;border-bottom-right-radius: 5px'>搜索</a>";
     }
 
     // 回车搜索
@@ -411,9 +405,9 @@ echo Common::inform();
         var theEvent = window.event || e;
         var code = theEvent.keyCode || theEvent.which;
         if (code === 13) {
-            if (search.value) {
-                window.location.href = "search.php?kw=" + search.value;
-                tip("正在搜索：" + search.value, "12%", 2000, "1", true);
+            if (searchBox.value) {
+                window.location.href = "search.php?kw=" + searchBox.value;
+                tip("正在搜索：" + searchBox.value, "12%", 2000, "1", true);
             } else {
                 window.location.href = "search.php";
                 tip("正在搜索最热视频", "12%", 2000, "1", true);

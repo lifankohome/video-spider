@@ -431,7 +431,7 @@ class Spider
 
     public static function recordSearch($hotWord, $list)
     {
-        $jsonHotSearch = self::saveInfo('searchHistory');
+        $jsonHotSearch = self::saveInfo('search');
 
         if (!empty($jsonHotSearch)) {
             $arrHotSearch = json_decode($jsonHotSearch, true);  //解析为数组格式
@@ -439,7 +439,7 @@ class Spider
                 $arrHotSearch[$hotWord] += 1;
 
                 if ($arrHotSearch[$hotWord] == max($arrHotSearch)) {    //搜索最多的作为默认列表
-                    self::saveInfo('defaultSearch', $list);
+                    self::saveInfo('search_d', $list);
                 }
             } else {  //无记录则在数组中创建
                 $arrHotSearch[$hotWord] = 1;
@@ -449,43 +449,43 @@ class Spider
         } else {  //文件为空
             $arrHotSearch = [$hotWord => 1];
             $jsonHotSearch = json_encode($arrHotSearch);
-            self::saveInfo('defaultSearch', $list);
+            self::saveInfo('search_d', $list);
         }
 
-        self::saveInfo('searchHistory', $jsonHotSearch);
+        self::saveInfo('search', $jsonHotSearch);
     }
 
     public static function saveInfo($dir, $new = '')
     {
-        $filePath = 'Cinema/' . $dir . '.txt';
+        $filePath = 'Cinema/' . $dir . '.json';
 
-        if (file_exists($filePath)) {
-            if (empty($new)) {  //$new为空时是读取状态，不为空时为写入状态
-                //文件不为空时返回文件内容，为空时返回json格式的空
-                if (filesize($filePath)) {
-                    $fp = fopen($filePath, "r");
-                    $fJson = fread($fp, filesize($filePath));     //指定读取大小，这里把整个文件内容读取出来
-                    fclose($fp);
-                } else {
-                    $fJson = '{}';
-                }
-
-                return $fJson;
-            } else {
-                $fp = fopen($filePath, "w");
-                flock($fp, LOCK_EX);
-                fwrite($fp, $new);
-                flock($fp, LOCK_UN);
-                fclose($fp);
-
-                return true;
-            }
+        if (!is_file($filePath)) {
+            file_put_contents($filePath, '');
         }
 
-        return false;
+        if (empty($new)) {  //$new为空时是读取状态，不为空时为写入状态
+            //文件不为空时返回文件内容，为空时返回json格式的空
+            if (filesize($filePath)) {
+                $fp = fopen($filePath, "r");
+                $fJson = fread($fp, filesize($filePath));     //指定读取大小，这里把整个文件内容读取出来
+                fclose($fp);
+            } else {
+                $fJson = '{}';
+            }
+
+            return $fJson;
+        } else {
+            $fp = fopen($filePath, "w");
+            flock($fp, LOCK_EX);
+            fwrite($fp, $new);
+            flock($fp, LOCK_UN);
+            fclose($fp);
+
+            return true;
+        }
     }
 
-    public static function getHistory($max = 10, $dir = 'searchHistory')
+    public static function getHistory($max = 10, $dir = 'search')
     {
         $jsonHotSearch = self::saveInfo($dir);
 
