@@ -44,8 +44,9 @@ function holder_up(kw) {
     searchBox.value = kw;
     searchText.innerHTML = "<a href='search.php?kw=" + searchBox.value + "' style='background-color: #444;color: white;margin-right: -1pc;border-top-right-radius: 5px;border-bottom-right-radius: 5px'>搜索</a>";
 
-    // 在新窗口打开搜索结果
-    window.open('search.php?kw=' + searchBox.value);
+    window.location.href = 'search.php?kw=' + searchBox.value;
+    tip('正在搜索：《' + searchBox.value + '》', "12%", 5000, "1", true);
+    holder_list.style.display = 'none';
 }
 
 //回车搜索
