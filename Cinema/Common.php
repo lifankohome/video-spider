@@ -45,11 +45,11 @@ class Common
         return $Visits->update();
     }
 
-    public static $search_box = "<li id='searchli' style=\"position: relative\">
+    public static $search_box = "<li id='searchli' style='position: relative'>
             <label for='searchBox'></label>
-            <input type='text' id='searchBox' onkeyup=\"holder()\" placeholder='输入关键词 - 黑科技全网搜索' autocomplete=\"off\">
-            <div id=\"holder\">
-                <ul id=\"holder_list\"></ul>
+            <input type='text' id='searchBox' oninput='holder()' placeholder='输入关键词 - 黑科技全网搜索' autocomplete='off'>
+            <div id='holder'>
+                <ul id='holder_list'></ul>
             </div>
             <span id='searchText'><img src='img/yspc.png' style='' alt='yspc'></span>
         </li>";
