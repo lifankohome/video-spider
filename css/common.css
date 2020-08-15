@@ -108,8 +108,8 @@ header ul li:hover a {
 #holder li {
     float: none;
     font-size: 14px;
-    line-height: 24px;
-    padding: 0 6px;
+    line-height: 16px;
+    padding: 6px;
     cursor: pointer;
 }
 

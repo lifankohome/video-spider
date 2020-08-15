@@ -114,6 +114,7 @@ echo Common::inform();
     ?>
 </footer>
 <script type="text/javascript" src="https://cdn.lifanko.cn/js/tip.min.js"></script>
+<script type="text/javascript" src="js/common.js"></script>
 <script type="text/javascript" src="js/app.js"></script>
 <script type="text/javascript" src="js/tip.js"></script>
 </body>

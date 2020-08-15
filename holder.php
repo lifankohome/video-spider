@@ -22,7 +22,7 @@ function getRecord($keyword, $num = 5)
     $res = [];
     $i = 0;
     foreach ($ret as $val) {
-        if (mb_strstr($val, $keyword) !== false) {
+        if (mb_stristr($val, $keyword) !== false) {
             array_push($res, $val);
             if (++$i == $num) {
                 break;
