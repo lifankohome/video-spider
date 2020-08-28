@@ -10,106 +10,20 @@ namespace Cinema;
 
 class Spider
 {
-    private static $moviesCat = array();
-    private static $varietyCat = array();
-    private static $teleplayCat = array();
-    private static $animeCat = array();
-    private static $presentCat = '';
+    const host = 'https://www.360kan.com/';
 
+    public static $filter = null;
     private static $slider = null;
     private static $rank = null;
 
-    public static function getPresentCat()
-    {
-        return self::$presentCat;
-    }
-
-    private static function setPresentCat($presentCat)
-    {
-        self::$presentCat = $presentCat;
-    }
-
-    public static function curl_get_contents($url)
-    {
-        $user_agent = 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.81 Safari/537.36';
-        $ch = curl_init();
-
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_HEADER, false);
-        curl_setopt($ch, CURLOPT_USERAGENT, $user_agent);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); // 获取数据返回
-        curl_setopt($ch, CURLOPT_BINARYTRANSFER, true); // 在启用 CURLOPT_RETURNTRANSFER 时候将获取数据返回
-        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1); // 若发生了跳转则获取跳转后的内容
-        $data = curl_exec($ch);
-        curl_close($ch);
-
-        return $data;
-    }
-
     /**
-     * @param string $cat
-     * @param int $page
-     * @return array
+     * 获取轮播图
+     * @param string $type
+     * @return string|null
      */
-    public static function getMovies($cat = 'all', $page = 1)
-    {
-        $host = 'https://www.360kan.com/dianying/list.php';
-
-        $presentCat = ['all' => '热门推荐', '103' => '喜剧', '100' => '爱情', '106' => '动作', '102' => '恐怖', '104' => '科幻', '112' => '剧情', '105' => '犯罪', '113' => '奇幻', '108' => '战争', '115' => '悬疑', '107' => '动画', '117' => '文艺', '101' => '伦理', '118' => '纪录', '119' => '传记', '120' => '歌舞', '121' => '古装', '122' => '历史', '123' => '惊悚', 'other' => '其他'];
-
-        $dom = self::curl_get_contents($host . '?year=all&area=all&act=all&cat=' . $cat . '&pageno=' . $page);
-        $dom .= self::curl_get_contents($host . '?year=all&area=all&act=all&cat=' . $cat . '&pageno=' . ($page + 1));
-        $dom .= self::curl_get_contents($host . '?year=all&area=all&act=all&cat=' . $cat . '&pageno=' . ($page + 2));
-        $dom = str_replace('<span class="s1">{if src}{src}{else}为您推荐{/if}</span>', '', $dom);
-
-        $movieCatDom = '/\?year=all&area=all&act=all&cat=(\d+|all|other)" target="_self"(.*?)_类型:_(.*?)"/';
-
-        preg_match_all($movieCatDom, $dom, $movieCat);
-
-        $movieCatArr = array();
-        foreach ($movieCat[1] as $key => $val) {
-            $movieCatArr[$val] = $movieCat[3][$key];
-
-            if (count($movieCatArr) == 20) {
-                break;
-            }
-        }
-
-        self::setMoviesCat($movieCatArr);
-        self::setPresentCat($presentCat[$cat]);
-
-        $movieNameDom = '/<span class="s1">(.*?)<\/span>/';
-        $movieScoreDom = '/<span class="hint">[\w]+<\/span>[\s]+(.*?)<\/div>/';
-        $movieYearDom = '/<span class="hint">(.*?)<\/span>/';
-        $movieLinkDom = '/<a class="js-tongjic" href="(.*?)"/';
-        $movieActorDom = '/<p class="star">(.*?)<\/p>/';
-        $movieImgDom = '/<div class="cover g-playicon">\s+<img src="(.*?)">/';
-
-        preg_match_all($movieNameDom, $dom, $movieName);
-        preg_match_all($movieScoreDom, $dom, $movieScore);
-        preg_match_all($movieYearDom, $dom, $movieYear);
-        preg_match_all($movieLinkDom, $dom, $movieLink);
-        preg_match_all($movieActorDom, $dom, $movieActor);
-        preg_match_all($movieImgDom, $dom, $movieImg);
-
-        $movies = array();
-        foreach ($movieName[1] as $key => $value) {
-            $buffer['title'] = $movieName[1][$key];
-            $buffer['point'] = empty($movieScore[1][$key]) ? '无' : $movieScore[1][$key];
-            $buffer['tag'] = $movieYear[1][$key];
-            $buffer['coverpage'] = $movieLink[1][$key];
-            $buffer['desc'] = mb_substr($movieActor[1][$key], 3);
-            $buffer['cover'] = $movieImg[1][$key];
-
-            $movies[$key] = $buffer;
-        }
-
-        return $movies;
-    }
-
     public static function getSlider($type = 'dianying')
     {
-        $dom = self::curl_get_contents('https://www.360kan.com/' . $type . '/index.html');
+        $dom = self::curl_get_contents(self::host . $type . '/index.html');
 
         $offset = 10000;
 
@@ -137,14 +51,18 @@ class Spider
             $slider = mb_substr($dom, $slider_start, $slider_end - $slider_start);
         }
         $slider = str_replace(' href="', ' target="_blank" href="', $slider);
-        self::$slider = '<div class="slider"><ul id="nav"></ul>' . str_replace('https://www.360kan.com', 'play.php?play=', $slider) . '</div>';
+        self::$slider = '<div class="slider"><ul id="nav"></ul>' . str_replace(self::host, 'play.php?play=', $slider) . '</div>';
 
         return self::$slider;
     }
 
+    /**
+     * 获取排行榜
+     * @return string|null
+     */
     public static function getRank()
     {
-        $dom = self::curl_get_contents('https://www.360kan.com/rank/index');
+        $dom = self::curl_get_contents(self::host . 'rank/index');
 
         $rank_start = mb_strpos($dom, '<ul class="p-cat-videolist">', 15000);
         $rank_end = mb_strpos($dom, '</ul>', $rank_start);
@@ -161,121 +79,78 @@ class Spider
         return self::$rank;
     }
 
-    public static function getMoviesCat()
+    /**
+     * 获取电影列表
+     * @param $opt
+     * @return array
+     */
+    public static function getMovies($opt)
     {
-        return self::$moviesCat;
-    }
+        $dom = self::curl_get_contents(self::host . 'dianying/list.php?' . $opt);
 
-    private static function setMoviesCat($moviesCat)
-    {
-        self::$moviesCat = $moviesCat;
+        $filter_start = '<div class="s-filter">';
+        $filter_end = '<div class="js-tab-container"';
+        $filter_start = strpos($dom, $filter_start);
+        $filter_end = strpos($dom, $filter_end, $filter_start) - strlen($filter_end) - 13;
+
+        $filter_buffer = substr($dom, $filter_start, $filter_end - $filter_start);
+        self::$filter = str_replace(self::host . 'dianying/list.php', 'index.php', $filter_buffer);
+
+        $dom .= self::curl_get_contents(self::host . 'dianying/list.php?' . $opt . '&pageno=2');
+        $dom .= self::curl_get_contents(self::host . 'dianying/list.php?' . $opt . '&pageno=3');
+
+        $dom = str_replace('<span class="s1">{if src}{src}{else}为您推荐{/if}</span>', '', $dom);
+
+        $movieNameDom = '/<span class="s1">(.*?)<\/span>/';
+        $movieScoreDom = '/<span class="hint">[\w]+<\/span>[\s]+(.*?)<\/div>/';
+        $movieYearDom = '/<span class="hint">(.*?)<\/span>/';
+        $movieLinkDom = '/<a class="js-tongjic" href="(.*?)"/';
+        $movieActorDom = '/<p class="star">(.*?)<\/p>/';
+        $movieImgDom = '/<div class="cover g-playicon">\s+<img src="(.*?)">/';
+
+        preg_match_all($movieNameDom, $dom, $movieName);
+        preg_match_all($movieScoreDom, $dom, $movieScore);
+        preg_match_all($movieYearDom, $dom, $movieYear);
+        preg_match_all($movieLinkDom, $dom, $movieLink);
+        preg_match_all($movieActorDom, $dom, $movieActor);
+        preg_match_all($movieImgDom, $dom, $movieImg);
+
+        $movies = array();
+        foreach ($movieName[1] as $key => $value) {
+            $buffer['title'] = $movieName[1][$key];
+            $buffer['point'] = empty($movieScore[1][$key]) ? '无' : $movieScore[1][$key];
+            $buffer['tag'] = empty($movieYear[1][$key]) ? '无' : $movieYear[1][$key];
+            $buffer['coverpage'] = $movieLink[1][$key];
+            $buffer['desc'] = mb_substr($movieActor[1][$key], 3);
+            $buffer['cover'] = $movieImg[1][$key];
+
+            $movies[$key] = $buffer;
+        }
+
+        return $movies;
     }
 
     /**
-     * @param string $cat
-     * @param int $page
+     * 获取综艺列表
+     * @param $opt
      * @return array
      */
-    public static function getTeleplays($cat = 'all', $page = 1)
+    public static function getVarieties($opt)
     {
-        $host = 'https://www.360kan.com/dianshi/list.php';
+        $dom = self::curl_get_contents(self::host . 'zongyi/list.php?' . $opt);
 
-        $presentCat = ['all' => '热门推荐', '101' => '言情', '105' => '伦理', '109' => '喜剧', '108' => '悬疑', '111' => '都市', '100' => '偶像', '104' => '古装', '107' => '军事', '103' => '警匪', '112' => '历史', '102' => '宫廷', '116' => '励志', '117' => '神话', '118' => '谍战', '119' => '青春', '120' => '家庭', '115' => '动作', '114' => '情景', '106' => '武侠', '113' => '科幻', 'other' => '其他'];
+        $filter_start = '<div class="s-filter">';
+        $filter_end = '<div class="js-tab-container"';
+        $filter_start = strpos($dom, $filter_start);
+        $filter_end = strpos($dom, $filter_end, $filter_start) - strlen($filter_end) - 9;
 
-        $dom = self::curl_get_contents($host . '?year=all&area=all&act=all&cat=' . $cat . '&pageno=' . $page);
-        $dom .= self::curl_get_contents($host . '?year=all&area=all&act=all&cat=' . $cat . '&pageno=' . ($page + 1));
-        $dom .= self::curl_get_contents($host . '?year=all&area=all&act=all&cat=' . $cat . '&pageno=' . ($page + 2));
+        $filter_buffer = substr($dom, $filter_start, $filter_end - $filter_start);
+        self::$filter = str_replace(self::host . 'zongyi/list.php', 'variety.php', $filter_buffer);
+
+        $dom .= self::curl_get_contents(self::host . 'zongyi/list.php?' . $opt . '&pageno=2');
+        $dom .= self::curl_get_contents(self::host . 'zongyi/list.php?' . $opt . '&pageno=3');
+
         $dom = str_replace('<span class="s1">{if src}{src}{else}为您推荐{/if}</span>', '', $dom);
-
-        $teleplayCatDom = '/\?year=all&area=all&act=all&cat=(\d+|all|other)" target="_self"(.*?)_类型:_(.*?)"/';
-
-        preg_match_all($teleplayCatDom, $dom, $teleplayCat);
-
-        $teleplayCatArr = array();
-        foreach ($teleplayCat[1] as $key => $val) {
-            $teleplayCatArr[$val] = $teleplayCat[3][$key];
-
-            if (count($teleplayCatArr) == 20) {
-                break;
-            }
-        }
-
-        //为了页面美观，仅保留显示前20个分类
-        $teleplayCatArr = array_slice($teleplayCatArr, 0, 20, true);
-
-        self::setTeleplayCat($teleplayCatArr);
-        self::setPresentCat($presentCat[$cat]);
-
-        $tvNameDom = '/<span class="s1">(.*?)<\/span>/';
-        $tvUpdateDom = '/<span class="hint">(.*?)<\/span>/';
-        $tvLinkDom = '/<a class="js-tongjic" href="(.*?)"/';
-        $tvActorDom = '/<p class="star">(.*?)<\/p>/';
-        $tvImgDom = '/<div class="cover g-playicon">\s+<img src="(.*?)">/';
-
-        preg_match_all($tvNameDom, $dom, $tvName);
-        preg_match_all($tvUpdateDom, $dom, $tvUpdate);
-        preg_match_all($tvLinkDom, $dom, $tvLink);
-        preg_match_all($tvActorDom, $dom, $tvActor);
-        preg_match_all($tvImgDom, $dom, $tvImg);
-
-        $teleplays = array();
-        foreach ($tvName[1] as $key => $value) {
-            $buffer['title'] = $tvName[1][$key];
-            $buffer['tag'] = $tvUpdate[1][$key];
-            $buffer['coverpage'] = $tvLink[1][$key];
-            $buffer['desc'] = $tvActor[1][$key];
-            $buffer['cover'] = $tvImg[1][$key];
-
-            $teleplays[$key] = $buffer;
-        }
-
-        return $teleplays;
-    }
-
-    public static function getTeleplayCat()
-    {
-        return self::$teleplayCat;
-    }
-
-    private static function setTeleplayCat($teleplayCat)
-    {
-        self::$teleplayCat = $teleplayCat;
-    }
-
-    /**
-     * @param string $cat
-     * @param int $page
-     * @return array
-     */
-    public static function getVarieties($cat = 'all', $page = 1)
-    {
-        $host = 'https://www.360kan.com/zongyi/list.php';
-
-        $presentCat = ['all' => '热门推荐', '101' => '选秀', '102' => '八卦', '103' => '访谈', '104' => '情感', '105' => '生活', '106' => '晚会', '107' => '搞笑', '108' => '音乐', '109' => '时尚', '110' => '游戏', '111' => '少儿', '112' => '体育', '113' => '纪实', '114' => '科教', '115' => '曲艺', '116' => '歌舞', '117' => '财经', '118' => '汽车', '119' => '播报', 'other' => ''];
-
-        $dom = self::curl_get_contents($host . '?act=all&area=all&cat=' . $cat . '&pageno=' . $page);
-        $dom .= self::curl_get_contents($host . '?act=all&area=all&cat=' . $cat . '&pageno=' . ($page + 1));
-        $dom .= self::curl_get_contents($host . '?act=all&area=all&cat=' . $cat . '&pageno=' . ($page + 2));
-        $dom = str_replace('<span class="s1">{if src}{src}{else}为您推荐{/if}</span>', '', $dom);
-
-        $varietyCatDom = '/\?act=all&area=all&cat=(\d+|all|other)" target="_self"(.*?)_类型:_(.*?)"/';
-
-        preg_match_all($varietyCatDom, $dom, $varietyCat);
-
-        $varietyCatArr = array();
-        foreach ($varietyCat[1] as $key => $val) {
-            //为了页面美观，仅保留分类长度为2个字的综艺
-            if (mb_strlen($varietyCat[3][$key]) <= 2) {
-                $varietyCatArr[$val] = $varietyCat[3][$key];
-            }
-
-            if (count($varietyCatArr) == 20) {
-                break;
-            }
-        }
-
-        self::setVarietyCat($varietyCatArr);
-        self::setPresentCat($presentCat[$cat]);
 
         $varietyNameDom = '/<span class="s1">(.*?)<\/span>/';
         $varietyUpdateDom = '/<span class="hint">(.*?)<\/span>/';
@@ -303,49 +178,74 @@ class Spider
         return $teleplays;
     }
 
-    public static function getVarietyCat()
+    /**
+     * 获取电视剧列表
+     * @param $opt
+     * @return array
+     */
+    public static function getTeleplays($opt)
     {
-        return self::$varietyCat;
-    }
+        $dom = self::curl_get_contents(self::host . 'dianshi/list.php?' . $opt);
 
-    private static function setVarietyCat($varietyCat)
-    {
-        self::$varietyCat = $varietyCat;
+        $filter_start = '<div class="s-filter">';
+        $filter_end = '<div class="js-tab-container"';
+        $filter_start = strpos($dom, $filter_start);
+        $filter_end = strpos($dom, $filter_end, $filter_start) - strlen($filter_end) - 13;
+
+        $filter_buffer = substr($dom, $filter_start, $filter_end - $filter_start);
+        self::$filter = str_replace(self::host . 'dianshi/list.php', 'teleplay.php', $filter_buffer);
+
+        $dom .= self::curl_get_contents(self::host . 'dianshi/list.php?' . $opt . '&pageno=2');
+        $dom .= self::curl_get_contents(self::host . 'dianshi/list.php?' . $opt . '&pageno=3');
+
+        $dom = str_replace('<span class="s1">{if src}{src}{else}为您推荐{/if}</span>', '', $dom);
+
+        $tvNameDom = '/<span class="s1">(.*?)<\/span>/';
+        $tvUpdateDom = '/<span class="hint">(.*?)<\/span>/';
+        $tvLinkDom = '/<a class="js-tongjic" href="(.*?)"/';
+        $tvActorDom = '/<p class="star">(.*?)<\/p>/';
+        $tvImgDom = '/<div class="cover g-playicon">\s+<img src="(.*?)">/';
+
+        preg_match_all($tvNameDom, $dom, $tvName);
+        preg_match_all($tvUpdateDom, $dom, $tvUpdate);
+        preg_match_all($tvLinkDom, $dom, $tvLink);
+        preg_match_all($tvActorDom, $dom, $tvActor);
+        preg_match_all($tvImgDom, $dom, $tvImg);
+
+        $teleplays = array();
+        foreach ($tvName[1] as $key => $value) {
+            $buffer['title'] = $tvName[1][$key];
+            $buffer['tag'] = $tvUpdate[1][$key];
+            $buffer['coverpage'] = $tvLink[1][$key];
+            $buffer['desc'] = $tvActor[1][$key];
+            $buffer['cover'] = $tvImg[1][$key];
+
+            $teleplays[$key] = $buffer;
+        }
+
+        return $teleplays;
     }
 
     /**
-     * @param string $cat
-     * @param int $page
+     * 获取动漫列表
+     * @param $opt
      * @return array
      */
-    public static function getAnimes($cat = 'all', $page = 1)
+    public static function getAnimes($opt)
     {
-        $host = 'https://www.360kan.com/dongman/list.php';
+        $dom = self::curl_get_contents(self::host . 'dongman/list.php?' . $opt);
 
-        $presentCat = ['all' => '最近热播', '100' => '热血', '134' => '科幻', '109' => '魔幻', '135' => '经典', '136' => '励志', '111' => '少儿', '107' => '冒险', '105' => '搞笑', '137' => '推理', '101' => '恋爱', '138' => '治愈', '106' => '幻想', '104' => '校园', '110' => '动物', '112' => '机战', '131' => '亲子', '139' => '儿歌', '103' => '运动', '108' => '悬疑', '113' => '怪物'];
+        $filter_start = '<div class="s-filter">';
+        $filter_end = '<div class="js-tab-container"';
+        $filter_start = strpos($dom, $filter_start);
+        $filter_end = strpos($dom, $filter_end, $filter_start) - strlen($filter_end) - 9;
 
-        $dom = self::curl_get_contents($host . '?year=all&area=all&cat=' . $cat . '&pageno=' . $page);
-        $dom .= self::curl_get_contents($host . '?year=all&area=all&cat=' . $cat . '&pageno=' . ($page + 1));
+        $filter_buffer = substr($dom, $filter_start, $filter_end - $filter_start);
+        self::$filter = str_replace(self::host . 'dongman/list.php', 'anime.php', $filter_buffer);
+
+        $dom .= self::curl_get_contents(self::host . 'dongman/list.php?' . $opt . '&pageno=2');
+
         $dom = str_replace('<span class="s1">{if src}{src}{else}为您推荐{/if}</span>', '', $dom);
-
-        $animeCatDom = '/\?year=all&area=all&cat=(\d+|all|other)" target="_self"(.*?)_类型:_(.*?)"/';
-
-        preg_match_all($animeCatDom, $dom, $animeCat);
-
-        $animeCatArr = array();
-        foreach ($animeCat[1] as $key => $val) {
-            //为了页面美观，仅保留分类长度为2个字的动漫
-            if (mb_strlen($animeCat[3][$key]) <= 2) {
-                $animeCatArr[$val] = $animeCat[3][$key];
-            }
-            // 仅显示20个分类
-            if (count($animeCatArr) == 20) {
-                break;
-            }
-        }
-
-        self::setanimeCat($animeCatArr);
-        self::setPresentCat($presentCat[$cat]);
 
         $animeNameDom = '/<span class="s1">(.*?)<\/span>/';
         $animeUpdateDom = '/<span class="hint">(.*?)<\/span>/';
@@ -372,24 +272,15 @@ class Spider
         return $animes;
     }
 
-    public static function getAnimeCat()
-    {
-        return self::$animeCat;
-    }
-
-    private static function setAnimeCat($animeCat)
-    {
-        self::$animeCat = $animeCat;
-    }
-
     /**
+     * 关键字搜索
      * @param $kw
      * @return array
      */
     public static function search($kw)
     {
         if (empty($kw)) {
-            $dom = self::curl_get_contents('https://www.360kan.com/dianying/list?year=all&area=all&act=all&cat=all');
+            $dom = self::curl_get_contents(self::host . 'dianying/list.php?year=all&area=all&act=all&cat=all');
         } else {
             if (substr($kw, 0, 4) == 'http' || strpos($kw, ".com")) {
                 header("location:parse.php?url=$kw");
@@ -437,6 +328,23 @@ class Spider
         }
 
         return $search;
+    }
+
+    public static function curl_get_contents($url)
+    {
+        $user_agent = 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.81 Safari/537.36';
+        $ch = curl_init();
+
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_HEADER, false);
+        curl_setopt($ch, CURLOPT_USERAGENT, $user_agent);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); // 获取数据返回
+        curl_setopt($ch, CURLOPT_BINARYTRANSFER, true); // 在启用 CURLOPT_RETURNTRANSFER 时候将获取数据返回
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1); // 若发生了跳转则获取跳转后的内容
+        $data = curl_exec($ch);
+        curl_close($ch);
+
+        return $data;
     }
 
     public static function recordSearch($hotWord, $list)

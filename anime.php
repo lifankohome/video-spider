@@ -22,14 +22,7 @@ if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
     include_once('Cinema/Common.php');
 }
 
-if (empty($_GET['cat'])) {
-    $cat = "all";
-} else {
-    $cat = $_GET['cat'];
-}
-
-$animes = Spider::getAnimes($cat);
-$animeCat = Spider::getAnimeCat();
+$animes = Spider::getAnimes($_SERVER["QUERY_STRING"]);
 
 ?>
 <!DOCTYPE html>
@@ -57,31 +50,23 @@ $animeCat = Spider::getAnimeCat();
         <?php echo Common::$search_box; ?>
     </ul>
 </header>
-<?php
-echo "<p class='ad'>" . Common::$ad . Common::visits() . "</p>";
-echo Common::inform();
-?>
+<!--宣传栏-->
+<?php echo "<p class='ad'>" . Common::$ad . Common::visits() . "</p>"; ?>
 
-<div class="cat">
-    <ul>
-        <?php
-        foreach ($animeCat as $key => $val) {
-            echo "<li><a href='anime.php?cat={$key}'>$val</a></li>";
-        }
-        ?>
-    </ul>
-</div>
-<div style="clear: both"></div>
-<!--影视推荐轮播图-->
+<!--广告栏-->
+<?php echo Common::inform(); ?>
+
+<!--轮播图-->
 <?php echo Spider::getSlider('dongman'); ?>
 
-<!--影视排行榜-->
+<!--排行榜-->
 <?php echo Spider::getRank(); ?>
 
+<!--筛选器-->
+<?php echo Spider::$filter; ?>
+
+<!--列表-->
 <div class="videolist">
-    <h3>
-        <?php echo '当前分类：' . Spider::getPresentCat(); ?>
-    </h3>
     <ul>
         <?php
         foreach ($animes as $anime) {

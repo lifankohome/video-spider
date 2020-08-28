@@ -22,14 +22,8 @@ if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
     include_once('Cinema/Common.php');
 }
 
-if (empty($_GET['cat'])) {
-    $cat = "all";
-} else {
-    $cat = $_GET['cat'];
-}
+$teleplays = Spider::getTeleplays($_SERVER["QUERY_STRING"]);
 
-$teleplays = Spider::getTeleplays($cat);
-$teleplayCat = Spider::getTeleplayCat();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -56,31 +50,23 @@ $teleplayCat = Spider::getTeleplayCat();
         <?php echo Common::$search_box; ?>
     </ul>
 </header>
-<?php
-echo "<p class='ad'>" . Common::$ad . Common::visits() . "</p>";
-echo Common::inform();
-?>
+<!--宣传栏-->
+<?php echo "<p class='ad'>" . Common::$ad . Common::visits() . "</p>"; ?>
 
-<div class="cat">
-    <ul>
-        <?php
-        foreach ($teleplayCat as $key => $val) {
-            echo "<li><a href='teleplay.php?cat={$key}'>$val</a></li>";
-        }
-        ?>
-    </ul>
-</div>
-<div style="clear: both"></div>
-<!--影视推荐轮播图-->
+<!--广告栏-->
+<?php echo Common::inform(); ?>
+
+<!--轮播图-->
 <?php echo Spider::getSlider('dianying'); ?>
 
-<!--影视排行榜-->
+<!--排行榜-->
 <?php echo Spider::getRank(); ?>
 
+<!--筛选器-->
+<?php echo Spider::$filter; ?>
+
+<!--列表-->
 <div class="videolist">
-    <h3>
-        <?php  echo '当前分类：' . Spider::getPresentCat(); ?>
-    </h3>
     <ul>
         <?php
         foreach ($teleplays as $teleplay) {

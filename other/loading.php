@@ -70,7 +70,7 @@ if (!empty($info)) {
 <div id="container" style="background-color: rgba(224,222,222,0.5);">
     <img src="../img/logo.png" style="height: 100px;margin-bottom: -40px" alt="logo" class="tiktok">
     <h2 style="display: inline-block;">
-        影视爬虫<span style="font-size: 16px"> v4.6 2020/7/29 12:43更新</span>
+        影视爬虫<span style="font-size: 16px"> v4.7 2020/8/28 23:49更新</span>
     </h2>
     <p style="font-size: 20px;margin: 0">影视爬虫重金购买网址<strong style="color: #467cff;font-size: 30px">yspc.vip</strong>，一秒钟即可记住~
     </p>

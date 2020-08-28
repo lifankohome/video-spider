@@ -1,0 +1,56 @@
+.s-filter {
+    margin-top: 25px;
+    padding: 5px 15px;
+    font-size: 12px;
+    line-height: 12px;
+    border-radius: 5px;
+    background-color: rgba(221, 221, 221, 0.5);
+    box-shadow: 0 2px 4px 0 rgba(202, 193, 193, .12);
+    transition: all 0.3s 0s;
+}
+
+.s-filter:hover {
+    background-color: rgba(221, 221, 221, 0.8);
+}
+
+.s-filter-item {
+    overflow: hidden;
+    height: 18px;
+}
+
+.s-filter-item .item a {
+    color: #333;
+}
+
+.s-filter-item .type {
+    position: absolute;
+    color: #555;
+    line-height: 18px;
+    font-weight: 600;
+}
+
+.s-filter-item .item a, .s-filter-item .item b {
+    float: left;
+    padding: 3px 12px;
+    white-space: nowrap;
+    position: relative;
+}
+
+.s-filter-item .item b.on, .s-filter-item .item a:hover {
+    background: #555;
+    border-radius: 9px;
+    color: #fff;
+}
+
+.s-filter-item .s-hot-icon {
+    position: absolute;
+    top: 0;
+    right: -15px;
+    width: 26px;
+    height: 10px;
+    background: url(../img/filter_hot.png) no-repeat;
+}
+
+.s-filter-item .act {
+    display: none;
+}

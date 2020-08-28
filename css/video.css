@@ -1,39 +1,4 @@
-.cat ul {
-    list-style: none;
-    padding: 0;
-}
-
-.cat ul li {
-    float: left;
-    background-color: rgba(221, 221, 221, 0.5);
-    width: 5%;
-    text-align: center;
-}
-
-.cat ul li:first-child {
-    border-top-left-radius: 5px;
-    border-bottom-left-radius: 5px;
-}
-
-.cat ul li:last-child {
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
-}
-
-.cat ul li a {
-    color: #000000;
-    font-weight: bold;
-    display: inline-block;
-    padding: 1pc;
-}
-
-.cat ul li:hover {
-    background-image: linear-gradient(135deg, #F6D242 10%, #FF52E5 100%);
-}
-
-.cat ul li:hover a {
-    color: whitesmoke;
-}
+@import "filter.css";
 
 .slider {
     margin-top: 15px;
@@ -70,7 +35,7 @@
 
 .rank {
     width: 310px;
-    background-color: rgba(214, 211, 211, 0.3);
+    background-color: rgba(221, 221, 221, 0.3);
     font-size: 14px;
     margin-top: -335px;
     position: relative;
@@ -81,7 +46,7 @@
 }
 
 .rank:hover {
-    background-color: rgba(214, 211, 211, 0.9);
+    background-color: rgba(221, 221, 221, 0.9)
 }
 
 .rank ul {
@@ -92,7 +57,7 @@
 .rank ul li {
     list-style: none;
     height: 30px;
-    border-bottom: 1px solid rgba(240, 240, 240, 0.5);
+    border-bottom: 1px solid rgba(221, 221, 221, 0.5);
 }
 
 .rank ul li:last-child {
@@ -125,6 +90,7 @@
 .rank ul li a .p-cat-videoname {
     width: 190px;
     display: inline-block;
+    text-shadow: 1px 1px 2px white;
 }
 
 .rank ul li a .p-cat-playcount {
@@ -169,10 +135,10 @@
     line-height: 20px;
 }
 
-.videolist h3 {
-    padding-bottom: 5px;
-    border-bottom: 1px #999 solid;
-    margin-bottom: 5px;
+.videolist {
+    border-top: 1px solid #777;
+    margin-top: 15px;
+    padding-top: 7px;
 }
 
 .videolist ul {
