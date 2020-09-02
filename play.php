@@ -328,9 +328,11 @@ echo Common::inform();
     <h3 style="margin-top: -10px">剧情简介：</h3>
     <p style="margin-top: -15px;line-height: 25px">　　<?php echo str_replace("\n", '<br>　　', $intro); ?></p>
 
-    <iframe style="background-color: transparent;padding: unset;height: 555px;margin: -10px 0;"
-            src=<?php $u = substr($play, strpos($play, '/', 1) + 1, -5);
-    echo "https://www.lifanko.cn/chat/index.php?u=" . $u . '&n=' . $name; ?>></iframe>
+    <iframe style="background-color: transparent;padding: unset;height: 555px;margin: -10px 0;" src=<?php
+    $s = strpos($play, '/', 1) + 1;
+    $u = substr($play, $s, strpos($play, '.html') - $s);
+    echo "https://www.lifanko.cn/chat/index.php?u=" . $u . '&n=' . $name;
+    ?>></iframe>
 </div>
 <div id="qus">
     <span id="qus-btn">无法<br>播放</span>
