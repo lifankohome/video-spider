@@ -50,8 +50,16 @@ class Spider
             $slider_end = mb_strpos($dom, '<ul class="b-topslidernew-btns js-slide-btns">', $slider_start);
             $slider = mb_substr($dom, $slider_start, $slider_end - $slider_start);
         }
+
+        // Remove 360's page
+        while ($special_pos = strpos($slider, 'www.360kan.com/special/')) {
+            $special_pos_start = strrpos(substr($slider, 0, $special_pos), '<li');
+            $special_pos_end = strpos($slider, '</li>', $special_pos_start) + 5;
+            $slider = substr($slider, 0, $special_pos_start) . substr($slider, $special_pos_end);
+        }
+
         $slider = str_replace(' href="', ' target="_blank" href="', $slider);
-        self::$slider = '<div class="slider"><ul id="nav"></ul>' . str_replace(self::host, 'play.php?play=', $slider) . '</div>';
+        self::$slider = '<div class="slider"><ul id="nav"></ul>' . str_replace(self::host, 'play.php?play=/', $slider) . '</div>';
 
         return self::$slider;
     }
