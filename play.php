@@ -59,13 +59,13 @@ if (empty($link[3][0])) {
     if (empty($setsA[0])) {
         $isVariety = true;
 
-        $setsLiDom = "/<li\s*title='(.*?)' class='w-newfigure w-newfigure-180x153\s*'><a href='(.*?)'/";
+        $setsLiDom = "/<li\s*title='(.*?)' class='w-newfigure w-newfigure-180x153(.*?)><a href='(.*?)'/";
         preg_match_all($setsLiDom, $dom, $setsLi);
 
-        $offset = array_sea($setsLi[2][0], $setsLi[2], 1);
+        $offset = array_sea($setsLi[3][0], $setsLi[3], 1);
 
-        for ($i = $offset; $i < count($setsLi[2]); $i++) {
-            $sets[$setsLi[1][$i]] = $setsLi[2][$i];
+        for ($i = $offset; $i < count($setsLi[3]); $i++) {
+            $sets[$setsLi[1][$i]] = $setsLi[3][$i];
         }
     } else {
         $isTeleplay = $isAnime = true;
