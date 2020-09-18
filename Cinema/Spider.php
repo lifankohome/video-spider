@@ -79,9 +79,9 @@ class Spider
 
         $rank = str_replace(' href="', ' target="_blank" href="', $rank);
         self::$rank = '<div class="rank"><ul class="p-cat-videolist" style="font-weight: 600">
-        <li class="p-cat-video" style="border-bottom: 1px solid rgba(240, 240, 240, 0.5);">
-            <a><span class="p-cat-rank p-cat-topthree" style="margin-left: 5px"></span><span class="p-cat-videoname">播放量排行榜</span>
-                <span class="p-cat-playcount" style="font-size: 14px">播放量</span></a></li></ul>' .
+        <li class="p-cat-video" style="border-bottom: 1px solid rgba(240, 240, 240, 0.5);background-color: rgba(0, 0, 0, 0);">
+            <a><span class="p-cat-rank p-cat-topthree" style="margin-left: 5px"></span><span class="p-cat-videoname" style="font-size: 16px">播放量排行榜</span>
+                <span class="p-cat-playcount" style="font-size: 16px">点击量</span></a></li></ul>' .
             str_replace('http://www.360kan.com', 'play.php?play=', $rank) . '</div>';
 
         return self::$rank;

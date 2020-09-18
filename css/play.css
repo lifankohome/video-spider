@@ -121,19 +121,6 @@ iframe {
     }
 }
 
-#qus-btn {
-    background-color: rgba(221, 221, 221, 0.7);
-    padding: 7px 12px;
-    display: inline-block;
-    cursor: pointer;
-    box-shadow: 1px 1px 5px 0 #777;
-    border-radius: 3px;
-    transition: all 0.5s 0s;
-    font-size: 14px;
-    font-weight: bold;
-    line-height: 18px;
-}
-
 #que-tip {
     border-radius: 3px;
     position: absolute;

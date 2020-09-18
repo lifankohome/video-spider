@@ -56,11 +56,13 @@ $animes = Spider::getAnimes($_SERVER["QUERY_STRING"]);
 <!--广告栏-->
 <?php echo Common::inform(); ?>
 
-<!--轮播图-->
-<?php echo Spider::getSlider('dongman'); ?>
-
-<!--排行榜-->
-<?php echo Spider::getRank(); ?>
+<div class="s_r">
+    <!--轮播图-->
+    <?php echo Spider::getSlider('dongman'); ?>
+    <div class="s_r_line"></div>
+    <!--排行榜-->
+    <?php echo Spider::getRank(); ?>
+</div>
 
 <!--筛选器-->
 <?php echo Spider::$filter; ?>

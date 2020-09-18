@@ -1,9 +1,13 @@
 @import "filter.css";
 
+.s_r {
+    display: flex;
+    margin: 15px 0;
+}
+
 .slider {
-    margin-top: 15px;
-    margin-bottom: -10px;
     position: relative;
+    width: 100%;
 }
 
 .slider ul {
@@ -33,20 +37,20 @@
     opacity: 1;
 }
 
+.s_r_line {
+    display: flex;
+    width: 10px;
+}
+
 .rank {
-    width: 310px;
-    background-color: rgba(221, 221, 221, 0.3);
+    width: 100%;
+    max-width: 310px;
+    padding: 5px 5px 5px 0;
+    background-color: rgba(0, 0, 0, 0.6);
     font-size: 14px;
-    margin-top: -335px;
     position: relative;
     transition: all 0.2s 0s;
     border-radius: 5px;
-    float: right;
-    margin-right: 5px;
-}
-
-.rank:hover {
-    background-color: rgba(221, 221, 221, 0.9)
 }
 
 .rank ul {
@@ -60,13 +64,17 @@
     border-bottom: 1px solid rgba(221, 221, 221, 0.5);
 }
 
+.rank ul li:hover {
+    background-color: rgba(221, 221, 221, 0.3);
+}
+
 .rank ul li:last-child {
     border-bottom: none;
 }
 
 .rank ul li a {
     text-decoration: none;
-    color: #333;
+    color: #fff;
     line-height: 24px;
     display: inline-block;
     margin: 2px;
@@ -90,14 +98,13 @@
 .rank ul li a .p-cat-videoname {
     width: 190px;
     display: inline-block;
-    text-shadow: 1px 1px 2px white;
 }
 
 .rank ul li a .p-cat-playcount {
     width: 54px;
     display: inline-block;
     font-size: 12px;
-    color: #333;
+    color: #44e5f1;
 }
 
 .rank ul li a .p-cat-trend.p-inc {

@@ -335,7 +335,7 @@ echo Common::inform();
     ?>></iframe>
 </div>
 <div id="qus">
-    <span id="qus-btn">无法<br>播放</span>
+    <span class="float_btn">无法<br>播放</span>
     <div id="que-tip">视频无法播放的解决方法：<br>&nbsp;&nbsp;&nbsp;※ 切换上方的 播放器1 或 播放器2 或 播放器3<br>三个播放器均无法播放
         或 点击按钮无反应：<br>&nbsp;&nbsp;&nbsp;※ 发送邮件：lzw@163.com 或 添加微信：lifanko
     </div>
