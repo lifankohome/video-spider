@@ -37,11 +37,6 @@ if (empty($_GET['max'])) { //显示的关键词数量，默认最多显示999个
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link type="text/css" rel="stylesheet" href="css/common.css">
     <link type="text/css" rel="stylesheet" href="css/hot.css">
-    <style>
-        body {
-            width: 96%;
-        }
-    </style>
 </head>
 <body>
 <header>

@@ -27,6 +27,10 @@ if (!empty($_GET['play'])) {
     if (substr($play, 0, 5) == 'aHR0c') {
         $player = base64_decode($play);
     } else {
+        // 此链接被搜狗高权重收录
+        if ($play == '/m/fqflYhH5RHP0UB.html') {
+            $play = '/m/hKrkakb6SHnASh.html';
+        }
         $player = 'https://www.360kan.com' . $play;
     }
 } else {
@@ -177,7 +181,11 @@ echo Common::inform();
     }
 
     // 记录进点击量，无论是否可以解析
-    Spider::clickRec('click', $name);
+    if ($name != '啊哦，外星人来袭，页面找不到了...') {
+        Spider::clickRec('click', $name);
+    } else {
+        file_put_contents('Cinema/lost_res.txt', $player . '-' . date('y/m H:i:s', time()) . '-' . $_SERVER['REMOTE_ADDR'] . "\n", FILE_APPEND);
+    }
     ?>
 
     <div class="player">

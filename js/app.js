@@ -1,25 +1,14 @@
 /**
  * Created by lifanko  lee on 2017/12/13.
  */
-//在窗口调整时图片大小自动适应
-var img = document.getElementsByClassName('img');
-
-autoSize(img);  //初始化
+autoSize();  //初始化
 
 window.onresize = function () { //监听
-    autoSize(img);
+    autoSize();
 };
 
-function autoSize(img) {
-    //仅当有资源时才重新调整大小
-    if (img.length) {
-        var height = (img[0].width * 1.4).toFixed(0);   //取宽度
-        for (var i = 0; i < img.length; i++) {  //根据比例统一高度
-            img[i].style.height = height + 'px';
-        }
-    }
-
-    //自动调整搜索框大小
+function autoSize() {
+    //自动调整搜索和推荐框大小
     var win_width = document.body.clientWidth - 1050;
 
     if (win_width) {
