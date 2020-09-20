@@ -130,17 +130,10 @@ if (empty($album[2][0])) {
 <body>
 <header>
     <img src='img/logo.png' alt='logo' class="tiktok">
-    <ul>
-        <li><a href='hot.php'>首页</a></li>
-        <li><a href='index.php'>电影</a></li>
-        <li><a href='variety.php'>综艺</a></li>
-        <li><a href='teleplay.php'>电视剧</a></li>
-        <li><a href='anime.php'>动漫</a></li>
-        <li><a href='other/about.html'>说明</a></li>
-        <li style="background-color: rgba(255,0,0,0.5);color: white;line-height: 45px;padding-top: 10px;margin-left: 10px">
-            <a href='http://finance.lifanko.cn' target="_blank"
-               style="font-family: '华文仿宋',sans-serif;color: yellow;text-decoration: none;font-size: 20px;line-height: 25px;">助力理财<br>晫重财经</a>
-        </li>
+    <ul id="menu">
+        <!--菜单-->
+        <?php echo Common::$menu; ?>
+        <!--搜索框-->
         <?php echo Common::$search_box; ?>
     </ul>
 </header>
@@ -363,32 +356,8 @@ echo Common::inform();
         writable: false
     });
 
-    function autoSize(img) {
-        // 仅当有资源时才重新调整大小
-        if (img.length) {
-            // 根据宽度计算高度，比例 5:7
-            var height = (img[0].width * 1.4).toFixed(0);
-            for (var i = 0; i < img.length; i++) {
-                img[i].style.height = height + 'px'
-            }
-        }
-
-        // 自动调整搜索框大小
-        var win_width = document.body.clientWidth - 1050;
-        if (win_width) {
-            if (win_width > 125) {
-                win_width = 125;
-            }
-            document.getElementById("searchBox").style.width = win_width + 165 + 'px';
-            document.getElementById("holder").style.width = win_width + 187 + 'px';
-        }
-    }
-
-    // 初始化
-    autoSize([]);
-
     window.onresize = function () {
-        autoSize([]);
+        autoSize();
         // Fixed player size: 16-9
         iFrameResize();
     };

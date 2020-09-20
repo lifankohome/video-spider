@@ -1,24 +1,10 @@
 /**
  * Created by lifanko  lee on 2017/12/13.
  */
-autoSize();  //初始化
 
 window.onresize = function () { //监听
     autoSize();
 };
-
-function autoSize() {
-    //自动调整搜索和推荐框大小
-    var win_width = document.body.clientWidth - 1050;
-
-    if (win_width) {
-        if (win_width > 125) {
-            win_width = 125;
-        }
-        document.getElementById("searchBox").style.width = win_width + 175 + 'px';
-        document.getElementById("holder").style.width = win_width + 197 + 'px';
-    }
-}
 
 //当元素存在时轮播图片
 var ele = document.getElementsByClassName('js-slide-img');

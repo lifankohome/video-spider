@@ -5,6 +5,22 @@ var searchText = document.getElementById('searchText');
 var holder_timer;
 var holder_list = document.getElementById("holder_list");
 
+// 初始化
+autoSize();
+
+function autoSize() {
+    //自动调整搜索和推荐框大小
+    var win_width = document.body.clientWidth - 1030;
+
+    if (win_width) {
+        if (win_width > 125) {
+            win_width = 125;
+        }
+        document.getElementById("searchBox").style.width = win_width + 175 + 'px';
+        document.getElementById("holder").style.width = win_width + 197 + 'px';
+    }
+}
+
 function holder() {
     if (searchBox.value) {
         searchText.innerHTML = "<a href='search.php?kw=" + searchBox.value + "' style='background-color: #444;color: white;margin-right: -1pc;border-top-right-radius: 5px;border-bottom-right-radius: 5px'>搜索</a>";

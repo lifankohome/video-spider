@@ -45,6 +45,14 @@ class Common
         return $Visits->update();
     }
 
+    public static string $menu = "<li><a href='hot.php'>首页</a></li>
+        <li><a href='index.php'>电影</a></li>
+        <li><a href='variety.php'>综艺</a></li>
+        <li><a href='teleplay.php'>电视剧</a></li>
+        <li><a href='anime.php'>动漫</a></li>
+        <li><a href='other/about.html' target='_blank'>说明</a></li>
+        <li><a href='http://yspc.vip' class='donate' target='_blank'>💕打赏💕</a></li>";
+
     public static $search_box = "<li id='searchli' style='position: relative'>
             <label for='searchBox'></label>
             <input type='text' id='searchBox' oninput='holder()' placeholder='输入关键词 - 黑科技全网搜索' autocomplete='off'>

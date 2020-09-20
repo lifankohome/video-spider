@@ -40,13 +40,10 @@ $movies = Spider::getMovies($_SERVER["QUERY_STRING"]);
 <body>
 <header>
     <img src='img/logo.png' alt='logo' class="tiktok">
-    <ul>
-        <li><a href='hot.php'>首页</a></li>
-        <li class="active"><a href='index.php'>电影</a></li>
-        <li><a href='variety.php'>综艺</a></li>
-        <li><a href='teleplay.php'>电视剧</a></li>
-        <li><a href='anime.php'>动漫</a></li>
-        <li><a href='other/about.html'>说明</a></li>
+    <ul id="menu">
+        <!--菜单-->
+        <?php echo Common::$menu; ?>
+        <!--搜索框-->
         <?php echo Common::$search_box; ?>
     </ul>
 </header>
