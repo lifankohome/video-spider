@@ -183,10 +183,13 @@ header ul li:hover a {
 }
 
 .inform {
-    background-image: linear-gradient(135deg, #F6D242 10%, #FF52E5 100%);
-    text-align: center;
+    background-image: linear-gradient(135deg, #f9a4e2 10%, #90c1f3 100%);
     font-size: 20px;
-    padding: 15px 10px;
+    padding: 15px 2pc;
     border-radius: 5px;
-    color: #692197;
+    display: inline-block;
+}
+
+.inform a {
+    color: blue;
 }

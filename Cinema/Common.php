@@ -45,7 +45,7 @@ class Common
         return $Visits->update();
     }
 
-    public static string $menu = "<li><a href='hot.php'>首页</a></li>
+    public static $menu = "<li><a href='hot.php'>首页</a></li>
         <li><a href='index.php'>电影</a></li>
         <li><a href='variety.php'>综艺</a></li>
         <li><a href='teleplay.php'>电视剧</a></li>
