@@ -111,13 +111,11 @@ class Spider
         $dom .= self::curl_get_contents(self::host . 'dianying/list.php?' . $opt . '&pageno=2');
         $dom .= self::curl_get_contents(self::host . 'dianying/list.php?' . $opt . '&pageno=3');
 
-        $dom = str_replace('<span class="s1">{if src}{src}{else}为您推荐{/if}</span>', '', $dom);
-
-        $movieNameDom = '/<span class="s1">(.*?)<\/span>/';
+        $movieNameDom = '/<span class="s1">[^{](.*?)<\/span>/';
         $movieScoreDom = '/<span class="hint">[\w]+<\/span>[\s]+(.*?)<\/div>/';
         $movieYearDom = '/<span class="hint">(.*?)<\/span>/';
         $movieLinkDom = '/<a class="js-tongjic" href="(.*?)"/';
-        $movieActorDom = '/<p class="star">(.*?)<\/p>/';
+        $movieActorDom = '/<p class="star">主演：\s?(.*?)<\/p>/';
         $movieImgDom = '/<div class="cover g-playicon">\s+<img src="(.*?)">/';
 
         preg_match_all($movieNameDom, $dom, $movieName);
@@ -129,11 +127,11 @@ class Spider
 
         $movies = array();
         foreach ($movieName[1] as $key => $value) {
-            $buffer['title'] = $movieName[1][$key];
+            $buffer['title'] = substr($movieName[0][$key], 17, -7);
             $buffer['point'] = empty($movieScore[1][$key]) ? '无' : $movieScore[1][$key];
             $buffer['tag'] = empty($movieYear[1][$key]) ? '无' : $movieYear[1][$key];
             $buffer['coverpage'] = $movieLink[1][$key];
-            $buffer['desc'] = mb_substr($movieActor[1][$key], 3);
+            $buffer['desc'] = $movieActor[1][$key];
             $buffer['cover'] = $movieImg[1][$key];
 
             $movies[$key] = $buffer;
@@ -162,12 +160,10 @@ class Spider
         $dom .= self::curl_get_contents(self::host . 'zongyi/list.php?' . $opt . '&pageno=2');
         $dom .= self::curl_get_contents(self::host . 'zongyi/list.php?' . $opt . '&pageno=3');
 
-        $dom = str_replace('<span class="s1">{if src}{src}{else}为您推荐{/if}</span>', '', $dom);
-
-        $varietyNameDom = '/<span class="s1">(.*?)<\/span>/';
+        $varietyNameDom = '/<span class="s1">[^{](.*?)<\/span>/';
         $varietyUpdateDom = '/<span class="hint">(.*?)<\/span>/';
         $varietyLinkDom = '/<a class="js-tongjic" href="(.*?)"/';
-        $varietyActorDom = '/<p class="star">(.*?)<\/p>/';
+        $varietyActorDom = '/<p class="star">[^{](.*?)<\/p>/';
         $varietyImgDom = '/<div class="cover g-playicon">\s+<img src="(.*?)">/';
 
         preg_match_all($varietyNameDom, $dom, $varietyName);
@@ -178,10 +174,10 @@ class Spider
 
         $teleplays = array();
         foreach ($varietyName[1] as $key => $value) {
-            $buffer['title'] = $varietyName[1][$key];
+            $buffer['title'] = substr($varietyName[0][$key], 17, -7);
             $buffer['tag'] = $varietyUpdate[1][$key];
             $buffer['coverpage'] = $varietyLink[1][$key];
-            $buffer['desc'] = $varietyActor[1][$key];
+            $buffer['desc'] = substr($varietyActor[0][$key], 16, -7);
             $buffer['cover'] = $varietyImg[1][$key];
 
             $teleplays[$key] = $buffer;
@@ -210,12 +206,10 @@ class Spider
         $dom .= self::curl_get_contents(self::host . 'dianshi/list.php?' . $opt . '&pageno=2');
         $dom .= self::curl_get_contents(self::host . 'dianshi/list.php?' . $opt . '&pageno=3');
 
-        $dom = str_replace('<span class="s1">{if src}{src}{else}为您推荐{/if}</span>', '', $dom);
-
-        $tvNameDom = '/<span class="s1">(.*?)<\/span>/';
+        $tvNameDom = '/<span class="s1">[^{](.*?)<\/span>/';
         $tvUpdateDom = '/<span class="hint">(.*?)<\/span>/';
         $tvLinkDom = '/<a class="js-tongjic" href="(.*?)"/';
-        $tvActorDom = '/<p class="star">(.*?)<\/p>/';
+        $tvActorDom = '/<p class="star">主演：\s?(.*?)<\/p>/';
         $tvImgDom = '/<div class="cover g-playicon">\s+<img src="(.*?)">/';
 
         preg_match_all($tvNameDom, $dom, $tvName);
@@ -226,7 +220,7 @@ class Spider
 
         $teleplays = array();
         foreach ($tvName[1] as $key => $value) {
-            $buffer['title'] = $tvName[1][$key];
+            $buffer['title'] = substr($tvName[0][$key], 17, -7);
             $buffer['tag'] = $tvUpdate[1][$key];
             $buffer['coverpage'] = $tvLink[1][$key];
             $buffer['desc'] = $tvActor[1][$key];

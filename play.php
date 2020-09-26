@@ -31,7 +31,7 @@ if (!empty($_GET['play'])) {
         if ($play == '/m/fqflYhH5RHP0UB.html') {
             $play = '/m/hKrkakb6SHnASh.html';
         }
-        $player = 'https://www.360kan.com' . $play;
+        $player = 'http://www.360kan.com' . $play;
     }
 } else {
     die("<h2>无效的播放链接，将自动返回主页...<script>setTimeout(function() {window.location='index.php';},1500)</script></h2>");

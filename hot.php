@@ -66,9 +66,7 @@ echo Common::inform();
     <p>感谢
         <?php
         $filename = 'https://www.lifanko.cn/other/donate.json';
-
         $donate = file_get_contents($filename);
-
         $donate = json_decode($donate);
 
         $nickname = '';

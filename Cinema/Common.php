@@ -32,7 +32,7 @@ class Common
                 return false;
             }
 
-            return "<div class='inform'>" . $inform->content . "</div>";
+            return "<div style='text-align: center'><div class='inform'>" . $inform->content . "</div></div>";
         } else {
             return false;
         }
