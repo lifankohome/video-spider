@@ -145,6 +145,13 @@ echo Common::inform();
 <div class="container">
     <div id='parsers'></div>
     <?php
+    if ($name == '啊哦，外星人来袭，页面找不到了...') {
+        file_put_contents('Cinema/lost_res.txt', $player . ' - ' . date('y/m/d H:i:s', time()) . ' - ' . $_SERVER['REMOTE_ADDR'] . "\n", FILE_APPEND);
+        $name = '本视频查询到高速播放通道，刷新页面即可自动接入';
+    } else {
+        Spider::clickRec('click', $name);
+    }
+
     if (empty($isMovie)) {
         if (empty($sets)) {
             echo "<h3>《" . $name . "》<span style='font-size: 15px'>暂无播放资源，请稍后再来~</span></h3>";
@@ -171,13 +178,6 @@ echo Common::inform();
             echo "<a class='videoA' onclick='playUrl(\"{$val}\", \"{$key}\")'>{$num}号源</a>";
         }
         echo "</h3>";
-    }
-
-    // 记录进点击量，无论是否可以解析
-    if ($name != '啊哦，外星人来袭，页面找不到了...') {
-        Spider::clickRec('click', $name);
-    } else {
-        file_put_contents('Cinema/lost_res.txt', $player . '-' . date('y/m H:i:s', time()) . '-' . $_SERVER['REMOTE_ADDR'] . "\n", FILE_APPEND);
     }
     ?>
 
