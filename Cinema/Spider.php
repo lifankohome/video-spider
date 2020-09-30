@@ -140,7 +140,8 @@ class Spider
             $dom .= self::curl_get_contents(self::host . 'dianying/list.php?' . $opt . '&pageno=3');
 
             $movieNameDom = '/<span class="s1">[^{](.*?)<\/span>/';
-            $movieScoreDom = '/<span class="hint">[\w]+<\/span>[\s]+(.*?)<\/div>/';
+            $movieScoreDom = '/<span class="hint">[\w]+<\/span>[\s]+(.*?)\s*<\/div>/';
+            $moviePayDom = '/<div class="cover g-playicon">\s+<img.*\s+(.*?)\s+<div/';
             $movieYearDom = '/<span class="hint">(.*?)<\/span>/';
             $movieLinkDom = '/<a class="js-tongjic" href="(.*?)"/';
             $movieActorDom = '/<p class="star">主演：\s?(.*?)<\/p>/';
@@ -148,6 +149,7 @@ class Spider
 
             preg_match_all($movieNameDom, $dom, $movieName);
             preg_match_all($movieScoreDom, $dom, $movieScore);
+            preg_match_all($moviePayDom, $dom, $moviePay);
             preg_match_all($movieYearDom, $dom, $movieYear);
             preg_match_all($movieLinkDom, $dom, $movieLink);
             preg_match_all($movieActorDom, $dom, $movieActor);
@@ -156,7 +158,7 @@ class Spider
             $movies = array();
             foreach ($movieName[1] as $key => $value) {
                 $buffer['title'] = substr($movieName[0][$key], 17, -7);
-                $buffer['point'] = empty($movieScore[1][$key]) ? '无' : $movieScore[1][$key];
+                $buffer['point'] = (empty($movieScore[1][$key]) ? '无' : $movieScore[1][$key]) . (empty($moviePay[1][$key]) ? '' : '<span class="pay">其它网站付费5元观看</span>');
                 $buffer['tag'] = empty($movieYear[1][$key]) ? '无' : $movieYear[1][$key];
                 $buffer['coverpage'] = $movieLink[1][$key];
                 $buffer['desc'] = $movieActor[1][$key];

@@ -233,6 +233,11 @@
     text-align: center;
 }
 
+.pay {
+    text-decoration: line-through;
+    margin-left: 5px;
+}
+
 .letter {
     animation: bounce .75s cubic-bezier(0.05, 0, 0.2, 1) infinite alternate;
     display: inline-block;
