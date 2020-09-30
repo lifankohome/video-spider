@@ -180,42 +180,54 @@ class Spider
      */
     public static function getVarieties($opt)
     {
-        $dom = self::curl_get_contents(self::host . 'zongyi/list.php?' . $opt);
+        $temp = new Temp('Varieties_' . $opt);
+        $res = $temp->get();
 
-        $filter_start = '<div class="s-filter">';
-        $filter_end = '<div class="js-tab-container"';
-        $filter_start = strpos($dom, $filter_start);
-        $filter_end = strpos($dom, $filter_end, $filter_start) - strlen($filter_end) - 9;
+        if ($res) {
+            self::$filter = $res['filter'];
 
-        $filter_buffer = substr($dom, $filter_start, $filter_end - $filter_start);
-        self::$filter = str_replace(self::host . 'zongyi/list.php', 'variety.php', $filter_buffer);
+            return $res['list'];
+        } else {
+            $dom = self::curl_get_contents(self::host . 'zongyi/list.php?' . $opt);
 
-        $dom .= self::curl_get_contents(self::host . 'zongyi/list.php?' . $opt . '&pageno=2');
-        $dom .= self::curl_get_contents(self::host . 'zongyi/list.php?' . $opt . '&pageno=3');
+            $filter_start = '<div class="s-filter">';
+            $filter_end = '<div class="js-tab-container"';
+            $filter_start = strpos($dom, $filter_start);
+            $filter_end = strpos($dom, $filter_end, $filter_start) - strlen($filter_end) - 9;
 
-        $varietyNameDom = '/<span class="s1">[^{](.*?)<\/span>/';
-        $varietyUpdateDom = '/<span class="hint">(.*?)<\/span>/';
-        $varietyLinkDom = '/<a class="js-tongjic" href="(.*?)"/';
-        $varietyActorDom = '/<p class="star">[^{](.*?)<\/p>/';
-        $varietyImgDom = '/<div class="cover g-playicon">\s+<img src="(.*?)">/';
+            $filter_buffer = substr($dom, $filter_start, $filter_end - $filter_start);
+            self::$filter = str_replace(self::host . 'zongyi/list.php', 'variety.php', $filter_buffer);
 
-        preg_match_all($varietyNameDom, $dom, $varietyName);
-        preg_match_all($varietyUpdateDom, $dom, $varietyUpdate);
-        preg_match_all($varietyLinkDom, $dom, $varietyLink);
-        preg_match_all($varietyActorDom, $dom, $varietyActor);
-        preg_match_all($varietyImgDom, $dom, $varietyImg);
+            $dom .= self::curl_get_contents(self::host . 'zongyi/list.php?' . $opt . '&pageno=2');
+            $dom .= self::curl_get_contents(self::host . 'zongyi/list.php?' . $opt . '&pageno=3');
 
-        $varieties = array();
-        foreach ($varietyName[1] as $key => $value) {
-            $buffer['title'] = substr($varietyName[0][$key], 17, -7);
-            $buffer['tag'] = $varietyUpdate[1][$key];
-            $buffer['coverpage'] = $varietyLink[1][$key];
-            $buffer['desc'] = substr($varietyActor[0][$key], 16, -7);
-            $buffer['cover'] = $varietyImg[1][$key];
+            $varietyNameDom = '/<span class="s1">[^{](.*?)<\/span>/';
+            $varietyUpdateDom = '/<span class="hint">(.*?)<\/span>/';
+            $varietyLinkDom = '/<a class="js-tongjic" href="(.*?)"/';
+            $varietyActorDom = '/<\/span>\s+<\/p>\s+(<p class="star">[^{](.*?)<\/p>)?\s{22,}<\/div>/';
+            $varietyImgDom = '/<div class="cover g-playicon">\s+<img src="(.*?)">/';
 
-            $varieties[$key] = $buffer;
+            preg_match_all($varietyNameDom, $dom, $varietyName);
+            preg_match_all($varietyUpdateDom, $dom, $varietyUpdate);
+            preg_match_all($varietyLinkDom, $dom, $varietyLink);
+            preg_match_all($varietyActorDom, $dom, $varietyActor);
+            preg_match_all($varietyImgDom, $dom, $varietyImg);
+
+            $varieties = array();
+            foreach ($varietyName[1] as $key => $value) {
+                $buffer['title'] = substr($varietyName[0][$key], 17, -7);
+                $buffer['tag'] = $varietyUpdate[1][$key];
+                $buffer['coverpage'] = $varietyLink[1][$key];
+                $buffer['desc'] = empty($varietyActor[1][$key]) ? '暂无简介' : substr($varietyActor[1][$key], 16, -4);
+                $buffer['cover'] = $varietyImg[1][$key];
+
+                $varieties[$key] = $buffer;
+            }
+
+            $temp->save(['filter' => self::$filter, 'list' => $varieties]);
+
+            return $varieties;
         }
-        return $varieties;
     }
 
     /**

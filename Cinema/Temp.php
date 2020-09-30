@@ -39,8 +39,13 @@ class Temp
     {
         if (is_file($this->filename())) {
             $res = file_get_contents($this->filename());
-            $res = json_decode($res, true);
+            if (empty($res)) {
+                $this->del();
 
+                return false;
+            }
+
+            $res = json_decode($res, true);
             if ($res['keep'] > $this->time) {
                 return $res['obj'];
             } else {
