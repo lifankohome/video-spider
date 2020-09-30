@@ -33,6 +33,7 @@ if (!empty($_GET['play'])) {
         }
         $player = 'http://www.360kan.com' . $play;
     }
+    $player = substr($player, 0, strpos($player, '.html') + 5);
 } else {
     die("<h2>无效的播放链接，将自动返回主页...<script>setTimeout(function() {window.location='index.php';},1500)</script></h2>");
 }
@@ -147,7 +148,7 @@ echo Common::inform();
     <?php
     if ($name == '啊哦，外星人来袭，页面找不到了...') {
         file_put_contents('Cinema/lost_res.txt', $player . ' - ' . date('y/m/d H:i:s', time()) . ' - ' . $_SERVER['REMOTE_ADDR'] . "\n", FILE_APPEND);
-        $name = '本视频查询到高速播放通道，刷新页面即可自动接入';
+        $name = '视频暂时无法播放，请稍后再来';
     } else {
         Spider::clickRec('click', $name);
     }

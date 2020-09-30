@@ -62,7 +62,7 @@ class Common
             <span id='searchText'><img src='img/yspc.png' style='' alt='yspc'></span>
         </li>";
 
-    public static $ad = "小提示：浏览器输入<span style='color: #F40'>yspc.vip</span>或百度搜索<span style='color: #F40'>“影视爬虫”</span>就可以找到我，聪明人一秒就记住";
+    public static $ad = "小提示：浏览器输入<span style='color: #44e5f1'>yspc.vip</span>或百度搜索<span style='color: #44e5f1'>“影视爬虫”</span>就可以找到我，聪明人一秒就记住";
 
     public static $history = '<div id="history"><span class="float_btn">播放<br>历史</span><iframe id="history-tip" src="other/history.html"></iframe></div>';
 
