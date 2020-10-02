@@ -158,7 +158,7 @@ class Spider
             $movies = array();
             foreach ($movieName[1] as $key => $value) {
                 $buffer['title'] = substr($movieName[0][$key], 17, -7);
-                $buffer['point'] = (empty($movieScore[1][$key]) ? '无' : $movieScore[1][$key]) . (empty($moviePay[1][$key]) ? '' : '<span class="pay">其它网站付费5元观看</span>');
+                $buffer['point'] = (empty($movieScore[1][$key]) ? '暂无评分' : $movieScore[1][$key]) . (empty($moviePay[1][$key]) ? '' : '<span class="pay">付费</span>');
                 $buffer['tag'] = empty($movieYear[1][$key]) ? '无' : $movieYear[1][$key];
                 $buffer['coverpage'] = $movieLink[1][$key];
                 $buffer['desc'] = $movieActor[1][$key];
