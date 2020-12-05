@@ -197,12 +197,8 @@ echo Common::inform();
     </div>
     <script type="text/javascript">
         // 播放器列表
-        var res = ['https://jiexi.380k.com/?url=', 'https://660e.com/?url=', 'https://jx.lache.me/cc/?url='];
-        if ((/(iPhone|iPad|iPod|iOS|Android)/i.test(navigator.userAgent))) {
-            var buf = res[0];
-            res[0] = res[2];
-            res[2] = buf;
-        }
+        // var res = ['https://jiexi.380k.com/?url=', 'https://660e.com/?url=', 'https://jx.lache.me/cc/?url='];
+        var res = ['https://660e.com/?url=', 'https://jiexi.380k.com/?url='];
 
         showParser();
 
@@ -256,7 +252,7 @@ echo Common::inform();
             // 若指定了播放器则使用对应播放器播放，并更新cookie
             if (parser_id === undefined) {
                 parser_id = getCookie('parser');
-                if (parser_id === null) {
+                if (parser_id === null || parser_id > res.length) {
                     parser_id = 1;
                     setCookie('parser', parser_id);
                 }
@@ -339,7 +335,7 @@ echo Common::inform();
 <div id="qus">
     <span class="float_btn">无法<br>播放</span>
     <div id="que-tip">视频无法播放的解决方法：<br>&nbsp;&nbsp;&nbsp;※ 切换上方的 播放器1 或 播放器2 或 播放器3<br>三个播放器均无法播放
-        或 点击按钮无反应：<br>&nbsp;&nbsp;&nbsp;※ 发送邮件：lzw@163.com 或 添加微信：lifanko
+        或 点击按钮无反应：<br>&nbsp;&nbsp;&nbsp;※ 发送视频出错信息至邮箱：lzw@lifanko.cn 或 添加微信：lifanko
     </div>
 </div>
 <?php echo Common::$history; ?>

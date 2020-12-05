@@ -103,7 +103,7 @@ class Spider
             <li class="p-cat-video" style="border-bottom: 1px solid rgba(240, 240, 240, 0.5);background-color: rgba(0, 0, 0, 0);">
                 <a><span class="p-cat-rank p-cat-topthree" style="margin-left: 5px"></span><span class="p-cat-videoname" style="font-size: 16px">播放量排行榜</span>
                     <span class="p-cat-playcount" style="font-size: 16px">点击量</span></a></li></ul>' .
-                str_replace('http://www.360kan.com', 'play.php?play=', $rank) . '</div>';
+                str_replace(self::host, 'play.php?play=/', $rank) . '</div>';
 
             $temp->save(self::$rank);
         }
@@ -131,7 +131,7 @@ class Spider
             $filter_start = '<div class="s-filter">';
             $filter_end = '<div class="js-tab-container"';
             $filter_start = strpos($dom, $filter_start);
-            $filter_end = strpos($dom, $filter_end, $filter_start) - strlen($filter_end) - 13;
+            $filter_end = strpos($dom, $filter_end, $filter_start);
 
             $filter_buffer = substr($dom, $filter_start, $filter_end - $filter_start);
             self::$filter = str_replace(self::host . 'dianying/list.php', 'index.php', $filter_buffer);
@@ -193,7 +193,7 @@ class Spider
             $filter_start = '<div class="s-filter">';
             $filter_end = '<div class="js-tab-container"';
             $filter_start = strpos($dom, $filter_start);
-            $filter_end = strpos($dom, $filter_end, $filter_start) - strlen($filter_end) - 9;
+            $filter_end = strpos($dom, $filter_end, $filter_start);
 
             $filter_buffer = substr($dom, $filter_start, $filter_end - $filter_start);
             self::$filter = str_replace(self::host . 'zongyi/list.php', 'variety.php', $filter_buffer);
@@ -250,7 +250,7 @@ class Spider
             $filter_start = '<div class="s-filter">';
             $filter_end = '<div class="js-tab-container"';
             $filter_start = strpos($dom, $filter_start);
-            $filter_end = strpos($dom, $filter_end, $filter_start) - strlen($filter_end) - 13;
+            $filter_end = strpos($dom, $filter_end, $filter_start);
 
             $filter_buffer = substr($dom, $filter_start, $filter_end - $filter_start);
             self::$filter = str_replace(self::host . 'dianshi/list.php', 'teleplay.php', $filter_buffer);
@@ -308,7 +308,7 @@ class Spider
             $filter_start = '<div class="s-filter">';
             $filter_end = '<div class="js-tab-container"';
             $filter_start = strpos($dom, $filter_start);
-            $filter_end = strpos($dom, $filter_end, $filter_start) - strlen($filter_end) - 9;
+            $filter_end = strpos($dom, $filter_end, $filter_start);
 
             $filter_buffer = substr($dom, $filter_start, $filter_end - $filter_start);
             self::$filter = str_replace(self::host . 'dongman/list.php', 'anime.php', $filter_buffer);
