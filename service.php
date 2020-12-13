@@ -20,7 +20,11 @@ if (isset($_GET['feedback'])) {
     $body .= '<div><b>联系方式：</b>' . $_GET['Num'] . '</div>';
     $body .= '<div><b>链接：</b><a href="' . $_GET['Link'] . '">' . $_GET['Link'] . '</a></div>';
 
-    $res = send('收到新的反馈消息', $body);
+    $config = file_get_contents('config.json');
+    $config = json_decode($config, true);
+    if ($config['email']['inform']) {
+        $res = send('收到新的反馈消息', $body, $config['email']);
+    }
 
     $info .= $res ? '&Send=OK' : '&Send=Fail';
     echo file_put_contents($path, $info . "\n", FILE_APPEND) ? 1 : 0;
@@ -28,14 +32,11 @@ if (isset($_GET['feedback'])) {
     echo 'Video-Spider Service!';
 }
 
-function send($subject, $body)
+function send($subject, $body, $config)
 {
     // Instantiation and passing `true` enables exceptions
     $mail = new PHPMailer(true);
     $mail->CharSet = $mail::CHARSET_UTF8;
-
-    $config = file_get_contents('config.json');
-    $config = json_decode($config, true);
 
     try {
         //Server settings
