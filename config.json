@@ -1,0 +1,9 @@
+{
+  "email": {
+    "inform": false,
+    "smtp-Host": "",
+    "smtp-Username": "",
+    "smtp-Password": "",
+    "smtp-Port": 587
+  }
+}

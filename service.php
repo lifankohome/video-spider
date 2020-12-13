@@ -22,8 +22,7 @@ if (isset($_GET['feedback'])) {
 
     $res = send('收到新的反馈消息', $body);
 
-    $body .= $res ? '&Send=OK' : '&Send=Fail';
-
+    $info .= $res ? '&Send=OK' : '&Send=Fail';
     echo file_put_contents($path, $info . "\n", FILE_APPEND) ? 1 : 0;
 } else {
     echo 'Video-Spider Service!';
@@ -35,16 +34,19 @@ function send($subject, $body)
     $mail = new PHPMailer(true);
     $mail->CharSet = $mail::CHARSET_UTF8;
 
+    $config = file_get_contents('config.json');
+    $config = json_decode($config, true);
+
     try {
         //Server settings
         //$mail->SMTPDebug = SMTP::DEBUG_SERVER;                      // Enable verbose debug output
         $mail->isSMTP();                                            // Send using SMTP
-        $mail->Host = 'smtp.qq.com';                                // Set the SMTP server to send through
+        $mail->Host = $config['smtp-Host'];                                // Set the SMTP server to send through
         $mail->SMTPAuth = true;                                     // Enable SMTP authentication
-        $mail->Username = '479846095@qq.com';                       // SMTP username
-        $mail->Password = 'iztazbyutzebbhje';                       // SMTP password
+        $mail->Username = $config['smtp-Username'];                       // SMTP username
+        $mail->Password = $config['smtp-Password'];                       // SMTP password
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
-        $mail->Port = 587;                                          // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
+        $mail->Port = $config['smtp-Port'];                                          // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
 
         //Recipients
         $mail->setFrom('479846095@qq.com', '影视爬虫');
