@@ -2,7 +2,7 @@
 
 @font-face {
     font-family: "PingFang SC";
-    src: url("https://www.apple.com.cn/wss/fonts/SF-Pro-SC/v1/PingFangSC-Regular.woff2");
+    src: url("https://cdn.lifanko.cn/fonts/PingFangSC-Regular.woff2");
 }
 
 body {
@@ -192,4 +192,41 @@ header ul li:hover a {
 
 .inform a {
     color: blue;
+}
+
+/*feedback*/
+#f-box {
+    background-color: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    display: none;
+}
+
+.f-pos {
+    position: fixed;
+    left: calc(50% - 290px);
+    top: calc(50% - 270px);
+}
+
+.feedback {
+    width: 580px;
+    height: 395px;
+    border: 1px solid #ddd;
+}
+
+#feedback_btn {
+    position: fixed;
+    right: 2pc;
+    top: 312px;
+    color: #fff;
+}
+
+@media screen and (max-width: 768px) {
+    #feedback_btn {
+        display: none !important;
+    }
 }

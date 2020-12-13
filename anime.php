@@ -93,7 +93,8 @@ $animes = Spider::getAnimes($_SERVER["QUERY_STRING"]);
 </div>
 <!--播放历史-->
 <?php echo Common::$history; ?>
-
+<!--问题反馈-->
+<?php echo Common::$feedback; ?>
 <footer>
     <?php
     echo Common::$tip;

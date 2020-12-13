@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>问题反馈 - 影视爬虫</title>
+    <style>
+        @font-face {
+            font-family: "PingFang SC";
+            src: url("../fonts/PingFangSC-Regular.woff2");
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: "PingFang SC", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+            font-size: 16px;
+        }
+
+        .eb-feedback {
+            overflow: hidden;
+            width: 580px;
+            height: 395px;
+        }
+
+        .eb-feedback .eb-feedback-inner {
+            overflow: hidden;
+            width: 100%;
+            height: 100%;
+            background-color: #fff;
+        }
+
+        .eb-feedback .eb-feedback-hd {
+            cursor: pointer;
+            position: absolute;
+            z-index: 3;
+            top: 10px;
+            right: 10px;
+            width: 30px;
+            height: 26px;
+            background: url(https://p0.ssl.qhimg.com/t01ba9abd3415338bc7.png) center no-repeat;
+        }
+
+        .eb-feedback .eb-feedback-bd {
+            padding-top: 26px;
+            width: 94%;
+            margin: 0 auto;
+        }
+
+        .eb-feedback .tit1 {
+            width: 200px;
+            font-size: 18px;
+            margin-bottom: 12px;
+        }
+
+        .eb-feedback .content {
+            padding: 0;
+            margin: 0;
+            border: 0 none;
+            background: 0;
+            width: 545px;
+        }
+
+        .eb-feedback-tag {
+            border: 1px solid #dcdcdc;
+            border-bottom-color: #1db69a;
+            background-color: #f4f4f4;
+            height: 36px;
+            padding-left: 0;
+            margin: 0;
+        }
+
+        .eb-feedback-tag li {
+            cursor: pointer;
+            float: left;
+            background: url(https://p5.ssl.qhimg.com/t01acf4e37cae101300.png) right center no-repeat;
+            height: 36px;
+            width: 85px;
+            text-align: center;
+            line-height: 36px;
+            list-style: none;
+        }
+
+        .eb-feedback-tag li.on {
+            margin-left: -1px;
+            color: #1db69a;
+            border-top: 2px solid #1db69a;
+            border-left: 1px solid #1db69a;
+            border-right: 1px solid #1db69a;
+            position: relative;
+            z-index: 20;
+            top: -1px;
+            background: #fff;
+        }
+
+        .eb-feedback .content .reply {
+            border: 1px solid #dcdcdc;
+            border-top: 0;
+            height: 100px;
+        }
+
+        .eb-feedback .content .reply .txt {
+            padding: 10px;
+            overflow: auto;
+            width: 501px;
+            height: 74px;
+            margin: 3px;
+            box-sizing: content-box;
+            outline: 0;
+            border: 0 none;
+            resize: none;
+        }
+
+        .eb-feedback .tit2 {
+            line-height: 40px;
+            margin-top: 10px;
+        }
+
+        .eb-feedback .tit2 span {
+            font-size: 12px;
+            color: #999;
+            margin-left: 5px;
+        }
+
+        .eb-feedback .content {
+            font-size: 14px;
+            padding: 0;
+            margin: 0;
+            border: 0 none;
+            background: 0;
+            width: 545px;
+        }
+
+        .eb-feedback .content .number {
+            border: 1px solid #dcdcdc;
+            line-height: 36px;
+            height: 36px;
+            width: 525px;
+            padding: 0 10px;
+            outline: none;
+        }
+
+        .eb-feedback .btn-wrap {
+            zoom: 1;
+            overflow: hidden;
+            position: relative;
+            padding-left: 200px;
+            padding-top: 30px;
+        }
+
+        .eb-feedback .btn {
+            background: #1db69a;
+            line-height: 44px;
+            color: #fff;
+            text-align: center;
+            font-size: 16px;
+            width: 213px;
+            height: 44px;
+            display: block;
+            margin-left: -33px;
+            font-weight: bold;
+        }
+
+        .eb-feedback .btn-wrap .errortip {
+            position: absolute;
+            left: 195px;
+            top: 5px;
+            width: 158px;
+            height: 22px;
+            line-height: 22px;
+            text-align: center;
+            color: #666;
+            font-size: 12px;
+            background: url(https://p0.ssl.qhimg.com/t010ca484b992d7c9fa.png) no-repeat;
+            display: none;
+        }
+
+        .js-feedback-success {
+            text-align: center;
+        }
+
+        .tip {
+            font-size: 24px;
+            font-weight: bold;
+            color: #1db69a;
+            margin: 30px 0;
+        }
+    </style>
+</head>
+<body>
+<div class="eb-feedback">
+    <div class="eb-feedback-inner">
+        <i class="eb-feedback-hd js-close" onclick="close_feedback()"></i>
+        <div class="eb-feedback-bd">
+            <div id="feedback">
+                <h3 class="tit1">请选择问题类型：</h3>
+                <div class="content">
+                    <ul class="eb-feedback-tag g-clear">
+                        <li class="opt on" data-text-default="对我们的产品有什么意见和建议，来这里反馈吧~">
+                            <span>产品问题</span>
+                        </li>
+                        <li data-text-default="视频播放不了，我要报错~" class="opt">
+                            <span>播放不了</span>
+                        </li>
+                        <li data-text-default="片名、导演、演员、图片等信息有错误，我要留言纠错~" class="opt">
+                            <span>信息错误</span>
+                        </li>
+                        <li data-text-default="还有其他的任何疑问可以来这里提哦~" class="opt">
+                            <span>其他问题</span>
+                        </li>
+                    </ul>
+                    <div class="reply">
+                        <label>
+                            <textarea name="message_fake" id="holder" placeholder="对我们的产品有什么意见和建议，来这里反馈吧~"
+                                      class="txt js-message"></textarea>
+                        </label>
+                    </div>
+                </div>
+                <h3 class="tit2">联系方式<span>（可选）</span></h3>
+                <div class="content">
+                    <label for="contact"></label>
+                    <input id="contact" placeholder="QQ/邮箱/电话" class="number"
+                           type="text" autocomplete="off">
+                </div>
+                <div class="btn-wrap">
+                    <div id="errortip" class="errortip js-feedback-hit">亲，您忘了添加反馈了吧~</div>
+                    <a id="submit" onclick="submit()" class="btn submit js-submit-btn">提 交</a>
+                </div>
+            </div>
+            <div id="feedback-success" class="success js-feedback-success" style="display: none;">
+                <div class="show-result">
+                    <img src="../img/logo.png" alt="提交成功"></div>
+                <div class="tip">
+                    您的反馈已提交，感谢您对影视爬虫的支持！
+                </div>
+                <div class="btn-wrap">
+                    <a class="btn submit js-submit-btn" onclick="close_feedback()">关 闭</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    let type = document.getElementsByClassName('opt');
+    let holder = document.getElementById('holder');
+    let errortip = document.getElementById('errortip');
+    let contact = document.getElementById('contact');
+    let submit_btn = document.getElementById('submit');
+    let close = document.getElementById('close');
+
+    let opt = 0;
+    for (let typeKey in type) {
+        type[typeKey].onclick = function () {
+            for (let index in type) {
+                if (index === typeKey) {
+                    holder.setAttribute('placeholder', type[index].dataset.textDefault)
+                    type[index].classList.add("on")
+                    opt = index
+                } else {
+                    if (type[index].classList !== undefined) {
+                        type[index].classList.remove("on")
+                    }
+                }
+            }
+        }
+    }
+
+    function close_feedback() {
+        parent.document.getElementById('f-box').style.display = 'none';
+    }
+
+    function submit() {
+        errortip.style.display = holder.value.length === 0 ? 'block' : 'none';
+
+        if (holder.value.length !== 0) {
+            submit_btn.innerText = '正在提交...'
+
+            let info = 'Opt=' + opt + '&Msg=' + holder.value + '&Num=' + contact.value + '&Link=' + parent.window.location.href
+
+            setTimeout(function () {
+                a_get('../service.php?feedback&' + info)
+            }, 1000)
+        }
+    }
+
+    function a_get(url) {
+        let xhr = new XMLHttpRequest();
+        xhr.open('GET', url, true);
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200 || xhr.status === 304) {
+                if (xhr.responseText === '1') {
+                    submit_btn.innerText = '提交成功';
+
+                    setTimeout(function () {
+                        document.getElementById('feedback').style.display = 'none';
+                        document.getElementById('feedback-success').style.display = 'block';
+                    }, 500)
+                }
+            }
+        };
+        xhr.send();
+    }
+</script>
+</body>
+</html>

@@ -105,9 +105,10 @@ echo Common::inform();
     </div>
 </div>
 <div style="clear: both;"></div>
-<?php
-echo Common::$history;
-?>
+<!--播放历史-->
+<?php echo Common::$history; ?>
+<!--问题反馈-->
+<?php echo Common::$feedback; ?>
 <footer>
     <?php
     echo Common::$tip;

@@ -64,7 +64,9 @@ class Common
 
     public static $ad = "小提示：浏览器输入<span style='color: #44e5f1'>yspc.vip</span>或百度搜索<span style='color: #44e5f1'>“影视爬虫”</span>就可以找到我，聪明人一秒就记住";
 
-    public static $history = '<div id="history"><span class="float_btn">播放<br>历史</span><iframe id="history-tip" src="other/history.html"></iframe></div>';
+    public static $history = "<div id='feedback_btn'><span class='float_btn' style='background-color: rgba(0, 0, 0, 0.7);border: 1px solid #999;'>问题<br>反馈</span></div><div id='history'><span class='float_btn'>播放<br>历史</span><iframe id='history-tip' src='other/history.html'></iframe></div>";
+
+    public static $feedback = "<div id='f-box'><div class='f-pos'><iframe src='other/feedback.html' class='feedback'></iframe></div></div>";
 
     public static $tip = "<p id='tip'>影视爬虫使用cookie技术(包含第三方cookie)来实现网站功能，有关详细信息请点击<a href='other/about.html#cookie' style='color: #333'>这里</a></p>";
 

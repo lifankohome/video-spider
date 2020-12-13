@@ -1,4 +1,4 @@
-//搜索功能
+// 搜索功能
 var searchBox = document.getElementById('searchBox');
 var searchText = document.getElementById('searchText');
 
@@ -9,7 +9,7 @@ var holder_list = document.getElementById("holder_list");
 autoSize();
 
 function autoSize() {
-    //自动调整搜索和推荐框大小
+    // 自动调整搜索和推荐框大小
     var win_width = document.body.clientWidth - 1030;
 
     if (win_width) {
@@ -65,7 +65,7 @@ function holder_up(kw) {
     holder_list.style.display = 'none';
 }
 
-//回车搜索
+// 回车搜索
 document.onkeydown = function (e) {
     var theEvent = window["event"] || e;
     if (theEvent["keyCode"] === 13) {
@@ -79,7 +79,12 @@ document.onkeydown = function (e) {
     }
 };
 
-//百度统计
+// 打开反馈页面
+document.getElementById('feedback_btn').onclick = function () {
+    document.getElementById('f-box').style.display = 'block';
+}
+
+// 百度统计
 var _hmt = _hmt || [];
 (function () {
     var hm = document.createElement("script");

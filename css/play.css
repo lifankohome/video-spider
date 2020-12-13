@@ -107,35 +107,3 @@ iframe {
 #cookie:hover #tooltip {
     display: block;
 }
-
-#qus {
-    position: fixed;
-    right: 2pc;
-    top: 312px;
-    color: #F40;
-}
-
-@media screen and (max-width: 768px) {
-    #qus {
-        display: none !important;
-    }
-}
-
-#que-tip {
-    border-radius: 3px;
-    position: absolute;
-    right: -330px;
-    font-size: 12px;
-    background-color: rgba(0, 0, 0, 0.7);
-    color: white;
-    padding: 10px;
-    width: 265px;
-    margin-top: 5px;
-    box-shadow: 0 0 10px 2px #565656;
-    transition: all 0.3s 0s;
-    bottom: 57px;
-}
-
-#qus:hover #que-tip {
-    right: 0;
-}
