@@ -25,8 +25,14 @@ class Visits
             file_put_contents($filename, '');
         }
 
-        file_put_contents($filename, '*', FILE_APPEND);
-        $visits = strlen(file_get_contents($filename));
+        $str_lack = '';
+        for ($i = count(file($filename)); $i <= intval(date('H')); $i++) {
+            $leader = range('A', 'Z')[$i];
+            $str_lack .= ($i == 0 ? '' : "\n") . $leader;
+        }
+
+        file_put_contents($filename, $str_lack . '*', FILE_APPEND);
+        $visits = strlen(file_get_contents($filename)) - 2 * $i + 1;
 
         $filename_history = $this->extra . 'visits_' . $this->id . '_history.json';
         if (!is_file($filename_history)) {
@@ -58,6 +64,6 @@ class Visits
             }
         }
 
-        return '<span style="font-size: 12px;color: #afafaf"> 访客:' . $sum . '<span id="sCnt"></span></span>';
+        return '<span style="font-size: 12px;color: #afafaf"> 访客:' . $sum . '</span>';
     }
 }
