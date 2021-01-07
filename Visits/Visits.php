@@ -64,6 +64,6 @@ class Visits
             }
         }
 
-        return '<span style="font-size: 12px;color: #afafaf"> 访客:' . $sum . '</span>';
+        return '<span style="font-size: 12px;color: #afafaf"> 访客:' . $sum . '<span id="sCnt"></span></span>';
     }
 }

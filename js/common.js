@@ -85,7 +85,7 @@ document.getElementById('feedback_btn').onclick = function () {
 
 // 实时访客
 document.write("<script type='text/javascript' src='https://cdn.lifanko.cn/js/browserMqtt.js'></script>");
-document.write("<script type='text/javascript' src='/js/sCount.js'></script>");
+document.write("<script type='text/javascript' src='https://cdn.lifanko.cn/js/sCount.js'></script>");
 
 // 百度统计
 var _hmt = _hmt || [];
