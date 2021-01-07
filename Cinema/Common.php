@@ -18,8 +18,8 @@ class Common
     public static function SEO($source = '')
     {
         $source = empty($source) ? '海量影视' : '《' . $source . '》';
-        return '<meta name="keywords" content="影视爬虫,' . $source . '高清无广告在线观看,电影、电视剧、综艺、动漫免费在线播放,最新电影,最热电视剧,最火综艺,最新动漫">
-    <meta name="description" content="影视爬虫为您提供最新最好看的影视内容,高清无广告资源每日更新,' . $source . '免费在线播放,最新电影,最热电视剧,最火综艺,最新动漫">
+        return '<meta name="keywords" content="https://video.lifanko.cn,影视爬虫,影视爬虫官网,' . $source . '高清无广告在线观看,电影、电视剧、综艺、动漫免费在线播放,最新电影,最热电视剧,最火综艺,最新动漫">
+    <meta name="description" content="https://video.lifanko.cn,影视爬虫官网为您提供最新最好看的影视内容,高清无广告资源每日更新,' . $source . '免费在线播放,最新电影,最热电视剧,最火综艺,最新动漫">
 ';
     }
 
@@ -51,7 +51,7 @@ class Common
         <li><a href='teleplay.php'>电视剧</a></li>
         <li><a href='anime.php'>动漫</a></li>
         <li><a href='other/about.html' target='_blank'>说明</a></li>
-        <li><a href='http://yspc.vip' class='donate' target='_blank'>💕打赏💕</a></li>";
+        <li><a href='https://www.lifanko.cn/other/yspc.php' class='donate' target='_blank'>💕打赏💕</a></li>";
 
     public static $search_box = "<li id='searchli' style='position: relative'>
             <label for='searchBox'></label>

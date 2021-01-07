@@ -9,18 +9,8 @@
 use Cinema\Spider;
 use Cinema\Common;
 
-if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
-    function __autoload($class)
-    {
-        $file = $class . '.php';
-        if (is_file($file)) {
-            require_once($file);
-        }
-    }
-} else {
-    include_once('Cinema/Spider.php');
-    include_once('Cinema/Common.php');
-}
+include('Cinema/Spider.php');
+include('Cinema/Common.php');
 
 if (empty($_GET['max'])) { //显示的关键词数量，默认最多显示999个
     $max = 200;

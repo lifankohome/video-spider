@@ -1,16 +1,16 @@
 // 搜索功能
-var searchBox = document.getElementById('searchBox');
-var searchText = document.getElementById('searchText');
+const searchBox = document.getElementById('searchBox');
+const searchText = document.getElementById('searchText');
 
-var holder_timer;
-var holder_list = document.getElementById("holder_list");
+let holder_timer;
+const holder_list = document.getElementById("holder_list");
 
 // 初始化
 autoSize();
 
 function autoSize() {
     // 自动调整搜索和推荐框大小
-    var win_width = document.body.clientWidth - 1030;
+    let win_width = document.body.clientWidth - 1030;
 
     if (win_width) {
         if (win_width > 125) {
@@ -29,16 +29,15 @@ function holder() {
 
         clearTimeout(holder_timer);
         holder_timer = setTimeout(function () {
-            var xhr = new XMLHttpRequest();
+            const xhr = new XMLHttpRequest();
             xhr.open('GET', 'holder.php?kw=' + searchBox.value, true);
             xhr.onload = function () {
-                var holder_list = document.getElementById("holder_list");
-                var ret = JSON.parse(this.responseText)
+                const ret = JSON.parse(this.responseText)
 
-                var holder_list_html = '';
+                let holder_list_html = '';
                 if (ret.length) {
-                    for (var i = 0; i < ret.length; i++) {
-                        var kw = ret[i].replace(/(<([^>]+)>)/g, '');
+                    for (let i = 0; i < ret.length; i++) {
+                        const kw = ret[i].replace(/(<([^>]+)>)/g, '');
                         holder_list_html += "<li title='点击搜索《" + kw + "》' onclick='holder_up(\"" + kw + "\")'>" + ret[i] + "</li>";
                     }
                 } else {
@@ -67,7 +66,7 @@ function holder_up(kw) {
 
 // 回车搜索
 document.onkeydown = function (e) {
-    var theEvent = window["event"] || e;
+    const theEvent = window["event"] || e;
     if (theEvent["keyCode"] === 13) {
         if (searchBox.value) {
             window.location.href = "search.php?kw=" + searchBox.value;
@@ -83,6 +82,10 @@ document.onkeydown = function (e) {
 document.getElementById('feedback_btn').onclick = function () {
     document.getElementById('f-box').style.display = 'block';
 }
+
+// 实时访客
+document.write("<script type='text/javascript' src='https://cdn.lifanko.cn/js/browserMqtt.js'></script>");
+document.write("<script type='text/javascript' src='/js/sCount.js'></script>");
 
 // 百度统计
 var _hmt = _hmt || [];
