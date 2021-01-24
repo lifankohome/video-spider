@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>访客地图</title>
+    <link href="https://cdn.anychart.com/releases/v8/css/anychart-ui.min.css" type="text/css" rel="stylesheet">
+    <link href="https://cdn.anychart.com/releases/v8/fonts/css/anychart-font.min.css" type="text/css" rel="stylesheet">
+    <style>
+        html,
+        body,
+        #container {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+<div id="container"></div>
+<script src="https://cdn.anychart.com/releases/v8/js/anychart-base.min.js"></script>
+<script src="https://cdn.anychart.com/releases/v8/js/anychart-ui.min.js"></script>
+<!--<script src="https://cdn.anychart.com/releases/v8/js/anychart-exports.min.js"></script>-->
+<script src="https://cdn.anychart.com/releases/v8/js/anychart-map.min.js"></script>
+<script src="https://cdn.anychart.com/releases/v8/js/anychart-data-adapter.min.js"></script>
+<script src="https://cdn.anychart.com/geodata/latest/countries/china/china.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.3.15/proj4.js"></script>
+<script>
+    anychart.onDocumentReady(function () {
+        anychart.data.loadJsonFile(
+            'map_data.json',
+            function (data) {
+                // creates map chart
+                let map = anychart.map();
+                map.scale().gap(0.05);
+
+                map.unboundRegions()
+                    .enabled(true)
+                    .fill('#E1E1E1')
+                    .stroke('#D2D2D2');
+
+                // sets geodata
+                map.geoData('anychart.maps.china');
+
+                // sets Chart Title
+                map.title()
+                    .enabled(true)
+                    .useHtml(true)
+                    .padding([0, 0, 10, 0])
+                    .text('<span style="color:#929292; font-size: 18px;">访客地图 - 影视爬虫</span>');
+
+                // sets marker series
+                let series = map.marker(anychart.data.set(data));
+
+                // sets Tooltip for series
+                series
+                    .tooltip()
+                    .useHtml(true)
+                    .padding([8, 13, 10, 13])
+                    .title(false)
+                    .separator(false)
+                    .fontSize(14)
+                    .format(function () {
+                        return (
+                            '<span>IP: ' +
+                            this.getData('ip') +
+                            '</span><br/>' +
+                            '<span style="font-size: 12px; color: #E1E1E1">位置：' +
+                            this.getData('city') +
+                            '</span>'
+                        );
+                    });
+
+                series
+                    .size(4)
+                    .stroke('2 #fff')
+                    .fill('#007042')
+                    .labels(false)
+                    .selectionMode('none');
+
+                series.hovered().size(9).fill('#005734').stroke('3 #fff');
+
+                // create zoom controls
+                let zoomController = anychart.ui.zoom();
+                zoomController.render(map);
+
+                // sets container id for the chart
+                map.container('container');
+                // initiates chart drawing
+                map.draw();
+            }
+        );
+    });
+</script>
+</body>
+</html>

@@ -11,24 +11,22 @@ namespace Cinema;
 
 class Maxim
 {
-    public static function Curl($url)
+    public static function Curl($url, $timeout = 2)
     {
-        $ch = curl_init($url);
+        $con = curl_init($url);
 
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-        curl_setopt($ch, CURLOPT_TIMEOUT, 2);
+        curl_setopt($con, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($con, CURLOPT_FOLLOWLOCATION, true);
+        curl_setopt($con, CURLOPT_TIMEOUT, $timeout);
+        $content = curl_exec($con);
+        curl_close($con);
 
-        return curl_exec($ch);
+        return $content;
     }
 
     public static function get()
     {
         $url = 'https://hpu.lifanko.cn/maxim';
-        $dom = Maxim::Curl($url);
-
-        return $dom;
+        return Maxim::Curl($url);
     }
 }

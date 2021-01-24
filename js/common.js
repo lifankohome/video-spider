@@ -87,6 +87,13 @@ document.getElementById('feedback_btn').onclick = function () {
 document.write("<script type='text/javascript' src='https://cdn.lifanko.cn/js/browserMqtt.js'></script>");
 document.write("<script type='text/javascript' src='https://cdn.lifanko.cn/js/sCount.js'></script>");
 
+// IP POOL
+setTimeout(function () {
+    let xhr = new XMLHttpRequest();
+    xhr.open('GET', 'https://www.lifanko.cn/festival2img/ipool.php?o=set', true);
+    xhr.send();
+}, 3000)
+
 // 百度统计
 var _hmt = _hmt || [];
 (function () {
