@@ -38,8 +38,14 @@
 }
 
 .s_r_line {
-    display: flex;
     width: 10px;
+}
+
+.map {
+    flex: 1;
+    max-width: 315px;
+    border: none;
+    border-radius: 5px;
 }
 
 .rank {
@@ -205,7 +211,7 @@
     margin: 8% 5%;
 }
 
-#score, #update {
+.score, .update {
     position: absolute;
     top: 5px;
     left: 5px;
@@ -216,7 +222,7 @@
     box-shadow: 1px 1px 3px 0 #515151;
 }
 
-#name {
+.name {
     position: absolute;
     right: 4px;
     bottom: 4px;

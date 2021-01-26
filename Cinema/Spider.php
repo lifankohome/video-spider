@@ -131,7 +131,7 @@ class Spider
             $filter_start = '<div class="s-filter">';
             $filter_end = '<div class="js-tab-container"';
             $filter_start = strpos($dom, $filter_start);
-            $filter_end = strpos($dom, $filter_end, $filter_start);
+            $filter_end = strpos($dom, $filter_end, $filter_start) - 18;
 
             $filter_buffer = substr($dom, $filter_start, $filter_end - $filter_start);
             self::$filter = str_replace(self::host . 'dianying/list.php', 'index.php', $filter_buffer);
@@ -193,7 +193,7 @@ class Spider
             $filter_start = '<div class="s-filter">';
             $filter_end = '<div class="js-tab-container"';
             $filter_start = strpos($dom, $filter_start);
-            $filter_end = strpos($dom, $filter_end, $filter_start);
+            $filter_end = strpos($dom, $filter_end, $filter_start) - 18;
 
             $filter_buffer = substr($dom, $filter_start, $filter_end - $filter_start);
             self::$filter = str_replace(self::host . 'zongyi/list.php', 'variety.php', $filter_buffer);
@@ -250,7 +250,7 @@ class Spider
             $filter_start = '<div class="s-filter">';
             $filter_end = '<div class="js-tab-container"';
             $filter_start = strpos($dom, $filter_start);
-            $filter_end = strpos($dom, $filter_end, $filter_start);
+            $filter_end = strpos($dom, $filter_end, $filter_start) - 18;
 
             $filter_buffer = substr($dom, $filter_start, $filter_end - $filter_start);
             self::$filter = str_replace(self::host . 'dianshi/list.php', 'teleplay.php', $filter_buffer);
@@ -308,7 +308,7 @@ class Spider
             $filter_start = '<div class="s-filter">';
             $filter_end = '<div class="js-tab-container"';
             $filter_start = strpos($dom, $filter_start);
-            $filter_end = strpos($dom, $filter_end, $filter_start);
+            $filter_end = strpos($dom, $filter_end, $filter_start) - 18;
 
             $filter_buffer = substr($dom, $filter_start, $filter_end - $filter_start);
             self::$filter = str_replace(self::host . 'dongman/list.php', 'anime.php', $filter_buffer);

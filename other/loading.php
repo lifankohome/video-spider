@@ -70,14 +70,15 @@ if (!empty($info)) {
 <div id="container" style="background-color: rgba(224,222,222,0.5);">
     <img src="../img/logo.png" style="height: 100px;margin-bottom: -40px" alt="logo" class="tiktok">
     <h2 style="display: inline-block;">
-        影视爬虫<span style="font-size: 16px"> v5.0 2020/9/19 22:50重磅更新</span>
+        影视爬虫<span style="font-size: 16px"> v6.0 2021/1/26 22:25更新</span>
     </h2>
     <p style="font-size: 20px;margin: 0">影视爬虫重金购买网址<strong style="color: #467cff;font-size: 30px">yspc.vip</strong>，一秒钟即可记住~
     </p>
     <div id="ad" style="width: 70%;margin: 0 auto;">
         <h4 style="border-bottom: 1px #999 solid;padding-bottom: 5px;color: #1e5cf4;margin: 1.5pc 0 0;font-size: 35px">
             全网影视免费看，尽在影视爬虫！<span
-                    style="font-size: 14px;display: block"><?php echo $festival; ?></span></h4>
+                    style="font-size: 25px;color: green;text-shadow: 0 0 3px white;"><?php echo $festival; ?></span>
+        </h4>
         <p style="font-size: 30px;font-style: italic"><?php echo Maxim::get(); ?></p>
     </div>
     <h3 style="position: fixed;bottom: 0;width: 100%;margin: 0 auto;font-size: 16px;color: #5a0814;">
@@ -85,7 +86,7 @@ if (!empty($info)) {
                                               onclick="toggle()">打赏</span>
     </h3>
     <img alt="" id="donate" src="../img/wechat.jpg"
-         style="width: 200px;position: fixed;z-index: 1;bottom: 30px;display: none;margin-left: -100px">
+         style="width: 200px;position: fixed;z-index: 1;bottom: 30px;opacity: 0.8;margin-left: -100px">
 </div>
 <script>
     var container = document.getElementById("container");

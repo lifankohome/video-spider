@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>访客地图</title>
-    <link href="https://cdn.anychart.com/releases/v8/css/anychart-ui.min.css" type="text/css" rel="stylesheet">
-    <link href="https://cdn.anychart.com/releases/v8/fonts/css/anychart-font.min.css" type="text/css" rel="stylesheet">
+    <link href="https://cdn.lifanko.cn/css/anychart/anychart-ui.min.css" type="text/css" rel="stylesheet">
+    <link href="https://cdn.lifanko.cn/css/anychart/anychart-font.min.css" type="text/css" rel="stylesheet">
     <style>
         html,
         body,
@@ -13,18 +13,22 @@
             height: 100%;
             margin: 0;
             padding: 0;
+            overflow: hidden;
+        }
+
+        .anychart-credits {
+            display: none;
         }
     </style>
 </head>
 <body>
 <div id="container"></div>
-<script src="https://cdn.anychart.com/releases/v8/js/anychart-base.min.js"></script>
-<script src="https://cdn.anychart.com/releases/v8/js/anychart-ui.min.js"></script>
-<!--<script src="https://cdn.anychart.com/releases/v8/js/anychart-exports.min.js"></script>-->
-<script src="https://cdn.anychart.com/releases/v8/js/anychart-map.min.js"></script>
-<script src="https://cdn.anychart.com/releases/v8/js/anychart-data-adapter.min.js"></script>
-<script src="https://cdn.anychart.com/geodata/latest/countries/china/china.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.3.15/proj4.js"></script>
+<script src="https://cdn.lifanko.cn/js/anychart/anychart-base.min.js"></script>
+<script src="https://cdn.lifanko.cn/js/anychart/anychart-ui.min.js"></script>
+<script src="https://cdn.lifanko.cn/js/anychart/anychart-map.min.js"></script>
+<script src="https://cdn.lifanko.cn/js/anychart/anychart-data-adapter.min.js"></script>
+<script src="https://cdn.lifanko.cn/js/anychart/china.js"></script>
+<script src="https://cdn.lifanko.cn/js/anychart/proj4.js"></script>
 <script>
     anychart.onDocumentReady(function () {
         anychart.data.loadJsonFile(
@@ -32,7 +36,7 @@
             function (data) {
                 // creates map chart
                 let map = anychart.map();
-                map.scale().gap(0.05);
+                map.scale().gap(0.00);
 
                 map.unboundRegions()
                     .enabled(true)
@@ -47,7 +51,7 @@
                     .enabled(true)
                     .useHtml(true)
                     .padding([0, 0, 10, 0])
-                    .text('<span style="color:#929292; font-size: 18px;">访客地图 - 影视爬虫</span>');
+                    .text('<span style="color:#929292; font-size: 12px;">访客地图</span>');
 
                 // sets marker series
                 let series = map.marker(anychart.data.set(data));

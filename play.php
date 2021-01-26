@@ -176,9 +176,9 @@ echo Common::inform();
         <iframe onload="iFrameResize()" allowtransparency="true" allowfullscreen="allowfullscreen" id="video"
                 src="other/loading.php"></iframe>
         <script type="text/javascript">
-            var videoFrame = document.getElementById('video');  // 全局使用
-            var videoLink = '<?php echo $default_link; ?>';
-            var sets = document.getElementsByClassName('videoA');
+            let videoFrame = document.getElementById('video');  // 全局使用
+            let videoLink = '<?php echo $default_link; ?>';
+            let sets = document.getElementsByClassName('videoA');
 
             function iFrameResize() {
                 videoFrame.height = Math.floor(videoFrame.scrollWidth / 16 * 9);
@@ -187,17 +187,16 @@ echo Common::inform();
     </div>
     <script type="text/javascript">
         // 播放器列表
-        // var res = ['https://jiexi.380k.com/?url=', 'https://660e.com/?url=', 'https://jx.lache.me/cc/?url='];
-        var res = ['https://660e.com/?url=', 'https://jiexi.380k.com/?url='];
+        let res = ['https://jiexi.380k.com/?url=', 'https://660e.com/?url='];
 
         showParser();
 
         function showParser() {
-            var parser_id = getCookie('parser');
-            var parsers = document.getElementById('parsers');
+            let parser_id = getCookie('parser');
+            let parsers = document.getElementById('parsers');
 
-            var parse_btn = "<span style='font-size: 15px;font-weight: bold'>播放器：</span>";
-            for (var i = 1; i <= res.length; i++) {
+            let parse_btn = "<span style='font-size: 15px;font-weight: bold'>播放器：</span>";
+            for (let i = 1; i <= res.length; i++) {
                 if (parser_id === i.toString()) {
                     parse_btn += "<a class='active' onclick='vParser(" + i + ")'>播放器" + i + "</a>";
                 } else {
@@ -208,7 +207,7 @@ echo Common::inform();
         }
 
         function recover() {
-            var info = getCookie('<?php echo $player; ?>');
+            let info = getCookie('<?php echo $player; ?>');
 
             if (info !== null) {
                 info = JSON.parse(info);
@@ -217,9 +216,9 @@ echo Common::inform();
                 sets[info['episode']].setAttribute('onmouseout', 'remove_hover()');
                 sets[info['episode']].innerHTML = sets[info['episode']].innerText + '<span id="tooltip" class="hover">上次观看到这里</span>';
 
-                var msg = '记忆您上次看到第 ' + (parseInt(info['episode']) + 1) + ' 集';
+                let msg = '记忆您上次看到第 ' + (parseInt(info['episode']) + 1) + ' 集';
 
-                var isMovie = <?php echo empty($isMovie) ? 0 : 1; ?>;
+                let isMovie = <?php echo empty($isMovie) ? 0 : 1; ?>;
                 if (isMovie) {
                     msg = '记忆您上次使用 ' + (parseInt(info['episode']) + 1) + '号源 播放';
                 }
@@ -231,7 +230,7 @@ echo Common::inform();
         }
 
         function remove_hover() {
-            var tooltip_class = document.getElementById('tooltip');
+            let tooltip_class = document.getElementById('tooltip');
             if (tooltip_class !== null) {
                 tooltip_class.classList.remove('hover');
             }
@@ -261,10 +260,10 @@ echo Common::inform();
         function playUrl(sourceUrl, i) {
             remove_hover();
 
-            var info = {'link': sourceUrl, 'episode': i};
+            let info = {'link': sourceUrl, 'episode': i};
             setCookie('<?php echo $player; ?>', JSON.stringify(info));
 
-            for (var j = 0; j < sets.length; j++) {
+            for (let j = 0; j < sets.length; j++) {
                 sets[j].removeAttribute('id');
             }
             sets[i].setAttribute('id', 'cookie');
@@ -275,15 +274,15 @@ echo Common::inform();
             vParser();
         }
 
-        var title = document.title;
+        let title = document.title;
         title = title.substr(1, title.length - 15) + window.location.href;
 
-        var title_obj = JSON.parse(getCookie('play-history'));
+        let title_obj = JSON.parse(getCookie('play-history'));
 
         if (title_obj === null) {
             title_obj = [title]
         } else {
-            var pos = title_obj.indexOf(title);
+            let pos = title_obj.indexOf(title);
             // 若pos不等于-1则说明当前影视名称已经被保存
             if (pos !== -1) {
                 // 删除已保存的当前影视名称
@@ -300,15 +299,15 @@ echo Common::inform();
         setCookie('play-history', JSON.stringify(title_obj));
 
         function setCookie(cookieKey, cookieValue) {
-            var expireDays = 7;
-            var expDate = new Date();
+            let expireDays = 7;
+            let expDate = new Date();
             expDate.setDate(expDate.getDate() + expireDays);
             // noinspection JSDeprecatedSymbols
             document.cookie = cookieKey + "=" + escape(cookieValue) + ("; expires=" + expDate.toGMTString());
         }
 
         function getCookie(cookieKey) {
-            var arr, reg = new RegExp("(^| )" + cookieKey + "=([^;]*)(;|$)");
+            let arr, reg = new RegExp("(^| )" + cookieKey + "=([^;]*)(;|$)");
             // noinspection JSDeprecatedSymbols
             return (arr = document.cookie.match(reg)) ? unescape(arr[2]) : null;
         }
