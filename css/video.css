@@ -42,10 +42,16 @@
 }
 
 .map {
+    opacity: .6;
     flex: 1;
     max-width: 315px;
     border: none;
     border-radius: 5px;
+    transition: all 0.3s 0s;
+}
+
+.map:hover {
+    opacity: .8;
 }
 
 .rank {
