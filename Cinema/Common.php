@@ -70,7 +70,11 @@ class Common
 
     public static $tip = "<p id='tip'>影视爬虫使用cookie技术(包含第三方cookie)来实现网站功能，有关详细信息请点击<a href='other/about.html#cookie' style='color: #333'>这里</a></p>";
 
-    public static $bounace = '<div class="bounce"><span>想要观看的影视不在列表中？</span><span class="letter">在</span><span class="letter">页</span><span class="letter">面</span><span class="letter">右</span><span class="letter">上</span><span class="letter">角</span><span class="letter">搜</span><span class="letter">索</span><span class="letter">试</span><span class="letter">试</span></div>';
+    public static $bounce = '<div class="bounce"><span>想要观看的影视不在列表中？</span><span class="letter">在</span><span class="letter">页</span><span class="letter">面</span><span class="letter">右</span><span class="letter">上</span><span class="letter">角</span><span class="letter">搜</span><span class="letter">索</span><span class="letter">试</span><span class="letter">试</span></div>';
 
     public static $footer = "<p style='font-size: 12px;color: #000;margin-top: -5px'>Copyright &copy; <a href='https://hpu.lifanko.cn' style='color: #333'>lifanko</a> 2017-2021 <a href='http://www.beian.miit.gov.cn/' style='color: #333'>豫ICP备16040860号-1</a><span style='float: right;font-weight: bold'>Cookie技术有效期: 7d</span></p>";
+
+    public static $lh = "<div class='lh'>
+    <a target='_blank' href='https://baike.baidu.com/item/2021%E5%B9%B4%E5%85%A8%E5%9B%BD%E4%B8%A4%E4%BC%9A/55601637?fr=www.lifanko.cn'><img
+                src='img/lh.jpg' alt='两会'></a></div>";
 }

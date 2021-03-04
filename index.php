@@ -28,6 +28,7 @@ $movies = Spider::getMovies($_SERVER["QUERY_STRING"]);
     <link type="text/css" rel="stylesheet" href="css/video.css">
 </head>
 <body>
+<?php echo Common::$lh; ?>
 <header>
     <img src='img/logo.png' alt='logo' class="tiktok">
     <ul id="menu">
@@ -73,7 +74,7 @@ $movies = Spider::getMovies($_SERVER["QUERY_STRING"]);
     </ul>
     <div style="clear: both"></div>
     <!--提示搜索-->
-    <?php echo Common::$bounace; ?>
+    <?php echo Common::$bounce; ?>
 </div>
 <!--播放历史-->
 <?php echo Common::$history; ?>

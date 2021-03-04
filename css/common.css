@@ -230,3 +230,15 @@ header ul li:hover a {
         display: none !important;
     }
 }
+
+/*两会*/
+.lh {
+    width: 100%;
+    overflow: hidden;
+    margin-top: 1.5pc;
+}
+
+.lh img {
+    height: 400px;
+    margin-left: -120px;
+}

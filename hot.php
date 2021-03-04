@@ -29,6 +29,7 @@ if (empty($_GET['max'])) { //显示的关键词数量，默认最多显示999个
     <link type="text/css" rel="stylesheet" href="css/hot.css">
 </head>
 <body>
+<?php echo Common::$lh; ?>
 <header>
     <img src='img/logo.png' alt='logo' class="tiktok">
     <ul id="menu">
