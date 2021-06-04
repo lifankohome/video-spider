@@ -129,6 +129,7 @@ if (empty($album[2][0])) {
     </ul>
 </header>
 <?php
+echo Common::background();
 echo "<p class='ad'>" . Common::$ad . Common::visits() . "</p>";
 echo Common::inform();
 ?>
@@ -312,11 +313,13 @@ echo Common::inform();
             return (arr = document.cookie.match(reg)) ? unescape(arr[2]) : null;
         }
     </script>
-    <h3 style="margin-top: -10px">剧情简介：</h3>
-    <p style="margin-top: -15px;line-height: 25px">　　<?php echo str_replace("\n", '<br>　　', $intro); ?></p>
 
-    <iframe style="background-color: transparent;padding: unset;height: 555px;margin: -10px 0;" src=<?php
-    $s = strpos($play, '/', 1) + 1;
+    <div class="box intro">
+        <div class="head">剧情简介：</div>
+        <p>　　<?php echo str_replace("\n", '<br>　　', $intro); ?></p>
+    </div>
+
+    <iframe class="chat" src=<?php $s = strpos($play, '/', 1) + 1;
     $u = substr($play, $s, strpos($play, '.html') - $s);
     echo "https://www.lifanko.cn/chat/index.php?u=" . $u . '&n=' . $name;
     ?>></iframe>

@@ -15,6 +15,8 @@ include_once 'Visits/Visits.php';
 
 class Common
 {
+    private static $img_copyright = '';
+
     public static function SEO($source = '')
     {
         $source = empty($source) ? '海量影视' : '《' . $source . '》';
@@ -74,7 +76,19 @@ class Common
 
     public static $footer = "<p style='font-size: 12px;color: #000;margin-top: -5px'>Copyright &copy; <a href='https://hpu.lifanko.cn' style='color: #333'>lifanko</a> 2017-2021 <a href='http://www.beian.miit.gov.cn/' style='color: #333'>豫ICP备16040860号-1</a><span style='float: right;font-weight: bold'>Cookie技术有效期: 7d</span></p>";
 
-    public static $lh = "<div class='lh'>
-    <a target='_blank' href='https://baike.baidu.com/item/2021%E5%B9%B4%E5%85%A8%E5%9B%BD%E4%B8%A4%E4%BC%9A/55601637?fr=www.lifanko.cn'><img
-                src='img/lh.jpg' alt='两会'></a></div>";
+    public static $lh = "";
+
+    public static function background()
+    {
+        $bing_img = file_get_contents('https://api.no0a.cn/api/bing/0');
+        $res = json_decode($bing_img, true);
+        if ($res['status'] == 1) {
+            $url = $res['bing']['url'];
+            self::$img_copyright = $res['bing']['copyright'];
+        }
+
+        $style = "background-image: url('$url');";
+
+        return "<div class=\"background-image\" style=\"$style\"></div>";
+    }
 }

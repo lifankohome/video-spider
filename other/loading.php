@@ -86,7 +86,7 @@ if (!empty($info)) {
                                               onclick="toggle()">打赏</span>
     </h3>
     <img alt="" id="donate" src="../img/wechat.jpg"
-         style="width: 200px;position: fixed;z-index: 1;bottom: 30px;opacity: 0.8;margin-left: -100px">
+         style="width: 200px;position: fixed;z-index: 1;bottom: 30px;opacity: 0.8;margin-left: -100px;display: none;">
 </div>
 <script>
     var container = document.getElementById("container");

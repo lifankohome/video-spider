@@ -1,3 +1,7 @@
+.box {
+    background-color: rgba(221, 221, 221, 0.5);
+}
+
 h3 {
     border-bottom: 1px solid #777;
     padding-bottom: 8px;
@@ -50,18 +54,49 @@ h3 {
     font-weight: bold;
 }
 
+/*播放器*/
 .player {
     width: 80%;
     margin: 1pc auto;
 }
 
-iframe {
+.player iframe {
     width: 100%;
     border: none;
     background-color: rgba(220, 220, 220, 0.9);
     padding: .5pc;
     border-radius: 5px;
     margin-left: -0.5pc;
+}
+
+/*剧情简介*/
+.intro {
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.box .head {
+    font-size: 20px;
+    font-weight: bold;
+    border-bottom: 1px solid #777;
+    padding-bottom: 10px;
+    color: #222;
+}
+
+.box p {
+    line-height: 25px;
+    margin: 10px 0 0 0;
+    text-align: justify;
+}
+
+/*讨论区*/
+.chat {
+    width: 100%;
+    border: none;
+    background-color: transparent;
+    padding: unset;
+    height: 555px;
+    margin: 10px 0;
 }
 
 #cookie {

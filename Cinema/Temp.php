@@ -8,6 +8,8 @@ namespace Cinema;
  */
 class Temp
 {
+    const path = './Cinema/temp/';
+
     /**
      * @var int
      */
@@ -19,8 +21,8 @@ class Temp
      */
     public function __construct($key)
     {
-        if (!is_dir('./Cinema/temp')) {
-            mkdir('./Cinema/temp', 777, true);
+        if (!is_dir(self::path)) {
+            mkdir(self::path, 0777, true);
         }
 
         $this->key = $key;
@@ -29,7 +31,7 @@ class Temp
 
     public function filename()
     {
-        return './Cinema/temp/' . $this->key . '.json';
+        return self::path . $this->key . '.json';
     }
 
     /**

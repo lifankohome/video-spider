@@ -28,7 +28,10 @@ $movies = Spider::getMovies($_SERVER["QUERY_STRING"]);
     <link type="text/css" rel="stylesheet" href="css/video.css">
 </head>
 <body>
-<?php echo Common::$lh; ?>
+<?php
+echo Common::background();
+echo Common::$lh;
+?>
 <header>
     <img src='img/logo.png' alt='logo' class="tiktok">
     <ul id="menu">

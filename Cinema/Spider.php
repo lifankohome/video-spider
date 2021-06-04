@@ -37,14 +37,14 @@ class Spider
 
             if ($type == 'dongman') {
                 for ($k = 0; $k < 5; $k++) {
-                    $slider_start = mb_strpos($dom, '<ul class="b-topslider-list js-slide-list">', $offset);
+                    $slider_start = mb_strpos($dom, '<ul class="b-topslidernew-list js-slide-list">', $offset);
                     if ($slider_start === false) {
                         $offset -= 1000;
                     } else {
                         break;
                     }
                 }
-                $slider_end = mb_strpos($dom, '<ul class="b-topslider-btns js-slide-btns">', $slider_start);
+                $slider_end = mb_strpos($dom, '<ul class="b-topslidernew-btns b-topslidernew-first-on js-slide-btns">', $slider_start);
                 $slider = mb_substr($dom, $slider_start, $slider_end - $slider_start);
             } else {
                 for ($k = 0; $k < 5; $k++) {
@@ -55,12 +55,12 @@ class Spider
                         break;
                     }
                 }
-                $slider_end = mb_strpos($dom, '<ul class="b-topslidernew-btns js-slide-btns">', $slider_start);
+                $slider_end = mb_strpos($dom, '<ul class="b-topslidernew-btns b-topslidernew-first-on js-slide-btns">', $slider_start);
                 $slider = mb_substr($dom, $slider_start, $slider_end - $slider_start);
             }
 
             // Remove ad list
-            $remove = ['www.360kan.com/special/', '7477.com'];
+            $remove = ['www.360kan.com/special/', '7477.com', 'c.ssp.360.cn'];
 
             foreach ($remove as $item) {
                 while ($special_pos = strpos($slider, $item)) {
