@@ -278,6 +278,8 @@ header ul li:hover a {
 }
 
 .lh img {
-    height: 400px;
-    margin-left: -120px;
+    height: 600px;
+    border-radius: 5px;
+    display: block;
+    margin: 0 auto;
 }
