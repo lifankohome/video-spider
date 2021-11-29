@@ -64,6 +64,13 @@ body {
     margin-top: 10vh;
     border-radius: 35px;
     font-size: 25px;
+    flex-direction: column;
+    line-height: 40px;
+}
+
+.ctl .logo {
+    margin-top: -10%;
+    margin-bottom: 5%;
 }
 
 header {

@@ -34,8 +34,7 @@ echo Common::$pined;
 
 $ctl = Common::ctl();
 if ($ctl['code'] <= 0) {
-    echo "<div class='ctl'>{$ctl['msg']}</div>";
-
+    echo $ctl['content'];
     echo "
 </body>
 </html>";

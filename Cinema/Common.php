@@ -92,7 +92,11 @@ class Common
     {
         return [
             'code' => -1,
-            'msg' => '系统升级中，服务已暂停；预计恢复时间：2021-12-04 22:00',
+            'content' => "<div class='ctl'>
+    <div class='logo tiktok'><img src='img/logo.png' alt='logo'></div>
+    <div>系统升级中，服务已暂停；预计恢复时间：2021-12-04 22:00</div>
+    <div style='margin-top: 20px;'>站长最新作品：<a href='https://lifanko.cn/eraser/' style='color: #03a9f4;background-color: rgba(255,255,255,0.9);padding: 10px 20px;border-radius: 5px;'>橡皮音乐</a>（超全音乐库，免费试听，免费下载）</div>
+</div>",
             'data' => []
         ];
     }
