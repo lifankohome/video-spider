@@ -1,15 +1,10 @@
 @import "tiktok.css";
 
-@font-face {
-    font-family: "PingFang SC";
-    src: url("https://cdn.lifanko.cn/fonts/PingFangSC-Regular.woff2");
-}
-
 body {
     width: 90%;
     min-width: 995px;
     margin: 0 auto;
-    font-family: "PingFang SC", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+    font-family: SourceHanSansCN-Regular, PingFangSC-Regular, serif;
     padding: 0 1.5pc;
     background: url("../img/bg.png") fixed;
     font-size: 17px;
