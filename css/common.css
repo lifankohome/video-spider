@@ -60,6 +60,17 @@ body {
     }
 }
 
+.ctl {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 80vh;
+    background-color: rgba(238, 238, 238, 0.5);
+    margin-top: 10vh;
+    border-radius: 35px;
+    font-size: 25px;
+}
+
 header {
     height: 70px;
     border-radius: 5px;

@@ -30,7 +30,17 @@ $varieties = Spider::getVarieties($_SERVER["QUERY_STRING"]);
 <body>
 <?php
 echo Common::background();
-echo Common::$lh;
+echo Common::$pined;
+
+$ctl = Common::ctl();
+if ($ctl['code'] <= 0) {
+    echo "<div class='ctl'>{$ctl['msg']}</div>";
+
+    echo "
+</body>
+</html>";
+    die();
+}
 ?>
 <header>
     <img src='img/logo.png' alt='logo' class="tiktok">

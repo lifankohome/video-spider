@@ -13,6 +13,7 @@ require_once 'Temp.php';
 class Spider
 {
     const host = 'https://www.360kan.com/';
+    const callback = 'video_spider';
 
     private static $slider = null;
     private static $rank = null;
@@ -21,7 +22,7 @@ class Spider
     /**
      * 获取轮播图
      * @param string $type
-     * @return string|null
+     * @return array
      */
     public static function getSlider($type = 'dianying')
     {
@@ -31,6 +32,20 @@ class Spider
         if ($res) {
             self::$slider = $res;
         } else {
+            $dom = self::curl_get_contents('https://api.web.360kan.com/v1/block?blockid=99&callback=video_spider&extra=' . $type);
+
+            $callback_len = strlen(self::callback);
+            if (substr($dom, 0, $callback_len) == self::callback) {
+                $dom = substr($dom, $callback_len + 1, -2);
+            }
+
+            $res = json_decode($dom);
+            if ($res->errno != 0) {
+                return [0, $res->msg];
+            }
+
+            return false;
+
             $dom = self::curl_get_contents(self::host . $type . '/index.html');
 
             $offset = 10000;
@@ -71,6 +86,7 @@ class Spider
             }
 
             $slider = str_replace(' href="', ' target="_blank" href="', $slider);
+            $slider = str_replace(self::host . 'vp/', self::host, $slider);
             self::$slider = '<div class="slider"><ul id="nav"></ul>' . str_replace(self::host, 'play.php?play=/', $slider) . '</div>';
 
             $temp->save(self::$slider);
@@ -126,6 +142,34 @@ class Spider
 
             return $res['list'];
         } else {
+            $dom = self::curl_get_contents('https://api.web.360kan.com/v1/filter/list?callback=video_spider&catid=1&extra' . $opt);
+
+            $callback_len = strlen(self::callback);
+            if (substr($dom, 0, $callback_len) == self::callback) {
+                $dom = substr($dom, $callback_len + 1, -2);
+            }
+
+            $res = json_decode($dom);
+            if ($res->errno != 0) {
+                return [0, $res->msg];
+            }
+
+            $data = $res->data;
+            $movies = array();
+            foreach ($data->movies as $value) {
+                $buffer = [
+                    'title' => $value->title,
+                    'point' => $value->comment,
+                    'tag' => $value->pubdate,
+                    'link' => $value->id,
+                    'desc' => mb_substr(implode(', ', $value->actor), 0, 29),
+                    'cover' => $value->cdncover,
+                ];
+                array_push($movies, $buffer);
+            }
+
+            return $movies;
+
             $dom = self::curl_get_contents(self::host . 'dianying/list.php?' . $opt);
 
             $filter_start = '<div class="s-filter">';

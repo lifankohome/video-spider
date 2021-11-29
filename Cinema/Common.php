@@ -17,12 +17,22 @@ class Common
 {
     private static $img_copyright = '';
 
-    public static function SEO($source = '')
+    public static function SEO($video = false)
     {
-        $source = empty($source) ? '海量影视' : '《' . $source . '》';
-        return '<meta name="keywords" content="https://video.lifanko.cn,影视爬虫,影视爬虫官网,' . $source . '高清无广告在线观看,电影、电视剧、综艺、动漫免费在线播放,最新电影,最热电视剧,最火综艺,最新动漫">
-    <meta name="description" content="https://video.lifanko.cn,影视爬虫官网为您提供最新最好看的影视内容,高清无广告资源每日更新,' . $source . '免费在线播放,最新电影,最热电视剧,最火综艺,最新动漫">
+        $hour = date('G', time());
+        $css_font = ($hour >= 6 && $hour < 22) ? '
+    <link type="text/css" rel="stylesheet" href="https://cdn.lifanko.cn/fonts/sourceHanSansCN.css">' : '';
+
+        if ($video == false) {
+            $source = empty($source) ? '海量影视' : '《' . $source . '》';
+            return '<meta name="keywords" content="影视爬虫官网,' . $source . '高清无广告在线观看,电影、电视剧、综艺、动漫免费在线播放,最新电影,最热电视剧,最火综艺,最新动漫">
+    <meta name="description" content="影视爬虫官网,影视爬虫为您提供最新最好看的影视内容,高清无广告资源每日更新,' . $source . '免费在线播放,最新电影,最热电视剧,最火综艺,最新动漫">' . $css_font . '
 ';
+        } else {
+            $keywords = $video . '免费在线播放,' . $video . '在线播放,' . $video . '未删减版,' . $video . '下载,' . $video . '百度云';
+            return '<meta name="keywords" content="' . $keywords . '">' . $css_font . '
+';
+        }
     }
 
     public static function inform()
@@ -76,19 +86,30 @@ class Common
 
     public static $footer = "<p style='font-size: 12px;color: #000;margin-top: -5px'>Copyright &copy; <a href='https://hpu.lifanko.cn' style='color: #333'>lifanko</a> 2017-2021 <a href='http://www.beian.miit.gov.cn/' style='color: #333'>豫ICP备16040860号-1</a><span style='float: right;font-weight: bold'>Cookie技术有效期: 7d</span></p>";
 
-    public static $lh = "";
+    public static $pined = "";
+
+    public static function ctl()
+    {
+        return [
+            'code' => -1,
+            'msg' => '系统升级中，服务已暂停；预计恢复时间：2021-12-04 22:00',
+            'data' => []
+        ];
+    }
 
     public static function background()
     {
-        $bing_img = file_get_contents('https://api.no0a.cn/api/bing/0');
+        $bing_img = file_get_contents('http://cn.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1');
         $res = json_decode($bing_img, true);
-        if ($res['status'] == 1) {
-            $url = $res['bing']['url'];
-            self::$img_copyright = $res['bing']['copyright'];
+        if (isset($res['images'])) {
+            $url = 'http://cn.bing.com/' . $res['images'][0]['url'];
+            self::$img_copyright = $res['images'][0]['copyright'];
+
+            $style = "background-image: url('$url');";
+
+            return "<div class=\"background-image\" style=\"$style\"></div>";
+        } else {
+            return '';
         }
-
-        $style = "background-image: url('$url');";
-
-        return "<div class=\"background-image\" style=\"$style\"></div>";
     }
 }
