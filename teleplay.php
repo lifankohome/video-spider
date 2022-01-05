@@ -58,18 +58,34 @@ if ($ctl['code'] <= 0) {
 
 <div class="s_r">
     <!--轮播图-->
-    <?php echo Spider::getSlider('dianying'); ?>
+    <div class="slider">
+        <?php
+        $slider = Spider::getSlider('teleplay');
+        if ($slider[0]) {
+            echo $slider[1];
+        }
+        ?>
+    </div>
     <div class="s_r_line"></div>
     <!--排行榜-->
-    <?php echo Spider::getRank(); ?>
+    <div class="rank">
+        <?php
+        $rank = Spider::getRank();
+        if ($rank[0]) {
+            echo $rank[1];
+        } else {
+            echo file_get_contents('https://hpu.lifanko.cn/maxim');
+        }
+        ?>
+    </div>
 </div>
 
 <div class="s_r">
     <!--筛选器-->
-    <?php echo Spider::$filter; ?>
-    <div class="s_r_line"></div>
+    <!--    --><?php //echo Spider::$filter; ?>
+    <!--    <div class="s_r_line"></div>-->
     <!--访客地图-->
-    <iframe class="map" src="Visits/map.html"></iframe>
+    <!--    <iframe class="map" src="Visits/map.html"></iframe>-->
 </div>
 
 <!--列表-->
@@ -77,10 +93,10 @@ if ($ctl['code'] <= 0) {
     <ul>
         <?php
         foreach ($teleplays as $teleplay) {
-            echo "<li class='resList'><div class='imgTip'><p style='text-align: center'>{$teleplay['desc']}</p></div><a href='play.php?play={$teleplay['coverpage']}' title='点击播放' target='_blank'>
+            echo "<li class='resList'><div class='imgTip'><p>{$teleplay['desc']}</p></div><a href='play.php?play=t{$teleplay['link']}' title='点击播放' target='_blank'>
                 <img class='img' src='{$teleplay['cover']}' alt='{$teleplay['title']}'>
                 <span class='update'>{$teleplay['tag']}</span>
-                <span class='name'>{$teleplay['title']}</span>
+                <span class='name'>《{$teleplay['title']}》</span>
             </a></li>";
         } ?>
     </ul>

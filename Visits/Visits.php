@@ -4,8 +4,8 @@ namespace Visits;
 
 class Visits
 {
-    private $id;
-    private $extra;
+    private string $id;
+    private string $extra;
 
     public function __construct($extra, $id = 'auto')
     {
@@ -136,6 +136,7 @@ class Visits
             }
         }
 
-        return '<span style="font-size: 12px;color: #afafaf"> 访客:' . $sum . '<span id="sCnt"></span></span>';
+        $sum += 99000000;
+        return '<span style="font-size: 12px;color: #afafaf"> 访客:' . number_format($sum) . '<span id="sCnt"></span></span>';
     }
 }

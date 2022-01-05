@@ -58,18 +58,34 @@ if ($ctl['code'] <= 0) {
 
 <div class="s_r">
     <!--轮播图-->
-    <?php echo Spider::getSlider('zongyi'); ?>
+    <div class="slider">
+        <?php
+        $slider = Spider::getSlider('zongyi');
+        if ($slider[0]) {
+            echo $slider[1];
+        }
+        ?>
+    </div>
     <div class="s_r_line"></div>
     <!--排行榜-->
-    <?php echo Spider::getRank(); ?>
+    <div class="rank">
+        <?php
+        $rank = Spider::getRank();
+        if ($rank[0]) {
+            echo $rank[1];
+        } else {
+            echo file_get_contents('https://hpu.lifanko.cn/maxim');
+        }
+        ?>
+    </div>
 </div>
 
 <div class="s_r">
     <!--筛选器-->
-    <?php echo Spider::$filter; ?>
-    <div class="s_r_line"></div>
+<!--    --><?php //echo Spider::$filter; ?>
+<!--    <div class="s_r_line"></div>-->
     <!--访客地图-->
-    <iframe class="map" src="Visits/map.html"></iframe>
+<!--    <iframe class="map" src="Visits/map.html"></iframe>-->
 </div>
 
 <!--列表-->
@@ -77,10 +93,10 @@ if ($ctl['code'] <= 0) {
     <ul>
         <?php
         foreach ($varieties as $variety) {
-            echo "<li class='resList'><div class='imgTip'><p>{$variety['desc']}</p></div><a href='play.php?play={$variety['coverpage']}' title='点击播放' target='_blank'>
+            echo "<li class='resList'><div class='imgTip'><p>{$variety['desc']}</p></div><a href='play.php?play={$variety['link']}' title='点击播放' target='_blank'>
                 <img class='img' src='{$variety['cover']}' alt='{$variety['title']}'>
                 <span class='update'>更新至:{$variety['tag']}</span>
-                <span class='name'>{$variety['title']}</span>
+                <span class='name'>《{$variety['title']}》</span>
             </a></li>";
         } ?>
     </ul>

@@ -31,7 +31,7 @@ if (empty($_GET['max'])) { //显示的关键词数量，默认最多显示999个
 <body>
 <?php
 echo Common::background();
-echo Common::$lh;
+echo Common::$pined;
 ?>
 <header>
     <img src='img/logo.png' alt='logo' class="tiktok">

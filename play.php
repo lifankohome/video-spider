@@ -14,21 +14,23 @@ include('Cinema/Common.php');
 
 if (!empty($_GET['play'])) {
     $play = $_GET['play'];
-    if (substr($play, 0, 5) == 'aHR0c') {
-        $player = base64_decode($play);
-    } else {
-        // 此链接被搜狗高权重收录
-        if ($play == '/m/fqflYhH5RHP0UB.html') {
-            $play = '/m/hKrkakb6SHnASh.html';
-        }
-        $player = 'http://www.360kan.com' . $play;
+
+    $lead = substr($play, 0, 1);
+    $player = false;
+    if ($lead == 't') {
+//        $player = 'https://www.360kan.com/tv/' . substr($play, 1) . '.html';
     }
-    $player = substr($player, 0, strpos($player, '.html') + 5);
+
+    if ($player === false) {
+        die("<h2>无效的播放链接，将自动返回主页...<script>setTimeout(function() {window.location='index.php';},1500)</script></h2>");
+    }
 } else {
     die("<h2>无效的播放链接，将自动返回主页...<script>setTimeout(function() {window.location='index.php';},1500)</script></h2>");
 }
 
-$dom = Spider::curl_get_contents($player);
+$dom = Spider::curl_get_contents('https://www.360kan.com/tv/QLJpb07lTzLoNH.html');
+echo $dom;
+die();
 
 $nameDom = '/<h1>(.*?)<\/h1>/';
 $introDom = '/style="display:none;"><span>简介 ：<\/span><p class="item-desc">([\s\S]*)<a href="#"/';

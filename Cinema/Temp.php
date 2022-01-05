@@ -72,6 +72,7 @@ class Temp
      */
     public function get()
     {
+        return false;
         if ($this->_redis) {
             $obj = $this->_redis->get($this->key());
             if ($obj) {

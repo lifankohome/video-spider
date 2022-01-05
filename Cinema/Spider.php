@@ -13,7 +13,7 @@ require_once 'Temp.php';
 class Spider
 {
     const host = 'https://www.360kan.com/';
-    const callback = 'video_spider';
+    const callback = '__jp4';
 
     private static $slider = null;
     private static $rank = null;
@@ -32,7 +32,21 @@ class Spider
         if ($res) {
             self::$slider = $res;
         } else {
-            $dom = self::curl_get_contents('https://api.web.360kan.com/v1/block?blockid=99&callback=video_spider&extra=' . $type);
+            $url = '';
+            if ($type == 'dianying') {
+                $url = 'https://api.web.360kan.com/v1/block?blockid=99&callback=__jp4';
+            }
+            if ($type == 'teleplay') {
+                $url = 'https://api.web.360kan.com/v1/block?blockid=503&callback=__jp4';
+            }
+            if ($type == 'zongyi') {
+                $url = 'https://api.web.360kan.com/v1/block?blockid=227&callback=__jp4';
+            }
+            if ($type == 'anime') {
+                $url = 'https://api.web.360kan.com/v1/block?blockid=79&callback=__jp4';
+            }
+
+            $dom = self::curl_get_contents($url);
 
             $callback_len = strlen(self::callback);
             if (substr($dom, 0, $callback_len) == self::callback) {
@@ -44,52 +58,13 @@ class Spider
                 return [0, $res->msg];
             }
 
-            return false;
-
-            $dom = self::curl_get_contents(self::host . $type . '/index.html');
-
-            $offset = 10000;
-
-            if ($type == 'dongman') {
-                for ($k = 0; $k < 5; $k++) {
-                    $slider_start = mb_strpos($dom, '<ul class="b-topslidernew-list js-slide-list">', $offset);
-                    if ($slider_start === false) {
-                        $offset -= 1000;
-                    } else {
-                        break;
-                    }
-                }
-                $slider_end = mb_strpos($dom, '<ul class="b-topslidernew-btns b-topslidernew-first-on js-slide-btns">', $slider_start);
-                $slider = mb_substr($dom, $slider_start, $slider_end - $slider_start);
-            } else {
-                for ($k = 0; $k < 5; $k++) {
-                    $slider_start = mb_strpos($dom, '<ul class="b-topslidernew-list js-slide-list">', $offset);
-                    if ($slider_start === false) {
-                        $offset -= 1000;
-                    } else {
-                        break;
-                    }
-                }
-                $slider_end = mb_strpos($dom, '<ul class="b-topslidernew-btns b-topslidernew-first-on js-slide-btns">', $slider_start);
-                $slider = mb_substr($dom, $slider_start, $slider_end - $slider_start);
+            $data = "<ul id='nav'></ul><ul>";
+            foreach ($res->data->lists as $item) {
+                $data .= "<li><span class='js-slide-img' style='background-image: url({$item->pic_lists[0]->url})'></span></li>";
             }
+            $data .= "</ul>";
 
-            // Remove ad list
-            $remove = ['www.360kan.com/special/', '7477.com', 'c.ssp.360.cn'];
-
-            foreach ($remove as $item) {
-                while ($special_pos = strpos($slider, $item)) {
-                    $special_pos_start = strrpos(substr($slider, 0, $special_pos), '<li');
-                    $special_pos_end = strpos($slider, '</li>', $special_pos_start) + 5;
-                    $slider = substr($slider, 0, $special_pos_start) . substr($slider, $special_pos_end);
-                }
-            }
-
-            $slider = str_replace(' href="', ' target="_blank" href="', $slider);
-            $slider = str_replace(self::host . 'vp/', self::host, $slider);
-            self::$slider = '<div class="slider"><ul id="nav"></ul>' . str_replace(self::host, 'play.php?play=/', $slider) . '</div>';
-
-            $temp->save(self::$slider);
+            return [1, $data];
         }
 
         return self::$slider;
@@ -101,6 +76,8 @@ class Spider
      */
     public static function getRank()
     {
+        return [0, ''];
+
         $temp = new Temp('Rank');
         $res = $temp->get();
 
@@ -142,7 +119,7 @@ class Spider
 
             return $res['list'];
         } else {
-            $dom = self::curl_get_contents('https://api.web.360kan.com/v1/filter/list?callback=video_spider&catid=1&extra' . $opt);
+            $dom = self::curl_get_contents('https://api.web.360kan.com/v1/filter/list?catid=1&rank=rankhot&cat=&year=&area=&act=&size=35&callback=__jp4');
 
             $callback_len = strlen(self::callback);
             if (substr($dom, 0, $callback_len) == self::callback) {
@@ -169,51 +146,6 @@ class Spider
             }
 
             return $movies;
-
-            $dom = self::curl_get_contents(self::host . 'dianying/list.php?' . $opt);
-
-            $filter_start = '<div class="s-filter">';
-            $filter_end = '<div class="js-tab-container"';
-            $filter_start = strpos($dom, $filter_start);
-            $filter_end = strpos($dom, $filter_end, $filter_start) - 18;
-
-            $filter_buffer = substr($dom, $filter_start, $filter_end - $filter_start);
-            self::$filter = str_replace(self::host . 'dianying/list.php', 'index.php', $filter_buffer);
-
-            $dom .= self::curl_get_contents(self::host . 'dianying/list.php?' . $opt . '&pageno=2');
-            $dom .= self::curl_get_contents(self::host . 'dianying/list.php?' . $opt . '&pageno=3');
-
-            $movieNameDom = '/<span class="s1">[^{](.*?)<\/span>/';
-            $movieScoreDom = '/<span class="hint">[\w]+<\/span>[\s]+(.*?)\s*<\/div>/';
-            $moviePayDom = '/<div class="cover g-playicon">\s+<img.*\s+(.*?)\s+<div/';
-            $movieYearDom = '/<span class="hint">(.*?)<\/span>/';
-            $movieLinkDom = '/<a class="js-tongjic" href="(.*?)"/';
-            $movieActorDom = '/<p class="star">主演：\s?(.*?)<\/p>/';
-            $movieImgDom = '/<div class="cover g-playicon">\s+<img src="(.*?)">/';
-
-            preg_match_all($movieNameDom, $dom, $movieName);
-            preg_match_all($movieScoreDom, $dom, $movieScore);
-            preg_match_all($moviePayDom, $dom, $moviePay);
-            preg_match_all($movieYearDom, $dom, $movieYear);
-            preg_match_all($movieLinkDom, $dom, $movieLink);
-            preg_match_all($movieActorDom, $dom, $movieActor);
-            preg_match_all($movieImgDom, $dom, $movieImg);
-
-            $movies = array();
-            foreach ($movieName[1] as $key => $value) {
-                $buffer['title'] = substr($movieName[0][$key], 17, -7);
-                $buffer['point'] = (empty($movieScore[1][$key]) ? '暂无评分' : $movieScore[1][$key]) . (empty($moviePay[1][$key]) ? '' : '<span class="pay">付费</span>');
-                $buffer['tag'] = empty($movieYear[1][$key]) ? '无' : $movieYear[1][$key];
-                $buffer['coverpage'] = $movieLink[1][$key];
-                $buffer['desc'] = $movieActor[1][$key];
-                $buffer['cover'] = $movieImg[1][$key];
-
-                $movies[$key] = $buffer;
-            }
-
-            $temp->save(['filter' => self::$filter, 'list' => $movies]);
-
-            return $movies;
         }
     }
 
@@ -232,43 +164,31 @@ class Spider
 
             return $res['list'];
         } else {
-            $dom = self::curl_get_contents(self::host . 'zongyi/list.php?' . $opt);
+            $dom = self::curl_get_contents('https://api.web.360kan.com/v1/filter/list?catid=3&rank=ranklatest&cat=&act=&area=&size=35&callback=__jp4');
 
-            $filter_start = '<div class="s-filter">';
-            $filter_end = '<div class="js-tab-container"';
-            $filter_start = strpos($dom, $filter_start);
-            $filter_end = strpos($dom, $filter_end, $filter_start) - 18;
-
-            $filter_buffer = substr($dom, $filter_start, $filter_end - $filter_start);
-            self::$filter = str_replace(self::host . 'zongyi/list.php', 'variety.php', $filter_buffer);
-
-            $dom .= self::curl_get_contents(self::host . 'zongyi/list.php?' . $opt . '&pageno=2');
-            $dom .= self::curl_get_contents(self::host . 'zongyi/list.php?' . $opt . '&pageno=3');
-
-            $varietyNameDom = '/<span class="s1">[^{](.*?)<\/span>/';
-            $varietyUpdateDom = '/<span class="hint">(.*?)<\/span>/';
-            $varietyLinkDom = '/<a class="js-tongjic" href="(.*?)"/';
-            $varietyActorDom = '/<\/span>\s+<\/p>\s+(<p class="star">[^{](.*?)<\/p>)?\s{22,}<\/div>/';
-            $varietyImgDom = '/<div class="cover g-playicon">\s+<img src="(.*?)">/';
-
-            preg_match_all($varietyNameDom, $dom, $varietyName);
-            preg_match_all($varietyUpdateDom, $dom, $varietyUpdate);
-            preg_match_all($varietyLinkDom, $dom, $varietyLink);
-            preg_match_all($varietyActorDom, $dom, $varietyActor);
-            preg_match_all($varietyImgDom, $dom, $varietyImg);
-
-            $varieties = array();
-            foreach ($varietyName[1] as $key => $value) {
-                $buffer['title'] = substr($varietyName[0][$key], 17, -7);
-                $buffer['tag'] = $varietyUpdate[1][$key];
-                $buffer['coverpage'] = $varietyLink[1][$key];
-                $buffer['desc'] = empty($varietyActor[1][$key]) ? '暂无简介' : substr($varietyActor[1][$key], 16, -4);
-                $buffer['cover'] = $varietyImg[1][$key];
-
-                $varieties[$key] = $buffer;
+            $callback_len = strlen(self::callback);
+            if (substr($dom, 0, $callback_len) == self::callback) {
+                $dom = substr($dom, $callback_len + 1, -2);
             }
 
-            $temp->save(['filter' => self::$filter, 'list' => $varieties]);
+            $res = json_decode($dom);
+            if ($res->errno != 0) {
+                return [0, $res->msg];
+            }
+
+            $data = $res->data;
+            $varieties = array();
+            foreach ($data->movies as $value) {
+                $buffer = [
+                    'title' => $value->title,
+                    'point' => $value->comment,
+                    'tag' => $value->pubdate,
+                    'link' => $value->id,
+                    'desc' => mb_substr(implode(', ', $value->actor), 0, 29),
+                    'cover' => $value->cdncover,
+                ];
+                array_push($varieties, $buffer);
+            }
 
             return $varieties;
         }
@@ -289,43 +209,31 @@ class Spider
 
             return $res['list'];
         } else {
-            $dom = self::curl_get_contents(self::host . 'dianshi/list.php?' . $opt);
+            $dom = self::curl_get_contents('https://api.web.360kan.com/v1/filter/list?catid=2&rank=rankhot&cat=&year=&area=&act=&size=35&callback=__jp4');
 
-            $filter_start = '<div class="s-filter">';
-            $filter_end = '<div class="js-tab-container"';
-            $filter_start = strpos($dom, $filter_start);
-            $filter_end = strpos($dom, $filter_end, $filter_start) - 18;
-
-            $filter_buffer = substr($dom, $filter_start, $filter_end - $filter_start);
-            self::$filter = str_replace(self::host . 'dianshi/list.php', 'teleplay.php', $filter_buffer);
-
-            $dom .= self::curl_get_contents(self::host . 'dianshi/list.php?' . $opt . '&pageno=2');
-            $dom .= self::curl_get_contents(self::host . 'dianshi/list.php?' . $opt . '&pageno=3');
-
-            $tvNameDom = '/<span class="s1">[^{](.*?)<\/span>/';
-            $tvUpdateDom = '/<span class="hint">(.*?)<\/span>/';
-            $tvLinkDom = '/<a class="js-tongjic" href="(.*?)"/';
-            $tvActorDom = '/<p class="star">主演：\s?(.*?)<\/p>/';
-            $tvImgDom = '/<div class="cover g-playicon">\s+<img src="(.*?)">/';
-
-            preg_match_all($tvNameDom, $dom, $tvName);
-            preg_match_all($tvUpdateDom, $dom, $tvUpdate);
-            preg_match_all($tvLinkDom, $dom, $tvLink);
-            preg_match_all($tvActorDom, $dom, $tvActor);
-            preg_match_all($tvImgDom, $dom, $tvImg);
-
-            $teleplays = array();
-            foreach ($tvName[1] as $key => $value) {
-                $buffer['title'] = substr($tvName[0][$key], 17, -7);
-                $buffer['tag'] = $tvUpdate[1][$key];
-                $buffer['coverpage'] = $tvLink[1][$key];
-                $buffer['desc'] = $tvActor[1][$key];
-                $buffer['cover'] = $tvImg[1][$key];
-
-                $teleplays[$key] = $buffer;
+            $callback_len = strlen(self::callback);
+            if (substr($dom, 0, $callback_len) == self::callback) {
+                $dom = substr($dom, $callback_len + 1, -2);
             }
 
-            $temp->save(['filter' => self::$filter, 'list' => $teleplays]);
+            $res = json_decode($dom);
+            if ($res->errno != 0) {
+                return [0, $res->msg];
+            }
+
+            $data = $res->data;
+            $teleplays = array();
+            foreach ($data->movies as $value) {
+                $buffer = [
+                    'title' => $value->title,
+                    'point' => $value->comment,
+                    'tag' => $value->pubdate,
+                    'link' => $value->id,
+                    'desc' => mb_substr(implode(', ', $value->actor), 0, 29),
+                    'cover' => $value->cdncover,
+                ];
+                array_push($teleplays, $buffer);
+            }
 
             return $teleplays;
         }
@@ -346,42 +254,31 @@ class Spider
 
             return $res['list'];
         } else {
+            $dom = self::curl_get_contents('https://api.web.360kan.com/v1/filter/list?catid=4&rank=rankhot&cat=&year=&area=&size=35&callback=__jp4');
 
-            $dom = self::curl_get_contents(self::host . 'dongman/list.php?' . $opt);
-
-            $filter_start = '<div class="s-filter">';
-            $filter_end = '<div class="js-tab-container"';
-            $filter_start = strpos($dom, $filter_start);
-            $filter_end = strpos($dom, $filter_end, $filter_start) - 18;
-
-            $filter_buffer = substr($dom, $filter_start, $filter_end - $filter_start);
-            self::$filter = str_replace(self::host . 'dongman/list.php', 'anime.php', $filter_buffer);
-
-            $dom .= self::curl_get_contents(self::host . 'dongman/list.php?' . $opt . '&pageno=2');
-
-            $dom = str_replace('<span class="s1">{if src}{src}{else}为您推荐{/if}</span>', '', $dom);
-
-            $animeNameDom = '/<span class="s1">(.*?)<\/span>/';
-            $animeUpdateDom = '/<span class="hint">(.*?)<\/span>/';
-            $animeLinkDom = '/<a class="js-tongjic" href="(.*?)"/';
-            $animeImgDom = '/<div class="cover g-playicon">\s+<img src="(.*?)">/';
-
-            preg_match_all($animeNameDom, $dom, $animeName);
-            preg_match_all($animeUpdateDom, $dom, $animeUpdate);
-            preg_match_all($animeLinkDom, $dom, $animeLink);
-            preg_match_all($animeImgDom, $dom, $animeImg);
-
-            $animes = array();
-            foreach ($animeName[1] as $key => $value) {
-                $buffer['title'] = $animeName[1][$key];
-                $buffer['tag'] = $animeUpdate[1][$key];
-                $buffer['coverpage'] = $animeLink[1][$key];
-                $buffer['cover'] = $animeImg[1][$key];
-
-                $animes[$key] = $buffer;
+            $callback_len = strlen(self::callback);
+            if (substr($dom, 0, $callback_len) == self::callback) {
+                $dom = substr($dom, $callback_len + 1, -2);
             }
 
-            $temp->save(['filter' => self::$filter, 'list' => $animes]);
+            $res = json_decode($dom);
+            if ($res->errno != 0) {
+                return [0, $res->msg];
+            }
+
+            $data = $res->data;
+            $animes = array();
+            foreach ($data->movies as $value) {
+                $buffer = [
+                    'title' => $value->title,
+                    'point' => $value->comment,
+                    'tag' => $value->pubdate,
+                    'link' => $value->id,
+                    'desc' => mb_substr(implode(', ', $value->actor), 0, 29),
+                    'cover' => $value->cdncover,
+                ];
+                array_push($animes, $buffer);
+            }
 
             return $animes;
         }
@@ -456,6 +353,7 @@ class Spider
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); // 获取数据返回
         curl_setopt($ch, CURLOPT_BINARYTRANSFER, true); // 在启用 CURLOPT_RETURNTRANSFER 时候将获取数据返回
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1); // 若发生了跳转则获取跳转后的内容
+        curl_setopt($ch, CURLOPT_COOKIE, '');
         $data = curl_exec($ch);
         curl_close($ch);
 
