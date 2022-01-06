@@ -72,7 +72,7 @@ class Spider
 
     /**
      * 获取排行榜
-     * @return string|null
+     * @return array
      */
     public static function getRank()
     {
@@ -138,7 +138,7 @@ class Spider
                     'title' => $value->title,
                     'point' => $value->comment,
                     'tag' => $value->pubdate,
-                    'link' => $value->id,
+                    'link' => 'm' . $value->id . '.html',
                     'desc' => mb_substr(implode(', ', $value->actor), 0, 29),
                     'cover' => $value->cdncover,
                 ];
@@ -183,7 +183,7 @@ class Spider
                     'title' => $value->title,
                     'point' => $value->comment,
                     'tag' => $value->pubdate,
-                    'link' => $value->id,
+                    'link' => 'v' . $value->id . '.html',
                     'desc' => mb_substr(implode(', ', $value->actor), 0, 29),
                     'cover' => $value->cdncover,
                 ];
@@ -228,7 +228,7 @@ class Spider
                     'title' => $value->title,
                     'point' => $value->comment,
                     'tag' => $value->pubdate,
-                    'link' => $value->id,
+                    'link' => 't' . $value->id . '.html',
                     'desc' => mb_substr(implode(', ', $value->actor), 0, 29),
                     'cover' => $value->cdncover,
                 ];
@@ -273,7 +273,7 @@ class Spider
                     'title' => $value->title,
                     'point' => $value->comment,
                     'tag' => $value->pubdate,
-                    'link' => $value->id,
+                    'link' => 'a' . $value->id . '.html',
                     'desc' => mb_substr(implode(', ', $value->actor), 0, 29),
                     'cover' => $value->cdncover,
                 ];
@@ -282,6 +282,91 @@ class Spider
 
             return $animes;
         }
+    }
+
+    public static function get_play_info($play)
+    {
+        $type = substr($play, 0, 1);
+
+        $allow = ['t', 'm', 'v', 'a'];
+        if (!in_array($type, $allow)) {
+            return [0, '资源不存在'];
+        }
+
+        $id = substr($play, 1);
+        $id = str_replace('.html', '', $id);
+
+        $url = "https://api.web.360kan.com/v1/detail?cat=2&id=$id&callback=__jp4";
+        if ($type == 'v') {
+            $url = "https://api.web.360kan.com/v1/detail?cat=3&id=$id&callback=__jp4";
+        }
+
+        $dom = self::curl_get_contents($url);
+
+        $callback_len = strlen(self::callback);
+        if (substr($dom, 0, $callback_len) == self::callback) {
+            $dom = substr($dom, $callback_len + 1, -2);
+        }
+//        print_r($dom);
+//        die();
+        $res = json_decode($dom);
+        if ($res->errno != 0) {
+            return [0, $res->msg];
+        }
+        $data = $res->data;
+//        print_r($data);
+//        die();
+
+        $lib = [
+            'imgo' => 'VT粿芒 高级服务器',
+            'leshi' => '史乐 高级服务器',
+            'pptv' => '频石PP 高级服务器',
+            'youku' => '枯有 高级服务器'
+        ];
+
+        $source = $data->playlinksdetail;
+        foreach ($source as $item) {
+            $source = $item;
+            break;
+        }
+
+        $sets = $data->allepidetail;
+        foreach ($sets as $item) {
+            $sets = $item;
+            break;
+        }
+        if ($type == 'v') {
+            $sets = $data->defaultepisode;
+        }
+        if ($type == 'm') {
+            $sets = [];
+            foreach ($data->playlinksdetail as $item) {
+                if (key_exists($item->site, $lib)) {
+                    $sets[$lib[$item->site]] = $item->default_url;
+                } else {
+                    $sets[$item->site] = $item->default_url;
+                }
+            }
+        }
+
+        $data = [
+            'is_vip' => $data->vip,
+            'source' => $source,
+            'sets' => $sets,
+            'total' => $data->total,
+            'rank' => $data->rank,
+            'cover' => $data->cdncover,
+            'actor' => $data->actor,
+            'area' => $data->area,
+            'pub' => $data->pubdate,
+            'director' => $data->director,
+            'category' => $data->category,
+            'title' => $data->title,
+            'description' => $data->description,
+            'comment' => $data->comment
+        ];
+
+        return [1, $data];
     }
 
     /**

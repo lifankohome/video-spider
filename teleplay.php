@@ -93,7 +93,7 @@ if ($ctl['code'] <= 0) {
     <ul>
         <?php
         foreach ($teleplays as $teleplay) {
-            echo "<li class='resList'><div class='imgTip'><p>{$teleplay['desc']}</p></div><a href='play.php?play=t{$teleplay['link']}' title='点击播放' target='_blank'>
+            echo "<li class='resList'><div class='imgTip'><p>{$teleplay['desc']}</p></div><a href='play.php?play={$teleplay['link']}' title='点击播放' target='_blank'>
                 <img class='img' src='{$teleplay['cover']}' alt='{$teleplay['title']}'>
                 <span class='update'>{$teleplay['tag']}</span>
                 <span class='name'>《{$teleplay['title']}》</span>

@@ -12,90 +12,21 @@ use Cinema\Spider;
 include('Cinema/Spider.php');
 include('Cinema/Common.php');
 
-if (!empty($_GET['play'])) {
-    $play = $_GET['play'];
-
-    $lead = substr($play, 0, 1);
-    $player = false;
-    if ($lead == 't') {
-//        $player = 'https://www.360kan.com/tv/' . substr($play, 1) . '.html';
-    }
-
-    if ($player === false) {
-        die("<h2>无效的播放链接，将自动返回主页...<script>setTimeout(function() {window.location='index.php';},1500)</script></h2>");
-    }
-} else {
+if (empty($_GET['play'])) {
+    die("<h2>无效的播放链接，将自动返回主页...<script>setTimeout(function() {window.location='index.php';},1500)</script></h2>");
+}
+$id = $_GET['play'];
+$info = Spider::get_play_info($id);
+if ($info[0] == 0) {
     die("<h2>无效的播放链接，将自动返回主页...<script>setTimeout(function() {window.location='index.php';},1500)</script></h2>");
 }
 
-$dom = Spider::curl_get_contents('https://www.360kan.com/tv/QLJpb07lTzLoNH.html');
-echo $dom;
-die();
-
-$nameDom = '/<h1>(.*?)<\/h1>/';
-$introDom = '/style="display:none;"><span>简介 ：<\/span><p class="item-desc">([\s\S]*)<a href="#"/';
-$linkDom = '/<a data-daochu=(.*?) class=(.*?) href="([\S]+)"/';
-$albumDom = '/class="g-playicon s-cover-img" data-daochu="to=(.*?)\s+<img src="(.*?)">/';
-
-preg_match_all($nameDom, $dom, $name);
-preg_match_all($introDom, $dom, $intro);
-preg_match_all($linkDom, $dom, $link);
-preg_match_all($albumDom, $dom, $album);
-
-$name = $name[1][0];
-
-$intro = empty($intro[1][0]) ? "暂无" : $intro[1][0];
-// 去除多余的缩进（空格）
-$intro = str_replace('　', '', $intro);
-
-$sets = array();
-if (empty($link[3][0])) {
-    $setsADom = '/<a data-num="(.*?)"\s*data-daochu="to=(.*?)" href="(.*?)"/';
-    preg_match_all($setsADom, $dom, $setsA);
-
-    if (empty($setsA[0])) {
-        $isVariety = true;
-
-        $setsLiDom = "/<li\s*title='(.*?)' class='w-newfigure w-newfigure-180x153(.*?)><a href='(.*?)'/";
-        preg_match_all($setsLiDom, $dom, $setsLi);
-
-        $offset = array_sea($setsLi[3][0], $setsLi[3], 1);
-
-        for ($i = $offset; $i < count($setsLi[3]); $i++) {
-            $sets[$setsLi[1][$i]] = $setsLi[3][$i];
-        }
-    } else {
-        $isTeleplay = $isAnime = true;
-
-        $offset = array_sea($setsA[3][0], $setsA[3], 1);
-        if ($offset) {
-            $sets = [];
-            for ($i = $offset; $i < count($setsA[3]); $i++) {
-                array_push($sets, $setsA[3][$i]);
-            }
-        } else {
-            $sets = $setsA[3];
-        }
-    }
-} else {
-    $isMovie = true;
-
-    $sets = $link[3];
-    $default_link = $sets[0];
-}
-
-$default_link = empty($isVariety) ? $sets[0] : array_values($sets)[0];
-
-// 可以设置偏移量的数组查询函数
-function array_sea($needle, array $haystack, $offset = 0)
-{
-    for ($i = $offset; $i < count($haystack); $i++) {
-        if ($needle == $haystack[$i]) {
-            return $i;
-        }
-    }
-    return false;
-}
+$info = $info[1];
+$name = $info['title'];
+$intro = $info['description'];
+$sets = $info['sets'];
+//print_r($sets);
+//die();
 
 $keywords = '影视爬虫,' . $name . '免费在线播放,' . $name . '免费播放,' . $name . '在线播放,' . $name . '未删减版,' . $name . '下载,' . $name . '百度云';
 $intro_desc = str_replace("\n", '', $intro);
@@ -139,28 +70,21 @@ echo Common::inform();
 <div class="container">
     <div id='parsers'></div>
     <?php
-    if ($name == '啊哦，外星人来袭，页面找不到了...') {
-        file_put_contents('Cinema/lost_res.txt', $player . ' - ' . date('y/m/d H:i:s', time()) . ' - ' . $_SERVER['REMOTE_ADDR'] . "\n", FILE_APPEND);
-        $name = '视频暂时无法播放，请稍后再来';
-    } else {
-        Spider::clickRec('click', $name);
-    }
+    Spider::clickRec('click', $name);
 
     if (empty($isMovie)) {
         if (empty($sets)) {
             echo "<h3>《" . $name . "》<span style='font-size: 15px'>暂无播放资源，请稍后再来~</span></h3>";
         } else {
-            echo "<h3>《" . $name . "》—— 总" . count($sets) . "集</h3><ul>";
+            echo "<h3>《" . $name . "》—— 总 【" . count($sets) . "】 可用资源</h3><ul>";
 
             // 显示剧集
-            $num = 0;
             foreach ($sets as $key => $val) {
-                if (!empty($isVariety)) {
-                    echo "<li><a class='videoA' onclick='playUrl(\"{$val}\", \"{$num}\")'>{$key}</a></li>";
-                    $num++;
-                } else {
+                if (is_numeric($key)) {
                     $num = $key + 1;
-                    echo "<li><a class='videoA' onclick='playUrl(\"{$val}\", \"{$key}\")'>第{$num}集</a></li>";
+                    echo "<li><a class='videoA' onclick='playUrl(\"{$val->url}\", \"{$key}\")'>第{$num}集</a></li>";
+                } else {
+                    echo "<li><a class='videoA' onclick='playUrl(\"{$val->url}\", \"{$key}\")'>{$key}</a></li>";
                 }
             }
             echo '</ul><div style="clear: both;padding-top: .2pc"></div>';
@@ -180,7 +104,7 @@ echo Common::inform();
                 src="other/loading.php"></iframe>
         <script type="text/javascript">
             let videoFrame = document.getElementById('video');  // 全局使用
-            let videoLink = '<?php echo $default_link; ?>';
+            let videoLink = '';
             let sets = document.getElementsByClassName('videoA');
 
             function iFrameResize() {
@@ -210,7 +134,7 @@ echo Common::inform();
         }
 
         function recover() {
-            let info = getCookie('<?php echo $player; ?>');
+            let info = getCookie('<?php echo $id; ?>');
 
             if (info !== null) {
                 info = JSON.parse(info);
@@ -264,7 +188,7 @@ echo Common::inform();
             remove_hover();
 
             let info = {'link': sourceUrl, 'episode': i};
-            setCookie('<?php echo $player; ?>', JSON.stringify(info));
+            setCookie('<?php echo $id; ?>', JSON.stringify(info));
 
             for (let j = 0; j < sets.length; j++) {
                 sets[j].removeAttribute('id');
@@ -318,11 +242,11 @@ echo Common::inform();
 
     <div class="box intro">
         <div class="head">剧情简介：</div>
-        <p>　　<?php echo str_replace("\n", '<br>　　', $intro); ?></p>
+        <p>　　<?php echo $intro; ?></p>
     </div>
 
-    <iframe class="chat" src=<?php $s = strpos($play, '/', 1) + 1;
-    $u = substr($play, $s, strpos($play, '.html') - $s);
+    <iframe class="chat" src=<?php $s = strpos($id, '/', 1) + 1;
+    $u = substr($id, $s, strpos($id, '.html') - $s);
     echo "https://www.lifanko.cn/chat/index.php?u=" . $u . '&n=' . $name;
     ?>></iframe>
 </div>
