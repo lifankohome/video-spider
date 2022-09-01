@@ -18,6 +18,8 @@ if (empty($_GET['play'])) {
 $id = $_GET['play'];
 $info = Spider::get_play_info($id);
 if ($info[0] == 0) {
+    die('无效');
+    print_r($info);
     die("<h2>无效的播放链接，将自动返回主页...<script>setTimeout(function() {window.location='index.php';},1500)</script></h2>");
 }
 
@@ -72,30 +74,23 @@ echo Common::inform();
     <?php
     Spider::clickRec('click', $name);
 
-    if (empty($isMovie)) {
-        if (empty($sets)) {
-            echo "<h3>《" . $name . "》<span style='font-size: 15px'>暂无播放资源，请稍后再来~</span></h3>";
-        } else {
-            echo "<h3>《" . $name . "》—— 总 【" . count($sets) . "】 可用资源</h3><ul>";
-
-            // 显示剧集
-            foreach ($sets as $key => $val) {
-                if (is_numeric($key)) {
-                    $num = $key + 1;
-                    echo "<li><a class='videoA' onclick='playUrl(\"{$val->url}\", \"{$key}\")'>第{$num}集</a></li>";
-                } else {
-                    echo "<li><a class='videoA' onclick='playUrl(\"{$val->url}\", \"{$key}\")'>{$key}</a></li>";
-                }
-            }
-            echo '</ul><div style="clear: both;padding-top: .2pc"></div>';
-        }
+    if (empty($sets)) {
+        echo "<h3>《" . $name . "》<span style='font-size: 15px'>暂无播放资源，请稍后再来~</span></h3>";
     } else {
-        echo "<h3>《" . $name . "》<span style='font-size: 15px'>点击选择源后即可播放</span>";
+        echo "<h3>《" . $name . "》—— 总 【" . count($sets) . "】 可用资源</h3><ul>";
+
+        // 显示剧集
+        $sets_index = 0;
         foreach ($sets as $key => $val) {
-            $num = $key + 1;
-            echo "<a class='videoA' onclick='playUrl(\"{$val}\", \"{$key}\")'>{$num}号源</a>";
+            if (is_numeric($key)) {
+                $num = $key + 1;
+                echo "<li><a class='videoA' onclick='playUrl(\"{$val->url}\", \"{$key}\")'>第{$num}集</a></li>";
+            } else {
+                echo "<li><a class='videoA' onclick='playUrl(\"{$val}\", \"{$sets_index}\")'>{$key}</a></li>";
+            }
+            $sets_index++;
         }
-        echo "</h3>";
+        echo '</ul><div style="clear: both;padding-top: .2pc"></div>';
     }
     ?>
 
@@ -114,7 +109,7 @@ echo Common::inform();
     </div>
     <script type="text/javascript">
         // 播放器列表
-        let res = ['https://jiexi.380k.com/?url=', 'https://660e.com/?url='];
+        let res = ['https://jx.playerjy.com/?url=', 'https://660e.com/?url='];
 
         showParser();
 
@@ -144,12 +139,6 @@ echo Common::inform();
                 sets[info['episode']].innerHTML = sets[info['episode']].innerText + '<span id="tooltip" class="hover">上次观看到这里</span>';
 
                 let msg = '记忆您上次看到第 ' + (parseInt(info['episode']) + 1) + ' 集';
-
-                let isMovie = <?php echo empty($isMovie) ? 0 : 1; ?>;
-                if (isMovie) {
-                    msg = '记忆您上次使用 ' + (parseInt(info['episode']) + 1) + '号源 播放';
-                }
-
                 tip(msg, "35%", 3000, "1", false);
 
                 videoLink = info['link'];

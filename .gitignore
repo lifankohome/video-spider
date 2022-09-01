@@ -9,3 +9,7 @@ out
 gen
 
 debug.php
+Visits/*.txt
+Visits/*.json
+
+*.json

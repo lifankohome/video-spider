@@ -59,7 +59,7 @@ echo Common::inform();
 
     <p>感谢
         <?php
-        $filename = 'https://www.lifanko.cn/other/donate.json';
+        $filename = './donate/donate.json';
         $donate = file_get_contents($filename);
         $donate = json_decode($donate);
 
@@ -72,7 +72,7 @@ echo Common::inform();
         ?>
         ……的捐赠支持!
     </p>
-    <p>更多捐赠支持请点击 <a href="http://yspc.vip" target="_blank" style="color: #F40">这里</a> 查看。</p>
+    <p>更多捐赠支持请点击 <a href="./donate/" target="_blank" style="color: #F40">这里</a> 查看。</p>
 </div>
 <div style="margin: 1pc 0;overflow: hidden;font-family: 'Microsoft YaHei UI',sans-serif">
     <div style="background-color: rgba(120,120,120,0.7);float: left;width: 50%;border-radius: 5px 0 0 5px">

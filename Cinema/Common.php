@@ -63,7 +63,7 @@ class Common
         <li><a href='teleplay.php'>电视剧</a></li>
         <li><a href='anime.php'>动漫</a></li>
         <li><a href='other/about.html' target='_blank'>说明</a></li>
-        <li><a href='https://www.lifanko.cn/other/yspc.php' class='donate' target='_blank'>💕打赏💕</a></li>";
+        <li><a href='./donate/' class='donate' target='_blank'>💕打赏💕</a></li>";
 
     public static $search_box = "<li id='searchli' style='position: relative'>
             <label for='searchBox'></label>

@@ -13,7 +13,7 @@ require_once 'Temp.php';
 class Spider
 {
     const host = 'https://www.360kan.com/';
-    const callback = '__jp4';
+    const callback = '__jp0';
 
     private static $slider = null;
     private static $rank = null;
@@ -34,16 +34,16 @@ class Spider
         } else {
             $url = '';
             if ($type == 'dianying') {
-                $url = 'https://api.web.360kan.com/v1/block?blockid=99&callback=__jp4';
+                $url = 'https://api.web.360kan.com/v1/block?blockid=99&callback=' . self::callback;
             }
             if ($type == 'teleplay') {
-                $url = 'https://api.web.360kan.com/v1/block?blockid=503&callback=__jp4';
+                $url = 'https://api.web.360kan.com/v1/block?blockid=503&callback=' . self::callback;
             }
             if ($type == 'zongyi') {
-                $url = 'https://api.web.360kan.com/v1/block?blockid=227&callback=__jp4';
+                $url = 'https://api.web.360kan.com/v1/block?blockid=227&callback=' . self::callback;
             }
             if ($type == 'anime') {
-                $url = 'https://api.web.360kan.com/v1/block?blockid=79&callback=__jp4';
+                $url = 'https://api.web.360kan.com/v1/block?blockid=79&callback=' . self::callback;
             }
 
             $dom = self::curl_get_contents($url);
@@ -119,7 +119,7 @@ class Spider
 
             return $res['list'];
         } else {
-            $dom = self::curl_get_contents('https://api.web.360kan.com/v1/filter/list?catid=1&rank=rankhot&cat=&year=&area=&act=&size=35&callback=__jp4');
+            $dom = self::curl_get_contents('https://api.web.360kan.com/v1/filter/list?catid=1&rank=rankhot&cat=&year=&area=&act=&size=35&callback=' . self::callback);
 
             $callback_len = strlen(self::callback);
             if (substr($dom, 0, $callback_len) == self::callback) {
@@ -296,10 +296,7 @@ class Spider
         $id = substr($play, 1);
         $id = str_replace('.html', '', $id);
 
-        $url = "https://api.web.360kan.com/v1/detail?cat=2&id=$id&callback=__jp4";
-        if ($type == 'v') {
-            $url = "https://api.web.360kan.com/v1/detail?cat=3&id=$id&callback=__jp4";
-        }
+        $url = "https://api.web.360kan.com/v1/detail?cat=1&id=$id&callback=" . self::callback;
 
         $dom = self::curl_get_contents($url);
 
@@ -307,15 +304,12 @@ class Spider
         if (substr($dom, 0, $callback_len) == self::callback) {
             $dom = substr($dom, $callback_len + 1, -2);
         }
-//        print_r($dom);
-//        die();
+
         $res = json_decode($dom);
         if ($res->errno != 0) {
             return [0, $res->msg];
         }
         $data = $res->data;
-//        print_r($data);
-//        die();
 
         $lib = [
             'imgo' => 'VT粿芒 高级服务器',
@@ -324,46 +318,26 @@ class Spider
             'youku' => '枯有 高级服务器'
         ];
 
-        $source = $data->playlinksdetail;
-        foreach ($source as $item) {
-            $source = $item;
-            break;
-        }
-
-        $sets = $data->allepidetail;
-        foreach ($sets as $item) {
-            $sets = $item;
-            break;
-        }
-        if ($type == 'v') {
-            $sets = $data->defaultepisode;
-        }
-        if ($type == 'm') {
-            $sets = [];
-            foreach ($data->playlinksdetail as $item) {
-                if (key_exists($item->site, $lib)) {
-                    $sets[$lib[$item->site]] = $item->default_url;
-                } else {
-                    $sets[$item->site] = $item->default_url;
-                }
+        $sets = [];
+        foreach ($data->playlinksdetail as $item) {
+            if (key_exists($item->site, $lib)) {
+                $sets[$lib[$item->site]] = $item->default_url;
+            } else {
+                $sets[$item->site] = $item->default_url;
             }
         }
 
         $data = [
-            'is_vip' => $data->vip,
-            'source' => $source,
+            'is_vip' => $data->vip ? true : false,
             'sets' => $sets,
-            'total' => $data->total,
             'rank' => $data->rank,
             'cover' => $data->cdncover,
             'actor' => $data->actor,
             'area' => $data->area,
             'pub' => $data->pubdate,
             'director' => $data->director,
-            'category' => $data->category,
             'title' => $data->title,
-            'description' => $data->description,
-            'comment' => $data->comment
+            'description' => $data->description
         ];
 
         return [1, $data];

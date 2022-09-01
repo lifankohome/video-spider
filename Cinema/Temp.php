@@ -33,7 +33,7 @@ class Temp
      * @param $key
      * @param string $engine
      */
-    public function __construct($key, $engine = 'redis')
+    public function __construct($key, $engine = 'file')
     {
         $this->_key = $key;
 
