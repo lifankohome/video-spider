@@ -164,7 +164,7 @@ class Spider
 
             return $res['list'];
         } else {
-            $dom = self::curl_get_contents('https://api.web.360kan.com/v1/filter/list?catid=3&rank=ranklatest&cat=&act=&area=&size=35&callback=__jp4');
+            $dom = self::curl_get_contents('https://api.web.360kan.com/v1/filter/list?catid=3&rank=ranklatest&cat=&act=&area=&size=35&callback=' . self::callback);
 
             $callback_len = strlen(self::callback);
             if (substr($dom, 0, $callback_len) == self::callback) {
@@ -181,10 +181,9 @@ class Spider
             foreach ($data->movies as $value) {
                 $buffer = [
                     'title' => $value->title,
-                    'point' => $value->comment,
-                    'tag' => $value->pubdate,
+                    'tag' => $value->tag,
                     'link' => 'v' . $value->id . '.html',
-                    'desc' => mb_substr(implode(', ', $value->actor), 0, 29),
+                    'desc' => $value->lasttitle,
                     'cover' => $value->cdncover,
                 ];
                 array_push($varieties, $buffer);
@@ -296,8 +295,12 @@ class Spider
         $id = substr($play, 1);
         $id = str_replace('.html', '', $id);
 
-        $url = "https://api.web.360kan.com/v1/detail?cat=1&id=$id&callback=" . self::callback;
+        $cat = 1;
+        if ($type == 'v') {
+            $cat = 3;
+        }
 
+        $url = "https://api.web.360kan.com/v1/detail?cat=$cat&id=$id&callback=" . self::callback;
         $dom = self::curl_get_contents($url);
 
         $callback_len = strlen(self::callback);
@@ -321,13 +324,25 @@ class Spider
         ];
 
         $sets = [];
-        foreach ($data->playlinksdetail as $item) {
-            if (key_exists($item->site, $lib)) {
-                $sets[$lib[$item->site]] = $item->default_url;
-            } else {
-                $sets[$item->site] = $item->default_url;
+
+        if ($type == 'm') {
+            foreach ($data->playlinksdetail as $item) {
+                array_push($sets, [
+                    'title' => $lib[$item->site],
+                    'link' => $item->default_url
+                ]);
+            }
+        } else if ($type == 'v') {
+            foreach ($data->defaultepisode as $item) {
+                array_push($sets, [
+                    'title' => $item->name,
+                    'link' => $item->url
+                ]);
             }
         }
+
+//        print_r($sets);
+//        die();
 
         $data = [
             'is_vip' => $data->vip ? true : false,
