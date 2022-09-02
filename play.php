@@ -80,8 +80,14 @@ echo Common::inform();
         echo "<h3>《" . $name . "》—— 总 【" . count($sets) . "】 可用资源</h3><ul>";
 
         // 显示剧集
-        foreach ($sets as $key => $val) {
-            echo "<li><a class='videoA' onclick='playUrl(\"{$val['link']}\", \"{$key}\")'>{$val['title']}</a></li>";
+        foreach ($sets as $source => $episodes) {
+            if (is_numeric($source)) {
+                echo "<li><a class='videoA' onclick='playUrl(\"{$episodes['link']}\", \"{$source}\")'>{$episodes['title']}</a></li>";
+            } else {
+                foreach ($episodes as $index => $item) {
+                    echo "<li><a class='videoA' onclick='playUrl(\"{$item['link']}\", \"{$index}\")'>{$item['title']}</a></li>";
+                }
+            }
         }
         echo '</ul><div style="clear: both;padding-top: .2pc"></div>';
     }

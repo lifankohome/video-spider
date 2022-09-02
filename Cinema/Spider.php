@@ -208,7 +208,7 @@ class Spider
 
             return $res['list'];
         } else {
-            $dom = self::curl_get_contents('https://api.web.360kan.com/v1/filter/list?catid=2&rank=rankhot&cat=&year=&area=&act=&size=35&callback=__jp4');
+            $dom = self::curl_get_contents('https://api.web.360kan.com/v1/filter/list?catid=2&rank=rankhot&cat=&year=&area=&act=&size=35&callback=' . self::callback);
 
             $callback_len = strlen(self::callback);
             if (substr($dom, 0, $callback_len) == self::callback) {
@@ -253,7 +253,7 @@ class Spider
 
             return $res['list'];
         } else {
-            $dom = self::curl_get_contents('https://api.web.360kan.com/v1/filter/list?catid=4&rank=rankhot&cat=&year=&area=&size=35&callback=__jp4');
+            $dom = self::curl_get_contents('https://api.web.360kan.com/v1/filter/list?catid=4&rank=rankhot&cat=&year=&area=&size=35&callback=' . self::callback);
 
             $callback_len = strlen(self::callback);
             if (substr($dom, 0, $callback_len) == self::callback) {
@@ -271,9 +271,8 @@ class Spider
                 $buffer = [
                     'title' => $value->title,
                     'point' => $value->comment,
-                    'tag' => $value->pubdate,
                     'link' => 'a' . $value->id . '.html',
-                    'desc' => mb_substr(implode(', ', $value->actor), 0, 29),
+                    'desc' => $value->comment ? $value->comment : '无',
                     'cover' => $value->cdncover,
                 ];
                 array_push($animes, $buffer);
@@ -295,9 +294,15 @@ class Spider
         $id = substr($play, 1);
         $id = str_replace('.html', '', $id);
 
-        $cat = 1;
-        if ($type == 'v') {
+        $cat = -1;
+        if ($type == 'm') {
+            $cat = 1;
+        } else if ($type == 't') {
+            $cat = 2;
+        } else if ($type == 'v') {
             $cat = 3;
+        } else if ($type == 'a') {
+            $cat = 4;
         }
 
         $url = "https://api.web.360kan.com/v1/detail?cat=$cat&id=$id&callback=" . self::callback;
@@ -339,10 +344,20 @@ class Spider
                     'link' => $item->url
                 ]);
             }
-        }
+        } else if ($type == 't' || $type == 'a') {
+            foreach ($data->allepidetail as $source => $episodes) {
+                $buffer = [];
+                foreach ($episodes as $item) {
+                    array_push($buffer, [
+                        'title' => '第 ' . $item->playlink_num . ' 集',
+                        'link' => $item->url,
+                        'is_vip' => $item->is_vip
+                    ]);
+                }
 
-//        print_r($sets);
-//        die();
+                $sets[$lib[$source]] = $buffer;
+            }
+        }
 
         $data = [
             'is_vip' => $data->vip ? true : false,

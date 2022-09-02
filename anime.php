@@ -95,7 +95,7 @@ if ($ctl['code'] <= 0) {
         foreach ($animes as $anime) {
             echo "<li class='resList'><a href='play.php?play={$anime['link']}' title='点击播放' target='_blank'>
                 <img class='img' src='{$anime['cover']}' alt='{$anime['title']}'>
-                <span class='update'>{$anime['tag']}</span>
+                <span class='update'>{$anime['desc']}</span>
                 <span class='name'>《{$anime['title']}》</span>
             </a></li>";
         } ?>
