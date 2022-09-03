@@ -24,7 +24,7 @@ class Spider
      * @param string $type
      * @return array
      */
-    public static function getSlider($type = 'dianying')
+    public static function getSlider($type = 'movie')
     {
         $temp = new Temp('Slider_' . $type);
         $res = $temp->get();
@@ -33,13 +33,13 @@ class Spider
             self::$slider = $res;
         } else {
             $url = '';
-            if ($type == 'dianying') {
+            if ($type == 'movie') {
                 $url = 'https://api.web.360kan.com/v1/block?blockid=99&callback=' . self::callback;
             }
             if ($type == 'teleplay') {
                 $url = 'https://api.web.360kan.com/v1/block?blockid=503&callback=' . self::callback;
             }
-            if ($type == 'zongyi') {
+            if ($type == 'variety') {
                 $url = 'https://api.web.360kan.com/v1/block?blockid=227&callback=' . self::callback;
             }
             if ($type == 'anime') {
@@ -58,9 +58,11 @@ class Spider
                 return [0, $res->msg];
             }
 
+            $type = substr($type, 0, 1);
+
             $data = "<ul id='nav'></ul><ul>";
             foreach ($res->data->lists as $item) {
-                $data .= "<li><span class='js-slide-img' style='background-image: url({$item->pic_lists[0]->url})'></span></li>";
+                $data .= "<li><a href='play.php?play={$type}{$item->ent_id}.html'><span class='js-slide-img' style='background-image: url({$item->pic_lists[0]->url})'></span></a></li>";
             }
             $data .= "</ul>";
 

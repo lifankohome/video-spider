@@ -60,7 +60,7 @@ if ($ctl['code'] <= 0) {
     <!--轮播图-->
     <div class="slider">
         <?php
-        $slider = Spider::getSlider('zongyi');
+        $slider = Spider::getSlider('variety');
         if ($slider[0]) {
             echo $slider[1];
         }

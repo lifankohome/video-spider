@@ -60,7 +60,7 @@ if ($ctl['code'] <= 0) {
     <!--轮播图-->
     <div class="slider">
         <?php
-        $slider = Spider::getSlider('dianying');
+        $slider = Spider::getSlider('movie');
         if ($slider[0]) {
             echo $slider[1];
         }
@@ -93,7 +93,7 @@ if ($ctl['code'] <= 0) {
     <ul>
         <?php
         foreach ($movies as $movie) {
-            echo "<li class='resList'><div class='imgTip'><p>{$movie['desc']}</p></div><a href='play.php?play={$movie['link']}.html' title='点击播放' target='_blank'>
+            echo "<li class='resList'><div class='imgTip'><p>{$movie['desc']}</p></div><a href='play.php?play={$movie['link']}' title='点击播放' target='_blank'>
                 <img class='img' src='{$movie['cover']}' alt='{$movie['title']}'>
                 <span class='score'>{$movie['point']}</span>
                 <span class='name'>{$movie['tag']} {$movie['title']}</span>
