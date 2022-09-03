@@ -33,7 +33,7 @@ class Temp
      * @param $key
      * @param string $engine
      */
-    public function __construct($key, $engine = 'file')
+    public function __construct($key, $engine = 'redis')
     {
         $this->_key = $key;
 
@@ -72,7 +72,6 @@ class Temp
      */
     public function get()
     {
-        return false;
         if ($this->_redis) {
             $obj = $this->_redis->get($this->key());
             if ($obj) {

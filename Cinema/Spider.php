@@ -12,8 +12,9 @@ require_once 'Temp.php';
 
 class Spider
 {
-    const host = 'https://www.360kan.com/';
+    const host = 'https://api.web.360kan.com';
     const callback = '__jp0';
+    const callback_rank = '__jp4';
 
     private static $slider = null;
     private static $rank = null;
@@ -34,16 +35,16 @@ class Spider
         } else {
             $url = '';
             if ($type == 'movie') {
-                $url = 'https://api.web.360kan.com/v1/block?blockid=99&callback=' . self::callback;
+                $url = self::host . '/v1/block?blockid=99&callback=' . self::callback;
             }
             if ($type == 'teleplay') {
-                $url = 'https://api.web.360kan.com/v1/block?blockid=503&callback=' . self::callback;
+                $url = self::host . '/v1/block?blockid=503&callback=' . self::callback;
             }
             if ($type == 'variety') {
-                $url = 'https://api.web.360kan.com/v1/block?blockid=227&callback=' . self::callback;
+                $url = self::host . '/v1/block?blockid=227&callback=' . self::callback;
             }
             if ($type == 'anime') {
-                $url = 'https://api.web.360kan.com/v1/block?blockid=79&callback=' . self::callback;
+                $url = self::host . '/v1/block?blockid=79&callback=' . self::callback;
             }
 
             $dom = self::curl_get_contents($url);
@@ -78,32 +79,30 @@ class Spider
      */
     public static function getRank()
     {
-        return [0, ''];
-
         $temp = new Temp('Rank');
         $res = $temp->get();
 
         if ($res) {
             self::$rank = $res;
         } else {
-            $dom = self::curl_get_contents(self::host . 'rank/index');
+            $dom = self::curl_get_contents(self::host . '/v1/rank?cat=2&callback=' . self::callback_rank);
 
-            $rank_start = mb_strpos($dom, '<ul class="p-cat-videolist">', 15000);
-            $rank_end = mb_strpos($dom, '</ul>', $rank_start);
+            $callback_len = strlen(self::callback_rank);
+            if (substr($dom, 0, $callback_len) == self::callback_rank) {
+                $dom = substr($dom, $callback_len + 1, -2);
+            }
 
-            $rank = mb_substr($dom, $rank_start, $rank_end - $rank_start) . '</ul>';
+            $res = json_decode($dom);
+            if ($res->errno != 0) {
+                return [0, $res->msg];
+            }
 
-            $rank = str_replace(' href="', ' target="_blank" href="', $rank);
-            self::$rank = '<div class="rank"><ul class="p-cat-videolist" style="font-weight: 600">
-            <li class="p-cat-video" style="border-bottom: 1px solid rgba(240, 240, 240, 0.5);background-color: rgba(0, 0, 0, 0);">
-                <a><span class="p-cat-rank p-cat-topthree" style="margin-left: 5px"></span><span class="p-cat-videoname" style="font-size: 16px">播放量排行榜</span>
-                    <span class="p-cat-playcount" style="font-size: 16px">点击量</span></a></li></ul>' .
-                str_replace(self::host, 'play.php?play=/', $rank) . '</div>';
+            self::$rank = $res->data;
 
             $temp->save(self::$rank);
         }
 
-        return self::$rank;
+        return [1, self::$rank];
     }
 
     /**
@@ -121,7 +120,7 @@ class Spider
 
             return $res['list'];
         } else {
-            $dom = self::curl_get_contents('https://api.web.360kan.com/v1/filter/list?catid=1&rank=rankhot&cat=&year=&area=&act=&size=35&callback=' . self::callback);
+            $dom = self::curl_get_contents(self::host . '/v1/filter/list?catid=1&rank=rankhot&cat=&year=&area=&act=&size=35&callback=' . self::callback);
 
             $callback_len = strlen(self::callback);
             if (substr($dom, 0, $callback_len) == self::callback) {
@@ -166,7 +165,7 @@ class Spider
 
             return $res['list'];
         } else {
-            $dom = self::curl_get_contents('https://api.web.360kan.com/v1/filter/list?catid=3&rank=ranklatest&cat=&act=&area=&size=35&callback=' . self::callback);
+            $dom = self::curl_get_contents(self::host . '/v1/filter/list?catid=3&rank=ranklatest&cat=&act=&area=&size=35&callback=' . self::callback);
 
             $callback_len = strlen(self::callback);
             if (substr($dom, 0, $callback_len) == self::callback) {
@@ -210,7 +209,7 @@ class Spider
 
             return $res['list'];
         } else {
-            $dom = self::curl_get_contents('https://api.web.360kan.com/v1/filter/list?catid=2&rank=rankhot&cat=&year=&area=&act=&size=35&callback=' . self::callback);
+            $dom = self::curl_get_contents(self::host . '/v1/filter/list?catid=2&rank=rankhot&cat=&year=&area=&act=&size=35&callback=' . self::callback);
 
             $callback_len = strlen(self::callback);
             if (substr($dom, 0, $callback_len) == self::callback) {
@@ -255,7 +254,7 @@ class Spider
 
             return $res['list'];
         } else {
-            $dom = self::curl_get_contents('https://api.web.360kan.com/v1/filter/list?catid=4&rank=rankhot&cat=&year=&area=&size=35&callback=' . self::callback);
+            $dom = self::curl_get_contents(self::host . '/v1/filter/list?catid=4&rank=rankhot&cat=&year=&area=&size=35&callback=' . self::callback);
 
             $callback_len = strlen(self::callback);
             if (substr($dom, 0, $callback_len) == self::callback) {
@@ -293,8 +292,7 @@ class Spider
             return [0, '资源不存在'];
         }
 
-        $id = substr($play, 1);
-        $id = str_replace('.html', '', $id);
+        $id = str_replace('.html', '', substr($play, 1));
 
         $cat = -1;
         if ($type == 'm') {
@@ -307,7 +305,7 @@ class Spider
             $cat = 4;
         }
 
-        $url = "https://api.web.360kan.com/v1/detail?cat=$cat&id=$id&callback=" . self::callback;
+        $url = self::host . '/v1/detail?cat=' . $cat . '&id=' . $id . '&callback=' . self::callback;
         $dom = self::curl_get_contents($url);
 
         $callback_len = strlen(self::callback);
