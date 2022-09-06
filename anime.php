@@ -70,9 +70,19 @@ if ($ctl['code'] <= 0) {
     <!--排行榜-->
     <div class="rank">
         <?php
-        $rank = Spider::getRank();
+        $rank = Spider::getRank('anime');
         if ($rank[0]) {
-            echo $rank[1];
+            echo "<div style='font-size: 20px;text-align: center;font-weight: bold;margin-bottom: 10px;'>排行榜</div>";
+            $index = 1;
+            foreach ($rank[1] as $item) {
+                if (empty($item['title'])) {
+                    continue;
+                }
+                echo "<div style='display: flex;justify-content: space-between;border-bottom: 1px solid #555;'><div>{$index}、{$item['title']}</div><div><a href='play.php?play=a{$item['ent_id']}.html' style='color: chocolate'>播放</a></div></div>";
+                if ($index++ == 18) {
+                    break;
+                }
+            }
         } else {
             echo file_get_contents('https://hpu.lifanko.cn/maxim');
         }
@@ -82,10 +92,10 @@ if ($ctl['code'] <= 0) {
 
 <div class="s_r">
     <!--筛选器-->
-<!--    --><?php //echo Spider::$filter; ?>
-<!--    <div class="s_r_line"></div>-->
+    <!--    --><?php //echo Spider::$filter; ?>
+    <!--    <div class="s_r_line"></div>-->
     <!--访客地图-->
-<!--    <iframe class="map" src="Visits/map.html"></iframe>-->
+    <!--    <iframe class="map" src="Visits/map.html"></iframe>-->
 </div>
 
 <!--列表-->

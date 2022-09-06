@@ -14,7 +14,6 @@ class Spider
 {
     const host = 'https://api.web.360kan.com';
     const callback = '__jp0';
-    const callback_rank = '__jp4';
 
     private static $slider = null;
     private static $rank = null;
@@ -77,29 +76,51 @@ class Spider
      * 获取排行榜
      * @return array
      */
-    public static function getRank()
+    public static function getRank($type)
     {
-        $temp = new Temp('Rank');
+        $temp = new Temp('Rank_' . $type);
         $res = $temp->get();
 
         if ($res) {
             self::$rank = $res;
         } else {
-            $dom = self::curl_get_contents(self::host . '/v1/rank?cat=2&callback=' . self::callback_rank);
+            $url = '';
+            $callback_rank = '';
 
-            $callback_len = strlen(self::callback_rank);
-            if (substr($dom, 0, $callback_len) == self::callback_rank) {
-                $dom = substr($dom, $callback_len + 1, -2);
+            if ($type == 'movie') {
+                $callback_rank = '__jp4';
+                $url = self::host . '/v1/rank?cat=2&callback=' . $callback_rank;
+            } else if ($type == 'variety') {
+                $callback_rank = '__jp5';
+                $url = self::host . '/v1/rank?cat=4&callback=' . $callback_rank;
+            } else if ($type == 'teleplay') {
+                $callback_rank = '__jp5';
+                $url = self::host . '/v1/rank?cat=3&callback=' . $callback_rank;
+            } else if ($type == 'anime') {
+                $callback_rank = '__jp7';
+                $url = self::host . '/v1/rank?cat=5&callback=' . $callback_rank;
             }
 
-            $res = json_decode($dom);
-            if ($res->errno != 0) {
-                return [0, $res->msg];
-            }
+            $dom = self::curl_get_contents($url);
 
-            self::$rank = $res->data;
+            if ($callback_rank != '') {
+                $callback_len = strlen($callback_rank);
+                if (substr($dom, 0, $callback_len) == $callback_rank) {
+                    $dom = substr($dom, $callback_len + 1, -2);
+                }
+
+                $res = json_decode($dom);
+                if ($res->errno != 0) {
+                    return [0, $res->msg];
+                }
+
+                self::$rank = $res->data;
+            } else {
+                self::$rank = $dom;
+            }
 
             $temp->save(self::$rank);
+            self::$rank = $temp->get();
         }
 
         return [1, self::$rank];
