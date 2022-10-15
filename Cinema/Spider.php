@@ -442,18 +442,21 @@ class Spider
                 'type_1' => 'm',
                 'type_2' => 't',
                 'type_3' => 'v',
-                'type_4' => '4',
+                'type_4' => 'a',
             ];
 
             $index = strrpos($item->url, '/') + 1;
             $link = $type['type_' . $item->cat_id] . substr($item->url, $index);
+
+            $description = $item->description;
+            $description = mb_substr($description, 0, 200) . (mb_strlen($description) > 200 ? '...' : '');
 
             array_push($search, [
                 'is_vip' => $item->vip ? true : false,
                 'title' => $item->titleTxt,
                 'director' => implode(' / ', $item->dirList),
                 'actor' => implode(' / ', $item->actList),
-                'description' => $item->description,
+                'description' => $description,
                 'cover' => $item->cover,
                 'label' => $item->cat_name . '·' . $item->year,
                 'area' => implode(' / ', $item->area),

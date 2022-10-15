@@ -86,8 +86,8 @@ echo Common::inform();
                 echo '<span>剧集：' . $res['total'] . '</span>';
             }
             echo '</div>
-                    <div>导演：' . $res['director'] . '</div>
-                    <div>演员：' . $res['actor'] . '</div>
+                    <div style="margin: 5px 0;font-weight: bold;">导演：' . $res['director'] . '</div>
+                    <div style="margin: 5px 0;">演员：' . $res['actor'] . '</div>
                     <div class="intro">简介：' . $res['description'] . '</div>
                     <div class="play_btn"><a href="play.php?play=' . $res['link'] . '">立即播放</a></div>
                 </div>
