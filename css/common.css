@@ -291,3 +291,16 @@ header ul li:hover a {
     display: block;
     margin: 0 auto;
 }
+
+.rank .title {
+    font-size: 20px;
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.rank .item {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #555;
+}

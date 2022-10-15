@@ -73,18 +73,32 @@ echo Common::inform();
             echo '《' . $kw . '》搜索结果：';
         } ?>
     </h3>
-    <ul>
+    <div class="result">
         <?php
         foreach ($search as $res) {
-            echo "<li>
-		    <a href='play.php?play={$res['link']}&s=search' title='{$res['desc']}' target='_blank'>
-                <img class='img' src='{$res['img']}' alt='{$res['name']}'>
-                <span id='type'>{$res['score']}</span>
-                <span id='name'>{$res['name']}</span>
-            </a></li>";
-        } ?>
-    </ul>
-    <div style="clear: both"></div>
+            echo '<div class="item">
+                <div class="label">' . $res['label'] . '</div>
+                <div class="cover"><img src="' . $res['cover'] . '"></div>
+                <div class="info">
+                    <div class="title">《' . $res['title'] . '》<span>地区：' . $res['area'] . '</span>';
+
+            if ($res['total']) {
+                echo '<span>剧集：' . $res['total'] . '</span>';
+            }
+            echo '</div>
+                    <div>导演：' . $res['director'] . '</div>
+                    <div>演员：' . $res['actor'] . '</div>
+                    <div class="intro">简介：' . $res['description'] . '</div>
+                    <div class="play_btn"><a href="play.php?play=' . $res['link'] . '">立即播放</a></div>
+                </div>
+            </div>';
+        }
+
+        if (empty($search)) {
+            echo "<div class='no_data'>未搜索到相关内容，请 更换关键词 或 稍后再试试 吧</div>";
+        }
+        ?>
+    </div>
 </div>
 <!--播放历史-->
 <?php echo Common::$history; ?>

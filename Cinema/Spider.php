@@ -346,7 +346,12 @@ class Spider
             'pptv' => '频石PP 高级服务器',
             'qiyi' => '频石咦器矮 高级服务器',
             'qq' => '频石寻藤 高级服务器',
-            'youku' => '枯有 高级服务器'
+            'youku' => '枯有 高级服务器',
+            'xigua' => '卦兮 高级服务器',
+            'douyin' => '音逗 高级服务器',
+            'huanxi' => '幻溪 高级服务器',
+            'm1905' => '5091 高级服务器',
+            'sohu' => '壶搜 高级服务器'
         ];
 
         $sets = [];
@@ -403,52 +408,60 @@ class Spider
      */
     public static function search($kw)
     {
+        $search = [];
+
         if (empty($kw)) {
-            $dom = self::curl_get_contents(self::host . 'dianying/list.php?year=all&area=all&act=all&cat=all');
-        } else {
-            if (substr($kw, 0, 4) == 'http' || strpos($kw, ".com")) {
-                header("location:parse.php?url=$kw");
-            }
-            $dom = self::curl_get_contents('https://so.360kan.com/index.php?kw=' . $kw);
+            return $search;
         }
 
-        $nameDom = '/js-playicon" title="(.*?)"\s*data/';
-        $linkDom = '/a href="(.*?)" class="g-playicon js-playicon"/';
-        $imgDom = '/js-playicon" title="(.*?)\s{0,}<img src="(.*?)" alt="(.*?)" \/>/';
-        $scoreDom = '/<div class="m-score">(.*?)<\/div>/';
-        $descDom = '/<i>简&nbsp;&nbsp;介&nbsp;：<\/i>\s*(<p>)?(.*?)<\/p>/';
+        $dom = self::curl_get_contents("https://api.so.360kan.com/index?force_v=1&kw=$kw&pageno=1&v_ap=1&tab=all&cb=" . self::callback);
 
-        preg_match_all($nameDom, $dom, $name);
-        preg_match_all($linkDom, $dom, $link);
-        preg_match_all($imgDom, $dom, $img);
-        preg_match_all($scoreDom, $dom, $score);
-        preg_match_all($descDom, $dom, $desc);
+        $callback_len = strlen(self::callback);
+        if (substr($dom, 0, $callback_len) == self::callback) {
+            $dom = substr($dom, $callback_len + 1, -2);
+        }
 
-        $search = array();
-        foreach ($name[1] as $key => $value) {
-            $buffer['name'] = $name[1][$key];
+        $res = json_decode($dom);
+        if ($res->code != 0) {
+            return [0, $res->msg];
+        }
+        $data = $res->data;
 
-            if (isset($img[2][$key])) {
-                $buffer['img'] = $img[2][$key];
-            } else {
-                $buffer['img'] = '';
+        if (empty($data->longData)) {
+            return $search;
+        }
+
+        foreach ($data->longData->rows as $item) {
+            $total = false;
+            if ($item->cat_id == 2) {
+                // 电视剧
+                $total = $item->coverInfo->txt;
             }
 
-            if (!empty($score[1][$key])) {
-                $buffer['score'] = $score[1][$key];
-            } else {
-                $buffer['score'] = '无';
-            }
+            $type = [
+                'type_1' => 'm',
+                'type_2' => 't',
+                'type_3' => 'v',
+                'type_4' => '4',
+            ];
 
-            if (isset($desc[2][$key])) {
-                $buffer['desc'] = $desc[2][$key];
-            } else {
-                $buffer['desc'] = '无';
-            }
+            $index = strrpos($item->url, '/') + 1;
+            $link = $type['type_' . $item->cat_id] . substr($item->url, $index);
 
-            $buffer['link'] = substr($link[1][$key], 21);
-
-            $search[$key] = $buffer;
+            array_push($search, [
+                'is_vip' => $item->vip ? true : false,
+                'title' => $item->titleTxt,
+                'director' => implode(' / ', $item->dirList),
+                'actor' => implode(' / ', $item->actList),
+                'description' => $item->description,
+                'cover' => $item->cover,
+                'label' => $item->cat_name . '·' . $item->year,
+                'area' => implode(' / ', $item->area),
+                'tag' => implode(' / ', $item->tag),
+                'score' => $item->score,
+                'link' => $link,
+                'total' => $total
+            ]);
         }
 
         return $search;
@@ -469,7 +482,7 @@ class Spider
         $data = curl_exec($ch);
         curl_close($ch);
 
-        return $data;
+        return trim($data);
     }
 
     public static function recordSearch($hotWord, $list)
