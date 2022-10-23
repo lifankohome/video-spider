@@ -19,6 +19,28 @@ class Spider
     private static $rank = null;
     public static $filter = null;
 
+    public function __construct()
+    {
+
+    }
+
+    private static function is_block($kw)
+    {
+        $filePath = 'Cinema/block.json';
+
+        if (!is_file($filePath)) {
+            file_put_contents($filePath, '{}');
+        }
+
+        $block = json_decode(file_get_contents($filePath), true);
+
+        if (in_array('block_' . $kw, $block)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     /**
      * 获取轮播图
      * @param string $type
@@ -123,7 +145,24 @@ class Spider
             self::$rank = $temp->get();
         }
 
-        return [1, self::$rank];
+        $buffer = [];
+        $n = 0;
+        foreach (self::$rank as $item) {
+            if (self::is_block($item['title'])) {
+                continue;
+            }
+
+            $n++;
+
+            $item['title'] = ($n < 10 ? '0' . $n : $n) . '、' . $item['title'];
+            array_push($buffer, $item);
+
+            if ($n == 18) {
+                break;
+            }
+        }
+
+        return [1, $buffer];
     }
 
     /**
@@ -245,6 +284,9 @@ class Spider
             $data = $res->data;
             $teleplays = array();
             foreach ($data->movies as $value) {
+                if (self::is_block($value->title)) {
+                    continue;
+                }
                 $buffer = [
                     'title' => $value->title,
                     'point' => $value->comment,
@@ -398,6 +440,11 @@ class Spider
             'description' => $data->description
         ];
 
+        if (self::is_block($data['title'])) {
+            echo "<div style='height: 90vh;display: flex;flex-direction: column;align-items: center;justify-content: center;font-size: 30px;color: #F40;'>《{$data['title']}》已被站长屏蔽，无法显示！<div style='margin-top: 20px;'>请挑选其它影视观看吧，感谢您的理解~</div></div>";
+            exit;
+        }
+
         return [1, $data];
     }
 
@@ -432,6 +479,10 @@ class Spider
         }
 
         foreach ($data->longData->rows as $item) {
+            if (self::is_block($item->titleTxt)) {
+                continue;
+            }
+
             $total = false;
             if ($item->cat_id == 2) {
                 // 电视剧

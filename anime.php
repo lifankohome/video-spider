@@ -73,15 +73,11 @@ if ($ctl['code'] <= 0) {
         $rank = Spider::getRank('anime');
         if ($rank[0]) {
             echo "<div class='title'>排行榜</div>";
-            $index = 1;
             foreach ($rank[1] as $item) {
                 if (empty($item['title'])) {
                     continue;
                 }
-                echo "<div class='item'><div>{$index}、{$item['title']}</div><div><a href='play.php?play=a{$item['ent_id']}.html' style='color: chocolate'>播放</a></div></div>";
-                if ($index++ == 18) {
-                    break;
-                }
+                echo "<div class='item'><div>{$item['title']}</div><div><a href='play.php?play=a{$item['ent_id']}.html' style='color: chocolate'>播放</a></div></div>";
             }
         } else {
             echo file_get_contents('https://hpu.lifanko.cn/maxim');
